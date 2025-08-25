@@ -1,5 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
+
+const GlobalCursorStyle = createGlobalStyle`
+  * {
+    cursor: none !important;
+  }
+`;
 
 const AppCursorstyles = styled.div`
   z-index: 2000;
@@ -29,9 +35,6 @@ export const Customcursor = () => {
   const hoveredRef = React.useRef(false);
 
   React.useEffect(() => {
-    // Force body to never show native cursor
-    document.body.style.cursor = 'none';
-
     const moveCursor = (event) => {
       const { clientX, clientY } = event;
       const scale = hoveredRef.current ? 0.3 : 1;
@@ -70,11 +73,15 @@ export const Customcursor = () => {
         el.removeEventListener('mouseenter', onHover);
         el.removeEventListener('mouseleave', onHoverOut);
       });
-      document.body.style.cursor = 'auto'; // reset on unmount
     };
   }, []);
 
-  return <AppCursorstyles ref={cursorRef} />;
+  return (
+    <>
+      <GlobalCursorStyle />
+      <AppCursorstyles ref={cursorRef} />
+    </>
+  );
 };
 
 export default Customcursor;

@@ -447,7 +447,16 @@ export default function Composition() {
 
             </RisoFlex>
         
-                <FullBg src={renderone} />
+<img
+  src={renderone}
+  style={{
+    width: '100vw',       // fill the width
+    height: '100vh',      // fill the viewport height
+    objectFit: 'cover',   // crop/zoom in instead of stretching
+    objectPosition: 'center', // crop from bottom; keep top visible
+    display: 'block'
+  }}
+/>
 
 
 {/*Art Book + Text */}
@@ -491,7 +500,17 @@ the show.
                     </ArtSectionThreetwo>
 
 {/*RENDER 2 FULL SCREEN */}
-                    <FullBg src={rendertwo} />
+                    <img
+  src={rendertwo}
+  style={{
+    width: '100vw',       // full width
+    height: '100vh',      // full viewport height
+    objectFit: 'cover',   // crop/zoom
+    objectPosition: 'bottom',// keep top visible, crop bottom
+    display: 'block'
+  }}
+/>
+
 {/*EPHEMERAL I & II SECTION */}
                     <ArtSectiontwins>
                     <Orbital src={twin1} />
@@ -532,7 +551,17 @@ the show.
                     </ArtSectiontwins>
 
                     {/*BIRDS FULL SCREEN */}
-                    <FullBg src={birds} />
+                  <img
+  src={birds}
+  style={{
+    width: '100vw',         // full width
+    height: '100vh',        // full viewport height
+    objectFit: 'cover',     // crop/zoom without stretching
+    objectPosition: 'center', // center both vertically and horizontally
+    display: 'block'
+  }}
+/>
+                    
 
 
                     {/* 3 photos - Passing Grid-template-row props */}
@@ -568,7 +597,16 @@ the show.
                             </ArtSectionthreeog>
 
                                {/*Render4 FULL SCREEN */}
-                    <FullBg src={render4} />
+                 <img
+  src={render4}
+  style={{
+    width: '100vw',          // full width
+    height: '100vh',         // full viewport height
+    objectFit: 'cover',      // crop/zoom without stretching
+    objectPosition: 'top',   // align to top
+    display: 'block'
+  }}
+/>
 
                     {/* 3 Mashes - Passing Grid-template-row props*/}
                     <ArtSectionthreeog>
@@ -603,7 +641,16 @@ the show.
                             </ArtSectionthreeog>
 
                                 {/*Render5 FULL SCREEN */}
-                    <FullBg src={render5} />
+                   <img
+  src={render5}
+  style={{
+    width: '100vw',          // full width
+    height: '100vh',         // full viewport height
+    objectFit: 'cover',      // crop/zoom without stretching
+    objectPosition: 'top',   // align to top
+    display: 'block'
+  }}
+/>
 
                      {/* 3 photos - Passing Grid-template-row props */}
                      <ArtSectionthreeog>
@@ -638,7 +685,16 @@ the show.
                             </ArtSectionthreeog>
 
                                   {/*MATTOS FULL SCREEN */}
-                                    <FullBg src={mattos} />
+                                  <img
+  src={mattos}
+  style={{
+    width: '100vw',          // full width
+    height: '100vh',         // full viewport height
+    objectFit: 'cover',      // crop/zoom without stretching
+    objectPosition: 'center',// center the image
+    display: 'block'
+  }}
+/>
 
                         {/* 3 Pieces - Passing Grid-template-row props */}
                      <ArtSectionthreeog>
