@@ -267,22 +267,20 @@ const Art = () =>  {
            <NewSectionTheme Backgroundheight="85vh">
   <HouseOne src={house} />
 
-  <ParagraphTwo Widthsize='35vw'>
-    Throughout my life I’ve
-    lived in 24 different houses.
-    My current work focuses on nostalgia, memory, and 
-    past experiences.
+  <ParagraphTwo Widthsize='35vw'
+  style={{ paddingRight: 'clamp(72px, 2vw, 10%)' }}
+  >
+   My current series, Dwelling, explores my journey through the places I’ve called home, reflecting on nostalgia, memory, and past experiences.
+
   </ParagraphTwo>
 </NewSectionTheme>
 
                 <NewSectionTheme Backgroundheight="85vh">
-                  <ParagraphThree>
-                  Art gives me
-the freedom to share my 
-story. Explore the work 
-I’ve made in the past.
-
-                  </ParagraphThree>
+                 <ParagraphThree
+  style={{ paddingLeft: 'clamp(72px, 2vw, 10%)' }}
+>
+ Art gives me the freedom to share my story. I’ve created two main series, Dwelling and Composition, along with studies and photographic works.
+</ParagraphThree>
 
                   <WorkCategories>
                   <Link style={{textDecoration: 'none', color:'white'}} to="/Dwelling">
@@ -293,17 +291,13 @@ I’ve made in the past.
                   <ListStyling>COMPOSITION</ListStyling>
                   </Link>
 
-                  <Link style={{textDecoration: 'none', color:'white'}} to="/Painting">
-                  <ListStyling>PAINTINGS</ListStyling>
+                  <Link style={{textDecoration: 'none', color:'white'}} to="/Artworks">
+                  <ListStyling>ARTWORKS</ListStyling>
                   </Link>
                   
-                <Link style={{textDecoration: 'none', color:'white'}} to="/Collages">
-                  <ListStyling>COLLAGE</ListStyling>
-                  </Link>
+             
                   
-                  <Link style={{textDecoration: 'none', color:'white'}} to="/Printmaking">
-                  <ListStyling>PRINTMAKING</ListStyling>
-                  </Link>
+          
                   
                   <Link style={{textDecoration: 'none', color:'white'}} to="/Photography">
                   <ListStyling>PHOTO</ListStyling>

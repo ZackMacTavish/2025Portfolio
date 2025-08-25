@@ -69,17 +69,35 @@ export default function Piton() {
 
             <FullBg src={pitoniphones} />
 
-            <PitonScreens ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='2vh 15vh 2vh'>
-                <GigaRocket RowStart='2' ColumnStart="2" ColumnEnd="4" src={pitonscreens} />
-                <BackgroundColor style={{backgroundColor:'#1794BA'}} />
-            </PitonScreens>
+     <PitonScreens 
+  ColumnsSet='4vw 60vw 32vw 4vw' 
+  RowsSet='2vh 15vh 2vh' 
+  style={{ paddingTop: '5vh', paddingBottom: '10vh' }}
+>
+  <GigaRocket RowStart='2' ColumnStart="2" ColumnEnd="4" src={pitonscreens} />
+  <BackgroundColor style={{backgroundColor:'#1794BA'}} />
+</PitonScreens>
 
-            <PitonScreens style={{paddingBottom: '3vh'}} ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='2vh 15vh 2vh'>
-                <GigaRocket RowStart='2' ColumnStart="2" ColumnEnd="4" src={pitonscreens2} />
-                <BackgroundColor style={{backgroundColor:'#1794BA'}} />
-            </PitonScreens>
-
-            <FullBg src={allpiton} />
+<PitonScreens 
+  ColumnsSet='4vw 60vw 32vw 4vw' 
+  RowsSet='2vh 15vh 2vh' 
+  style={{ paddingTop: '5vh', paddingBottom: '10vh' }}
+>
+  <GigaRocket RowStart='2' ColumnStart="2" ColumnEnd="4" src={pitonscreens2} />
+  <BackgroundColor style={{backgroundColor:'#1794BA'}} />
+</PitonScreens>
+           <FullBg
+  src={allpiton}
+  style={{
+    display: "block",        // removes inline-block gaps
+    width: "100vw",
+    height: "auto",
+    maxHeight: "100%",       // keeps image from adding extra space
+    margin: 0,               // remove default margin
+    padding: 0,              // remove default padding
+    objectFit: "cover",
+  }}
+/>
 
             <Cellphones>
                 <RisoItem Width='50vw' src={dark} />

@@ -50,8 +50,18 @@ const Design = () => {
           </ParagraphThree>
 
           <WorkCategories>
-            <Link to="/Giga" style={{ textDecoration: 'none', color: 'white' }}>
-              <ListStyling>GIGA</ListStyling>
+
+             <Link to="/Piton" style={{ textDecoration: 'none', color: 'white' }}>
+              <ListStyling>PITON</ListStyling>
+            </Link>
+
+
+             <Link to="/Ux" style={{ textDecoration: 'none', color: 'white' }}>
+              <ListStyling>LEYSI</ListStyling>
+            </Link>
+
+            <Link to="/ThreePillars" style={{ textDecoration: 'none', color: 'white' }}>
+              <ListStyling>THREE PILLARS</ListStyling>
             </Link>
 
             <Link to="/AccessDirect" style={{ textDecoration: 'none', color: 'white' }}>
@@ -66,8 +76,8 @@ const Design = () => {
               <ListStyling>GRAPHIC DESIGN</ListStyling>
             </Link>
 
-            <Link to="/Ux" style={{ textDecoration: 'none', color: 'white' }}>
-              <ListStyling>UX/UI</ListStyling>
+            <Link to="/Giga" style={{ textDecoration: 'none', color: 'white' }}>
+              <ListStyling>GIGA</ListStyling>
             </Link>
 
             {/*
