@@ -149,6 +149,13 @@ const DropdownMenu = styled(Link)`
   }
 `;
 
+// Divider between series and individual works
+const DropdownDivider = styled.div`
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin: 0.25rem 0;
+`;
+
 export default function Nav() {
   return (
     <Navdiv>
@@ -163,9 +170,10 @@ export default function Nav() {
             <Dropdown>
               <DropdownMenu to="/Dwelling">Dwelling</DropdownMenu>
               <DropdownMenu to="/Composition">Composition</DropdownMenu>
+              
+              <DropdownDivider /> {/* Divider between series and individual works */}
+              
               <DropdownMenu to="/Artworks">Artworks</DropdownMenu>
-              {/* <DropdownMenu to="/Artworks">Collages</DropdownMenu> */}
-             {/* <DropdownMenu to="/Artworks">Printmaking</DropdownMenu> */}
               <DropdownMenu to="/Photography">Photo</DropdownMenu>
               <DropdownMenu to="/Graffiti">3D + Graffiti</DropdownMenu>
             </Dropdown>

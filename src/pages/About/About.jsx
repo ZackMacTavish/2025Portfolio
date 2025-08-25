@@ -37,23 +37,26 @@ const About = () => {
       <NewSectionTheme Backgroundheight="100vh">
         <AboutPicture src={me} />
         <ParagraphTwo Widthsize='50vw'>
-          My name is Zack MacTavish and I've been a designer since 2015. I recently just finished a contract position with Microsoft. I am constantly taking on new projects for startups, and fortune 500 companies. 
-          I am skilled in illustration, branding, packaging, print, digital, UX/UI, and front-end development (I hand coded this site).
+      Hi, I’m Zack MacTavish, a product designer working since 2015. I’ve been with Microsoft for the past three years, working on the Microsoft Shopping Team to shape user experiences for digital products.
         </ParagraphTwo>
       </NewSectionTheme>
 
       <AboutGrid>
         <TextLineone RowsSet="1" />
         <TextSection Fontsize='3rem' style={{ color: 'white' }}>
-          Some of the agencies I have worked with include Publicis Groupe, Arkane Society, and Varfaj Partners. I've worked with clients such as Chip Ganassi Racing, Walmart, Leysi, VaynerSports, LoudLuxury, Three Pillars Recruiting, and many others.
-          I have recently won my first design award, and you can find a link to this <a style={{ textDecoration:'underline', color:'white'}} href="https://www.indigoawards.com/winners/2390">here.</a>
+          Some of the agencies I have worked with include Publicis Groupe, Arkane Society, and Varfaj Partners. 
+          I’ve also lived in New York City, working as a graphic designer in Manhattan for Outsource Consultants, 
+          and studied design in Chicago. I’ve collaborated with clients such as Microsoft, Walmart, 
+          Seagate Technology on Disney-branded products, and Chip Ganassi Racing.
+
         </TextSection>
       </AboutGrid>
 
       <AboutGrid>
         <TextLineone RowsSet="1" />
         <TextSection Fontsize='3.5rem' style={{ color: 'white' }}>
-          My goal is to meet more art & design friends. I would love to write more blog posts on Medium, and engage with the design community there. I am looking for my next position as a Product Designer. Thanks for checking out my website, and reading this far!
+        Outside of work, I live in Philadelphia with my partner Olivia, who is also an artist. In my own creative time, 
+        I focus on making quilts that combine photography, textile techniques, and mixed media, exploring the intersection of art, design, and storytelling.
         </TextSection>
       </AboutGrid>
     </div>

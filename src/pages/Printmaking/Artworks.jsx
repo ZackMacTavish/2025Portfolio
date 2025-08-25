@@ -137,15 +137,40 @@ export default function Artworks() {
 
       {/* ===================== PRINTMAKING SECTION ===================== */}
        {/* Hero Images */}
-            <FullBg src={Cape} />
-            <FullBg src={Capetwo} />
+            <img
+  src={Cape}
+  style={{
+    width: '100vw',           // full width
+    height: '100vh',          // full viewport height
+    objectFit: 'cover',       // crop/zoom without stretching
+    objectPosition: 'bottom', // align image to the bottom
+    display: 'block'
+  }}
+/>
+           
+           <img
+  src={Capetwo}
+  style={{
+    width: '100vw',          // full width
+    height: '100vh',         // full viewport height
+    objectFit: 'cover',      // crop/zoom without stretching
+    objectPosition: 'center',// center the image
+    display: 'block'
+  }}
+/>
       
             {/* Olivia Collabs Section */}
-          <ThreeFlextwo style={{ width: '55vw' }}>
-        <ThreeItem style={{ width: '48%' }} src={olivia4} />
-        <ThreeItem style={{ width: '48%' }} src={olivia2} />
-      </ThreeFlextwo>
-      
+        <ThreeFlextwo 
+  style={{ 
+    width: '55vw', 
+    display: 'flex', 
+    justifyContent: 'space-between', // optional for even spacing
+    gap: '64px'                       // increase gap as desired
+  }}
+>
+  <ThreeItem style={{ width: '48%' }} src={olivia4} />
+  <ThreeItem style={{ width: '48%' }} src={olivia2} />
+</ThreeFlextwo>
             <RisoFlex style={{ backgroundColor: 'black' }}>
               <TextSection>
                 Printmaking is a practice that explores both screen printing and relief techniques. Several of these works are collaborative projects with my partner, Olivia Zita Smith
@@ -153,60 +178,89 @@ export default function Artworks() {
             </RisoFlex>
       
             {/* Screenprints */}
-<ArtSectionthreeog 
+<ArtSectionthreeog
   style={{ 
-    display: "flex", 
-    justifyContent: "center", 
-    alignItems: "center", 
-    gap: "2px",       // very tight spacing
-    padding: "100px 40px 50px 40px"
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    gap: "64px",
+    padding: "100px 40px 100px 40px", // maintain bottom padding
+    flexWrap: "nowrap",
+    overflow: "hidden"
   }}
 >
-  <Orbital src={screenprint2} style={{ flex: "1 1 34%", maxWidth: "34%" }} />
-  <GridRowTwo src={screenprint2_1} style={{ flex: "1 1 34%", maxWidth: "34%" }} />
-  <GridRowThree src={screenprint1} style={{ flex: "1 1 34%", maxWidth: "34%" }} />
+  <Orbital 
+    src={screenprint2} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%", // bigger
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
+  <GridRowTwo 
+    src={screenprint2_1} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%", // bigger
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
+  <GridRowThree 
+    src={screenprint1} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%", // bigger
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
 </ArtSectionthreeog>
 
             {/* Olivia Collabs */}
-      <ThreeFlextwo
-        Backgroundcolor="white"
-        style={{
-          width: '100vw',           // full width of viewport
-          justifyContent: 'center', // center the images
-          padding: '5vh 0',         // vertical padding only
-          gap: '20px'
-        }}
-      >
-        <ThreeItemtwo Width="30vw" src={oliviacollab1} />
-        <ThreeItemtwo Width="30vw" src={oliviacollab2} />
-      </ThreeFlextwo>
+ <ThreeFlextwo
+  Backgroundcolor="white"
+  style={{
+    width: '100vw',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start', 
+    gap: '64px',
+    padding: '6vh 20px',       // small padding top and bottom
+    flexWrap: 'nowrap',
+    height: 'auto',            
+  }}
+>
+  <ThreeItemtwo 
+    src={oliviacollab1} 
+    style={{ 
+      width: 'clamp(150px, 30vw, 400px)',
+      height: 'auto',
+      objectFit: 'cover',
+      display: 'block'         
+    }} 
+  />
+  <ThreeItemtwo 
+    src={oliviacollab2} 
+    style={{ 
+      width: 'clamp(150px, 30vw, 400px)',
+      height: 'auto',
+      objectFit: 'cover',
+      display: 'block'
+    }} 
+  />
+</ThreeFlextwo>
+
             <RisoFlex>
               <RisoItem Width="60vw" img src={oliviacollab3} />
             </RisoFlex>
       
-     <ArtSectionthreeog>
-  <Orbital src={No2} style={{ paddingBottom: "60px" }} />
-  <ArtText>
-    <ArtHeader>Screenprint No. 2</ArtHeader>
-    <ArtYear>2019</ArtYear>
-    <ArtDesc>Screen print ink on paper. Edition of 20.</ArtDesc>
-  </ArtText>
+ 
 
-  <GridRowTwo src={oliviacollab4} />
-  <ArtTexttwo>
-    <ArtHeader>Circles</ArtHeader>
-    <ArtYear>2021</ArtYear>
-    <ArtDesc>Collaboration with Olivia Zita Smith.</ArtDesc>
-  </ArtTexttwo>
-
-  <GridRowThree src={woodblock1} />
-  <ArtTextthree>
-    <ArtHeader>Woodblock Print</ArtHeader>
-    <ArtYear>2021</ArtYear>
-    <ArtDesc>Relief print on paper.</ArtDesc>
-  </ArtTextthree>
-</ArtSectionthreeog>
-      
             {/* Twins */}
             <ArtSectiontwins>
               <Orbital src={oliviacollab6} />
@@ -220,17 +274,46 @@ export default function Artworks() {
       
             {/* CMYK Screenprints up to "The Nuns" */}
 <ArtSectionthreeog
-  style={{
+  style={{ 
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    gap: "6px",
-    padding: "clamp(50px, 8vw, 100px) clamp(60px, 8vw, 120px)",
+    alignItems: "flex-start",
+    gap: "64px",
+    padding: "80px 40px 50px 40px", // more padding on top, smaller on bottom
+    flexWrap: "nowrap",
+    overflow: "hidden"
   }}
 >
-  <Orbital src={bear} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
-  <GridRowTwo src={graffiticollage} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
-  <GridRowThree src={thetown} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
+  <Orbital 
+    src={bear} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%",
+      height: "auto",
+      objectFit: "cover",
+      display: "block"
+    }} 
+  />
+  <GridRowTwo 
+    src={graffiticollage} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%",
+      height: "auto",
+      objectFit: "cover",
+      display: "block"
+    }} 
+  />
+  <GridRowThree 
+    src={thetown} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%",
+      height: "auto",
+      objectFit: "cover",
+      display: "block"
+    }} 
+  />
 </ArtSectionthreeog>
       
             {/* Sections below "The Nuns" are commented out for now */}
@@ -346,21 +429,48 @@ export default function Artworks() {
    
    
                {/* Section with 3 photos */}
-   <ArtSectionthreeog
-  style={{
+<ArtSectionthreeog
+  style={{ 
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    gap: "6px",
-    padding: "clamp(50px, 8vw, 100px) clamp(60px, 8vw, 120px)",
+    alignItems: "flex-start",
+    gap: "64px",
+    padding: "80px 40px 50px 40px", // top/bottom padding
+    flexWrap: "nowrap",             // keep all images on one row
+    overflow: "hidden",
   }}
 >
-    <GridRowThree src={collage32} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
-  <GridRowTwo src={collage47} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
-  <Orbital src={collage50} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
-  
+  <GridRowThree 
+    src={collage32} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%",              
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover",
+    }} 
+  />
+  <GridRowTwo 
+    src={collage47} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%",              
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover",
+    }} 
+  />
+  <Orbital 
+    src={collage50} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%",              
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover",
+    }} 
+  />
 </ArtSectionthreeog>
-
                    <RisoFlex >
    
    <RisoItem Width='60vw' img src={spread1} />
@@ -371,20 +481,48 @@ export default function Artworks() {
    
    
                     {/* Section with 3 photos */}
-   <ArtSectionthreeog
-  style={{
+  <ArtSectionthreeog
+  style={{ 
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    gap: "6px",
-    padding: "clamp(50px, 8vw, 100px) clamp(60px, 8vw, 120px)",
+    alignItems: "flex-start",
+    gap: "64px",
+    padding: "80px 40px 50px 40px", // top/bottom padding
+    flexWrap: "nowrap",             // keep all images on one row
+    overflow: "hidden",
   }}
 >
-  <Orbital src={collage1} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
-  <GridRowTwo src={collage2} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
-  <GridRowThree src={collage3} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
+  <Orbital 
+    src={collage1} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%",              
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover",
+    }} 
+  />
+  <GridRowTwo 
+    src={collage2} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%",              
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover",
+    }} 
+  />
+  <GridRowThree 
+    src={collage3} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%",              
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover",
+    }} 
+  />
 </ArtSectionthreeog>
-   
                   
    
    <RisoFlex >
@@ -396,20 +534,48 @@ export default function Artworks() {
    
          {/* Section with 3 photos */}
    
- <ArtSectionthreeog
-  style={{
+<ArtSectionthreeog
+  style={{ 
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    gap: "6px",
-    padding: "clamp(50px, 8vw, 100px) clamp(60px, 8vw, 120px)",
+    alignItems: "flex-start",
+    gap: "64px",
+    padding: "80px 40px 50px 40px", // consistent padding top/bottom
+    flexWrap: "nowrap",             // keep images on one row
+    overflow: "hidden",
   }}
 >
-  <Orbital src={collage4} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
-  <GridRowTwo src={collagefour} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
-  <GridRowThree src={collage45} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
+  <Orbital 
+    src={collage4} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%",              
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover",
+    }} 
+  />
+  <GridRowTwo 
+    src={collagefour} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%",              
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover",
+    }} 
+  />
+  <GridRowThree 
+    src={collage45} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%",              
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover",
+    }} 
+  />
 </ArtSectionthreeog>
-   
               
    
                <RisoFlex >
@@ -423,17 +589,46 @@ export default function Artworks() {
      {/* Section with 3 photos */}
    
  <ArtSectionthreeog
-  style={{
+  style={{ 
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    gap: "6px",
-    padding: "clamp(50px, 8vw, 100px) clamp(60px, 8vw, 120px)",
+    alignItems: "flex-start",  // allows container to shrink with images
+    gap: "64px",
+    padding: "80px 40px 50px 40px", // padding around the row
+    flexWrap: "nowrap",
+    overflow: "hidden"
   }}
 >
-  <Orbital src={collage44} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
-  <GridRowTwo src={collage37} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
-  <GridRowThree src={collage48} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
+  <Orbital 
+    src={collage44} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%",              
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
+  <GridRowTwo 
+    src={collage37} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%",              
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
+  <GridRowThree 
+    src={collage48} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%",              
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
 </ArtSectionthreeog>
    
                   
@@ -449,17 +644,46 @@ export default function Artworks() {
    {/* Section with 3 photos */}
    
  <ArtSectionthreeog
-  style={{
+  style={{ 
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    gap: "6px",
-    padding: "clamp(50px, 8vw, 100px) clamp(60px, 8vw, 120px)",
+    alignItems: "flex-start",  // allows container to shrink with images
+    gap: "64px",               // bigger gap like previous treatments
+    padding: "80px 40px 50px 40px", // top padding larger, bottom moderate
+    flexWrap: "nowrap",
+    overflow: "hidden"
   }}
 >
-  <Orbital src={collage40} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
-  <GridRowTwo src={collage39} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
-  <GridRowThree src={collage38} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
+  <Orbital 
+    src={collage40} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%", 
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
+  <GridRowTwo 
+    src={collage39} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%", 
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
+  <GridRowThree 
+    src={collage38} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%", 
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
 </ArtSectionthreeog>
    
                    <RisoFlex >
@@ -472,18 +696,47 @@ export default function Artworks() {
    
    {/* Section with 3 photos */}
    
- <ArtSectionthreeog
-  style={{
+<ArtSectionthreeog
+  style={{ 
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    gap: "6px",
-    padding: "clamp(50px, 8vw, 100px) clamp(60px, 8vw, 120px)",
+    alignItems: "flex-start",  // allows container to shrink with images
+    gap: "64px",               // consistent with other sections
+    padding: "80px 40px 50px 40px", // top larger, bottom moderate
+    flexWrap: "nowrap",
+    overflow: "hidden"
   }}
 >
-  <Orbital src={collage34} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
-  <GridRowTwo src={collage35} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
-  <GridRowThree src={collage31} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
+  <Orbital 
+    src={collage34} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%", 
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
+  <GridRowTwo 
+    src={collage35} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%", 
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
+  <GridRowThree 
+    src={collage31} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%", 
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
 </ArtSectionthreeog>
 
                    <RisoFlex >
@@ -494,51 +747,144 @@ export default function Artworks() {
    {/* Section with 3 photos */}
    
  <ArtSectionthreeog
-  style={{
+  style={{ 
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    gap: "6px",
-    padding: "clamp(50px, 8vw, 100px) clamp(60px, 8vw, 120px)",
+    alignItems: "flex-start",  // allows container height to shrink with images
+    gap: "64px",               // consistent spacing
+    padding: "80px 40px 50px 40px", // more padding on top, moderate bottom
+    flexWrap: "nowrap",
+    overflow: "hidden"
   }}
 >
-  <Orbital src={collage28} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
-  <GridRowTwo src={collage29} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
-  <GridRowThree src={collage30} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
+  <Orbital 
+    src={collage28} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%", 
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
+  <GridRowTwo 
+    src={collage29} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%", 
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
+  <GridRowThree 
+    src={collage30} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%", 
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
 </ArtSectionthreeog>
    
-                   <FullBg src={rapture} />
+                 <FullBg 
+  src={rapture} 
+  style={{ 
+    width: "100vw",        // full width
+    height: "100vh",       // full viewport height
+    objectFit: "cover",    // crop/zoom without stretching
+    objectPosition: "bottom", // center the image
+  }} 
+/>
    
                    {/* Section with 3 photos */}
    
  <ArtSectionthreeog
-  style={{
+  style={{ 
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    gap: "6px",
-    padding: "clamp(50px, 8vw, 100px) clamp(60px, 8vw, 120px)",
+    alignItems: "flex-start",  // allows container height to shrink with images
+    gap: "64px",               // consistent spacing
+    padding: "100px 40px 100px 40px", // top padding more than bottom
+    flexWrap: "nowrap",
+    overflow: "hidden"
   }}
 >
-  <Orbital src={collage46} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
-  <GridRowTwo src={collage33} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
-  <GridRowThree src={collage49} style={{ transform: "scale(1)", maxWidth: "30vw" }} />
+  <Orbital 
+    src={collage46} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%", 
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
+  <GridRowTwo 
+    src={collage33} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%", 
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
+  <GridRowThree 
+    src={collage49} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%", 
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
 </ArtSectionthreeog>
 
 <ThreeFlex
   style={{
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    gap: "80px",          // increased spacing between images
-    padding: "50px 5%",   // horizontal padding
+    alignItems: "flex-start",
+    gap: "64px",
+    padding: "80px 5%",     // more vertical padding
+    height: "auto",
+    maxHeight: "70vh",
+    flexWrap: "nowrap",
+    overflow: "hidden",
   }}
 >
-  <ThreeItem src={collage41} style={{ transform: "scale(1.1)", flex: "1 1 auto" }} />
-  <ThreeItem src={collage42} style={{ transform: "scale(1.1)", flex: "1 1 auto" }} />
-  <ThreeItem src={collage43} style={{ transform: "scale(1.1)", flex: "1 1 auto" }} />
+  <ThreeItem 
+    src={collage41} 
+    style={{ 
+      flex: "1 1 0", 
+      maxWidth: "28%", 
+      height: "100%", 
+      objectFit: "cover", 
+    }} 
+  />
+  <ThreeItem 
+    src={collage42} 
+    style={{ 
+      flex: "1 1 0", 
+      maxWidth: "28%", 
+      height: "100%", 
+      objectFit: "cover", 
+    }} 
+  />
+  <ThreeItem 
+    src={collage43} 
+    style={{ 
+      flex: "1 1 0", 
+      maxWidth: "28%", 
+      height: "100%", 
+      objectFit: "cover", 
+    }} 
+  />
 </ThreeFlex>
-
 
 
             

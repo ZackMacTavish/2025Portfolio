@@ -175,7 +175,15 @@ export default function Photography() {
       </ArtSectionthreeog>
 
       {/* Full image section */}
-      <FullBg src={hawaiianchurch} />
+     <FullBg 
+  src={hawaiianchurch} 
+  style={{ 
+    width: "100vw",        // full viewport width
+    height: "100vh",       // full viewport height
+    objectFit: "cover",    // crop/zoom without squishing
+    objectPosition: "center", // center the image
+  }} 
+/>
 
       {/* Section with three aquarium polaroids */}
    <ThreeFlextwo
@@ -220,7 +228,15 @@ export default function Photography() {
       </ArtSectionthreeog>
 
       {/* Full splash image */}
-      <FullBg src={splash} />
+      <FullBg 
+  src={splash} 
+  style={{ 
+    width: "100vw",        // full viewport width
+    height: "100vh",       // full viewport height
+    objectFit: "cover",    // crop/zoom without squishing
+    objectPosition: "center", // center the image
+  }} 
+/>
 
       {/* Section with three circle polaroids */}
     <ThreeFlextwo
@@ -283,7 +299,15 @@ export default function Photography() {
 </ThreeFlextwo>
 
       {/* Full image section */}
-      <FullBg src={greensand} />
+      <FullBg 
+  src={greensand} 
+  style={{ 
+    width: "100vw",           // full viewport width
+    height: "100vh",          // full viewport height
+    objectFit: "cover",       // crop/zoom without stretching
+    objectPosition: "center", // center the image
+  }} 
+/>
 
     </div>
   );

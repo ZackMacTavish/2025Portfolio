@@ -270,17 +270,47 @@ mixed-media painting with embroidery, learning to sew in the process.
 
           {/* Final DWELLING MASH section */}
   <ArtSectionthreeog
-  style={{
+  style={{ 
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    gap: "20px", // increased spacing
-    padding: "clamp(50px, 8vw, 100px) clamp(60px, 8vw, 120px)",
+    alignItems: "flex-start",  // allows container height to shrink with images
+    gap: "64px",               // consistent spacing between images
+    padding: "100px 40px 100px 40px", // more padding on top, slightly less on bottom
+    minHeight: "50vh",         // responsive container height
+    flexWrap: "nowrap",
+    overflow: "hidden"
   }}
 >
-  <Orbital src={house3} style={{ transform: "scale(0.9)", maxWidth: "28vw" }} />
-  <GridRowTwo src={house7} style={{ transform: "scale(0.9)", maxWidth: "28vw" }} />
-  <GridRowThree src={house4} style={{ transform: "scale(0.9)", maxWidth: "28vw" }} />
+  <Orbital 
+    src={house3} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%", 
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
+  <GridRowTwo 
+    src={house7} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%", 
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
+  <GridRowThree 
+    src={house4} 
+    style={{ 
+      flex: "1 1 0",
+      maxWidth: "28%", 
+      maxHeight: "100%",
+      height: "auto",
+      objectFit: "cover"
+    }} 
+  />
 </ArtSectionthreeog>
       </div>
   )
