@@ -20,6 +20,7 @@ const AboutGrid = styled.div`
 const AboutPicture = styled.img`
   width: 40vw;
   padding-left: 2vw;
+  padding-top: 6vh;
 
   @media (max-width: 450px) { 
     width: 90vw;

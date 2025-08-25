@@ -38,14 +38,14 @@ grid-row-start: 1;
 grid-row-end: 1;
 `
 export const ProjectHeader = styled.h3`
-color: #a6d1ca;
+color: ${(props) => props.theme.fontColor};
 padding: 0;
 margin: 0;
 `
 
 export const ProjectSubtitle = styled.h6`
 color: ${(props) => props.theme.fontColor};
-padding: 16px 0 32px 0;
+padding: 16px 32px 32px 0;
 margin: 0;
 `
 

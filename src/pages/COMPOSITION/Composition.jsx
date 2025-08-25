@@ -323,7 +323,7 @@ display: grid;
 grid-template-rows: auto 5vh auto;
 grid-column-start: 3;
 grid-row-start: 1;
-align-self: flex-end;
+align-self: center;
 padding: 0;
 margin: 0;
 padding-left: 7.5vw;
@@ -341,7 +341,7 @@ export const ArtTexttwo = styled.div`
 display: grid;
 grid-column-start: 3;
 grid-row-start: 3;
-align-self: flex-end;
+align-self: center;
 padding: 0;
 margin: 0;
 padding-left: 7.5vw;
@@ -361,7 +361,7 @@ export const ArtTextthree = styled.div`
 display: grid;
 grid-column-start: 3;
 grid-row-start: 5;
-align-self: flex-end;
+align-self: center;
 padding: 0;
 margin: 0;
 padding-left: 7.5vw;

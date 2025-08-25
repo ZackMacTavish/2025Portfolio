@@ -182,12 +182,12 @@ export default function Nav() {
           <ListItem>
             <NavLink to="/Design">Design</NavLink>
             <Dropdown>
-              <DropdownMenu to="/Giga">Giga</DropdownMenu>
+               <DropdownMenu to="/Outsource">Outsource</DropdownMenu>
               <DropdownMenu to="/ThreePillars">Three Pillars</DropdownMenu>
               <DropdownMenu to="/Ux">Leysi</DropdownMenu>
               <DropdownMenu to="/Piton">Piton</DropdownMenu>
               <DropdownMenu to="/AccessDirect">Access Direct</DropdownMenu>
-              <DropdownMenu to="/Outsource">Outsource</DropdownMenu>
+             <DropdownMenu to="/Giga">Giga</DropdownMenu>
               <DropdownMenu to="/GraphicDesign">Graphic Design</DropdownMenu>
             </Dropdown>
           </ListItem>
