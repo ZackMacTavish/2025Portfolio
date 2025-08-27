@@ -6,7 +6,7 @@ import {
 } from '../COMPOSITION/Composition';
 import { TextSection } from '../Dwelling/Dwelling';
 import { NewSection } from '../Art_Landing/Art';
-import { ThreeFlextwo, ThreeItemtwo } from '../Printmaking/Printmaking';
+import { ThreeImageGrid } from '../Dwelling/Dwelling'; // adjust path as needed
 
 // --- ThreeD Assets ---
 import fiftytwo from '../../assets/52.jpg';
@@ -31,8 +31,6 @@ import riso from '../../assets/riso3.jpg';
 import sushix from '../../assets/SushiX.jpg';
 import rogerrabbit from '../../assets/rogerrabbit.jpg';
 import summer from '../../assets/summer16.jpg';
-import stylesmash from '../../assets/Reuzes-stylesmash.jpg';
-import Lines from '../../assets/ReuzesLines.jpg';
 import sushixtwo from '../../assets/SushiX2.jpg';
 import enova from '../../assets/Enova.jpg';
 import eu from '../../assets/EU.jpg';
@@ -60,7 +58,7 @@ const BeesStyle = styled.img`
   max-width: 900px;
   width: 65vw;
   height: auto;
-  margin-left: -9vw;
+ 
 `;
 
 const FiftyWidth = styled.div`
@@ -78,7 +76,16 @@ export default function MergedGraffiti() {
     <div>
       {/* --- ThreeD Section --- */}
       <FullBg src={fiftytwo} />
-      <FullBg src={fiftysix} />
+ <FullBg
+  src={fiftysix}
+  style={{
+    width: "100vw",
+    minHeight: "100vh",   // ensures no strip, but allows bigger
+    objectFit: "cover",
+    objectPosition: "center",
+    display: "block",
+  }}
+/>
 
       <RisoFlex style={{ backgroundColor: 'black' }}>
         <TextSection>
@@ -111,25 +118,22 @@ export default function MergedGraffiti() {
       </ArtSectionthreeog>
 
       {/* --- Graffiti Section --- */}
-    <ThreeFlextwo
+      <ThreeImageGrid style={{ backgroundColor: '#191919' }}>
+        <img src={artbash1} alt="Screen Print 2" />
+        <img src={artbash2} alt="Screen Print 2.1" />
+        <img src={artbash3} alt="Screen Print 1" />
+      </ThreeImageGrid>
+
+
+<FullBg
+  src={sense}
   style={{
-    width: '100vw',
-    backgroundColor: '#191919',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: '2vw',        // Space between items
-    padding: '2vw',    // Optional top/bottom padding
-    boxSizing: 'border-box',
+    width: "100%",           // safer than 100vw
+    objectFit: "cover",
+    objectPosition: "center",
+    display: "block",        // removes inline gaps
   }}
->
-  <ThreeItemtwo Width="22vw" src={artbash1} />
-  <ThreeItemtwo Width="22vw" src={artbash2} />
-  <ThreeItemtwo Width="22vw" src={artbash3} />
-</ThreeFlextwo>
-
-      <FullBg src={sense} />
-
+/>
       <RisoFlex style={{ backgroundColor: 'black' }}>
         <TextSection>
         My artistic roots began in graffiti, where I explored sketching letters and experimenting with their shapes and distortions. 
