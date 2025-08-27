@@ -1,8 +1,7 @@
 import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import { HouseOne, NewSection } from '../Art_Landing/Art';
-import { RisoFlex } from '../3d/MergedGraffiti';
-import { TextSection } from '../Dwelling/Dwelling';
+import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
 
 // Assets
 import fullcover from '../../assets/Composition-BackCover-Pt.2-01.jpg';
@@ -33,20 +32,35 @@ import og from '../../assets/No.3.png';
 import grain from '../../assets/Grain.jpg';
 
 const LanderSection = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-background-color: ${props => props.theme.backgroundTwo};
-width: 100vw;
-height: 100vh;
-overflow: hidden;
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${props => props.theme.backgroundTwo};
+  width: 100vw;
+  min-height: 100vh; /* ensures full height but can shrink on smaller screens */
+  overflow: hidden;
+  padding: 2vh 0;
+
+  @media (max-height: 800px) {
+    min-height: 70vh; /* shrink height on smaller viewports */
+  }
+
+  @media (max-width: 850px) {
+    min-height: 60vh;
+  }
+`;
 
 const FullCover = styled.img`
-background-color: ${props => props.theme.backgroundTwo};
-width: 60vw;
+  background-color: ${props => props.theme.backgroundTwo};
+  width: 60vw;
+  max-width: 90vw; /* prevents overflow on small screens */
+  height: auto;
 
-`
+  @media (max-width: 850px) {
+    width: 80vw; /* scale up a bit relative to smaller screens */
+  }
+`;
+
 export const Orbital = styled.img`
   grid-row-start: 1;
   grid-column-start: 2;
@@ -354,13 +368,15 @@ export default function Composition() {
         </LanderSection>
 
 {/*RENDER 1 FULL SCREEN */}
-<RisoFlex style={{backgroundColor:"black"}}>
-            <TextSection>Composition is a series composed of pieces inspired by the traditional marbling techniques from Turkey. The work chronicles my journey  and experiences of living in NYC, and moving to Portland, Oregon.
-                Utilizing a theme of composition notebooks serves as a journal for reflecting on different environments over the span of 3 years. Each individual piece evokes a feeling through
-                the use of color, and shapes.
- </TextSection>
-
-            </RisoFlex>
+<FullHeightTextSection>
+  <TextContainer>
+    <TextContent>
+      Composition uses the familiar design of composition notebooks as a metaphor for self-reflection. 
+      What began as a way to process the experience of moving from New York to Portland grew into a visual journal of shifting environments over several years. 
+      The series became less about the cities themselves and more about the act of recording change—eventually leading me toward my next body of work, which turns its focus from place to the houses and people that surround me.
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
         
 <img
   src={renderone}

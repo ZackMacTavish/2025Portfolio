@@ -1,7 +1,8 @@
 import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
-import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
+import { RisoItem } from '../3d/MergedGraffiti';
 import { ArtDesc, ArtHeader, ArtSectionthreeog, ArtText, ArtTextthree, ArtTexttwo, ArtYear, GridRowThree, GridRowTwo, Orbital } from '../COMPOSITION/Composition';
+import { TextContainer, TextContent, FullHeightTextSection } from '../Printmaking/Artworks';
 
 
 // Assets
@@ -36,6 +37,9 @@ import quilt3 from "../../assets/quilt3.jpg";
 import quilt4 from "../../assets/quilt4.jpg";
 import quilt5 from "../../assets/quilt5.jpg";
 import quilt6 from "../../assets/quilt6.jpg";
+import quilt7 from "../../assets/quilt7.jpg";
+import quilt8 from "../../assets/quilt8.jpg";
+import quilt9 from "../../assets/quilt9.jpg";
 
 // Styled Components
 export const TextSection = styled.h1`
@@ -170,15 +174,17 @@ export default function Dwelling() {
 </TwoImageGrid>
 
           {/* Intro Text Section */}
-          <RisoFlex style={{backgroundColor:"black"}}>
-              <TextSection>
-Dwelling is a series composed of houses I’ve lived in throughout my life, aiming to evoke memories, 
-nostalgia, and past experiences. I have created 21 quilts, a series of collages, and one large 
-mixed-media painting with embroidery, learning to sew in the process.
-                <br /> <br />
-               The collage-like compositions bring together multiple stories into a single piece.
-              </TextSection>
-          </RisoFlex>
+     <FullHeightTextSection>
+  <TextContainer>
+    <TextContent>
+      Dwelling is a series composed of houses I’ve lived in throughout my life, aiming to evoke memories, 
+      nostalgia, and past experiences. I have created 21 quilts, a series of collages, and one large 
+      mixed-media painting with embroidery, learning to sew in the process.
+      <br /><br />
+      The collage-like compositions bring together multiple stories into a single piece.
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
 
           {/* Open House Front/Back Section */}
           <ArtSectionthreeog Backgroundcolor='white'>
@@ -252,6 +258,30 @@ mixed-media painting with embroidery, learning to sew in the process.
     <ArtHeader>Quilt 6</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>My grandma's first house</ArtDesc>
+  </ArtTextthree>
+</ArtSectionthreeog>
+
+
+<ArtSectionthreeog>
+  <Orbital src={quilt7} />
+  <ArtText>
+    <ArtHeader>Quilt 7</ArtHeader>
+    <ArtYear>2024</ArtYear>
+    <ArtDesc>Armistice Blvd., Pawtucket, RI</ArtDesc>
+  </ArtText>
+
+  <GridRowTwo src={quilt8} />
+  <ArtTexttwo>
+    <ArtHeader>Quilt 8</ArtHeader>
+    <ArtYear>2024</ArtYear>
+    <ArtDesc>Bruzzi house, Pawtucket, RI</ArtDesc>
+  </ArtTexttwo>
+
+  <GridRowThree src={quilt9} />
+  <ArtTextthree>
+    <ArtHeader>Quilt 9</ArtHeader>
+    <ArtYear>2024</ArtYear>
+    <ArtDesc>Olympia Ave, Pawtucket, RI</ArtDesc>
   </ArtTextthree>
 </ArtSectionthreeog>
 

@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { 
-  BackgroundColor, Cellphones, DigitalProduct, GigaGridtext, GigaRocket, 
-  GigaTwo, GigaWeb, MyRole, ProjectDetails, ProjectHeader, ProjectSubtitle, 
-  ProjectType, RisoItemtwo, StyledDiv, TextLineone, TextLinetwo, 
+  Cellphones, GigaGridtext,  ProjectDetails, ProjectHeader, ProjectSubtitle, ProjectDetailsContainer, ProjectBlock, RisoItemtwo, StyledDiv, TextLineone, TextLinetwo, 
   TextSection, Timeframe 
 } from '../Giga/Giga';
 import { FullBg } from '../COMPOSITION/Composition';
 import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
+import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
+import { ProjectGrid,ProjectContent, ProjectTitle, ProjectLink, ProjectImage } from '../Giga/Giga';
 
 // Images
 import highpower from '../../assets/Onthemenu.jpg';
@@ -38,44 +38,6 @@ import guidelines from '../../assets/BrandGuidelines—Mockup.jpg';
 import twentyfive from '../../assets/Outsource25-07.png';
 import branding from '../../assets/Branding_LogoPatterns-01.png';
 
-export const OutsourceGridone = styled.div`
-  display: grid;
-  grid-template-columns: ${(props) => props.ColumnsSet};
-  grid-template-rows: ${(props) => props.RowsSet};
-  background-color: ${(props) => props.theme.backgroundTwo};
-  height: 100vh;
-  width: 100vw;
-
-  @media (max-width: 850px) {
-    grid-template-columns: 100vw;
-    grid-template-rows: 1fr 1fr 1fr 5vh 5vh 5vh 5vh 1fr;
-  }
-`;
-
-export const OutsourceHeader = styled.h2`
-  grid-row-start: 3;
-  grid-column-start: 3;
-  align-self: flex-end;
-  font-size: 4.5rem;
-  font-family: 'Space Grotesk', sans-serif;
-  color: ${(props) => props.theme.fontColor};
-
-  &:after {
-    content:"";
-    display: flex;
-    width: clamp(20px, 17vw, 500px);
-    height: 10px;
-    margin-top: 10px;
-    background: ${(props) => props.theme.fontColor};
-  }
-
-  @media (max-width: 850px) {
-    grid-column-start: 1;
-    padding-left: 2vw;
-    grid-row-start: 3;
-    font-size: 3rem;
-  }
-`;
 
 export default function Outsource() {
 
@@ -86,57 +48,63 @@ export default function Outsource() {
   return (
     <StyledDiv>
 
-      <OutsourceGridone ColumnsSet="4vw 60vw 32vw 4vw" RowsSet="1fr 1fr 1fr 3vh 3vh 3vh 3vh 1fr">
-        <GigaRocket ColumnStart="2" RowStart="2" src={imac} />
-        <OutsourceHeader>Outsource</OutsourceHeader>
+   <ProjectGrid>
+  <ProjectContent>
+    <ProjectTitle>Outsource</ProjectTitle>
+    <ProjectLink href="https://www.outsourceconsultants.com/home" target="_blank" rel="noreferrer noopener">
+      outsourceconsultants.com
+    </ProjectLink>
+    <ProjectLink href="https://www.decoderny.com/" target="_blank" rel="noreferrer noopener">
+      decoderny.com
+    </ProjectLink>
+    <ProjectLink href="https://www.buildingowl.com/" target="_blank" rel="noreferrer noopener">
+      buildingowl.com
+    </ProjectLink>
+    <ProjectLink href="https://www.osinyc.com/" target="_blank" rel="noreferrer noopener">
+      osinyc.com
+    </ProjectLink>
+  </ProjectContent>
+  <ProjectImage src={imac} Width="55vw" />
+</ProjectGrid>
 
-        <GigaWeb RowsSet={4} href="https://www.outsourceconsultants.com/home" target="_blank" rel="noreferrer noopener">
-          <GigaTwo>outsourceconsultants.com</GigaTwo>
-        </GigaWeb>
-        <GigaWeb RowsSet={5} href="https://www.decoderny.com/" target="_blank" rel="noreferrer noopener">
-          <GigaTwo>decoderny.com</GigaTwo>
-        </GigaWeb>
-        <GigaWeb RowsSet={6} href="https://www.buildingowl.com/" target="_blank" rel="noreferrer noopener">
-          <GigaTwo>buildingowl.com</GigaTwo>
-        </GigaWeb>
-        <GigaWeb RowsSet={7} href="https://www.osinyc.com/" target="_blank" rel="noreferrer noopener">
-          <GigaTwo>osinyc.com</GigaTwo>
-        </GigaWeb>
-      </OutsourceGridone>
+     <ProjectDetailsContainer>
+  <ProjectDetails>
+    <ProjectBlock>
+      <ProjectHeader>Project Type</ProjectHeader>
+      <ProjectSubtitle>UX/UI, Branding, Strategy</ProjectSubtitle>
+    </ProjectBlock>
 
-      <ProjectDetails>
-        <ProjectType>
-          <ProjectHeader>Project Type</ProjectHeader>
-          <ProjectSubtitle>UX/UI, Branding, Strategy</ProjectSubtitle>
-        </ProjectType>
+    <ProjectBlock>
+      <ProjectHeader>Product</ProjectHeader>
+      <ProjectSubtitle>
+        Print materials, websites, and Outsource's internal project tracking software.
+      </ProjectSubtitle>
+    </ProjectBlock>
 
-        <DigitalProduct>
-          <ProjectHeader>Product</ProjectHeader>
-          <ProjectSubtitle>Print materials, websites, and Outsource's internal project tracking software.</ProjectSubtitle>
-        </DigitalProduct>
+    <ProjectBlock>
+      <ProjectHeader>My Role</ProjectHeader>
+      <ProjectSubtitle>
+        Responsible for reimagining brand logos, colors, creating print materials for tradeshows, social media, digital brochures and flyers, and designing for all of Outsource's websites, and internal software.
+      </ProjectSubtitle>
+    </ProjectBlock>
 
-        <MyRole>
-          <ProjectHeader>My Role</ProjectHeader>
-          <ProjectSubtitle>
-            Responsible for reimagining brand logos, colors, creating print materials for tradeshows, social media, digital brochures and flyers, and designing for all of Outsource's websites, and internal software.
-          </ProjectSubtitle>
-        </MyRole>
+    <ProjectBlock>
+      <ProjectHeader>Timeframe</ProjectHeader>
+      <ProjectSubtitle>1 1/2 years.</ProjectSubtitle>
+    </ProjectBlock>
+  </ProjectDetails>
+</ProjectDetailsContainer>
 
-        <Timeframe>
-          <ProjectHeader>Timeframe</ProjectHeader>
-          <ProjectSubtitle>1 1/2 years.</ProjectSubtitle>
-        </Timeframe>
-      </ProjectDetails>
-
-      <GigaGridtext ColumnsSet="4vw 60vw 32vw 4vw" RowsSet="1fr 1fr 1fr 1fr 1fr 1fr 1fr">
-        <TextLineone RowsSet="1" />
-        <TextSection Fontsize="3.5rem">
-          Outsource is a company focused on expediting. My responsibility included being the Multimedia Designer on a variety of projects. I enjoyed redesigning their website, internal tools, and subsidiaries.
-        </TextSection>
-        <TextLinetwo />
-      </GigaGridtext>
+   
 
       <FullBg src={iphones} />
+        <FullHeightTextSection style={{ backgroundColor: 'white' }}>
+  <TextContainer>
+    <TextContent style={{ color: '#5d5d5d' }}>
+      Outsource is a company focused on expediting. My responsibility included being the Multimedia Designer on a variety of projects. I enjoyed redesigning their website, internal tools, and subsidiaries.
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
       <FullBg src={mocks} />
 
       <RisoFlex>
@@ -220,7 +188,20 @@ export default function Outsource() {
         <RisoItem src={twentyfive} Width="65vw" />
       </RisoFlex>
 
-      <FullBg src={branding} style={{ paddingTop:'10vh' }} />
+      <div
+  style={{
+    width: '100vw',
+    height: '45vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    paddingTop: '10vh',
+    overflow: 'hidden',
+  }}
+>
+  <FullBg src={branding} style={{ width: '100%', height: 'auto' }} />
+</div>
+
       <FullBg src={guides} />
 
       <GigaGridtext ColumnsSet="4vw 60vw 32vw 4vw" RowsSet="1fr 1fr 1fr 1fr 1fr 1fr 1fr">

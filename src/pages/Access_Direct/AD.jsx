@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { 
-  BackgroundColor, Cellphones, DigitalProduct, GigaGridone, GigaGridtext, 
-  GigaHeader, GigaRocket, GigaTwo, GigaWeb, MyRole, ProjectDetails, 
-  ProjectHeader, ProjectSubtitle, ProjectType, RisoItemtwo, StyledDiv, 
-  TextLineone, TextLinetwo, TextSection, Timeframe 
+  Cellphones, GigaGridtext, 
+  ProjectDetails, 
+  ProjectHeader, ProjectSubtitle, RisoItemtwo, StyledDiv, 
+  TextLineone, TextLinetwo, TextSection, ProjectGrid,ProjectContent, ProjectTitle, ProjectLink, ProjectImage, ProjectDetailsContainer, ProjectBlock
 } from '../Giga/Giga';
 import { FullBg } from '../COMPOSITION/Composition';
 import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
+import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
 
 // Assets
 import highpower from '../../assets/Highpower.jpg';
@@ -51,48 +52,58 @@ export default function AccessDirect() {
 
   return (
     <StyledDiv>
-      <GigaGridone ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr'>
-        <GigaRocket ColumnStart="2" RowStart="2" src={imac} />
-        <GigaHeader>Access Direct</GigaHeader>
-        <GigaWeb RowsSet={5} href="https://access-direct.net" target="_blank" rel="noreferrer noopener">
-          <GigaTwo>access-direct.net</GigaTwo>
-        </GigaWeb>
-      </GigaGridone>
+    <ProjectGrid>
+  <ProjectContent>
+    <ProjectTitle>Access Direct</ProjectTitle>
+    <ProjectLink href="https://access-direct.net" target="_blank" rel="noreferrer noopener">
+      access-direct.net
+    </ProjectLink>
+  </ProjectContent>
+  <ProjectImage src={imac} Width="55vw" />
+</ProjectGrid>
 
       {/* Project Details */}
-      <ProjectDetails>
-        <ProjectType>
-          <ProjectHeader>Project Type</ProjectHeader>
-          <ProjectSubtitle>UX/UI, Branding, Strategy, Front-end Development</ProjectSubtitle>
-        </ProjectType>
+    <ProjectDetailsContainer>
+  <ProjectDetails>
+    <ProjectBlock>
+      <ProjectHeader>Project Type</ProjectHeader>
+      <ProjectSubtitle>
+        UX/UI, Branding, Strategy, Front-end Development
+      </ProjectSubtitle>
+    </ProjectBlock>
 
-        <DigitalProduct>
-          <ProjectHeader>Product</ProjectHeader>
-          <ProjectSubtitle>Print materials, and a website built with React.js</ProjectSubtitle>
-        </DigitalProduct>
+    <ProjectBlock>
+      <ProjectHeader>Product</ProjectHeader>
+      <ProjectSubtitle>
+        Print materials, and a website built with React.js
+      </ProjectSubtitle>
+    </ProjectBlock>
 
-        <MyRole>
-          <ProjectHeader>My Role</ProjectHeader>
-          <ProjectSubtitle>
-            Responsible for tidying up the brand logo, colors, creating print materials for tradeshows, social media, digital brochures and flyers, and designing/building the company website.
-          </ProjectSubtitle>
-        </MyRole>
+    <ProjectBlock>
+      <ProjectHeader>My Role</ProjectHeader>
+      <ProjectSubtitle>
+        Responsible for tidying up the brand logo, colors, creating print materials for tradeshows, social media, digital brochures and flyers, and designing/building the company website.
+      </ProjectSubtitle>
+    </ProjectBlock>
 
-        <Timeframe>
-          <ProjectHeader>Timeframe</ProjectHeader>
-          <ProjectSubtitle>4 years (Part-time).</ProjectSubtitle>
-        </Timeframe>
-      </ProjectDetails>
+    <ProjectBlock>
+      <ProjectHeader>Timeframe</ProjectHeader>
+      <ProjectSubtitle>4 years (Part-time).</ProjectSubtitle>
+    </ProjectBlock>
+  </ProjectDetails>
+</ProjectDetailsContainer>
 
       {/* Sections */}
       <FullBg src={iphones} style={{ backgroundColor: 'white' }} />
-      <GigaGridtext ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='1fr 1fr 1fr 1fr 1fr 1fr 1fr'>
-        <TextLineone RowsSet="1" />
-        <TextSection Fontsize='3.5rem'>
-          Access Direct is a company focused on security solutions. My responsibility includes being the UI Designer, and Webmaster for Access Direct. I enjoyed redesigning their website, and building it using React.js.
-        </TextSection>
-        <TextLinetwo />
-      </GigaGridtext>
+
+      <FullHeightTextSection style={{ backgroundColor: 'white' }}>
+  <TextContainer>
+    <TextContent style={{ color: '#5d5d5d' }}>
+      Access Direct is a company focused on security solutions. I serve as the UI Designer and Webmaster, 
+      responsible for redesigning their website and building it using React.js.
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
 
       <FullBg src={mocks} style={{ backgroundColor: 'white' }} />
 

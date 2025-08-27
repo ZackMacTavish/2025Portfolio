@@ -21,71 +21,134 @@ import photosthree from '../../assets/Photos3.jpg';
 import photosfour from '../../assets/Photos4.jpg';
 import guides from '../../assets/Guides.jpg';
 import create from '../../assets/CreateNewPost.png';
+import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
+
+
+
+export const ProjectDetailsContainer = styled.div`
+  max-width: 1100px;
+  margin: 0 auto 6vh; /* add margin-bottom for extra space outside */
+  padding: 4vh 4vw 6vh; /* reduced internal padding */
+  background-color: #f5f5f5;
+  border-radius: 60px;
+
+  @media (max-width: 1320px) {
+    max-width: 90%;
+  }
+
+  @media (max-width: 850px) {
+    width: 100%;
+    padding: 4vh 4vw 6vh; /* keep reduced padding on mobile */
+    border-radius: 0;
+  }
+`;
 export const ProjectDetails = styled.div`
-display:grid;
-grid-template-columns: 1fr 1fr;
-grid-template-rows: 1fr 1fr;
-height: auto;
-padding-bottom: 40px;
-`
-export const ProjectType = styled.div` 
-display: flex;
-flex-direction: column;
-font-size: 2rem;
-padding-left: 10vw;
-margin: 0;
-grid-row-start: 1;
-grid-row-end: 1;
-`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  row-gap: 2rem;
+  column-gap: 4rem;
+  position: relative;
+
+  @media (max-width: 850px) {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+`;
+
+export const ProjectBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
 export const ProjectHeader = styled.h3`
-color: ${(props) => props.theme.fontColor};
-padding: 0;
-margin: 0;
-`
+  color: ${(props) => props.theme.fontColor};
+  font-size: 2.5rem;
+  margin: 0;
+
+  @media (max-width: 1320px) {
+    font-size: 2.3rem;
+  }
+
+  @media (max-width: 850px) {
+    font-size: 2rem;
+  }
+`;
 
 export const ProjectSubtitle = styled.h6`
-color: ${(props) => props.theme.fontColor};
-padding: 16px 32px 32px 0;
-margin: 0;
-`
+  color: ${(props) => props.theme.fontColor};
+  font-size: 1.8rem;
+  margin-top: 0.8rem;
+  line-height: 1.5;
+
+  @media (max-width: 1320px) {
+    font-size: 1.6rem;
+  }
+
+  @media (max-width: 850px) {
+    font-size: 1.5rem;
+  }
+`;
+
+export const Divider = styled.div`
+  grid-column: 1 / span 2;  /* span across both columns */
+  height: 1px;
+  background-color: #d3d3d3;
+  margin: 2rem 0;
+
+  @media (max-width: 850px) {
+    display: none; /* remove line on vertical stack */
+  }
+`;
+
+
+export const ProjectType = styled.div` 
+  display: flex;
+  flex-direction: column;
+  font-size: 2rem;
+  padding-left: 10vw;
+
+  @media (max-width: 850px) {
+    padding-left: 0;
+  }
+`;
 
 export const DigitalProduct = styled.div`
-display: flex;
-flex-direction: column;
-font-size: 2rem;
-padding-left: 10vw;
-grid-row-start: 2;
-`
+  display: flex;
+  flex-direction: column;
+  font-size: 2rem;
+  padding-left: 10vw;
+
+  @media (max-width: 850px) {
+    padding-left: 0;
+    margin-top: 2rem;
+  }
+`;
 
 export const MyRole = styled.div`
-display: flex;
-flex-direction: column; 
-font-size: 2rem;
-padding-right: 10vw;
-grid-row-start: 1;
-grid-column-start: 2;
-`
+  display: flex;
+  flex-direction: column; 
+  font-size: 2rem;
+  padding-right: 10vw;
+
+  @media (max-width: 850px) {
+    padding-right: 0;
+    margin-top: 2rem;
+  }
+`;
+
 export const Timeframe = styled.div`
-display: flex;
-font-size: 2rem;
-flex-direction: column;
-grid-row-start: 2;
-grid-column-start: 2;
-`
+  display: flex;
+  flex-direction: column;
+  font-size: 2rem;
 
-export const GigaGridone = styled.div`
-display: grid;
-grid-template-columns: ${(props) => props.ColumnsSet};
-grid-template-rows: ${(props) => props.RowsSet};
-background-color: ${props => props.theme.backgroundTwo};
-height: 100vh;
-width: 100vw;
+  @media (max-width: 850px) {
+    margin-top: 2rem;
+  }
+`;
 
-@media (max-width: 850px) {
-    grid-template-columns: 100vw;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-}
-` 
 export const GigaGridtext = styled.div`
 display: grid;
 grid-template-columns: ${(props) => props.ColumnsSet};
@@ -115,53 +178,6 @@ grid-column-end: ${(props) => props.ColumnEnd};
       width: 95vw;
 
   }
-`
-
-export const GigaHeader = styled.h2`
-grid-row-start: 4;
-grid-column-start: 3;
-align-self: flex-end;
-font-size: 4.5rem;
-font-family: 'Space Grotesk', sans-serif;
-color: ${(props) => props.theme.fontColor};
-
-&:after {
-    content:"";
-    display: flex;
-    width: clamp(20px, 17vw, 500px);
-  height: 10px;
-  margin-top: 10px;
-  background: ${(props) => props.theme.fontColor};
-  }
-  @media (max-width: 850px) {
-      grid-column-start: 1;
-      padding-left: 2vw;
-      grid-row-start: 3;
-      font-size: 3rem;
-  }
-`
-
-
-export const GigaWeb = styled.a`
-grid-row-start: ${(props) => props.RowsSet};
-grid-column-start: 3;
-align-self: flex-start;
-font-family: 'Space Grotesk', sans-serif;
-color: ${(props) => props.theme.fontColor};
-text-decoration: none;
-
-&:hover{
-    opacity: 75%;
-}
-@media (max-width: 850px) {
-      grid-column-start: 1;
-      padding-left: 2vw;
-  }
-`
-
-export const GigaTwo =styled.h2`
-font-size: 1.4rem;
-margin-top: -3vh;
 `
 
 export const TextLineone = styled.div`
@@ -264,7 +280,75 @@ height: auto;
     height: auto;
 }
 `
+export const ProjectGrid = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2vw;
+  padding: 8vh 4vw;
 
+  @media (max-width: 1000px) {
+    flex-direction: column;       /* stack vertically */
+    justify-content: center;
+    align-items: center;          /* centers the block */
+    padding: 12vh 4vw 12vh 4vw;   /* extra top/bottom padding */
+    gap: 3vh;
+  }
+`;
+
+export const ProjectContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  max-width: 600px;
+
+  @media (max-width: 1000px) {
+    align-items: center;    /* centers the block horizontally */
+    text-align: left;       /* keeps text left-aligned inside */
+    margin-bottom: 2vh;     /* spacing below the text before image */
+  }
+`;
+
+export const ProjectImage = styled.img`
+  width: ${(props) => props.Width};
+  height: auto;
+
+  @media (max-width: 1000px) {
+    width: 80vw; /* image slightly bigger on vertical stack */
+  }
+`;
+
+export const ProjectTitle = styled.h2`
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 4.5rem;
+  color: ${(props) => props.theme.fontColor};
+  margin: 0;
+
+  &:after {
+    content: "";
+    display: block;
+    width: clamp(20px, 17vw, 500px);
+    height: 10px;
+    margin-top: 10px;
+    background: ${(props) => props.theme.fontColor};
+  }
+
+  @media (max-width: 850px) {
+    font-size: 3rem;
+  }
+`;
+
+export const ProjectLink = styled.a`
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.4rem;
+  color: ${(props) => props.theme.fontColor};
+  text-decoration: none;
+  margin-top: 1vh;
+
+  &:hover {
+    opacity: 0.75;
+  }
+`;
 
 export default function Giga() {
 
@@ -274,56 +358,69 @@ export default function Giga() {
 
     return (
         <StyledDiv>
-            <GigaGridone ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr'>
-           <GigaRocket ColumnStart="2" RowStart="2" src={gigarocket} />
-           
-           
-           <GigaHeader>Giga</GigaHeader>
-          
-           <GigaWeb RowsSet={5} href="https://gigaintelligence.com" target="_blank" rel="noreferrer noopener">
-           <GigaTwo>gigaintelligence.com</GigaTwo>
-           </GigaWeb>
-            </GigaGridone>
+<ProjectGrid className="flex flex-col-reverse md:flex-row items-center justify-center w-full">
+  {/* Text Block */}
+  <div className="w-full md:w-1/2 flex justify-center md:justify-end px-6 md:px-12 mb-12 md:mb-0">
+    <ProjectContent className="max-w-[600px] text-left">
+      <ProjectTitle>Giga</ProjectTitle>
+      <ProjectLink
+        href="https://gigaintelligence.com"
+        target="_blank"
+        rel="noreferrer noopener"
+      >
+        gigaintelligence.com
+      </ProjectLink>
+    </ProjectContent>
+  </div>
 
-            <ProjectDetails>
-            <ProjectType>
-            <ProjectHeader>Project Type</ProjectHeader>
-            <ProjectSubtitle>UX/UI, Branding, Strategy</ProjectSubtitle>
-            </ProjectType>
+  {/* Image */}
+  <div className="flex justify-center md:justify-start w-full md:w-1/2">
+    <ProjectImage src={gigarocket} Width="55vw" />
+  </div>
+</ProjectGrid>
 
-            <DigitalProduct>
-            <ProjectHeader>Digital Product</ProjectHeader>
-            <ProjectSubtitle>Digital strategy platform used for data management, and private channel creation.</ProjectSubtitle>
-            </DigitalProduct>
+<ProjectDetailsContainer>
+  <ProjectDetails>
+    <ProjectBlock>
+      <ProjectHeader>Project Type</ProjectHeader>
+      <ProjectSubtitle>UX/UI, Branding, Strategy</ProjectSubtitle>
+    </ProjectBlock>
 
-            <MyRole>
-            <ProjectHeader>My Role</ProjectHeader>
-            <ProjectSubtitle>
-            Responsible for researching, ideating, and generating new ideas for a cohesive & imagined Giga experience. 
-            Designed and prototyped the Giga system & Web App.
-            </ProjectSubtitle>
-            </MyRole>
+    <ProjectBlock>
+      <ProjectHeader>Digital Product</ProjectHeader>
+      <ProjectSubtitle>
+        Digital strategy platform used for data management, and private channel creation.
+      </ProjectSubtitle>
+    </ProjectBlock>
 
-            <Timeframe>
-            <ProjectHeader>Timeframe</ProjectHeader>
-            <ProjectSubtitle>
-            1 1/2 years.
-            </ProjectSubtitle>
-            </Timeframe>
 
-            </ProjectDetails>
+    <ProjectBlock>
+      <ProjectHeader>My Role</ProjectHeader>
+      <ProjectSubtitle>
+        Responsible for researching, ideating, and generating new ideas for a cohesive & imagined Giga experience. 
+        Designed and prototyped the Giga system & Web App.
+      </ProjectSubtitle>
+    </ProjectBlock>
 
-            
+    <ProjectBlock>
+      <ProjectHeader>Timeframe</ProjectHeader>
+      <ProjectSubtitle>1 1/2 years.</ProjectSubtitle>
+    </ProjectBlock>
+  </ProjectDetails>
+</ProjectDetailsContainer>
+
 
             <FullBg src={iphones} />
-            <GigaGridtext ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='1fr 1fr 1fr 1fr 1fr 1fr 1fr'>
-            <TextLineone RowsSet="1" />
-            <TextSection Fontsize='3.5rem' >
-                Giga is a startup focused on sharing experiences between it's users. 
-                Through a robust data management system, users can share information, and learn about their favorite subjects.
-                </TextSection>
-            <TextLinetwo />
-            </GigaGridtext>
+
+ <FullHeightTextSection style={{ backgroundColor: '#ffffff' }}>
+  <TextContainer>
+    <TextContent style={{ color: '#5D5D5D' }}>
+      Giga is a startup focused on sharing experiences between its users. 
+      Through a robust data management system, users can share information and learn about their favorite subjects.
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
+
             <FullBg src={mocks} />
 
             <RisoFlex>

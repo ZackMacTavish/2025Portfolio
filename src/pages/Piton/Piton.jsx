@@ -9,12 +9,13 @@ import allpiton from '../../assets/Piton—Screens.jpg';
 import light from '../../assets/LightPhone2.png';
 import dark from '../../assets/iPhone_2—Dark.png';
 import pitonlogos from '../../assets/Group 55620@2x.png';
+import { FullHeightTextSection, TextContent, TextContainer } from '../Printmaking/Artworks';
 
 // Components
 import { 
   TextSection, BackgroundColor, Cellphones, GigaGridtext, GigaRocket, StyledDiv, 
-  TextLineone, TextLinetwo, ProjectDetails, ProjectType, ProjectHeader, 
-  ProjectSubtitle, DigitalProduct, MyRole, Timeframe 
+  TextLineone, TextLinetwo, ProjectDetails, ProjectHeader, 
+  ProjectSubtitle, ProjectDetailsContainer, ProjectBlock
 } from '../Giga/Giga';
 
 import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
@@ -33,59 +34,56 @@ export default function Piton() {
                 <RisoItem src={pitonlogo} Width='50vw'  />
             </RisoFlex>
 
-            <ProjectDetails>
-                <ProjectType>
-                    <ProjectHeader>Project Type</ProjectHeader>
-                    <ProjectSubtitle>UX/UI, Branding, Strategy</ProjectSubtitle>
-                </ProjectType>
+       <ProjectDetailsContainer>
+  <ProjectDetails>
+    <ProjectBlock>
+      <ProjectHeader>Project Type</ProjectHeader>
+      <ProjectSubtitle>UX/UI, Branding, Strategy</ProjectSubtitle>
+    </ProjectBlock>
 
-                <DigitalProduct>
-                    <ProjectHeader>Digital Product</ProjectHeader>
-                    <ProjectSubtitle>An IOS mobile app, and streetwear line</ProjectSubtitle>
-                </DigitalProduct>
+    <ProjectBlock>
+      <ProjectHeader>Digital Product</ProjectHeader>
+      <ProjectSubtitle>An IOS mobile app, and streetwear line</ProjectSubtitle>
+    </ProjectBlock>
 
-                <MyRole>
-                    <ProjectHeader>My Role</ProjectHeader>
-                    <ProjectSubtitle>
-                        Responsible for creating the brand logo, colors, and utilizing Apple's HIG for the V1 wireframes for Piton's App launch (TBD).
-                    </ProjectSubtitle>
-                </MyRole>
+    <ProjectBlock>
+      <ProjectHeader>My Role</ProjectHeader>
+      <ProjectSubtitle>
+        Responsible for creating the brand logo, colors, and utilizing Apple's HIG for the V1 wireframes for Piton's App launch (TBD).
+      </ProjectSubtitle>
+    </ProjectBlock>
 
-                <Timeframe>
-                    <ProjectHeader>Timeframe</ProjectHeader>
-                    <ProjectSubtitle>1 year.</ProjectSubtitle>
-                </Timeframe>
-            </ProjectDetails>
+    <ProjectBlock>
+      <ProjectHeader>Timeframe</ProjectHeader>
+      <ProjectSubtitle>1 year.</ProjectSubtitle>
+    </ProjectBlock>
+  </ProjectDetails>
+</ProjectDetailsContainer>
 
-            <GigaGridtext ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='1fr 1fr 1fr 1fr 1fr 1fr 1fr'>
-                <TextLineone RowsSet="1" />
-                <TextSection Fontsize='3.5rem'>
-                    Piton is a startup focused on athleisure clothing with an accompanying workout app. 
-                    The brand is focused on social change, and environmentalism. 
-                    The leading innovation of the app is on the bleeding edge of voice enabled AI.
-                </TextSection>
-                <TextLinetwo />
-            </GigaGridtext>
+           
 
             <FullBg src={pitoniphones} />
+             <FullHeightTextSection style={{ backgroundColor: 'white' }}>
+  <TextContainer>
+    <TextContent style={{ color: '#5d5d5d'}}>
+      Piton is a startup focused on athleisure clothing with an accompanying workout app. 
+      The brand emphasizes social change and environmentalism. 
+      Its leading innovation is a cutting-edge, voice-enabled AI feature in the app.
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
 
-     <PitonScreens 
-  ColumnsSet='4vw 60vw 32vw 4vw' 
-  RowsSet='2vh 15vh 2vh' 
-  style={{ paddingTop: '5vh', paddingBottom: '10vh' }}
->
-  <GigaRocket RowStart='2' ColumnStart="2" ColumnEnd="4" src={pitonscreens} />
-  <BackgroundColor style={{backgroundColor:'#1794BA'}} />
-</PitonScreens>
+   <div style={{ backgroundColor: '#f5f5f5', paddingTop: '5vh', paddingBottom: '10vh', width: '100%' }}>
+  <PitonScreens ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='2vh 15vh 2vh'>
+    <GigaRocket RowStart='2' ColumnStart="2" ColumnEnd="4" src={pitonscreens} />
+    <BackgroundColor style={{ backgroundColor:'#1794BA' }} />
+  </PitonScreens>
 
-<PitonScreens 
-  ColumnsSet='4vw 60vw 32vw 4vw' 
-  RowsSet='2vh 15vh 2vh' 
-  style={{ paddingTop: '5vh', paddingBottom: '10vh' }}
->
-  <GigaRocket RowStart='2' ColumnStart="2" ColumnEnd="4" src={pitonscreens2} />
-  <BackgroundColor style={{backgroundColor:'#1794BA'}} />
-</PitonScreens>
+  <PitonScreens ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='2vh 15vh 2vh' style={{ marginTop: '5vh' }}>
+    <GigaRocket RowStart='2' ColumnStart="2" ColumnEnd="4" src={pitonscreens2} />
+    <BackgroundColor style={{ backgroundColor:'#1794BA' }} />
+  </PitonScreens>
+</div>
            <FullBg
   src={allpiton}
   style={{
