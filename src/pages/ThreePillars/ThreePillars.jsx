@@ -3,10 +3,10 @@ import React, { useLayoutEffect } from 'react';
 // Components
 import { FullBg } from '../COMPOSITION/Composition';
 import { 
-  TextSection, DigitalProduct, GigaGridone, GigaGridtext, GigaHeader, 
-  GigaRocket, GigaTwo, GigaWeb, MyRole, ProjectDetails, ProjectHeader, 
-  ProjectSubtitle, ProjectType, RisoItemtwo, StyledDiv, TextLineone, 
-  TextLinetwo, Timeframe 
+  TextSection, GigaGridtext, 
+ ProjectDetails, ProjectHeader, 
+  ProjectSubtitle, RisoItemtwo, StyledDiv, TextLineone, 
+  TextLinetwo, ProjectGrid, ProjectContent, ProjectTitle, ProjectLink, ProjectDetailsContainer, ProjectBlock, ProjectImage
 } from '../Giga/Giga';
 import { RisoFlex } from '../3d/MergedGraffiti';
 
@@ -17,6 +17,7 @@ import ThreePillarsPages from '../../assets/ThreePillars—pages.jpg';
 import recruitingpage from '../../assets/Artboard – 11@2x.png';
 import ThreePillarsImac from '../../assets/ThreePillars_Imac_.jpg';
 import ThreePillarsMockup from '../../assets/Mockup.jpg';
+import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
 
 export default function ThreePillars() {
 
@@ -28,56 +29,79 @@ export default function ThreePillars() {
 
     return (
         <StyledDiv>
-            <GigaGridone ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr'>
-           <GigaRocket ColumnStart="2" RowStart="2" src={ThreePillarsMac} />
-           
-           
-           <GigaHeader>ThreePillars</GigaHeader>
+          <ProjectGrid>
+  <ProjectContent>
+    <ProjectTitle>ThreePillars</ProjectTitle>
+    <ProjectLink href="https://threepillars.com" target="_blank" rel="noreferrer noopener">
+      threepillars.com
+    </ProjectLink>
+  </ProjectContent>
+  <ProjectImage src={ThreePillarsMac} Width="55vw" />
+</ProjectGrid>
+            
+
+<ProjectDetailsContainer>
+  <ProjectDetails>
+    <ProjectBlock>
+      <ProjectHeader>Project Type</ProjectHeader>
+      <ProjectSubtitle>UX/UI, Branding, Strategy</ProjectSubtitle>
+    </ProjectBlock>
+
+    <ProjectBlock>
+      <ProjectHeader>Digital Product</ProjectHeader>
+      <ProjectSubtitle>
+        Web app utilized for recruiting 2,100+ employees in 14 years of business.
+      </ProjectSubtitle>
+    </ProjectBlock>
+
+    <ProjectBlock>
+      <ProjectHeader>My Role</ProjectHeader>
+      <ProjectSubtitle>
+        Responsible for reimagining a fresh brand strategy, and creating an easy to navigate website.
+      </ProjectSubtitle>
+    </ProjectBlock>
+
+    <ProjectBlock>
+      <ProjectHeader>Timeframe</ProjectHeader>
+      <ProjectSubtitle>3 months.</ProjectSubtitle>
+    </ProjectBlock>
+  </ProjectDetails>
+</ProjectDetailsContainer>
+
+              <FullBg
+  src={ThreePillarsPages}
+  style={{
+    width: '100vw',
+    height: '100vh',
+    objectFit: 'cover',
+    display: 'block',  // removes the inline spacing that causes the white strip
+    margin: 0,
+  }}
+/>
+
+
+
+        <FullHeightTextSection style={{ backgroundColor: '#2B3253' }}>
+  <TextContainer>
+    <TextContent style={{ color: 'white' }}>
+      Three Pillars is a recruiting agency that was looking for a refresh on their brand identity and website. 
+      My responsibility involved collaborating with the Varfaj Partners team to provide initial designs for their developer to implement.
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
+
+<FullBg
+  src={ThreePillarsIphone}
+  style={{
+    width: '100vw',
+    height: '104vh',
+    objectFit: 'cover',  // fills container without stretching
+    display: 'block',    // removes extra space below image
+    margin: 0,           // ensure no default margins
+  }}
+/>
+            
           
-           <GigaWeb RowsSet={5} href="https://Threepillars.com" target="_blank" rel="noreferrer noopener">
-           <GigaTwo>threepillars.com</GigaTwo>
-           </GigaWeb>
-            </GigaGridone>
-            
-
-<ProjectDetails>
-            <ProjectType>
-            <ProjectHeader>Project Type</ProjectHeader>
-            <ProjectSubtitle>UX/UI, Branding, Strategy</ProjectSubtitle>
-            </ProjectType>
-
-            <DigitalProduct>
-            <ProjectHeader>Digital Product</ProjectHeader>
-            <ProjectSubtitle>Web app utilized for recruiting 2,100+ employees in 14 years of business.</ProjectSubtitle>
-            </DigitalProduct>
-
-            <MyRole>
-            <ProjectHeader>My Role</ProjectHeader>
-            <ProjectSubtitle>
-            Responsible for reimagining a fresh brand strategy, and creating an easy to navigate website. 
-            </ProjectSubtitle>
-            </MyRole>
-
-            <Timeframe>
-            <ProjectHeader>Timeframe</ProjectHeader>
-            <ProjectSubtitle>
-            3 months.
-            </ProjectSubtitle>
-            </Timeframe>
-
-            </ProjectDetails>
-
-            <FullBg src={ThreePillarsIphone} />
-            <GigaGridtext ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='1fr 1fr 1fr 1fr 1fr 1fr 1fr'>
-            <TextLineone RowsSet="1" />
-            <TextSection Fontsize='3.5rem' >
-            Three Pillars is a recruiting agency that was looking for a refresh on their brand identity, and website. 
-                My responsibility involved working with the Varfaj Partners team to provide them with initial designs for their developer to build.
-                </TextSection>
-            <TextLinetwo />
-            </GigaGridtext>
-            
-            <FullBg src={ThreePillarsPages} />
 
             <RisoFlex>
                 <RisoItemtwo src={recruitingpage} Width='60vw' />

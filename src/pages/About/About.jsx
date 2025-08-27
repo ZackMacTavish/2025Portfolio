@@ -1,8 +1,8 @@
 import React, { useLayoutEffect, useEffect, useState } from 'react';
 import { NewSectionTheme, ParagraphTwo } from '../Art_Landing/Art';
-import { TextLineone, TextSection } from '../Giga/Giga';
 import styled, { keyframes } from 'styled-components';
 import me from '../../assets/Me.jpeg';
+import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
 
 // Bounce animation
 const bounce = keyframes`
@@ -32,27 +32,19 @@ const Arrow = styled.div`
   border-radius: 2px;
 `;
 
-const AboutGrid = styled.div`
-  display: grid; 
-  grid-template-columns: 4vw 60vw 32vw 4vw;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-  height: 100vh;
-  width: 100vw;
-  background-color: ${(props) => props.theme.backgroundColor};
-
-  @media (max-width: 450px) {
-    height: 75vh;
-  }
-`;
-
 const AboutPicture = styled.img`
   width: 40vw;
   padding-left: 2vw;
   padding-top: 6vh;
 
+  @media (max-width: 850px) { 
+    width: 60vw;       /* larger on tablets */
+    padding-top: 5vh;
+  }
+
   @media (max-width: 450px) { 
-    width: 90vw;
-    padding-top: 10vh;
+    width: 90vw;       /* almost full width on mobile */
+    padding-top: 8vh;  /* extra space from top */
   }
 `;
 
@@ -91,26 +83,29 @@ const About = () => {
       </NewSectionTheme>
 
       {/* Second section */}
-      <AboutGrid>
-        <TextLineone RowsSet="1" />
-        <TextSection Fontsize='3rem' style={{ color: 'white' }}>
-          Some of the agencies I have worked with include Publicis Groupe, Arkane Society, 
-          and Varfaj Partners. I’ve also lived in New York City, working as a graphic designer 
-          in Manhattan for Outsource Consultants, and studied design in Chicago. 
-          I’ve collaborated with clients such as Microsoft, Walmart, Seagate Technology 
-          on Disney-branded products, and Chip Ganassi Racing.
-        </TextSection>
-      </AboutGrid>
+ {/* Second section - white background */}
+<FullHeightTextSection style={{ backgroundColor: 'white' }}>
+  <TextContainer>
+    <TextContent style={{ color: '#5d5d5d' }}>
+      Some of the agencies I have worked with include Publicis Groupe, Arkane Society, 
+      and Varfaj Partners. I’ve also lived in New York City, working as a graphic designer 
+      in Manhattan for Outsource Consultants, and studied design in Chicago. 
+      I’ve collaborated with clients such as Microsoft, Walmart, Seagate Technology 
+      on Disney-branded products, and Chip Ganassi Racing.
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
 
-      {/* Third section */}
-      <AboutGrid>
-        <TextLineone RowsSet="1" />
-        <TextSection Fontsize='3.5rem' style={{ color: 'white' }}>
-          Outside of work, I live in Philadelphia with my partner Olivia, who is also an artist. 
-          In my own creative time, I focus on making quilts that combine photography, textile techniques, 
-          and mixed media, exploring the intersection of art, design, and storytelling.
-        </TextSection>
-      </AboutGrid>
+{/* Third section - black background */}
+<FullHeightTextSection style={{ backgroundColor: 'black' }}>
+  <TextContainer>
+    <TextContent style={{ color: 'white' }}>
+      Outside of work, I live with my partner Olivia, who is also an artist. 
+      In my own creative time, I focus on making quilts that combine photography, textile techniques, 
+      and mixed media, exploring the intersection of art, design, and storytelling.
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
     </div>
   );
 };

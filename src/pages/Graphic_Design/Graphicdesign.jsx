@@ -4,12 +4,14 @@ import styled from 'styled-components';
 // Composition components
 import { FullBg, ParagraphFour } from '../COMPOSITION/Composition';
 import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
-import { GigaGridone, GigaHeader, TextLineone, TextSection, RisoItemtwo, StyledDiv, GigaGridtext, TextLinetwo } from '../Giga/Giga';
+import { RisoItemtwo, StyledDiv } from '../Giga/Giga';
 import { HouseOne, NewSection } from '../Art_Landing/Art';
+import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
+import { ProjectGrid,ProjectContent, ProjectTitle, ProjectLink, ProjectImage } from '../Giga/Giga';
 
 // Assets
 import gigarocket from '../../assets/4.png';
-import iphones from '../../assets/Cover.png';
+import golden from '../../assets/Cover.png';
 import mocks from '../../assets/1.png';
 import messages from '../../assets/OneSock-01.png';
 import messagestwo from '../../assets/BHCwelcomemat2-01.png';
@@ -71,56 +73,76 @@ export default function GraphicDesign() {
 
     return (
         <StyledDiv>
-            <GigaGridone ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr'>
-           <Pineapple ColumnStart="2" RowStart="2" src={gigarocket} />
-           
-           <GigaHeader>Graphic Design</GigaHeader>
-            </GigaGridone>
+       <ProjectGrid style={{ paddingTop: '15vh' }}>
+  <ProjectContent>
+    <ProjectTitle>Graphic Design</ProjectTitle>
+  </ProjectContent>
+  <ProjectImage src={gigarocket} Width="35vw" />
+</ProjectGrid>
 
-            <GigaGridtext ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='1fr 1fr 1fr 1fr 1fr 1fr 1fr'>
-            <TextLineone RowsSet="1" />
-            <TextSection Fontsize='3.5rem'>Stay Golden was a passion project to represent a series of songs created with a friend Alek Vasic. It won a silver & bronze for digital art, and packaging design from Indigo design awards. </TextSection>
-            <TextLinetwo />
-            </GigaGridtext>
 
-            <FullBg src={iphones} />
+           <FullHeightTextSection style={{ backgroundColor: '#191919' }}>
+  <TextContainer>
+    <TextContent style={{ color: '#FFF' }}>
+      Stay Golden was a passion project created with my friend Alek Vasic, representing a series of songs. 
+      It received silver and bronze awards for digital art and packaging design from the Indigo Design Awards.
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
+
+
+           <FullBg
+  src={golden}
+  style={{
+    width: '100%',
+    height: 'auto',
+    objectFit: 'cover',
+    display: 'block',
+    margin: 0,
+    padding: 0,
+  }}
+/>
             { /* <FullBg src={mocks} />
             <FullBg src={backcover} />
             <FullBg src={backcovertwo} /> 
             <FullBg src={backcoverthree} />*/}
 
-            <GigaGridtext ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='1fr 1fr 1fr 1fr 1fr 1fr 1fr'>
-            <TextLineone RowsSet="1" />
-            <TextSection Fontsize='3.5rem'>Graphic Posters meet at the intersection of my art and design practice. This includes passion projects, and a poster for the 2017 VCD Design show in Chicago, IL.</TextSection>
-            <TextLinetwo />
-            </GigaGridtext>
+                <FullHeightTextSection style={{ backgroundColor: '#191919' }}>
+  <TextContainer>
+    <TextContent style={{ color: '#FFF' }}>
+      Graphic Posters meet at the intersection of my art and design practice. 
+      This includes passion projects, and a poster for the 2017 VCD Design show in Chicago, IL.
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
 
+          
             <FullBg src={graphicposters} />
             <FullBg src={oliviafloral} />
             <FullBg src={goodbyehello} />
 
             {/*Art Book + Text */}
-            <NewSection Backgroundheight="95vh">
-                    
-                    <ThisisIt src={artbook} />
-                                        <ParagraphFour>
-                                        'This is it' was a poster design I made for the 2017 SAIC VCD Design show. The piece explores a quote from the movie 'Style Wars'.
-                    
-                                        </ParagraphFour>
-                                        </NewSection>
+          <NewSection Backgroundheight="95vh" style={{ paddingBottom: '5vh' }}>
+  <ThisisIt src={artbook} />
+  <ParagraphFour>
+    'This is it' was a poster design I made for the 2017 SAIC VCD Design show. The piece explores a quote from the movie 'Style Wars'.
+  </ParagraphFour>
+</NewSection>
 
+<FullHeightTextSection style={{ backgroundColor: '#F5F5F5' }}>
+  <TextContainer>
+    <TextContent style={{ color: '#5d5d5d' }}>
+      Working alongside the Walmart team at Publicis, we created a variety of designs to present to Marketing. The lines I worked on were the Christmas, Halloween, and Back To School campaigns.
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
 
-                                        <GigaGridtext ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='1fr 1fr 1fr 1fr 1fr 1fr 1fr'>
-            <TextLineone RowsSet="1" />
-            <TextSection Fontsize='3.5rem'>Working alongside the Walmart team at Publicis, we created a variety of designs to present to Marketing. The lines I worked on were the Christmas, Halloween, and Back To School campaigns.</TextSection>
-            <TextLinetwo />
-            </GigaGridtext>
-
-
-            <RisoFlex>
-                <RisoItemtwo style={{boxShadow:'none'}} src={messages} Width='50vw' />
-            </RisoFlex>
-
+            <RisoFlex style={{ justifyContent: 'center' }}>
+  <RisoItemtwo
+    style={{ boxShadow: 'none', width: '45vw', paddingRight: '6vw' }}
+    src={messages}
+  />
+</RisoFlex>
 
             <RisoFlex>
                 <RisoItemtwo style={{boxShadow:'none'}} src={messagestwo} Width='75vw' />
@@ -136,17 +158,70 @@ export default function GraphicDesign() {
                 <RisoItem  src={threestack} Width='65vw' />
             </RisoFlex>
 
-            <FullBg src={gobackbig} />
+           <div style={{ width: '100%', height: '100vh', overflow: 'hidden' }}>
+  <FullBg
+    src={gobackbig}
+    style={{
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+      objectPosition: 'center',
+      display: 'block',
+      margin: 0,
+      padding: 0,
+    }}
+  />
+</div>
 
-            <FullBg src={btc} />
+       <div style={{ width: '100%', height: '100vh', overflow: 'hidden' }}>
+  <FullBg
+    src={btc}
+    style={{
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+      objectPosition: 'center', // centers crop vertically and horizontally
+      display: 'block',
+      margin: 0,
+      padding: 0,
+    }}
+  />
+</div>
 
-            <GigaGridtext ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='1fr 1fr 1fr 1fr 1fr 1fr 1fr'>
-            <TextLineone RowsSet="1" />
-            <TextSection Fontsize='3.5rem'>Brooklyn Book Festival is a rebranding of a popular festival that occurs in Brooklyn, NY. 
-                I designed totes, bookmarks, brochures, and posters for the event. </TextSection>
-            <TextLinetwo />
-            </GigaGridtext>
+      <FullHeightTextSection style={{ backgroundColor: '#191919' }}>
+  <TextContainer>
+    <TextContent style={{ color: 'white' }}>
+      By working on my own version of an Ironlak marketing campaign, it led to me interning for Ironlak shortly after my graduation. I worked on a variety of advertisements.
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
 
+            <RisoFlex style={{height:'auto'}}>
+                <RisoItem  style={{paddingTop:'5vh'}} src={ironlakadvert} Width='65vw' />
+            </RisoFlex>
+
+            <RisoFlex style={{height:'auto'}}>
+                <RisoItem  style={{paddingTop:'5vh'}} src={ironlakadone} Width='65vw' />
+            </RisoFlex>
+
+            <RisoFlex style={{height:'auto'}}>
+                <RisoItem  style={{paddingTop:'5vh'}} src={ironlakadtwo} Width='65vw' />
+            </RisoFlex>
+
+            <RisoFlex style={{height:'auto'}}>
+                <RisoItem  style={{paddingTop:'5vh'}} src={ironlaksweaters} Width='65vw' />
+            </RisoFlex>
+
+
+
+           <FullHeightTextSection style={{ backgroundColor: '#f5f5f5' }}>
+  <TextContainer>
+    <TextContent style={{ color: '#5d5d5d', fontSize: '3.5rem' }}>
+      Brooklyn Book Festival is a rebranding of a popular festival that occurs in Brooklyn, NY. 
+      I designed totes, bookmarks, brochures, and posters for the event.
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
 
             <RisoFlex>
                 <RisoItem  src={bbfone} Width='65vw' />
@@ -168,31 +243,10 @@ export default function GraphicDesign() {
             </RisoFlex>
 
             <RisoFlex style={{height:'auto'}}>
-                <RisoItem  style={{paddingTop:'5vh'}} src={bbffive} Width='65vw' />
+                <RisoItem  style={{paddingTop:'5vh', paddingBottom: '5vh'}} src={bbffive} Width='65vw' />
             </RisoFlex>
 
-            <GigaGridtext ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='1fr 1fr 1fr 1fr 1fr 1fr 1fr'>
-            <TextLineone RowsSet="1" />
-            <TextSection Fontsize='3.5rem'>By working on my own version of an Ironlak marketing campaign, it led to me interning for Ironlak shortly after my graduation. 
-                I worked on a variety of advertisements.</TextSection>
-            <TextLinetwo />
-            </GigaGridtext>
-
-            <RisoFlex style={{height:'auto'}}>
-                <RisoItem  style={{paddingTop:'5vh'}} src={ironlakadvert} Width='65vw' />
-            </RisoFlex>
-
-            <RisoFlex style={{height:'auto'}}>
-                <RisoItem  style={{paddingTop:'5vh'}} src={ironlakadone} Width='65vw' />
-            </RisoFlex>
-
-            <RisoFlex style={{height:'auto'}}>
-                <RisoItem  style={{paddingTop:'5vh'}} src={ironlakadtwo} Width='65vw' />
-            </RisoFlex>
-
-            <RisoFlex style={{height:'auto'}}>
-                <RisoItem  style={{paddingTop:'5vh'}} src={ironlaksweaters} Width='65vw' />
-            </RisoFlex>
+     
 
 
         </StyledDiv>

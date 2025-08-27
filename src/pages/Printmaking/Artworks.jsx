@@ -1,7 +1,6 @@
 // src/pages/Artworks.jsx
 import React, { useLayoutEffect } from 'react';
 import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
-import { TextSection } from '../Dwelling/Dwelling';
 import {
   ArtDesc,
   ArtHeader,
@@ -13,11 +12,10 @@ import {
   FullBg,
   GridRowThree,
   GridRowTwo,
-  Orbital,
-  TwinTwo,
-  ArtSectiontwins
+  Orbital
 } from '../COMPOSITION/Composition';
 import { TwoImageGrid, ThreeImageGrid } from '../Dwelling/Dwelling'; // adjust path as needed
+import styled from 'styled-components';
 
 // ===================== PRINTMAKING ASSETS =====================
 import olivia4 from '/src/assets/olivia4.jpg';
@@ -83,6 +81,83 @@ import splash from '/src/assets/splashpanel.png';
 import yellowz from '/src/assets/Yellow-Z.png';
 import selfie from '/src/assets/SelfPortrait.jpg';
 
+export const FullHeightTextSection = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #191919;
+  width: 100vw; /* full width */
+  min-height: 100vh;
+  padding: 5vh 5vw;
+  box-sizing: border-box;
+  text-align: left;
+
+  /* Prevent section from feeling too tall on short screens */
+  @media (max-height: 700px) {
+    min-height: 70vh;
+    padding: 4vh 5vw;
+  }
+
+  @media (max-height: 500px) {
+    min-height: 60vh;
+  }
+
+  @media (max-width: 850px) {
+    flex-direction: column;
+    justify-content: center;
+    min-height: 80vh;
+    padding: 4vh 4vw;
+  }
+`;
+
+export const TextContainer = styled.div`
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important; /* vertical centering */
+  align-items: center !important;     /* horizontal centering */
+  width: 100%; /* container takes full width */
+  box-sizing: border-box;
+  padding: 0 5vw;
+
+  @media (max-width: 850px) {
+    padding: 0 4vw;
+    justify-content: center !important;
+  }
+`;
+
+export const TextContent = styled.p`
+  font-family: 'Space Grotesk', sans-serif;
+  color: #ffffff;
+  font-size: 2.3rem;
+  max-width: 50ch;
+  line-height: 1.4;
+  margin: 0;
+  text-align: left; /* always left-aligned */
+
+  @media (max-width: 1400px) {
+    font-size: 1.8rem;
+    max-width: 50ch;
+  }
+
+  @media (max-width: 850px) {
+    font-size: 1.4rem;
+    max-width: 75vw; /* still shrink width for readability */
+  }
+
+  a.inline-link {
+    color: #ffffff;
+    text-decoration: underline;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+
+    svg {
+      width: 0.8em;
+      height: 0.8em;
+      vertical-align: middle;
+    }
+  }
+`;
 
 // ===================== COMPONENT =====================
 export default function Artworks() {
@@ -125,12 +200,33 @@ export default function Artworks() {
   <img src={olivia2} alt="Olivia 2" />
 </TwoImageGrid>
 
-            <RisoFlex style={{ backgroundColor: 'black' }}>
-              <TextSection>
-                Printmaking is a practice that explores both screen printing and relief techniques. Several of these works are collaborative projects with my partner, Olivia Zita Smith
-              </TextSection>
-            </RisoFlex>
-      
+<FullHeightTextSection>
+  <TextContent>
+    My printmaking practice explores screen printing and mixed media techniques, incorporating drawing and painting. I’m drawn to the way I can create multiples and experiment freely with each iteration. Several of these works are collaborative projects with my partner{' '}
+    <a
+      href="https://oliviazitasmith.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-link"
+    >
+      Olivia Zita Smith
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"
+        />
+      </svg>
+    </a>, who works using relief techniques.
+  </TextContent>
+</FullHeightTextSection>
+
             {/* Screenprints */}
  <ThreeImageGrid>
       <img src={screenprint2} alt="Screen Print 2" />
@@ -173,14 +269,15 @@ export default function Artworks() {
       {/* ===================== PAINTING SECTION ===================== */}
    
      
-      <RisoFlex style={{ backgroundColor: 'black' }}>
-        <TextSection>
-          I often look to capture moments throughout my life. Painting allows me to express myself through shapes, and color.
-          <br />
-          <br />
-          I love exploring realism, or abstraction.
-        </TextSection>
-      </RisoFlex>
+     <FullHeightTextSection>
+  <TextContainer>
+    <TextContent>
+      I often look to capture moments throughout my life. Painting allows me to express myself through shapes and color.
+      <br /><br />
+      I love exploring realism and abstraction.
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
 
       {/* Section with 3 photos */}
       <ArtSectionthreeog>
@@ -248,13 +345,14 @@ export default function Artworks() {
       {/* ===================== COLLAGES SECTION ===================== */}
    
    
-           <RisoFlex style={{backgroundColor:"black"}}>
-               <TextSection Fontsize='3.5rem'>Collaging is a technique I use to work through compositions, shapes, and colors. 
-   <br /> <br />Plus, I enjoy making them. <br /> <br />
-    </TextSection>
-   
-               </RisoFlex>
-
+       <FullHeightTextSection>
+  <TextContainer>
+    <TextContent>
+      Collaging is a playful way for me to explore compositions, shapes, and color combinations.  
+      It allows me to experiment freely and generate new ideas, and I genuinely enjoy the process.
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
                {/*} <RisoFlex >
    
            <RisoItem Width='55vw' img src={bike} />

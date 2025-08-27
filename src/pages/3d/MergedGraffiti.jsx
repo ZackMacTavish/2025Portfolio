@@ -4,9 +4,9 @@ import {
   ArtDesc, ArtHeader, ArtSectionthreeog, ArtText, ArtTextthree, ArtTexttwo, ArtYear, 
   FullBg, GridRowThree, GridRowTwo, Orbital, ParagraphFour 
 } from '../COMPOSITION/Composition';
-import { TextSection } from '../Dwelling/Dwelling';
 import { NewSection } from '../Art_Landing/Art';
 import { ThreeImageGrid } from '../Dwelling/Dwelling'; // adjust path as needed
+import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
 
 // --- ThreeD Assets ---
 import fiftytwo from '../../assets/52.jpg';
@@ -87,12 +87,13 @@ export default function MergedGraffiti() {
   }}
 />
 
-      <RisoFlex style={{ backgroundColor: 'black' }}>
-        <TextSection>
-         While in college, I studied Rhino 3D and created a series of photographs exploring architectural graffiti lettering, where the letters took on an abstract life of their own. For the course final, I 3D printed one of these structures. 
-         In the future, I hope to continue exploring and creating new visuals in 3D.
-        </TextSection>
-      </RisoFlex>
+     <FullHeightTextSection>
+  <TextContainer>
+    <TextContent>
+    My artistic roots began in graffiti, exploring letters and their distortions. This practice led me to painting, typography, and other forms of visual expression. In college, I expanded into Rhino 3D, creating architectural lettering and 3D printed structures. I continue to explore new forms and visuals in 3D.
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
 
       <ArtSectionthreeog>
         <Orbital src={one} />
@@ -134,14 +135,7 @@ export default function MergedGraffiti() {
     display: "block",        // removes inline gaps
   }}
 />
-      <RisoFlex style={{ backgroundColor: 'black' }}>
-        <TextSection>
-        My artistic roots began in graffiti, where I explored sketching letters and experimenting with their shapes and distortions. 
-        This practice eventually led me to experiment with other mediums, like the paintbrush, and deepened my love for typography. 
-        I’m especially drawn to the rich, saturated colors often found in spray paint.
-
-        </TextSection>
-      </RisoFlex>
+   
 
       <ArtSectionthreeog>
         <Orbital src={bfa} />

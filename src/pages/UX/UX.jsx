@@ -1,9 +1,8 @@
 import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
-import { BackgroundColor, Cellphones, DigitalProduct, GigaGridone, GigaGridtext, GigaHeader, GigaRocket, GigaTwo, GigaWeb, MyRole, ProjectDetails, ProjectHeader, ProjectSubtitle, ProjectType, RisoItemtwo, StyledDiv, TextLineone, TextLinetwo, TextSection, Timeframe } from '../Giga/Giga';
+import { GigaGridtext, ProjectDetails, ProjectHeader, ProjectSubtitle, ProjectDetailsContainer, ProjectBlock, RisoItemtwo, StyledDiv, TextLineone, TextLinetwo, TextSection } from '../Giga/Giga';
 import { FullBg } from '../COMPOSITION/Composition';
 import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
-import { OutsourceGridone } from '../Outsource/Outsource';
 
 // Assets
 import LeysiLogo from '../../assets/Leysi-White-01.jpg';
@@ -13,6 +12,7 @@ import leysimockup2 from '../../assets/mobile-phone-1c.png';
 import leysiphones from '../../assets/Leysi—iphones.jpg';
 import leysiscreens from '../../assets/LeysiApp—Screens copy.jpg';
 import leysiphones2 from '../../assets/Untitled-1800-x-1024-px-1500-x-1024-px.png';
+import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
 
 // White background wrapper for Leysi content
 const LeysiContainer = styled.div`
@@ -57,33 +57,48 @@ export default function Ux() {
 
         {/* Logo Section */}
         <FlexLeysi>
-          <RisoItemtwo style={{ borderRadius: '10px' }} src={LeysiLogo} Width='60vw' />
+          <RisoItemtwo
+  style={{
+    borderRadius: '10px',
+    boxShadow: 'none'   // removes the shadow
+  }}
+  src={LeysiLogo}
+  Width='60vw'
+/>
         </FlexLeysi>
 
         {/* Project Details */}
-        <ProjectDetails>
-          <ProjectType>
-            <ProjectHeader style={{ color: 'rgb(46, 84, 78)' }}>Project Type</ProjectHeader>
-            <ProjectSubtitle style={{ color: 'rgb(60, 60, 60)' }}>UX/UI, Branding, Strategy</ProjectSubtitle>
-          </ProjectType>
+     <ProjectDetailsContainer>
+  <ProjectDetails>
+    <ProjectBlock>
+      <ProjectHeader style={{ color: 'rgb(46, 84, 78)' }}>Project Type</ProjectHeader>
+      <ProjectSubtitle style={{ color: 'rgb(60, 60, 60)' }}>
+        UX/UI, Branding, Strategy
+      </ProjectSubtitle>
+    </ProjectBlock>
 
-          <DigitalProduct>
-            <ProjectHeader style={{ color: 'rgb(46, 84, 78)' }}>Digital Product</ProjectHeader>
-            <ProjectSubtitle style={{ color: 'rgb(60, 60, 60)' }}>An IOS mobile app</ProjectSubtitle>
-          </DigitalProduct>
+    <ProjectBlock>
+      <ProjectHeader style={{ color: 'rgb(46, 84, 78)' }}>Digital Product</ProjectHeader>
+      <ProjectSubtitle style={{ color: 'rgb(60, 60, 60)' }}>
+        An IOS mobile app
+      </ProjectSubtitle>
+    </ProjectBlock>
 
-          <MyRole>
-            <ProjectHeader style={{ color: 'rgb(46, 84, 78)' }}>My Role</ProjectHeader>
-            <ProjectSubtitle style={{ color: 'rgb(60, 60, 60)' }}>
-              Responsible for creating the brand logo, colors, and utilizing Apple's HIG for the V1 wireframes for Leysi's IOS app launch.
-            </ProjectSubtitle>
-          </MyRole>
+    <ProjectBlock>
+      <ProjectHeader style={{ color: 'rgb(46, 84, 78)' }}>My Role</ProjectHeader>
+      <ProjectSubtitle style={{ color: 'rgb(60, 60, 60)' }}>
+        Responsible for creating the brand logo, colors, and utilizing Apple's HIG for the V1 wireframes for Leysi's IOS app launch.
+      </ProjectSubtitle>
+    </ProjectBlock>
 
-          <Timeframe>
-            <ProjectHeader style={{ color: 'rgb(46, 84, 78)' }}>Timeframe</ProjectHeader>
-            <ProjectSubtitle style={{ color: 'rgb(60, 60, 60)' }}>3 months.</ProjectSubtitle>
-          </Timeframe>
-        </ProjectDetails>
+    <ProjectBlock>
+      <ProjectHeader style={{ color: 'rgb(46, 84, 78)' }}>Timeframe</ProjectHeader>
+      <ProjectSubtitle style={{ color: 'rgb(60, 60, 60)' }}>
+        3 months.
+      </ProjectSubtitle>
+    </ProjectBlock>
+  </ProjectDetails>
+</ProjectDetailsContainer>
 
         {/* Full Background Image */}
     <div style={{ width: '100vw', overflow: 'hidden' }}>
@@ -101,15 +116,15 @@ export default function Ux() {
 </div>
 
         {/* Description */}
-        <GigaGridtext ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='1fr 1fr 1fr 1fr 1fr 1fr 1fr'>
-          <TextLineone RowsSet="1" />
-          <TextSection Fontsize='3.5rem'>
-            Leysi is the ultimate food platform designed for young adults. 
-            Manage your spending and engage with friends while discovering deals at local vendors in your campus community.
-            My responsibility included creating the brand identity, and the initial app designs.
-          </TextSection>
-          <TextLinetwo />
-        </GigaGridtext>
+       <FullHeightTextSection style={{ backgroundColor: 'white' }}>
+  <TextContainer>
+    <TextContent style={{ color: '#5d5d5d' }}>
+      Leysi is the ultimate food platform designed for young adults. 
+      Manage your spending and engage with friends while discovering deals at local vendors in your campus community.
+      My responsibility included creating the brand identity and the initial app designs.
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
 
         {/* Blue Background Sections */}
         <RisoFlex style={{ height: '85vh', backgroundColor: '#0A84E3' }}>

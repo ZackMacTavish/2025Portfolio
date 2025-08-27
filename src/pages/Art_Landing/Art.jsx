@@ -125,34 +125,34 @@ grid-row-start: 2;
 
 `
 
-
-
 export const ParagraphTwo = styled.div`
-position: relative;
-font-family: 'Space Grotesk', sans-serif;
-font-weight: 500;
-padding-right: 2vw;
-font-size: 2.5rem;
-width:${(props) => props.Widthsize};
-color: white;
+  position: relative;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  padding-right: 4vw;
+  font-size: 2.5rem; /* default desktop size */
+  width: ${(props) => props.Widthsize};
+  color: white;
 
-@media (max-width: 1400px) {  
-font-size: 1.8rem;
-;}
+  @media (max-width: 1400px) {  
+    font-size: 1.8rem;
+  }
 
+  @media (max-width: 1000px) {  
+    width: 90vw;
+    padding: 0;
+    padding-top: 2vh;
+  }
 
+  @media (max-width: 850px) {
+    font-size: 1.4rem;
+    padding-top: 2vh;
+  }
 
-@media (max-width: 1000px) {  
-  width: 90vw;
-padding: 0;
-;}
-
-@media (max-width: 850px) {
-font-size: 1.5rem;
-padding-top: 2vh;
-;}
-
-`
+  @media (max-width: 450px) {
+    font-size: 1.4rem;
+  }
+`;
 
 export const ParagraphThree = styled.div`
 position: relative;
