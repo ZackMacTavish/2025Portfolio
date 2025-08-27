@@ -1,5 +1,6 @@
 import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
+import {ThreeImageGrid } from '../Dwelling/Dwelling'; // adjust path as needed
 
 // Composition components
 import { 
@@ -42,34 +43,6 @@ import brooklyndouble from '../../assets/brooklyndouble.jpg';
 import nathans from '../../assets/Nathans.jpg';
 import greensand from '../../assets/greensand.jpg';
 
-// ThreeFlextwo components from Printmaking
-import { ThreeFlextwo, ThreeItemtwo } from '../Printmaking/Printmaking';
-
-// Styled components for ThreeFlex and ThreeItem
-export const ThreeFlex = styled.div`
-  display: flex;
-  padding: 0 15vw;
-  margin-top: -1vh;
-  height: 101vh;
-  align-items: center;
-  justify-content: space-between;
-  justify-self: center;
-  background-color: ${(props) => props.Backgroundcolor};
-
-  @media(max-width: 450px) {
-    height: auto;
-    flex-direction: column;
-    padding: 15vw 0;
-  }
-`;
-
-export const ThreeItem = styled.img`
-  width: 20vw;
-  @media(max-width: 450px) {
-    width: 80vw;
-    padding-top: 2vh;
-  }
-`;
 
 export default function Photography() {
   useLayoutEffect(() => {
@@ -80,22 +53,13 @@ export default function Photography() {
     <div>
 
       {/* Section with three polaroids */}
-<ThreeFlextwo
-  style={{
-    width: '100vw',
-    backgroundColor: '#191919',
-    display: 'flex',
-    justifyContent: 'center', // keeps images centered
-    alignItems: 'center',
-    gap: '2vw', // spacing between images
-    padding: '2vw', // optional padding around
-    boxSizing: 'border-box',
-  }}
->
-  <ThreeItemtwo Width="20vw" src={polaroid1} />
-  <ThreeItemtwo Width="20vw" src={polaroid2} />
-  <ThreeItemtwo Width="20vw" src={polaroid3} />
-</ThreeFlextwo>
+
+     <ThreeImageGrid style={{ backgroundColor: '#191919' }}>
+  <img src={polaroid1} alt="Screen Print 2" />
+  <img src={polaroid2} alt="Screen Print 2.1" />
+  <img src={polaroid3} alt="Screen Print 1" />
+</ThreeImageGrid>
+
 
       {/* Full image section */}
     <FullBg
@@ -133,23 +97,14 @@ export default function Photography() {
       </ArtSectionthreeog>
 
       {/* Section with three yellow polaroids */}
-   <ThreeFlextwo
-  style={{
-    width: '100vw',
-    backgroundColor: '#C7B815',
-    display: 'flex',
-    justifyContent: 'center', // center images
-    alignItems: 'center',
-    gap: '2vw', // space between images
-    padding: '2vw', // optional padding around
-    boxSizing: 'border-box',
-  }}
->
-  <ThreeItemtwo Width="20vw" src={cannon1} />
-  <ThreeItemtwo Width="20vw" src={cannon2} />
-  <ThreeItemtwo Width="20vw" src={cannon3} />
-</ThreeFlextwo>
 
+          <ThreeImageGrid style={{ backgroundColor: '#C7B815' }}>
+  <img src={cannon1} alt="Screen Print 2" />
+  <img src={cannon2} alt="Screen Print 2.1" />
+  <img src={cannon3} alt="Screen Print 1" />
+</ThreeImageGrid>
+
+ 
       {/* Three-photo art section */}
       <ArtSectionthreeog>
         <Orbital src={kevin} />
@@ -175,34 +130,26 @@ export default function Photography() {
       </ArtSectionthreeog>
 
       {/* Full image section */}
-     <FullBg 
+<FullBg 
   src={hawaiianchurch} 
   style={{ 
-    width: "100vw",        // full viewport width
-    height: "100vh",       // full viewport height
-    objectFit: "cover",    // crop/zoom without squishing
-    objectPosition: "center", // center the image
+    width: "100vw",        
+    height: "100vh",       
+    objectFit: "cover",    
+    objectPosition: "center", 
+    display: "block",      // removes inline spacing that causes bottom gap
   }} 
 />
 
       {/* Section with three aquarium polaroids */}
-   <ThreeFlextwo
-  style={{
-    width: '100vw',
-    backgroundColor: '#191919',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: '2vw',
-    padding: '2vw',
-    boxSizing: 'border-box',
-  }}
->
-  <ThreeItemtwo Width="22vw" src={aquarium} />
-  <ThreeItemtwo Width="22vw" src={jelly1} />
-  <ThreeItemtwo Width="22vw" src={jelly2} />
-</ThreeFlextwo>
 
+          <ThreeImageGrid style={{ backgroundColor: '#191919' }}>
+  <img src={aquarium} alt="Screen Print 2" />
+  <img src={jelly1} alt="Screen Print 2.1" />
+  <img src={jelly2} alt="Screen Print 1" />
+</ThreeImageGrid>
+
+  
       {/* Three-photo art section */}
       <ArtSectionthreeog>
         <Orbital src={goog} />
@@ -231,30 +178,23 @@ export default function Photography() {
       <FullBg 
   src={splash} 
   style={{ 
-    width: "100vw",        // full viewport width
-    height: "100vh",       // full viewport height
-    objectFit: "cover",    // crop/zoom without squishing
-    objectPosition: "center", // center the image
+width: "100vw",        
+    height: "100vh",       
+    objectFit: "cover",    
+    objectPosition: "center", 
+    display: "block",      // removes inline spacing that causes bottom gap
   }} 
 />
 
       {/* Section with three circle polaroids */}
-    <ThreeFlextwo
-  style={{
-    width: '100vw',
-    backgroundColor: '#191919',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: '2vw',
-    padding: '2vw',
-    boxSizing: 'border-box',
-  }}
->
-  <ThreeItemtwo Width="22vw" src={circle1} />
-  <ThreeItemtwo Width="22vw" src={circle2} />
-  <ThreeItemtwo Width="22vw" src={circle3} />
-</ThreeFlextwo>
+
+
+          <ThreeImageGrid style={{ backgroundColor: '#191919' }}>
+  <img src={circle1} alt="Screen Print 2" />
+  <img src={circle2} alt="Screen Print 2.1" />
+  <img src={circle3} alt="Screen Print 1" />
+</ThreeImageGrid>
+
 
       {/* Three-photo art section */}
       <ArtSectionthreeog>
@@ -281,23 +221,14 @@ export default function Photography() {
       </ArtSectionthreeog>
 
       {/* Section with three final polaroids */}
-    <ThreeFlextwo
-  style={{
-    width: '100vw',
-    backgroundColor: '#191919',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: '2vw',
-    padding: '2vw',
-    boxSizing: 'border-box',
-  }}
->
-  <ThreeItemtwo Width="22vw" src={polaroid7} />
-  <ThreeItemtwo Width="22vw" src={polaroid8} />
-  <ThreeItemtwo Width="22vw" src={polaroid9} />
-</ThreeFlextwo>
 
+      <ThreeImageGrid style={{ backgroundColor: '#191919' }}>
+  <img src={polaroid7} alt="Screen Print 2" />
+  <img src={polaroid8} alt="Screen Print 2.1" />
+  <img src={polaroid9} alt="Screen Print 1" />
+</ThreeImageGrid>
+
+  
       {/* Full image section */}
       <FullBg 
   src={greensand} 

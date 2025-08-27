@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Socials from '../../Components/Social Bar/Socials';
 import landingimage from '../../assets/Collection_Web.png';
 
-// Bigger spotlight movements
+// Spotlight background animations
 const spotlightLeftMove = keyframes`
   0% { transform: translate(-50%, -60%) rotate(0deg); }
   20% { transform: translate(-20%, -80%) rotate(90deg); }
@@ -63,10 +63,52 @@ const LandingImage = styled.img`
   z-index: 1;
 `;
 
+const SpotlightText = styled.div`
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: clamp(4rem, 8vw, 8rem);
+  font-weight: 700;
+  color: white;
+  z-index: 2;
+  text-align: center;
+  pointer-events: none;
+
+  /* mask only reveals text under mouse */
+  -webkit-mask-image: radial-gradient(circle 120px at var(--x) var(--y), rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: var(--x) var(--y);
+  mask-image: radial-gradient(circle 120px at var(--x) var(--y), rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+  mask-repeat: no-repeat;
+  mask-position: var(--x) var(--y);
+  transition: mask-position 0.05s, -webkit-mask-position 0.05s;
+`;
+
 export default function LandingPage() {
+  const containerRef = useRef(null);
+  const [mousePos, setMousePos] = useState({ x: '50%', y: '50%' });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const xPercent = ((e.clientX - rect.left) / rect.width) * 100;
+        const yPercent = ((e.clientY - rect.top) / rect.height) * 100;
+        setMousePos({ x: `${xPercent}%`, y: `${yPercent}%` });
+      }
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
-    <LandingDiv>
+    <LandingDiv ref={containerRef}>
       <LandingImage src={landingimage} alt="Landing" />
+      <SpotlightText style={{ '--x': mousePos.x, '--y': mousePos.y }}>
+        Glad you stopped by
+      </SpotlightText>
       <Socials />
     </LandingDiv>
   );

@@ -47,36 +47,44 @@ background-color: ${props => props.theme.backgroundTwo};
 width: 60vw;
 
 `
-/* Art resting on row one */
 export const Orbital = styled.img`
-grid-row-start: 1;
-grid-column-start: 2;
-justify-self: flex-start;
-height: 85vh;
-width: auto;
+  grid-row-start: 1;
+  grid-column-start: 2;
+  justify-self: flex-start;
+  height: 85vh;
+  width: auto;
 
-@media (max-width: 1770px){
-   max-width: 600px;
-   height: auto;
-}
-
-@media (max-width: 1290px){
-   max-width: 500px;
-   height: auto;
-}
-@media (max-width: 1115px){
-   max-width: 400px;
-   height: auto;
-}
-
-@media (max-width: 830px){
-    max-width: 100vw;
-    grid-column-start: 1;
-    width: 100vw;
+  @media (max-width: 1770px){
+    max-width: 600px;
     height: auto;
-    align-self: flex-end;
-}
-`
+  }
+
+  @media (max-width: 1290px){
+    max-width: 500px;
+    height: auto;
+  }
+
+  @media (max-width: 1115px){
+    max-width: 400px;
+    height: auto;
+  }
+
+  @media (max-width: 830px){
+    width: 95%;        // much bigger
+    height: auto;
+    max-width: none;   // remove previous max-width
+    grid-column-start: auto;
+    justify-self: center;
+  }
+`;
+
+export const GridRowTwo = styled(Orbital)`
+  grid-row-start: 3;
+`;
+
+export const GridRowThree = styled(Orbital)`
+  grid-row-start: 5;
+`;
 /* Art resting on row one */
 const Rug = styled.img`
 grid-row-start: 1;
@@ -135,65 +143,6 @@ font-family: 'Space Grotesk', sans-serif;
     grid-row-start: 4;
 }
 `
-/* Art resting on row two */
-export const GridRowTwo = styled.img`
-grid-row-start: 3;
-grid-column-start: 2;
-justify-self: flex-start;
-height: 85vh;
-width: auto;
-
-@media (max-width: 1770px){
-   max-width: 600px;
-   height: auto;
-}
-@media (max-width: 1290px){
-   max-width: 500px;
-   height: auto;
-}
-@media (max-width: 1115px){
-   max-width: 400px;
-   height: auto;
-}
-
-@media (max-width: 830px){
-    max-width: 100vw;
-    grid-column-start: 1;
-    width: 100vw;
-    height: auto;
-    align-self: flex-end;
-}
-`
-/* Art resting on row three */
-export const GridRowThree = styled.img`
-grid-row-start: 5;
-grid-column-start: 2;
-justify-self: flex-start;
-height: 85vh;
-width: auto;
-
-@media (max-width: 1770px){
-   max-width: 600px;
-   height: auto;
-}
-@media (max-width: 1290px){
-   max-width: 500px;
-   height: auto;
-}
-
-@media (max-width: 1115px){
-   max-width: 400px;
-   height: auto;
-}
-
-@media (max-width: 830px){
-    max-width: 100vw;
-    grid-column-start: 1;
-    width: 100vw;
-    height: auto;
-}
-`
-
 export const FullBg = styled.img`
 width: 100vw;
 height: auto;
@@ -207,24 +156,27 @@ background-color: ${props => props.theme.backgroundTwo};
 `
 
 export const ParagraphFour = styled.div`
-position: relative;
-padding-right: 2vw;
-font-family: 'Space Grotesk', sans-serif;
-font-weight: 500;
-font-size: 2.5rem;
-width: 40vw;
-color: #a0a0a0;
+  position: relative;
+  padding-right: 6vw;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  font-size: 2.5rem;
+  width: 40vw;
+  color: #a0a0a0;
 
-@media (max-width: 1770px){
+  @media (max-width: 1770px) {
     font-size: 1.8rem;
-   }
+  }
 
-@media (max-width: 1000px){
-    width: 96vw;
+  @media (max-width: 1000px) {
+    width: 90vw;         /* breathing room */
+    max-width: 700px;    /* prevents it from being too wide */
     font-size: 1.6rem;
-    padding-top: 2vh;
-}
-`
+    margin: 0 auto;      /* centers */
+    padding: 4vh 0 0 0;  /* more top padding when stacked */
+  }
+`;
+
 /* Section with three standard pieces column wise */
 export const ArtSectionthree = styled.div`
 display: grid;
@@ -259,24 +211,22 @@ background-color: ${props => props.theme.backgroundTwo};
 }
 `
 
-/* Section with three grids - 3 rows of content */
 export const ArtSectionthreeog = styled.div`
-display: grid;
-grid-template-columns: 10vw 40vw 40vw 10vw;
-grid-template-rows: auto auto auto auto auto auto;
-row-gap: 3ch;
-padding-top: 5vh;
-padding-bottom: 5vh;
-background-color: ${props => props.theme.backgroundTwo};
+  display: grid;
+  grid-template-columns: 10vw 40vw 40vw 10vw;
+  grid-template-rows: auto auto auto auto auto auto;
+  row-gap: 3ch;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+  background-color: ${props => props.theme.backgroundTwo};
 
-@media (max-width: 830px){
+  @media (max-width: 830px) {
     grid-template-columns: 100vw;
-    grid-template-rows: auto auto auto auto auto auto;
-    height: auto;
+    grid-template-rows: auto;
     row-gap: 2ch;
-    padding: 0;
-}
-`
+    padding: 5vh 0 5vh 0; // add padding top for stacked layout
+  }
+`;
 
 /* Section with three grids - 2 rows of content */
 export const ArtSectionThreetwo = styled.div`
@@ -319,110 +269,75 @@ background-color:${props => props.theme.backgroundTwo};
 
 /* Text sitting on row one*/
 export const ArtText = styled.div`
-display: grid;
-grid-template-rows: auto 5vh auto;
-grid-column-start: 3;
-grid-row-start: 1;
-align-self: center;
-padding: 0;
-margin: 0;
-padding-left: 7.5vw;
-line-height: 0;
-color: ${(props) => props.theme.fontColor};
-font-family: 'Space Grotesk', sans-serif;
-@media(max-width: 830px){
-    grid-column-start: 1;
-    grid-row-start: 2;
-    padding-left: 8vw;
-   }
-`
-/* Text sitting on row two*/
-export const ArtTexttwo = styled.div`
-display: grid;
-grid-column-start: 3;
-grid-row-start: 3;
-align-self: center;
-padding: 0;
-margin: 0;
-padding-left: 7.5vw;
-line-height: 0;
-color: ${(props) => props.theme.fontColor};
-font-family: 'Space Grotesk', sans-serif;
+  grid-column-start: 3;
+  grid-row-start: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 7.5vw;
+  padding-right: 6vw;
+  color: ${(props) => props.theme.fontColor};
 
-@media(max-width: 830px){
-    grid-column-start: 1;
-    grid-row-start: 4;
-    padding-left: 8vw;
-    padding-top: .8vh;
-}
-`
-/* Text sitting on row three*/
-export const ArtTextthree = styled.div`
-display: grid;
-grid-column-start: 3;
-grid-row-start: 5;
-align-self: center;
-padding: 0;
-margin: 0;
-padding-left: 7.5vw;
-line-height: 0;
-color: ${(props) => props.theme.fontColor};
-font-family: 'Space Grotesk', sans-serif;
+  @media (max-width: 830px) {
+    /* Remove grid positioning */
+    grid-column-start: auto;
+    grid-row-start: auto;
 
-@media(max-width: 830px){
-    grid-column-start: 1;
-    grid-row-start: 6;
-    padding-left: 8vw;
-    padding-top: .8vh;
-}
-`
+    /* Center block horizontally */
+    width: 90%;            /* or calc(100% - 32px) */
+    margin: 16px auto 32px auto;
+
+    /* Keep internal content left-aligned */
+    text-align: left;
+    padding-left: 0;
+    padding-right: 0;
+  }
+`;
+
+export const ArtTexttwo = styled(ArtText)`
+  grid-row-start: 3;
+
+  @media (max-width: 830px) {
+    grid-row-start: auto;
+  }
+`;
+
+export const ArtTextthree = styled(ArtText)`
+  grid-row-start: 5;
+
+  @media (max-width: 830px) {
+    grid-row-start: auto;
+  }
+`;
+
 
 export const ArtHeader = styled.h1`
-font-weight: 700;
-font-size: 2.5rem;
+  font-weight: 700;
+  font-size: 2.5rem;
+  margin: 0 0 0.5rem 0;
 
-@media(max-width: 1750px) {
-    font-size: 1.8rem;
-    
-}
-
-@media(max-width: 830px) {
-    font-size: 1.4rem;
-    line-height: 1;
-    height: auto;
-}
-`
+  @media(max-width: 1750px) { font-size: 1.8rem; }
+  @media(max-width: 830px) { font-size: 1.4rem; }
+`;
 
 export const ArtYear = styled.h3`
-font-weight: 500;
-font-size: 2rem;
+  font-weight: 500;
+  font-size: 2rem;
+  margin: 0 0 1rem 0;  // spacing below year
 
-@media(max-width: 1750px) {
-    font-size: 1.5rem;
-    height: auto;
-}
-
-@media(max-width: 830px) {
-    font-size: 1.2rem;
-    height: auto;
-}
-`
+  @media(max-width: 1750px) { font-size: 1.5rem; }
+  @media(max-width: 830px) { font-size: 1.2rem; }
+`;
 
 export const ArtDesc = styled.h2`
-font-weight: 400;
-font-size: 1.4rem;
-line-height: 1;
-width: auto;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.2; // tighter line-height for description
+  margin: 0;
 
-@media(max-width: 1750px) {
-    font-size: 1rem;
-} 
-
-@media(max-width: 830px) {
-    font-size: 0.9rem;
-    height: auto;
-}
-`
+  @media(max-width: 1750px) { font-size: 1rem; }
+  @media(max-width: 830px) { font-size: 0.9rem; }
+`;
 
 
 export default function Composition() {

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
 import { ArtDesc, ArtHeader, ArtSectionthreeog, ArtText, ArtTextthree, ArtTexttwo, ArtYear, GridRowThree, GridRowTwo, Orbital } from '../COMPOSITION/Composition';
 
+
 // Assets
 import housemash from '../../assets/House—Mash.jpg';
 import housefront from '../../assets/Housequiltfront.jpg';
@@ -86,6 +87,74 @@ const TopImagesFlex = styled.div`
   box-sizing: border-box;
 `;
 
+export const ThreeImageGrid = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;   /* container height follows tallest image */
+  gap: 64px;
+  padding: 100px 40px;
+  flex-wrap: wrap;
+  overflow: hidden;
+  background-color: white;
+  height: auto;
+
+  img {
+    flex: 1 1 28%;
+    max-width: 28%;
+    min-width: 200px;
+    height: auto;
+    max-height: 70vh;       /* slightly smaller vertical size */
+    object-fit: contain;    /* preserves aspect ratio */
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    gap: 32px;
+    padding: 60px 20px;
+    align-items: center;    /* center stacked images horizontally */
+
+    img {
+      flex: 1 1 auto;
+      max-width: 90%;       /* slightly narrower on mobile */
+      max-height: 60vh;     /* smaller vertical size for mobile */
+    }
+  }
+`;
+
+export const TwoImageGrid = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  padding: clamp(50px, 8vw, 100px) clamp(60px, 8vw, 120px);
+  flex-wrap: wrap;
+  overflow: hidden;
+  background-color: white;
+  height: auto;
+
+  img {
+    flex: 1 1 45%;
+    max-width: 45%;
+    min-width: 180px;
+    height: auto;
+    max-height: 70vh;     /* slightly smaller vertical size */
+    object-fit: contain;
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    gap: 32px;
+    padding: 40px 20px;
+    align-items: center;
+
+    img {
+      flex: 1 1 auto;
+      max-width: 90%;      /* slightly narrower on mobile */
+      max-height: 60vh;    /* smaller vertical size for mobile */
+    }
+  }
+`;
+
 export default function Dwelling() {
 
   useLayoutEffect(() => {
@@ -95,16 +164,10 @@ export default function Dwelling() {
   return (
       <div>
           {/* Top housemash images horizontally */}
-          <TopImagesFlex>
-              <RisoItem 
-                src={housemash} 
-                style={{ width: '52vw', height: 'auto' }} 
-              />
-              <RisoItem 
-                src={housemash2} 
-                style={{ width: '45vw', height: 'auto', paddingTop: '5vh', paddingRight: '2vw' }} 
-              />
-          </TopImagesFlex>
+         <TwoImageGrid>
+  <img src={housemash} alt="House Mash 1" />
+  <img src={housemash2} alt="House Mash 2" />
+</TwoImageGrid>
 
           {/* Intro Text Section */}
           <RisoFlex style={{backgroundColor:"black"}}>
@@ -140,24 +203,10 @@ mixed-media painting with embroidery, learning to sew in the process.
 
           {/* DWELLING MASH I Section (formerly DWELLING MASH II) */}
 
-<ArtSectionthreeog
-  style={{
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "40px", // bigger gap between images
-    padding: "clamp(50px, 8vw, 100px) clamp(60px, 8vw, 120px)",
-  }}
->
-  <GridRowTwo
-    src={house1}
-    style={{ transform: "scale(0.9)", maxWidth: "35vw", height: "auto" }}
-  />
-  <GridRowThree
-    src={house2}
-    style={{ transform: "scale(0.9)", maxWidth: "35vw", height: "auto" }}
-  />
-</ArtSectionthreeog>
+<TwoImageGrid>
+  <img src={house1} alt="House 1" style={{ transform: "scale(0.9)" }} />
+  <img src={house2} alt="House 2" style={{ transform: "scale(0.9)" }} />
+</TwoImageGrid>
 
 <ArtSectionthreeog>
   <Orbital src={quilt1} />
@@ -231,7 +280,7 @@ mixed-media painting with embroidery, learning to sew in the process.
   }}
 >
   {/* First image with text stays horizontal */}
-  <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", gap: "30px", width: "100%" }}>
+  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "30px", width: "100%" }}>
     <Orbital src={manisteeblock} style={{ maxWidth: "30vw", height: "auto" }} />
     <ArtText style={{ maxWidth: "30vw" }}>
       <ArtHeader>Manistee Street</ArtHeader>
@@ -241,18 +290,12 @@ mixed-media painting with embroidery, learning to sew in the process.
   </div>
 
   {/* Last two images side by side with no text */}
-  <div
-    style={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      gap: "40px",
-      width: "100%",
-    }}
-  >
-    <GridRowTwo src={house5} style={{ transform: "scale(0.9)", maxWidth: "45vw", height: "auto" }} />
-    <GridRowThree src={house6} style={{ transform: "scale(0.9)", maxWidth: "45vw", height: "auto" }} />
-  </div>
+  <TwoImageGrid>
+  <img src={house5} alt="House 1" style={{ transform: "scale(0.9)" }} />
+  <img src={house6} alt="House 2" style={{ transform: "scale(0.9)" }} />
+</TwoImageGrid>
+
+
 </ArtSectionthreeog>
 
           <PicturesFlex>
@@ -269,49 +312,11 @@ mixed-media painting with embroidery, learning to sew in the process.
           </PicturesFlex>
 
           {/* Final DWELLING MASH section */}
-  <ArtSectionthreeog
-  style={{ 
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "flex-start",  // allows container height to shrink with images
-    gap: "64px",               // consistent spacing between images
-    padding: "100px 40px 100px 40px", // more padding on top, slightly less on bottom
-    minHeight: "50vh",         // responsive container height
-    flexWrap: "nowrap",
-    overflow: "hidden"
-  }}
->
-  <Orbital 
-    src={house3} 
-    style={{ 
-      flex: "1 1 0",
-      maxWidth: "28%", 
-      maxHeight: "100%",
-      height: "auto",
-      objectFit: "cover"
-    }} 
-  />
-  <GridRowTwo 
-    src={house7} 
-    style={{ 
-      flex: "1 1 0",
-      maxWidth: "28%", 
-      maxHeight: "100%",
-      height: "auto",
-      objectFit: "cover"
-    }} 
-  />
-  <GridRowThree 
-    src={house4} 
-    style={{ 
-      flex: "1 1 0",
-      maxWidth: "28%", 
-      maxHeight: "100%",
-      height: "auto",
-      objectFit: "cover"
-    }} 
-  />
-</ArtSectionthreeog>
+ <ThreeImageGrid>
+      <img src={house3} alt="House 3" />
+      <img src={house7} alt="House 7" />
+      <img src={house4} alt="House 4" />
+    </ThreeImageGrid>
       </div>
   )
 }
