@@ -13,8 +13,8 @@ import { FullHeightTextSection, TextContent, TextContainer } from '../Printmakin
 
 // Components
 import { 
-  TextSection, BackgroundColor, Cellphones, GigaGridtext, GigaRocket, StyledDiv, 
-  TextLineone, TextLinetwo, ProjectDetails, ProjectHeader, 
+  BackgroundColor, Cellphones, GigaRocket, StyledDiv, 
+  ProjectDetails, ProjectHeader, 
   ProjectSubtitle, ProjectDetailsContainer, ProjectBlock
 } from '../Giga/Giga';
 
@@ -102,17 +102,21 @@ export default function Piton() {
                 <RisoItem Width='50vw' src={light} />
             </Cellphones>
 
-            <FullBg src={pitonlogos} />
+          <FullBg 
+  src={pitonlogos} 
+  style={{ display: 'block', width: '100%', height: 'auto', margin: 0, padding: 0 }} 
+/>
 
-            <GigaGridtext ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='1fr 1fr 1fr 1fr 1fr 1fr 1fr'>
-                <TextLineone RowsSet="1" />
-                <TextSection Fontsize='3.5rem' style={{textAlign:'center'}}>
-                    Founders — Jemir Martinez<br />
-                    Designers — Zachary MacTavish<br />
-                    Development — TBD
-                </TextSection>
-                <TextLinetwo />
-            </GigaGridtext>
+     <FullHeightTextSection style={{ backgroundColor: 'black' }}>
+  <TextContainer>
+    <TextContent style={{ color: 'white', textAlign: 'center', lineHeight: 1.5 }}>
+      Founders — Jemir Martinez<br />
+      Designers — Zachary MacTavish<br />
+      Development — TBD
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
+
         </StyledDiv>
     );
 }

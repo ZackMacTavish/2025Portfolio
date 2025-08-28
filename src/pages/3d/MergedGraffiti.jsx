@@ -4,9 +4,9 @@ import {
   ArtDesc, ArtHeader, ArtSectionthreeog, ArtText, ArtTextthree, ArtTexttwo, ArtYear, 
   FullBg, GridRowThree, GridRowTwo, Orbital, ParagraphFour 
 } from '../COMPOSITION/Composition';
-import { NewSection } from '../Art_Landing/Art';
 import { ThreeImageGrid } from '../Dwelling/Dwelling'; // adjust path as needed
 import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
+import { NewSection } from '../About/About';
 
 // --- ThreeD Assets ---
 import fiftytwo from '../../assets/52.jpg';

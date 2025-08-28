@@ -13,9 +13,8 @@ import Nav from "./components/Nav/Nav";
 // Pages
 import About from "./pages/About/About";
 import AccessDirect from "./pages/Access_Direct/AD";
-import Art from "./pages/Art_Landing/Art";
 import Composition from "./pages/COMPOSITION/Composition";
-import Design from "./pages/Design_Landing/Design";
+
 import Dwelling from "./pages/Dwelling/Dwelling";
 import Giga from "./pages/Giga/Giga";
 import Graffiti from "./pages/3d/MergedGraffiti"; 
@@ -40,58 +39,60 @@ function App() {
     setTheme(theme === "light" ? "dark" : "light");
   };
 
-  return (
-    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-      <GlobalStyles />
-      <div className="App">
-        <Router>
-          {/* Theme Toggle Button */}
-          <img 
-            src={sun} 
-            onClick={themeToggler} 
-            style={{ 
-              zIndex: 100, 
-              width: 'clamp(45px, 2.5vw, 100px)', 
-              position: 'fixed', 
-              right: '2vw', 
-              bottom: '2vw', 
-              cursor: 'pointer' 
-            }} 
-          />
-          <Customcursor />
-          <Nav />
-          <Routes>
-            <Route path="/Composition" element={<Composition />} />
-            
-            {/* All art pages route to Artworks */}
-            <Route path="/Artworks" element={<Artworks />} />
-            <Route path="/Painting" element={<Artworks />} />
-            <Route path="/Collages" element={<Artworks />} />
-            <Route path="/Printmaking" element={<Artworks />} />
+ return (
+  <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+    <GlobalStyles />
+    <div className="App">
+      <Router>
+        {/* Theme Toggle Button (temporarily disabled) */}
+        {/*
+        <img 
+          src={sun} 
+          onClick={themeToggler} 
+          style={{ 
+            zIndex: 100, 
+            width: 'clamp(45px, 2.5vw, 100px)', 
+            position: 'fixed', 
+            right: '2vw', 
+            bottom: '2vw', 
+            cursor: 'pointer' 
+          }} 
+        />
+        */}
+        <Customcursor />
+        <Nav />
+        <Routes>
+          <Route path="/Composition" element={<Composition />} />
+          
+          {/* All art pages route to Artworks */}
+          <Route path="/Artworks" element={<Artworks />} />
+          <Route path="/Painting" element={<Artworks />} />
+          <Route path="/Collages" element={<Artworks />} />
+          <Route path="/Printmaking" element={<Artworks />} />
 
-            <Route path="/Dwelling" element={<Dwelling />} />
-            <Route path="/Photography" element={<Photography />} />
+          <Route path="/Dwelling" element={<Dwelling />} />
+          <Route path="/Photography" element={<Photography />} />
 
-            {/* Graffiti page accessible via both paths */}
-            <Route path="/Graffiti" element={<Graffiti />} />
-            <Route path="/MergedGraffiti" element={<Graffiti />} />
+          {/* Graffiti page accessible via both paths */}
+          <Route path="/Graffiti" element={<Graffiti />} />
+          <Route path="/MergedGraffiti" element={<Graffiti />} />
 
-            <Route path="/Art" element={<Art />} />
-            <Route path="/Design" element={<Design />} />
-            <Route path="/Giga" element={<Giga />} />
-            <Route path="/AccessDirect" element={<AccessDirect />} />
-            <Route path="/Outsource" element={<Outsource />} />
-            <Route path="/GraphicDesign" element={<GraphicDesign />} />
-            <Route path="/Ux" element={<Ux />} />
-            <Route path="/ThreePillars" element={<ThreePillars />} />
-            <Route path="/Piton" element={<Piton />} />
-            <Route path="/About" element={<About />} />
-            <Route path="/MacTavish" element={<LandingPage />} />
-          </Routes>
-        </Router>
-      </div>
-    </ThemeProvider>
-  );
+       
+          
+          <Route path="/Giga" element={<Giga />} />
+          <Route path="/AccessDirect" element={<AccessDirect />} />
+          <Route path="/Outsource" element={<Outsource />} />
+          <Route path="/GraphicDesign" element={<GraphicDesign />} />
+          <Route path="/Ux" element={<Ux />} />
+          <Route path="/ThreePillars" element={<ThreePillars />} />
+          <Route path="/Piton" element={<Piton />} />
+          <Route path="/About" element={<About />} />
+          <Route path="/MacTavish" element={<LandingPage />} />
+        </Routes>
+      </Router>
+    </div>
+  </ThemeProvider>
+);
 }
 
 export default App;
