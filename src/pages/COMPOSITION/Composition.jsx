@@ -1,6 +1,7 @@
 import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
-import { HouseOne, NewSection } from '../Art_Landing/Art';
+import { NewSection } from '../About/About';
+
 import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
 
 // Assets
@@ -30,6 +31,20 @@ import mash5 from '../../assets/Mash5.png';
 import mattos from '../../assets/Mattos.png';
 import og from '../../assets/No.3.png';
 import grain from '../../assets/Grain.jpg';
+
+const HouseOne = styled.img`
+  max-height: 90%;    /* keeps height constrained */
+  width: auto;        /* maintain aspect ratio */
+  display: block;
+  object-fit: contain;
+  margin-left: 200px;  /* moves it 50px from the left */
+
+  @media (max-width: 1000px) {
+    max-height: 50vh;
+    width: auto;
+    margin-left: 20px; /* smaller margin on smaller screens */
+  }
+`;
 
 const LanderSection = styled.div`
   display: flex;
@@ -64,33 +79,22 @@ const FullCover = styled.img`
 export const Orbital = styled.img`
   grid-row-start: 1;
   grid-column-start: 2;
-  justify-self: flex-start;
-  height: 85vh;
-  width: auto;
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  justify-self: start;
 
-  @media (max-width: 1770px){
-    max-width: 600px;
-    height: auto;
-  }
-
-  @media (max-width: 1290px){
-    max-width: 500px;
-    height: auto;
-  }
-
-  @media (max-width: 1115px){
-    max-width: 400px;
-    height: auto;
-  }
+  @media (max-width: 1290px){ max-width: 500px; }
+  @media (max-width: 1115px){ max-width: 400px; }
 
   @media (max-width: 830px){
-    width: 95%;        // much bigger
-    height: auto;
-    max-width: none;   // remove previous max-width
-    grid-column-start: auto;
+    grid-column-start: 1;
+    width: 100%;
+    max-width: 100%;
     justify-self: center;
   }
 `;
+
 
 export const GridRowTwo = styled(Orbital)`
   grid-row-start: 3;
@@ -118,45 +122,48 @@ align-self: flex-end;
 
 
 export const TwinTwo = styled.img`
-grid-row-start: 1;
-grid-column-start: 3;
-justify-self: flex-start;
-height: 85vh;
-width: auto;
+  grid-row-start: 1;
+  grid-column-start: 3;
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  justify-self: start;
 
-@media (max-width: 1770px){
-   max-width: 600px;
-   height: auto;
-}
-@media (max-width: 1290px){
-   max-width: 500px;
-   height: auto;
-}
-@media (max-width: 1115px){
-   max-width: 400px;
-   height: auto;
-}
-@media(max-width: 830px) {
-    max-width: 100vw;
+  @media (max-width: 1290px){ max-width: 500px; }
+  @media (max-width: 1115px){ max-width: 400px; }
+
+  @media (max-width: 830px){
     grid-column-start: 1;
-    grid-row-start: 3;
-}
- `
+    grid-row-start: 2;
+    width: 100%;
+    max-width: 100%;
+    justify-self: center;
+  }
+`;
+
 
 export const TwinsText = styled.div`
-grid-row-start: 2;
-grid-column-start: 2;
-justify-self: flex-start;
-color: ${(props) => props.theme.fontColor};
-padding: 0;
-margin: 0;
-line-height: 0.6;
-font-family: 'Space Grotesk', sans-serif;
-@media (max-width: 830px) {
-    grid-column-start: 1;
-    grid-row-start: 4;
-}
-`
+  grid-row-start: 2;
+  grid-column-start: 2 / span 2;
+  justify-self: start;
+  color: ${(props) => props.theme.fontColor};
+  padding-top: 2rem;
+  padding-left: 15vw; /* desktop padding so text isn’t stuck to the edge */
+  line-height: 1.3;
+  font-family: 'Space Grotesk', sans-serif;
+  width: 40vw;
+
+  @media (max-width: 830px){
+    grid-column-start: auto;
+    grid-row-start: 3;
+    width: 90%;
+    margin: 16px auto 32px auto;
+    text-align: left;
+    padding-left: 0;
+    padding-right: 0;
+  }
+`;
+
 export const FullBg = styled.img`
 width: 100vw;
 height: auto;
@@ -209,21 +216,21 @@ background-color:${props => props.theme.backgroundTwo};
 
 /* Custom Grid for Ephemeral Twins - moving single row to 2 rows of content */
 export const ArtSectiontwins = styled.div`
-display: grid;
-grid-template-columns: 10vw 40vw 40vw 10vw;
-grid-template-rows: auto auto auto;
-padding-top: 5vh;
-padding-bottom: 5vh;
-background-color: ${props => props.theme.backgroundTwo};
+  display: grid;
+  grid-template-columns: 10vw 1fr 1fr 10vw;
+  grid-template-rows: auto auto;
+  column-gap: 2vw;
+  padding: 5vh 0;
+  background-color: ${props => props.theme.backgroundTwo};
 
-@media (max-width: 830px){
-    grid-template-columns: 100vw;
-    grid-template-rows: auto auto auto auto;
-    height: auto;
-    row-gap: 2ch;
-    padding: 0;
-}
-`
+  @media (max-width: 830px){
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto auto;
+    row-gap: 2rem;
+    padding: 5vh 2vw;
+  }
+`;
+
 
 export const ArtSectionthreeog = styled.div`
   display: grid;
@@ -399,11 +406,10 @@ export default function Composition() {
       width: '50vw'         // slightly narrower but not too small
     }} 
   />
-                    <ParagraphFour>
-                    Composition was my first solo art exhibition. I released a limited edition of 30 copies of a 46 page art book for 
-the show.
-
-                    </ParagraphFour>
+                 <ParagraphFour style={{ color: '#5d5d5d' }}>
+  Composition was my first solo art exhibition. I released a limited edition of 30 copies of a 46 page art book for 
+  the show.
+</ParagraphFour>
                     </NewSection>
 
                     {/* Orbital + Erasure I */}
@@ -443,17 +449,16 @@ the show.
 />
 
 {/*EPHEMERAL I & II SECTION */}
-                    <ArtSectiontwins>
-                    <Orbital src={twin1} />
-                    <TwinTwo src={twin2} />
+<ArtSectiontwins>
+  <Orbital src={twin1} />
+  <TwinTwo src={twin2} />
 
-                    <TwinsText>
-                        <ArtHeader>EPHEMERAL I & II</ArtHeader>
-                        <ArtYear>2021</ArtYear>
-                        <ArtDesc>Acrylic & spray paint on wood panels.</ArtDesc>
-
-                    </TwinsText>
-                    </ArtSectiontwins>
+  <TwinsText>
+    <ArtHeader>EPHEMERAL I & II</ArtHeader>
+    <ArtYear>2021</ArtYear>
+    <ArtDesc>Acrylic & spray paint on wood panels.</ArtDesc>
+  </TwinsText>
+</ArtSectiontwins>
 
 {/*STAIRCASES SINGLE SECTION */}
                     <ArtSectionThreeone>

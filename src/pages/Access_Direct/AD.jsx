@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { 
-  Cellphones, GigaGridtext, 
+  Cellphones, 
   ProjectDetails, 
   ProjectHeader, ProjectSubtitle, RisoItemtwo, StyledDiv, 
-  TextLineone, TextLinetwo, TextSection, ProjectGrid,ProjectContent, ProjectTitle, ProjectLink, ProjectImage, ProjectDetailsContainer, ProjectBlock
+ ProjectGrid,ProjectContent, ProjectTitle, ProjectLink, ProjectImage, ProjectDetailsContainer, ProjectBlock
 } from '../Giga/Giga';
 import { FullBg } from '../COMPOSITION/Composition';
 import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
@@ -129,32 +129,32 @@ export default function AccessDirect() {
       <RisoFlex>
         <RisoItem src={imactwo} Width='65vw' />
       </RisoFlex>
+<RisoFlex style={{ marginBottom: '5vh' }}>
+  <RisoItem 
+    src={about} 
+    Width='65vw' 
+    style={{ boxShadow: '5px 10px 24px rgba(0, 0, 0, 0.1)' }} 
+  />
+</RisoFlex>
 
-      <RisoFlex>
-        <RisoItem src={about} Width='65vw' style={{ boxShadow: '5px 10px 24px rgba(0, 0, 0, 0.3)' }} />
-      </RisoFlex>
-
-      <div style={{ display:'grid', height: '25vh', gridTemplateRows:'5vh 5vh 5vh 5vh 5vh', gridTemplateColumns:'4vw 60vw 32vw 4vw' }}>
-        <TextLineone RowsSet="3" />
-      </div>
-
+   
       {/* Photo sections */}
-      <FullBg src={photosthree} style={{ backgroundColor: 'white' }} />
-      <FullBg src={photostwo} style={{ backgroundColor: 'white' }} />
-      <FullBg src={photos} style={{ backgroundColor: 'white' }} />
-      <FullBg src={guides} style={{ backgroundColor: 'white' }} />
+    <img src={photosthree} alt="" style={{ width: '100%', height: 'auto', display: 'block', backgroundColor: 'white' }} />
+<img src={photostwo} alt="" style={{ width: '100%', height: 'auto', display: 'block', backgroundColor: 'white' }} />
+<img src={photos} alt="" style={{ width: '100%', height: 'auto', display: 'block', backgroundColor: 'white' }} />
+<img src={guides} alt="" style={{ width: '100%', height: 'auto', display: 'block', backgroundColor: 'white' }} />
 
       {/* Footer */}
-      <GigaGridtext ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='1fr 1fr 1fr 1fr 1fr 1fr 1fr'>
-        <TextLineone RowsSet="1" />
-        <TextSection Fontsize='3.5rem' style={{ textAlign:'center' }}>
-          Founder — David Smith <br />
-          Lead Designer — Zachary MacTavish <br />
-          Website Development — Zachary MacTavish <br />
-          Content Direction — Wendy Majewski, Alek Vasic
-        </TextSection>
-        <TextLinetwo />
-      </GigaGridtext>
+     <FullHeightTextSection style={{ backgroundColor: 'black' }}>
+  <TextContainer>
+    <TextContent style={{ color: 'white', textAlign: 'center' }}>
+      Founder — David Smith<br />
+      Lead Designer — Zachary MacTavish<br />
+      Website Development — Zachary MacTavish<br />
+      Content Direction — Wendy Majewski, Alek Vasic
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
     </StyledDiv>
   );
 }

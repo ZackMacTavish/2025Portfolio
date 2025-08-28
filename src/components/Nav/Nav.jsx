@@ -100,6 +100,21 @@ const NavLinks = styled.ul`
   }
 `;
 
+const NavLabel = styled.span`
+  color: #a6d1ca;
+  font-weight: 800;
+  font-size: 1.2rem;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  transition: all 0.3s ease;
+  cursor: default;
+
+  &:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+`;
+
 const ListItem = styled.li`
   position: relative;
   white-space: nowrap;
@@ -165,34 +180,32 @@ export default function Nav() {
 
       <NavLinksWrapper>
         <NavLinks>
-          <ListItem>
-            <NavLink to="/Art">Art</NavLink>
-            <Dropdown>
-              <DropdownMenu to="/Dwelling">Dwelling</DropdownMenu>
-              <DropdownMenu to="/Composition">Composition</DropdownMenu>
-              
-              <DropdownDivider /> {/* Divider between series and individual works */}
-              
-              <DropdownMenu to="/Artworks">Artworks</DropdownMenu>
-              <DropdownMenu to="/Photography">Photo</DropdownMenu>
-              <DropdownMenu to="/Graffiti">3D + Graffiti</DropdownMenu>
-            </Dropdown>
-          </ListItem>
+      <ListItem>
+  <NavLabel>Art</NavLabel>
+  <Dropdown>
+    <DropdownMenu to="/Dwelling">Dwelling</DropdownMenu>
+    <DropdownMenu to="/Composition">Composition</DropdownMenu>
 
-          <ListItem>
-            <NavLink to="/Design">Design</NavLink>
-            <Dropdown>
-               <DropdownMenu to="/Outsource">Outsource</DropdownMenu>
-          
-              <DropdownMenu to="/Ux">Leysi</DropdownMenu>
-              <DropdownMenu to="/Piton">Piton</DropdownMenu>
-               <DropdownMenu to="/ThreePillars">Three Pillars</DropdownMenu>
-              <DropdownMenu to="/AccessDirect">Access Direct</DropdownMenu>
-              
-             <DropdownMenu to="/Giga">Giga</DropdownMenu>
-              <DropdownMenu to="/GraphicDesign">Graphic Design</DropdownMenu>
-            </Dropdown>
-          </ListItem>
+    <DropdownDivider />
+
+    <DropdownMenu to="/Artworks">Artworks</DropdownMenu>
+    <DropdownMenu to="/Photography">Photo</DropdownMenu>
+    <DropdownMenu to="/Graffiti">3D + Graffiti</DropdownMenu>
+  </Dropdown>
+</ListItem>
+
+        <ListItem>
+  <NavLabel>Design</NavLabel>
+  <Dropdown>
+    <DropdownMenu to="/Outsource">Outsource</DropdownMenu>
+    <DropdownMenu to="/Ux">Leysi</DropdownMenu>
+    <DropdownMenu to="/Piton">Piton</DropdownMenu>
+    <DropdownMenu to="/ThreePillars">Three Pillars</DropdownMenu>
+    <DropdownMenu to="/AccessDirect">Access Direct</DropdownMenu>
+    <DropdownMenu to="/Giga">Giga</DropdownMenu>
+    <DropdownMenu to="/GraphicDesign">Graphic Design</DropdownMenu>
+  </Dropdown>
+</ListItem>
 
           <ListItem>
             <NavLink to="/About">About</NavLink>

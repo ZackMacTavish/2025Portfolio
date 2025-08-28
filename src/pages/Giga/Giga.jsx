@@ -92,76 +92,18 @@ export const ProjectSubtitle = styled.h6`
   }
 `;
 
-export const Divider = styled.div`
-  grid-column: 1 / span 2;  /* span across both columns */
-  height: 1px;
-  background-color: #d3d3d3;
-  margin: 2rem 0;
+ 
+// export const Divider = styled.div`
+//   grid-column: 1 / span 2;  /* span across both columns */
+//   height: 1px;
+//   background-color: #d3d3d3;
+//   margin: 2rem 0;
 
-  @media (max-width: 850px) {
-    display: none; /* remove line on vertical stack */
-  }
-`;
+//   @media (max-width: 850px) {
+//     display: none; /* remove line on vertical stack */
+//   }
+// `;
 
-
-export const ProjectType = styled.div` 
-  display: flex;
-  flex-direction: column;
-  font-size: 2rem;
-  padding-left: 10vw;
-
-  @media (max-width: 850px) {
-    padding-left: 0;
-  }
-`;
-
-export const DigitalProduct = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-size: 2rem;
-  padding-left: 10vw;
-
-  @media (max-width: 850px) {
-    padding-left: 0;
-    margin-top: 2rem;
-  }
-`;
-
-export const MyRole = styled.div`
-  display: flex;
-  flex-direction: column; 
-  font-size: 2rem;
-  padding-right: 10vw;
-
-  @media (max-width: 850px) {
-    padding-right: 0;
-    margin-top: 2rem;
-  }
-`;
-
-export const Timeframe = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-size: 2rem;
-
-  @media (max-width: 850px) {
-    margin-top: 2rem;
-  }
-`;
-
-export const GigaGridtext = styled.div`
-display: grid;
-grid-template-columns: ${(props) => props.ColumnsSet};
-grid-template-rows: ${(props) => props.RowsSet};
-background-color: ${props => props.theme.backgroundTwo};
-height: 100vh;
-width: 100vw;
-
-@media (max-width: 850px) {
-    grid-template-columns: 100vw;
-    grid-template-rows: 5vw 1fr 5vw;
-}
-` 
 export const GigaRocket = styled.img`
 width: 60vw;
 height: auto;
@@ -178,39 +120,6 @@ grid-column-end: ${(props) => props.ColumnEnd};
       width: 95vw;
 
   }
-`
-
-export const TextLineone = styled.div`
- width: clamp(250px, 80vw, 2300px);
- grid-row-start: ${(props) => props.RowsSet};
- grid-column-start: 2;
- grid-column-end: 4;
- align-self: center;
- justify-self: center;
-  height: 10px;
-  background: #5D5D5D;
-  @media (max-width: 850px) {
-      grid-column-start: 1;
-     grid-column-end: 2;
-  }
-  
-`
-
-export const TextLinetwo = styled.div`
- width: clamp(250px, 80vw, 2300px);
- grid-row-start: ${(props) => props.RowsSet};
- grid-column-start: 2;
- grid-column-end: 4;
- align-self: center;
- justify-self: center;
-  height: 10px;
-  background: #5D5D5D;
-  @media (max-width: 850px) {
-      grid-column-start: 1;
-      grid-row-start: 3;
-     grid-row-end: 4;
-  }
-  
 `
 
 export const TextSection = styled.h3`
@@ -445,33 +354,29 @@ export default function Giga() {
             <RisoFlex>
                 <RisoItem src={imactwo} Width='65vw' />
             </RisoFlex>
+<RisoFlex style={{ paddingBottom: '7vh' }}>
+  <RisoItem src={about} Width='65vw' />
+</RisoFlex>
 
-            <RisoFlex>
-                <RisoItem  src={about} Width='65vw' />
-            </RisoFlex>
 
-         <div style={{display:'grid', height: '25vh', gridTemplateRows:'5vh 5vh 5vh 5vh 5vh', gridTemplateColumns:'4vw 60vw 32vw 4vw'}} >
-            <TextLineone RowsSet="3" />
-
-        </div>
-
-        <FullBg src={photos} />
-        <FullBg src={photostwo} />
-        <FullBg src={photosthree} />
-        <FullBg src={photosfour} />
-
+<img src={photos} alt="" style={{ width: "100%", height: "auto", display: "block" }} />
+<img src={photostwo} alt="" style={{ width: "100%", height: "auto", display: "block" }} />
+<img src={photosthree} alt="" style={{ width: "100%", height: "auto", display: "block" }} />
+<img src={photosfour} alt="" style={{ width: "100%", height: "auto", display: "block" }} />
         <FullBg src={guides} />
 
 
             
-        <GigaGridtext ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='1fr 1fr 1fr 1fr 1fr 1fr 1fr'>
-            <TextLineone RowsSet="1" />
-            <TextSection Fontsize='3.5rem' style={{textAlign:'center'}}>Founder — Rich Devlin <br />
-Lead Designer — Zachary MacTavish <br />
-Front-End Development — Xing Yi & Joel Fernando  <br />
-Back-End Development — Rich Devlin</TextSection>
-            <TextLinetwo />
-            </GigaGridtext>
+      <FullHeightTextSection style={{ backgroundColor: 'black' }}>
+  <TextContainer>
+    <TextContent style={{ color: 'white', textAlign: 'center' }}>
+      Founder — Rich Devlin<br />
+      Lead Designer — Zachary MacTavish<br />
+      Front-End Development — Xing Yi & Joel Fernando<br />
+      Back-End Development — Rich Devlin
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
         </StyledDiv>
 
 

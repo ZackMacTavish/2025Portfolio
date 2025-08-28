@@ -310,14 +310,48 @@ export default function Dwelling() {
   }}
 >
   {/* First image with text stays horizontal */}
-  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "30px", width: "100%" }}>
-    <Orbital src={manisteeblock} style={{ maxWidth: "30vw", height: "auto" }} />
-    <ArtText style={{ maxWidth: "30vw" }}>
+<div style={{ width: "100%" }}>
+  <style>
+    {`
+      .manistee-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 60px;
+        flex-wrap: wrap;
+      }
+      .manistee-image {
+        max-width: 30vw;
+        height: auto;
+      }
+      .manistee-text {
+        max-width: 30vw;
+        color: #5d5d5d;
+        text-align: left;
+      }
+
+      @media (max-width: 1000px) {
+        .manistee-image {
+          max-width: 80vw; /* larger on vertical stack */
+        }
+        .manistee-text {
+          max-width: 90vw;
+          margin: 0 auto;
+          text-align: left;
+        }
+      }
+    `}
+  </style>
+
+  <div className="manistee-container">
+    <img className="manistee-image" src={manisteeblock} alt="Manistee Street" />
+    <div className="manistee-text">
       <ArtHeader>Manistee Street</ArtHeader>
       <ArtYear>2022</ArtYear>
       <ArtDesc>Reduction relief woodblock print.</ArtDesc>
-    </ArtText>
+    </div>
   </div>
+</div>
 
   {/* Last two images side by side with no text */}
   <TwoImageGrid>

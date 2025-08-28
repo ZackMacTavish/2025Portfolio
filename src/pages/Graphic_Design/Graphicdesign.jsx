@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { FullBg, ParagraphFour } from '../COMPOSITION/Composition';
 import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
 import { RisoItemtwo, StyledDiv } from '../Giga/Giga';
-import { HouseOne, NewSection } from '../Art_Landing/Art';
+import { NewSection } from '../About/About';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
 import { ProjectGrid,ProjectContent, ProjectTitle, ProjectLink, ProjectImage } from '../Giga/Giga';
 
@@ -124,7 +124,7 @@ export default function GraphicDesign() {
             {/*Art Book + Text */}
           <NewSection Backgroundheight="95vh" style={{ paddingBottom: '5vh' }}>
   <ThisisIt src={artbook} />
-  <ParagraphFour>
+  <ParagraphFour style={{ color: '#5d5d5d' }}>
     'This is it' was a poster design I made for the 2017 SAIC VCD Design show. The piece explores a quote from the movie 'Style Wars'.
   </ParagraphFour>
 </NewSection>

@@ -3,10 +3,8 @@ import React, { useLayoutEffect } from 'react';
 // Components
 import { FullBg } from '../COMPOSITION/Composition';
 import { 
-  TextSection, GigaGridtext, 
  ProjectDetails, ProjectHeader, 
-  ProjectSubtitle, RisoItemtwo, StyledDiv, TextLineone, 
-  TextLinetwo, ProjectGrid, ProjectContent, ProjectTitle, ProjectLink, ProjectDetailsContainer, ProjectBlock, ProjectImage
+  ProjectSubtitle, RisoItemtwo, StyledDiv,ProjectGrid, ProjectContent, ProjectTitle, ProjectLink, ProjectDetailsContainer, ProjectBlock, ProjectImage
 } from '../Giga/Giga';
 import { RisoFlex } from '../3d/MergedGraffiti';
 
@@ -106,18 +104,28 @@ export default function ThreePillars() {
             <RisoFlex>
                 <RisoItemtwo src={recruitingpage} Width='60vw' />
             </RisoFlex>
+            
+<FullBg 
+  src={ThreePillarsImac} 
+  style={{ display: 'block', width: '100%', margin: 0, padding: 0, lineHeight: 0 }} 
+/>
+<div style={{ width: '100%', margin: 0, padding: 0, lineHeight: 0 }}>
+  <img 
+    src={ThreePillarsMockup} 
+    style={{ width: '100%', height: 'auto', display: 'block', margin: 0, padding: 0 }} 
+  />
+</div>
 
-            <FullBg src={ThreePillarsImac} />
-            <FullBg src={ThreePillarsMockup} />
 
-            <GigaGridtext ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='1fr 1fr 1fr 1fr 1fr 1fr 1fr'>
-            <TextLineone RowsSet="1" />
-            <TextSection Fontsize='3.5rem' style={{textAlign:'center'}}>Founders — Three Pillars Team<br />
-            Designers — Zachary MacTavish & Varfaj Team<br />
-            Development — Varfaj Team</TextSection>
-            <TextLinetwo/>
-            </GigaGridtext>
-
+<FullHeightTextSection style={{ backgroundColor: 'black' }}>
+  <TextContainer>
+    <TextContent style={{ color: 'white', textAlign: 'center', fontSize: '3.5rem' }}>
+      Founders — Three Pillars Team<br />
+      Designers — Zachary MacTavish & Varfaj Team<br />
+      Development — Varfaj Team
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
            
 
         </StyledDiv>

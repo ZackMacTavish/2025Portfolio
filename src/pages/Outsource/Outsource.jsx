@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { 
-  Cellphones, GigaGridtext,  ProjectDetails, ProjectHeader, ProjectSubtitle, ProjectDetailsContainer, ProjectBlock, RisoItemtwo, StyledDiv, TextLineone, TextLinetwo, 
-  TextSection, Timeframe 
+  Cellphones, ProjectDetails, ProjectHeader, ProjectSubtitle, ProjectDetailsContainer, ProjectBlock, RisoItemtwo, StyledDiv,
 } from '../Giga/Giga';
 import { FullBg } from '../COMPOSITION/Composition';
 import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
@@ -98,6 +97,7 @@ export default function Outsource() {
    
 
       <FullBg src={iphones} />
+
         <FullHeightTextSection style={{ backgroundColor: 'white' }}>
   <TextContainer>
     <TextContent style={{ color: '#5d5d5d' }}>
@@ -105,6 +105,7 @@ export default function Outsource() {
     </TextContent>
   </TextContainer>
 </FullHeightTextSection>
+
       <FullBg src={mocks} />
 
       <RisoFlex>
@@ -138,13 +139,15 @@ export default function Outsource() {
         <RisoItem src={ceumacbook} Width="65vw" />
       </RisoFlex>
 
-      <GigaGridtext ColumnsSet="4vw 60vw 32vw 4vw" RowsSet="1fr 1fr 1fr 1fr 1fr 1fr 1fr">
-        <TextLineone RowsSet="1" />
-        <TextSection Fontsize="3.5rem">
-          Outsource CEU is a subsidiary focused on the education of building code. My responsibility was to create a brand identity from the ground up, and create the UI designs for a potential web application.
-        </TextSection>
-        <TextLinetwo />
-      </GigaGridtext>
+   <FullHeightTextSection>
+  <TextContainer>
+  
+    <TextContent>
+      At Outsource CEU, a subsidiary dedicated to building code education, I led the creation of a brand identity from the ground up and designed intuitive, user-focused interfaces for a potential web application, translating complex information into a clear and engaging digital experience.
+    </TextContent>
+
+  </TextContainer>
+</FullHeightTextSection>
 
       <FullBg src={ceuiphones} />
       <FullBg src={ceumocks} />
@@ -156,13 +159,13 @@ export default function Outsource() {
       <FullBg src={ceuimac} />
       <FullBg src={bointro} />
 
-      <GigaGridtext ColumnsSet="4vw 60vw 32vw 4vw" RowsSet="1fr 1fr 1fr 1fr 1fr 1fr 1fr">
-        <TextLineone RowsSet="1" />
-        <TextSection Fontsize="3.5rem">
-          BuildingOwl is a technology that monitors and resolves critical building issues. My responsibility included expanding on the existing identity, marketing, and focusing on improvements to UX.
-        </TextSection>
-        <TextLinetwo />
-      </GigaGridtext>
+<TextContainer style={{ backgroundColor: 'white', width: '100%' }}>
+  <FullHeightTextSection style={{ backgroundColor: 'white' }}>
+    <TextContent style={{ color: '#5d5d5d' }}>
+      BuildingOwl is a technology that monitors and resolves critical building issues. I was responsible for expanding the existing brand identity, supporting marketing efforts, and improving the overall UX for a more intuitive user experience.
+    </TextContent>
+  </FullHeightTextSection>
+</TextContainer>
 
       <FullBg src={bozoom} style={{ paddingTop:'2vh' }} />
 
@@ -172,13 +175,9 @@ export default function Outsource() {
 
       <FullBg src={flowmap} />
 
-      <div style={{ display:'grid', height: '25vh', gridTemplateRows:'5vh 5vh 5vh 5vh 5vh', gridTemplateColumns:'4vw 60vw 32vw 4vw' }}>
-        <TextLineone RowsSet="3" />
-      </div>
-
-      <FullBg src={photos} />
-      <FullBg src={photosthree} />
-      <FullBg src={photostwo} />
+<img src={photos} alt="" style={{ width: '100%', height: 'auto', display: 'block' }} />
+<img src={photosthree} alt="" style={{ width: '100%', height: 'auto', display: 'block' }} />
+<img src={photostwo} alt="" style={{ width: '100%', height: 'auto', display: 'block' }} />
 
       <RisoFlex>
         <RisoItem src={guidelines} Width="65vw" />
@@ -204,16 +203,16 @@ export default function Outsource() {
 
       <FullBg src={guides} />
 
-      <GigaGridtext ColumnsSet="4vw 60vw 32vw 4vw" RowsSet="1fr 1fr 1fr 1fr 1fr 1fr 1fr">
-        <TextLineone RowsSet="1" />
-        <TextSection Fontsize="3.5rem" style={{ textAlign:'center' }}>
-          Founder — Diego Caballero<br />
-          Designers — Zachary MacTavish & Elvis Cruz<br />
-          Development — Vinny Nuthakki & Samuel Karkash <br />
-          Marketing — Kaela Fanning & Zoe Hutzler
-        </TextSection>
-        <TextLinetwo />
-      </GigaGridtext>
+   <FullHeightTextSection style={{ backgroundColor: 'black' }}>
+  <TextContainer>
+    <TextContent style={{ color: 'white', textAlign: 'center', lineHeight: 1.5 }}>
+      Founder — Diego Caballero<br />
+      Designers — Zachary MacTavish & Elvis Cruz<br />
+      Development — Vinny Nuthakki & Samuel Karkash<br />
+      Marketing — Kaela Fanning & Zoe Hutzler
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
 
     </StyledDiv>
   );
