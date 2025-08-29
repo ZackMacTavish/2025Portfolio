@@ -216,7 +216,7 @@ export default function GraphicDesign() {
 
            <FullHeightTextSection style={{ backgroundColor: '#f5f5f5' }}>
   <TextContainer>
-    <TextContent style={{ color: '#5d5d5d', fontSize: '3.5rem' }}>
+    <TextContent style={{ color: '#5d5d5d'}}>
       Brooklyn Book Festival is a rebranding of a popular festival that occurs in Brooklyn, NY. 
       I designed totes, bookmarks, brochures, and posters for the event.
     </TextContent>

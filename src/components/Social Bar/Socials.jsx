@@ -44,7 +44,7 @@ export default function Socials() {
             </a>
 
             
-            <a href="https://www.instagram.com/seuzerone/?hl=en" target='_blank' rel="noreferrer" >
+            <a href="https://www.instagram.com/zackmichaelmactavish" target='_blank' rel="noreferrer" >
             <SocialImages src={instagram} />
             </a>
 

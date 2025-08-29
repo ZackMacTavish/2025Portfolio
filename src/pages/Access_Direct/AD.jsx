@@ -68,27 +68,27 @@ export default function AccessDirect() {
     <ProjectBlock>
       <ProjectHeader>Project Type</ProjectHeader>
       <ProjectSubtitle>
-        UX/UI, Branding, Strategy, Front-end Development
+        UX/UI, Branding, Strategy, Front-end development
       </ProjectSubtitle>
     </ProjectBlock>
 
     <ProjectBlock>
       <ProjectHeader>Product</ProjectHeader>
       <ProjectSubtitle>
-        Print materials, and a website built with React.js
+        Brand identity, print materials, and a website built with React.js
       </ProjectSubtitle>
     </ProjectBlock>
 
     <ProjectBlock>
       <ProjectHeader>My Role</ProjectHeader>
       <ProjectSubtitle>
-        Responsible for tidying up the brand logo, colors, creating print materials for tradeshows, social media, digital brochures and flyers, and designing/building the company website.
+        Responsible for tidying up the brand logo, colors, creating print materials for tradeshows, social media, digital brochures and flyers, and building the company website
       </ProjectSubtitle>
     </ProjectBlock>
 
     <ProjectBlock>
       <ProjectHeader>Timeframe</ProjectHeader>
-      <ProjectSubtitle>4 years (Part-time).</ProjectSubtitle>
+      <ProjectSubtitle>4 years (Part-time)</ProjectSubtitle>
     </ProjectBlock>
   </ProjectDetails>
 </ProjectDetailsContainer>
@@ -99,8 +99,7 @@ export default function AccessDirect() {
       <FullHeightTextSection style={{ backgroundColor: 'white' }}>
   <TextContainer>
     <TextContent style={{ color: '#5d5d5d' }}>
-      Access Direct is a company focused on security solutions. I serve as the UI Designer and Webmaster, 
-      responsible for redesigning their website and building it using React.js.
+      Access Direct is a company focused on security solutions. I collaborated closely on the project, working on their brand identity, logos, and website. I served as the UI Designer and Webmaster, redesigning the site and building it using React.js.
     </TextContent>
   </TextContainer>
 </FullHeightTextSection>

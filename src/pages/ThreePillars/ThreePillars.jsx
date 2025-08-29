@@ -48,20 +48,20 @@ export default function ThreePillars() {
     <ProjectBlock>
       <ProjectHeader>Digital Product</ProjectHeader>
       <ProjectSubtitle>
-        Web app utilized for recruiting 2,100+ employees in 14 years of business.
+       Web app utilized for recruiting 2,100 employees in 14 years of business
       </ProjectSubtitle>
     </ProjectBlock>
 
     <ProjectBlock>
       <ProjectHeader>My Role</ProjectHeader>
       <ProjectSubtitle>
-        Responsible for reimagining a fresh brand strategy, and creating an easy to navigate website.
+        Responsible for reimagining a fresh brand strategy, and creating an easy to navigate website
       </ProjectSubtitle>
     </ProjectBlock>
 
     <ProjectBlock>
       <ProjectHeader>Timeframe</ProjectHeader>
-      <ProjectSubtitle>3 months.</ProjectSubtitle>
+      <ProjectSubtitle>3 months</ProjectSubtitle>
     </ProjectBlock>
   </ProjectDetails>
 </ProjectDetailsContainer>
@@ -82,8 +82,7 @@ export default function ThreePillars() {
         <FullHeightTextSection style={{ backgroundColor: '#2B3253' }}>
   <TextContainer>
     <TextContent style={{ color: 'white' }}>
-      Three Pillars is a recruiting agency that was looking for a refresh on their brand identity and website. 
-      My responsibility involved collaborating with the Varfaj Partners team to provide initial designs for their developer to implement.
+     Three Pillars is a recruiting agency seeking a refresh of their brand identity and website. I closely worked with the Varfaj Partners team to create the initial designs, which were then implemented by their developer.
     </TextContent>
   </TextContainer>
 </FullHeightTextSection>
@@ -119,7 +118,7 @@ export default function ThreePillars() {
 
 <FullHeightTextSection style={{ backgroundColor: 'black' }}>
   <TextContainer>
-    <TextContent style={{ color: 'white', textAlign: 'center', fontSize: '3.5rem' }}>
+    <TextContent style={{ color: 'white', textAlign: 'center' }}>
       Founders — Three Pillars Team<br />
       Designers — Zachary MacTavish & Varfaj Team<br />
       Development — Varfaj Team

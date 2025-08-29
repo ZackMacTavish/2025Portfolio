@@ -1,8 +1,8 @@
 import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
-import { NewSection } from '../About/About';
 
 import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
+import {QuiltContainer, QuiltImage, QuiltText} from '../About/About';
 
 // Assets
 import fullcover from '../../assets/Composition-BackCover-Pt.2-01.jpg';
@@ -31,20 +31,6 @@ import mash5 from '../../assets/Mash5.png';
 import mattos from '../../assets/Mattos.png';
 import og from '../../assets/No.3.png';
 import grain from '../../assets/Grain.jpg';
-
-const HouseOne = styled.img`
-  max-height: 90%;    /* keeps height constrained */
-  width: auto;        /* maintain aspect ratio */
-  display: block;
-  object-fit: contain;
-  margin-left: 200px;  /* moves it 50px from the left */
-
-  @media (max-width: 1000px) {
-    max-height: 50vh;
-    width: auto;
-    margin-left: 20px; /* smaller margin on smaller screens */
-  }
-`;
 
 const LanderSection = styled.div`
   display: flex;
@@ -178,7 +164,7 @@ background-color: ${props => props.theme.backgroundTwo};
 
 export const ParagraphFour = styled.div`
   position: relative;
-  padding-right: 6vw;
+  padding-right: 6vw;       /* desktop padding */
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 500;
   font-size: 2.5rem;
@@ -190,11 +176,12 @@ export const ParagraphFour = styled.div`
   }
 
   @media (max-width: 1000px) {
-    width: 90vw;         /* breathing room */
-    max-width: 700px;    /* prevents it from being too wide */
+    width: 90vw;               /* block takes most of the width */
+    max-width: 700px;          /* prevents it from being too wide */
     font-size: 1.6rem;
-    margin: 0 auto;      /* centers */
-    padding: 4vh 0 0 0;  /* more top padding when stacked */
+    margin: 4vh auto 0 auto;   /* centers the block horizontally */
+    padding-right: 0;          /* remove desktop padding on mobile */
+    text-align: left;          /* text stays left-aligned inside the block */
   }
 `;
 
@@ -378,9 +365,10 @@ export default function Composition() {
 <FullHeightTextSection>
   <TextContainer>
     <TextContent>
-      Composition uses the familiar design of composition notebooks as a metaphor for self-reflection. 
-      What began as a way to process the experience of moving from New York to Portland grew into a visual journal of shifting environments over several years. 
-      The series became less about the cities themselves and more about the act of recording change—eventually leading me toward my next body of work, which turns its focus from place to the houses and people that surround me.
+       Composition uses the familiar design of composition notebooks as a metaphor for self-reflection. 
+       Over several years, I created 22 physical paintings as a way to process the experience of moving from New York to Portland. 
+       What began as a visual journal of shifting environments became less about the cities themselves and more about the act of recording change. 
+       While most of the work shown here is presented as digital representations of the paintings, the series marked a turning point—leading me toward my next body of work, which shifts focus from place to the houses and people that surround me.
     </TextContent>
   </TextContainer>
 </FullHeightTextSection>
@@ -398,19 +386,22 @@ export default function Composition() {
 
 
 {/*Art Book + Text */}
-<NewSection Backgroundcolor='white' Backgroundheight="85vh">
-  <HouseOne 
+{/* ---------- Art Book + Text Section ---------- */}
+{/* ---------- Art Book + Text Section ---------- */}
+<QuiltContainer style={{ backgroundColor: 'white' }}>
+  <QuiltImage 
     src={artbook} 
-    style={{ 
-      marginLeft: '-2vw',  // smaller left shift
-      width: '50vw'         // slightly narrower but not too small
-    }} 
+    alt="Art book"
   />
-                 <ParagraphFour style={{ color: '#5d5d5d' }}>
-  Composition was my first solo art exhibition. I released a limited edition of 30 copies of a 46 page art book for 
-  the show.
-</ParagraphFour>
-                    </NewSection>
+  <QuiltText
+    Widthsize='45%'
+    style={{ color: '#5d5d5d', paddingRight: '5vw' }}
+  >
+    Composition was my first solo art exhibition. I released a limited edition of 30 copies of a 46-page art book for the show.
+  </QuiltText>
+</QuiltContainer>
+
+
 
                     {/* Orbital + Erasure I */}
 
@@ -448,17 +439,7 @@ export default function Composition() {
   }}
 />
 
-{/*EPHEMERAL I & II SECTION */}
-<ArtSectiontwins>
-  <Orbital src={twin1} />
-  <TwinTwo src={twin2} />
 
-  <TwinsText>
-    <ArtHeader>EPHEMERAL I & II</ArtHeader>
-    <ArtYear>2021</ArtYear>
-    <ArtDesc>Acrylic & spray paint on wood panels.</ArtDesc>
-  </TwinsText>
-</ArtSectiontwins>
 
 {/*STAIRCASES SINGLE SECTION */}
                     <ArtSectionThreeone>
@@ -656,6 +637,18 @@ export default function Composition() {
                         
 
                             </ArtSectionthreeog>
+
+                            {/*EPHEMERAL I & II SECTION */}
+<ArtSectiontwins>
+  <Orbital src={twin1} />
+  <TwinTwo src={twin2} />
+
+  <TwinsText>
+    <ArtHeader>EPHEMERAL I & II</ArtHeader>
+    <ArtYear>2021</ArtYear>
+    <ArtDesc>Acrylic & spray paint on wood panels.</ArtDesc>
+  </TwinsText>
+</ArtSectiontwins>
 
 
 

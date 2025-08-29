@@ -76,20 +76,20 @@ export default function Outsource() {
     <ProjectBlock>
       <ProjectHeader>Product</ProjectHeader>
       <ProjectSubtitle>
-        Print materials, websites, and Outsource's internal project tracking software.
+        I managed print materials, multiple websites and subsidiaries, as well as the UX of Outsource’s internal project tracking software
       </ProjectSubtitle>
     </ProjectBlock>
 
     <ProjectBlock>
       <ProjectHeader>My Role</ProjectHeader>
       <ProjectSubtitle>
-        Responsible for reimagining brand logos, colors, creating print materials for tradeshows, social media, digital brochures and flyers, and designing for all of Outsource's websites, and internal software.
+        Responsible for reimagining brand logos, colors, creating print materials for tradeshows, social media, digital brochures and flyers, and designing for all of Outsource's websites, and internal software
       </ProjectSubtitle>
     </ProjectBlock>
 
     <ProjectBlock>
       <ProjectHeader>Timeframe</ProjectHeader>
-      <ProjectSubtitle>1 1/2 years.</ProjectSubtitle>
+      <ProjectSubtitle>1 1/2 years</ProjectSubtitle>
     </ProjectBlock>
   </ProjectDetails>
 </ProjectDetailsContainer>
@@ -101,7 +101,7 @@ export default function Outsource() {
         <FullHeightTextSection style={{ backgroundColor: 'white' }}>
   <TextContainer>
     <TextContent style={{ color: '#5d5d5d' }}>
-      Outsource is a company focused on expediting. My responsibility included being the Multimedia Designer on a variety of projects. I enjoyed redesigning their website, internal tools, and subsidiaries.
+    Outsource is a company focused on expediting. My responsibility included being the Multimedia Designer on a variety of projects. I worked in their Manhattan office as part of the marketing team, where I enjoyed redesigning their websites, internal tools, subsidiaries, and other print and digital materials.
     </TextContent>
   </TextContainer>
 </FullHeightTextSection>
@@ -143,7 +143,7 @@ export default function Outsource() {
   <TextContainer>
   
     <TextContent>
-      At Outsource CEU, a subsidiary dedicated to building code education, I led the creation of a brand identity from the ground up and designed intuitive, user-focused interfaces for a potential web application, translating complex information into a clear and engaging digital experience.
+    At Outsource CEU, a subsidiary dedicated to building code education, I led the creation of a brand identity from the ground up and designed intuitive, user-focused interfaces, translating complex information into a clear and engaging digital experience. I also developed brochures and social media posts to support the brand and communicate educational content effectively.”
     </TextContent>
 
   </TextContainer>
