@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "homepage": "https://zackmactavish.github.io/2025Portfolio",
+  "homepage": "https://zackmactavish.com",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
