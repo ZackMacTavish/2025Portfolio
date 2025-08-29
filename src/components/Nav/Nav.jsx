@@ -4,7 +4,43 @@ import styled, { keyframes } from 'styled-components';
 import logo from '../../assets/Final-M-SinglePiece.svg';
 import { Link } from 'react-router-dom';
 
-// Keyframes: move back and forth 3 times, fade out starts earlier on the last back pass
+const spotlightLeftMove = keyframes`
+  0% { transform: translateX(-40%) translateY(0); opacity: 1; }
+  25% { transform: translateX(-35%) translateY(-5px); opacity: 0.9; }
+  50% { transform: translateX(-30%) translateY(3px); opacity: 0.8; }
+  75% { transform: translateX(-35%) translateY(-2px); opacity: 0.9; }
+  100% { transform: translateX(-40%) translateY(0); opacity: 0.85; }
+`;
+
+const spotlightRightMove = keyframes`
+  0% { transform: translateX(140%) translateY(0); opacity: 1; }
+  25% { transform: translateX(135%) translateY(4px); opacity: 0.95; }
+  50% { transform: translateX(130%) translateY(-3px); opacity: 0.9; }
+  75% { transform: translateX(135%) translateY(2px); opacity: 0.95; }
+  100% { transform: translateX(140%) translateY(0); opacity: 0.9; }
+`;
+
+const Spotlight = styled.span`
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,255,255,0.6) 0%, rgba(255,192,203,0.35) 60%, transparent 100%);
+  filter: blur(70px);
+  pointer-events: none;
+  z-index: 997;
+`;
+
+const SpotlightLeft = styled(Spotlight)`
+  left: 0;
+  animation: ${spotlightLeftMove} 6s ease-in-out infinite;
+`;
+
+const SpotlightRight = styled(Spotlight)`
+  right: 0;
+  animation: ${spotlightRightMove} 6s ease-in-out infinite;
+`;
+// ---------- Keyframes ----------
 const slideFade = keyframes`
   0% { transform: translateX(0); opacity: 1; }
   33% { transform: translateX(calc(100vw - 650px)); opacity: 1; }
@@ -13,6 +49,8 @@ const slideFade = keyframes`
   100% { transform: translateX(0); opacity: 0; }
 `;
 
+
+// ---------- Styled Components ----------
 const Navdiv = styled.div`
   display: flex;
   align-items: center;
@@ -24,7 +62,6 @@ const Navdiv = styled.div`
   height: 8vh;
   padding: 0 3vw;
   z-index: 1000;
-  /* overflow removed so dropdowns are no longer clipped */
 `;
 
 const StrokeWrapper = styled.div`
@@ -34,10 +71,9 @@ const StrokeWrapper = styled.div`
   width: 100%;
   height: 8px;
   pointer-events: none;
-  overflow: visible; /* allow neon blur to extend outside nav */
+  overflow: visible;
 `;
 
-// Solid stroke with gradient masks for fade on edges
 const SolidStroke = styled.span`
   position: absolute;
   bottom: 0;
@@ -51,21 +87,98 @@ const SolidStroke = styled.span`
   z-index: 998;
 `;
 
-// Neon stroke with stronger blur
 const NeonStroke = styled.span`
   position: absolute;
   bottom: 0;
   left: 0;
   width: 650px;
   height: 4px;
-  background: linear-gradient(to right, transparent, #E88D67, transparent);
-  filter: blur(14px);
-  mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+
+  /* Full gradient with proper coverage */
+  background: linear-gradient(to right, #FF8D67, #E88D67, #FFAA88);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+
+  /* blur for neon effect */
+  filter: blur(20px);
+
+  /* softer mask to fade left/right edges */
+  mask-image: linear-gradient(to right, transparent 5%, black 15%, black 85%, transparent 95%);
+  -webkit-mask-image: linear-gradient(to right, transparent 5%, black 15%, black 85%, transparent 95%);
+
   animation: ${slideFade} 10s ease-in-out forwards;
   z-index: 999;
 `;
 
+const pinkPulse = keyframes`
+  0% { background-position: 0% 0; }
+  50% { background-position: 50% 0; }
+  100% { background-position: 0% 0; }
+`;
+
+const PinkMicroStroke = styled.span`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 700px; 
+  height: 16px;
+
+  /* Main pink gradient with smooth left/right fade */
+  background: linear-gradient(
+    to right,
+    transparent 0%, 
+    #ff6ec7 10%, 
+    #ff1493 50%, 
+    #ff6ec7 85%, 
+    transparent 100%
+  );
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  filter: blur(36px);
+
+  /* vertical fade into nav bar */
+  mask-image: linear-gradient(to top, black 0%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to top, black 0%, transparent 100%);
+
+  /* follow orange stroke animation */
+  animation: ${slideFade} 10s ease-in-out forwards;
+
+  /* micro animation: brightest pink moves slightly within stroke */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(255, 30, 150, 0.8) 35%,
+      rgba(255, 30, 150, 1) 50%,
+      rgba(255, 30, 150, 0.8) 65%,
+      transparent 100%
+    );
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    animation: ${pinkPulse} 2s ease-in-out infinite;
+  }
+
+  /* optional overlay for extra right-side fade */
+  &::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 60px; /* width of the feather */
+    height: 100%;
+    background: linear-gradient(to right, rgba(255, 30, 150, 0.2), transparent);
+    pointer-events: none;
+  }
+
+  z-index: 1001;
+`;
+// ---------- Logo / Nav Links ----------
 const Logo = styled.img`
   width: clamp(46px, 2.6vw, 90px);
   transition: all 0.3s ease;
@@ -90,14 +203,8 @@ const NavLinks = styled.ul`
   padding: 0;
   gap: 1.5rem;
 
-  @media (max-width: 1200px) {
-    gap: 1rem;
-  }
-
-  @media (max-width: 800px) {
-    gap: 0.8rem;
-    font-size: 1rem;
-  }
+  @media (max-width: 1200px) { gap: 1rem; }
+  @media (max-width: 800px) { gap: 0.8rem; font-size: 1rem; }
 `;
 
 const NavLabel = styled.span`
@@ -164,13 +271,13 @@ const DropdownMenu = styled(Link)`
   }
 `;
 
-// Divider between series and individual works
 const DropdownDivider = styled.div`
   height: 1px;
   background-color: rgba(255, 255, 255, 0.3);
   margin: 0.25rem 0;
 `;
 
+// ---------- Nav Component ----------
 export default function Nav() {
   return (
     <Navdiv>
@@ -180,32 +287,30 @@ export default function Nav() {
 
       <NavLinksWrapper>
         <NavLinks>
-      <ListItem>
-  <NavLabel>Art</NavLabel>
-  <Dropdown>
-    <DropdownMenu to="/Dwelling">Dwelling</DropdownMenu>
-    <DropdownMenu to="/Composition">Composition</DropdownMenu>
+          <ListItem>
+            <NavLabel>Art</NavLabel>
+            <Dropdown>
+              <DropdownMenu to="/Dwelling">Dwelling</DropdownMenu>
+              <DropdownMenu to="/Composition">Composition</DropdownMenu>
+              <DropdownDivider />
+              <DropdownMenu to="/Artworks">Artworks</DropdownMenu>
+              <DropdownMenu to="/Photography">Photo</DropdownMenu>
+              <DropdownMenu to="/Graffiti">3D + Graffiti</DropdownMenu>
+            </Dropdown>
+          </ListItem>
 
-    <DropdownDivider />
-
-    <DropdownMenu to="/Artworks">Artworks</DropdownMenu>
-    <DropdownMenu to="/Photography">Photo</DropdownMenu>
-    <DropdownMenu to="/Graffiti">3D + Graffiti</DropdownMenu>
-  </Dropdown>
-</ListItem>
-
-        <ListItem>
-  <NavLabel>Design</NavLabel>
-  <Dropdown>
-    <DropdownMenu to="/Outsource">Outsource</DropdownMenu>
-    <DropdownMenu to="/Ux">Leysi</DropdownMenu>
-    <DropdownMenu to="/Piton">Piton</DropdownMenu>
-    <DropdownMenu to="/ThreePillars">Three Pillars</DropdownMenu>
-    <DropdownMenu to="/AccessDirect">Access Direct</DropdownMenu>
-    <DropdownMenu to="/Giga">Giga</DropdownMenu>
-    <DropdownMenu to="/GraphicDesign">Graphic Design</DropdownMenu>
-  </Dropdown>
-</ListItem>
+          <ListItem>
+            <NavLabel>Design</NavLabel>
+            <Dropdown>
+              <DropdownMenu to="/Outsource">Outsource</DropdownMenu>
+              <DropdownMenu to="/Ux">Leysi</DropdownMenu>
+              <DropdownMenu to="/Piton">Piton</DropdownMenu>
+              <DropdownMenu to="/ThreePillars">Three Pillars</DropdownMenu>
+              <DropdownMenu to="/AccessDirect">Access Direct</DropdownMenu>
+              <DropdownMenu to="/Giga">Giga</DropdownMenu>
+              <DropdownMenu to="/GraphicDesign">Graphic Design</DropdownMenu>
+            </Dropdown>
+          </ListItem>
 
           <ListItem>
             <NavLink to="/About">About</NavLink>
@@ -213,9 +318,12 @@ export default function Nav() {
         </NavLinks>
 
         <StrokeWrapper>
-          <SolidStroke />
-          <NeonStroke />
-        </StrokeWrapper>
+  <SolidStroke />
+  <NeonStroke />
+  <PinkMicroStroke />
+  <SpotlightLeft />
+  <SpotlightRight />
+</StrokeWrapper>
       </NavLinksWrapper>
     </Navdiv>
   );

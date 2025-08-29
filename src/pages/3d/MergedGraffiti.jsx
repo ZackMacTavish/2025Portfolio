@@ -164,8 +164,8 @@ export default function MergedGraffiti() {
         <FiftyWidth>
           <BeesStyle src={Bees} />
         </FiftyWidth>
-        <ParagraphFour>
-          This B's illustration was made for a self-published book about the art of graffiti writing.
+        <ParagraphFour style={{ color: '#5d5d5d' }}>
+        This illustration of B’s in different styles was created for a self-published book about the art of graffiti writing.
         </ParagraphFour>
       </NewSection>
 

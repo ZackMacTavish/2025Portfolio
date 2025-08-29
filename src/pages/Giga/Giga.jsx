@@ -298,7 +298,7 @@ export default function Giga() {
     <ProjectBlock>
       <ProjectHeader>Digital Product</ProjectHeader>
       <ProjectSubtitle>
-        Digital strategy platform used for data management, and private channel creation.
+        Digital strategy platform used for data management, and private channel creation
       </ProjectSubtitle>
     </ProjectBlock>
 
@@ -306,14 +306,13 @@ export default function Giga() {
     <ProjectBlock>
       <ProjectHeader>My Role</ProjectHeader>
       <ProjectSubtitle>
-        Responsible for researching, ideating, and generating new ideas for a cohesive & imagined Giga experience. 
-        Designed and prototyped the Giga system & Web App.
+       Responsible for researching, ideating, and generating ideas for a cohesive Giga experience. Designed and prototyped the Giga system & Web App
       </ProjectSubtitle>
     </ProjectBlock>
 
     <ProjectBlock>
       <ProjectHeader>Timeframe</ProjectHeader>
-      <ProjectSubtitle>1 1/2 years.</ProjectSubtitle>
+      <ProjectSubtitle>1 1/2 years</ProjectSubtitle>
     </ProjectBlock>
   </ProjectDetails>
 </ProjectDetailsContainer>
@@ -325,7 +324,7 @@ export default function Giga() {
   <TextContainer>
     <TextContent style={{ color: '#5D5D5D' }}>
       Giga is a startup focused on sharing experiences between its users. 
-      Through a robust data management system, users can share information and learn about their favorite subjects.
+      Through a robust data management system, users can share information and learn about their favorite subjects
     </TextContent>
   </TextContainer>
 </FullHeightTextSection>

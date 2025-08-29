@@ -22,20 +22,24 @@ padding-bottom: 10vh;
 ;}
 `
 
-/* Writing the first main section in flex, but switching over to grids*/
+/* Parent container */
 export const NewSection = styled.div`
-display: flex;
-align-items: center;
-justify-content: space-between;
-height: ${(props) => props.Backgroundheight};
-width: 100vw;
-background-color:${(props) => props.Backgroundcolor};
-@media (max-width: 1000px) {
-flex-direction: column;
-height: auto;
-padding-bottom: 10vh;
-;}
-`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: ${(props) => props.Backgroundheight};
+  width: 100vw;
+  background-color: ${(props) => props.Backgroundcolor};
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    align-items: center;     /* center children horizontally */
+    justify-content: center; /* stack them centered */
+    height: auto;
+    padding: 5vh 0 10vh 0;
+    text-align: center;      /* also center any text */
+  }
+`;
 
 const ParagraphTwo = styled.div`
   position: relative;
@@ -112,7 +116,7 @@ const AboutPicture = styled.img`
   }
 `;
 
-const QuiltContainer = styled.div`
+export const QuiltContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center; /* vertically center content on desktop */
@@ -130,7 +134,7 @@ const QuiltContainer = styled.div`
   }
 `;
 
-const QuiltImage = styled.img`
+export const QuiltImage = styled.img`
   flex: 0 0 auto;
   max-width: 33%; /* desktop size */
   height: auto;
@@ -142,7 +146,7 @@ const QuiltImage = styled.img`
   }
 `;
 
-const QuiltText = styled(ParagraphTwo)`
+export const QuiltText = styled(ParagraphTwo)`
   flex: 1;
   max-width: 45%;
   padding-right: 8vw;
