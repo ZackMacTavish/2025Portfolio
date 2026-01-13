@@ -13,20 +13,13 @@ import Nav from "./components/Nav/Nav";
 // Pages
 import About from "./pages/About/About";
 import AccessDirect from "./pages/Access_Direct/AD";
-import Composition from "./pages/COMPOSITION/Composition";
-import Dwelling from "./pages/Dwelling/Dwelling";
 import Giga from "./pages/Giga/Giga";
-import Graffiti from "./pages/3d/MergedGraffiti"; 
 import GraphicDesign from "./pages/Graphic_Design/Graphicdesign";
 import LandingPage from "./pages/Landing_Page/LandingPage";
 import Outsource from "./pages/Outsource/Outsource";
-import Photography from "./pages/Photography/Photography";
 import Ux from "./pages/UX/UX";
 import ThreePillars from "./pages/ThreePillars/ThreePillars";
 import Piton from "./pages/Piton/Piton";
-
-// Combined Artworks Page
-import Artworks from "./pages/Printmaking/Artworks";
 
 // Intro Animation
 import IntroAnimation from "./pages/Intro_Animation/IntroAnimation";
@@ -55,16 +48,8 @@ function App() {
             {/* Landing page */}
             <Route path="/MacTavish" element={<LandingPage />} />
 
-            {/* Art and other pages */}
-            <Route path="/Composition" element={<Composition />} />
-            <Route path="/Artworks" element={<Artworks />} />
-            <Route path="/Painting" element={<Artworks />} />
-            <Route path="/Collages" element={<Artworks />} />
-            <Route path="/Printmaking" element={<Artworks />} />
-            <Route path="/Dwelling" element={<Dwelling />} />
-            <Route path="/Photography" element={<Photography />} />
-            <Route path="/Graffiti" element={<Graffiti />} />
-            <Route path="/MergedGraffiti" element={<Graffiti />} />
+            {/* Design pages */}
+
             <Route path="/Giga" element={<Giga />} />
             <Route path="/AccessDirect" element={<AccessDirect />} />
             <Route path="/Outsource" element={<Outsource />} />

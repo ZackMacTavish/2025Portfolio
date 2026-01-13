@@ -1,8 +1,8 @@
 import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import {  ProjectDetails, ProjectHeader, ProjectSubtitle, ProjectDetailsContainer, ProjectBlock, RisoItemtwo, StyledDiv } from '../Giga/Giga';
-import { FullBg } from '../COMPOSITION/Composition';
-import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
+import { FullBg } from '../Access_Direct/AD';
+import { RisoFlex, RisoItem } from '../Access_Direct/AD';
 
 // Assets
 import LeysiLogo from '../../assets/Leysi-White-01.jpg';
@@ -12,7 +12,7 @@ import leysimockup2 from '../../assets/mobile-phone-1c.png';
 import leysiphones from '../../assets/Leysi—iphones.jpg';
 import leysiscreens from '../../assets/LeysiApp—Screens copy.jpg';
 import leysiphones2 from '../../assets/Untitled-1800-x-1024-px-1500-x-1024-px.png';
-import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
+import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
 
 // White background wrapper for Leysi content
 const LeysiContainer = styled.div`

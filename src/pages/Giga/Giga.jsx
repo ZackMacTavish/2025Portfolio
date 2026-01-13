@@ -1,7 +1,7 @@
 import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
-import { FullBg } from '../COMPOSITION/Composition';
-import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
+import { FullBg } from '../Access_Direct/AD';
+import { RisoFlex, RisoItem } from '../Access_Direct/AD';
 import { SingleGrid } from '../Access_Direct/AD';
 
 // Assets
@@ -21,7 +21,7 @@ import photosthree from '../../assets/Photos3.jpg';
 import photosfour from '../../assets/Photos4.jpg';
 import guides from '../../assets/Guides.jpg';
 import create from '../../assets/CreateNewPost.png';
-import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
+import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
 
 
 

@@ -1,12 +1,12 @@
 import React, { useLayoutEffect } from 'react';
 
 // Components
-import { FullBg } from '../COMPOSITION/Composition';
+import { FullBg } from '../Access_Direct/AD';
 import { 
  ProjectDetails, ProjectHeader, 
   ProjectSubtitle, RisoItemtwo, StyledDiv,ProjectGrid, ProjectContent, ProjectTitle, ProjectLink, ProjectDetailsContainer, ProjectBlock, ProjectImage
 } from '../Giga/Giga';
-import { RisoFlex } from '../3d/MergedGraffiti';
+import { RisoFlex } from '../Access_Direct/AD';
 
 // Images (updated to assets folder)
 import ThreePillarsMac from '../../assets/ThreePillars—Macbook.png';
@@ -15,7 +15,7 @@ import ThreePillarsPages from '../../assets/ThreePillars—pages.jpg';
 import recruitingpage from '../../assets/Artboard – 11@2x.png';
 import ThreePillarsImac from '../../assets/ThreePillars_Imac_.jpg';
 import ThreePillarsMockup from '../../assets/Mockup.jpg';
-import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
+import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
 
 export default function ThreePillars() {
 

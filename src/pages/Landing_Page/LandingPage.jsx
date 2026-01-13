@@ -1,7 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useEffect, useState, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
-import Socials from '../../Components/Social Bar/Socials';
-import landingimage from '../../assets/Collection_Web.png';
+import Scene from '../../components/Three/three';
+import me from '../../assets/Me.jpeg';
+import imagereplace from '../../assets/BlackTurtleneck-popart-01.jpg';
+import quilthanging from '../../assets/hangingquilts.jpg';
+import Socials from '../../components/Social Bar/Socials';
+import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
 
 // Spotlight background animations
 const spotlightLeftMove = keyframes`
@@ -22,16 +26,23 @@ const spotlightRightMove = keyframes`
   100% { transform: translate(60%, -50%) rotate(360deg); }
 `;
 
+const bounce = keyframes`
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+`;
+
+// Landing section with spotlights
 const LandingDiv = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 4vw;
   width: 100vw;
   height: 100vh;
   background-color: ${(props) => props.theme.backgroundColor};
   position: relative;
   overflow: hidden;
+  padding: 0 5vw;
 
   &::before, &::after {
     content: '';
@@ -55,86 +66,327 @@ const LandingDiv = styled.div`
     left: 65%;
     animation: ${spotlightRightMove} 40s ease-in-out infinite;
   }
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    height: auto;
+    padding: 10vh 5vw;
+    gap: 2vh;
+  }
 `;
 
-const LandingImage = styled.img`
-  width: clamp(360px, 75vw, 2100px);
+
+
+const AboutPicture = styled.img`
+  width: 22vw;
+  height: 22vw;
+  object-fit: cover;
+  border-radius: 50%;
+  flex-shrink: 0;
   position: relative;
   z-index: 1;
-  transition: transform 0.5s ease;
 
-  ${({ isMobile }) =>
-    isMobile &&
-    `
-    transform: scale(1.3); /* Zoom in on mobile */
-  `}
+  @media (max-width: 1000px) {
+    width: 60vw;
+    height: 60vw;
+  }
+
+  @media (max-width: 450px) {
+    width: 70vw;
+    height: 70vw;
+  }
 `;
 
-const SpotlightText = styled.div`
-  position: absolute;
-  inset: 0;
+const ParagraphWrapper = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: clamp(4rem, 8vw, 8rem);
-  font-weight: 700;
-  color: white;
-  z-index: 2;
-  text-align: center;
-  pointer-events: none;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
 
-  /* mask only reveals text under mouse */
-  -webkit-mask-image: radial-gradient(circle 120px at var(--x) var(--y), rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: var(--x) var(--y);
-  mask-image: radial-gradient(circle 120px at var(--x) var(--y), rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
-  mask-repeat: no-repeat;
-  mask-position: var(--x) var(--y);
-  transition: mask-position 0.05s, -webkit-mask-position 0.05s;
+  @media (max-width: 1000px) {
+    width: 90%;
+  }
 `;
 
-export default function LandingPage() {
-  const containerRef = useRef(null);
-  const [mousePos, setMousePos] = useState(null); // start as null
-  const [isMobile, setIsMobile] = useState(false);
+const ParagraphTwo = styled.div`
+  position: relative;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  font-size: 2.5rem;
+  width: ${(props) => props.Widthsize};
+  color: white;
+  z-index: 1;
 
-  // Detect mobile
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+  @media (max-width: 1400px) {  
+    font-size: 1.8rem;
+  }
+
+  @media (max-width: 1000px) {  
+    width: 90%;
+    margin-top: 1vh;
+    padding-bottom: 3vh;
+    text-align: left;
+  }
+
+  @media (max-width: 850px) {
+    font-size: 1.4rem;
+    padding-top: 2vh;
+  }
+
+  @media (max-width: 450px) {
+    font-size: 1.4rem;
+  }
+`;
+
+const SocialsWrapper = styled.div`
+  position: relative;
+  z-index: 10;
+  margin-bottom: 2vh;
+`;
+
+const ArrowWrapper = styled.div`
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: ${bounce} 1.5s infinite ease-in-out;
+  opacity: ${(props) => (props.visible ? 0.8 : 0)};
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+  z-index: 10;
+`;
+
+const Arrow = styled.div`
+  width: 24px;
+  height: 24px;
+  border-left: 3px solid white;
+  border-bottom: 3px solid white;
+  transform: rotate(-45deg);
+  border-radius: 2px;
+`;
+
+export const QuiltContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 5vh 10vw;
+  gap: 4vw;
+  background-color: transparent;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    padding: 4vh 0;
+    gap: 2vh;
+    align-items: center;
+  }
+`;
+
+export const QuiltImage = styled.img`
+  flex: 0 0 auto;
+  max-width: 33%;
+  height: auto;
+  object-fit: contain;
+
+  @media (max-width: 1000px) {
+    max-width: 100%;
+    width: 100%;
+  }
+`;
+
+export const QuiltText = styled(ParagraphTwo)`
+  flex: 1;
+  max-width: 45%;
+  padding-right: 8vw;
+  font-size: 2.2rem;
+  color: white;
+
+  @media (max-width: 1400px) {
+    font-size: 1.6rem;
+  }
+
+  @media (max-width: 1000px) {
+    max-width: 90%;
+    padding-right: 0;
+    font-size: 1.4rem;
+    text-align: left;
+    margin-top: 1vh;
+    padding-bottom: 3vh;
+  }
+`;
+
+const ArtDiv = styled.div`
+  overflow-y: hidden;
+  width: 100vw;
+`;
+
+const GridThemes = styled.div`
+  display: grid;
+  overflow-y: hidden;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  background-color: ${(props) => props.theme.backgroundColor};
+  height: 100vh;
+  width: 100vw;
+`;
+
+const GridHeader = styled.h1`
+  display: grid;
+  grid-column-start: 3;
+  padding-left: 5vw;
+  grid-row-start: 2;
+  grid-row-end: 4;
+  font-size: clamp(22px, 10vw, 8rem);
+  align-self: center;
+  line-height: 14vh;
+  color: white;
+  z-index: 200;
+  font-family: 'Space Grotesk', sans-serif;
+  text-shadow: 2px 2px 50px rgba(0, 0, 0, 1);
+
+  @media (max-width: 1000px) {
+    line-height: 7vh;
+    font-size: 4rem;
+    padding-left: 3vw;
+  }
+  @media (max-width: 800px) {
+    line-height: 5vh;
+    font-size: 2.8rem;
+    padding-left: 6vw;
+  }
+`;
+
+const GridImage = styled.div`
+  display: grid; 
+  grid-column-start: 3;
+  grid-row-start: 2;
+`;
+
+const LandingPage = () => {
+  const [showArrow, setShowArrow] = useState(true);
+  const [hiddenForever, setHiddenForever] = useState(false);
+  const [isDesktop, setDesktop] = useState(window.innerWidth > 450);
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
   }, []);
 
-  // Mouse spotlight effect (desktop only)
+  // Detect desktop/mobile
   useEffect(() => {
-    if (isMobile) return;
+    const updateMedia = () => setDesktop(window.innerWidth > 450);
+    updateMedia();
+    window.addEventListener('resize', updateMedia);
+    return () => window.removeEventListener('resize', updateMedia);
+  }, []);
 
-    const handleMouseMove = (e) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const xPercent = ((e.clientX - rect.left) / rect.width) * 100;
-        const yPercent = ((e.clientY - rect.top) / rect.height) * 100;
-        setMousePos({ x: `${xPercent}%`, y: `${yPercent}%` });
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!hiddenForever && window.scrollY > 50) {
+        setShowArrow(false);
+        setHiddenForever(true);
       }
     };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [isMobile]);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [hiddenForever]);
 
   return (
-    <LandingDiv ref={containerRef}>
-      <LandingImage src={landingimage} alt="Landing" isMobile={isMobile} />
+    <div>
+      {/* Landing Section with About Picture + First Paragraph */}
+      <LandingDiv>
+        <AboutPicture src={me} />
+        <ParagraphWrapper>
+          <SocialsWrapper>
+            <Socials />
+          </SocialsWrapper>
+          <ParagraphTwo Widthsize='47vw'>
+            Hi, I'm Zack MacTavish, an artist and product designer based in Philadelphia, PA.
+            For almost four years, I've been with Microsoft's Shopping Team, shaping user
+            experiences for digital products.
+          </ParagraphTwo>
+        </ParagraphWrapper>
 
-      {/* Only show spotlight text on desktop and after mouse moves */}
-      {!isMobile && mousePos && (
-        <SpotlightText style={{ '--x': mousePos.x, '--y': mousePos.y }}>
-          Glad you stopped by
-        </SpotlightText>
-      )}
+        {/* Scroll arrow */}
+        {!hiddenForever && (
+          <ArrowWrapper visible={showArrow}>
+            <Arrow />
+          </ArrowWrapper>
+        )}
+      </LandingDiv>
 
-      <Socials />
-    </LandingDiv>
+      {/* Module 2: Second Paragraph */}
+      <FullHeightTextSection style={{ backgroundColor: 'white' }}>
+        <TextContainer>
+          <TextContent style={{ color: '#5d5d5d' }}>
+            Some of the agencies I have worked with include{' '}
+            <a
+              href="https://www.publicisgroupe.com/en"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: '#5d5d5d', textDecoration: 'underline' }}
+            >
+              Publicis Groupe
+            </a>
+            ,{' '}
+            <a
+              href="https://prairieandforge.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: '#5d5d5d', textDecoration: 'underline' }}
+            >
+              Prairie & Forge
+            </a>
+            , and{' '}
+            <a
+              href="https://varfaj.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: '#5d5d5d', textDecoration: 'underline' }}
+            >
+              Varfaj Partners
+            </a>
+            . I've also lived in New York City, working as a graphic designer in Manhattan for{' '}
+            <a
+              href="https://www.outsourceconsultants.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: '#5d5d5d', textDecoration: 'underline' }}
+            >
+              Outsource Consultants
+            </a>
+            , and studied design in Chicago. I've collaborated with clients such as Microsoft, Walmart, Seagate Technology on Disney-branded products, and Chip Ganassi Racing.
+          </TextContent>
+        </TextContainer>
+      </FullHeightTextSection>
+
+      {/* Module 3: Quilt + Third Paragraph */}
+      <QuiltContainer>
+        <QuiltImage src={quilthanging} alt="Quilt hanging" />
+        <QuiltText Widthsize='45%'>
+          Outside of work, I live with my partner Olivia, who is also an artist. 
+          In my own creative time, I focus on making quilts that combine photography, 
+          textile techniques, and mixed media, exploring the intersection of art, 
+          design, and storytelling.
+        </QuiltText>
+      </QuiltContainer>
+
+      {/* Module 4: Three.js Scene */}
+      <ArtDiv>
+        <GridThemes>
+          <GridHeader>Thanks for <br/>stopping by</GridHeader>
+          <GridImage>
+            {isDesktop ? (
+              <Scene />
+            ) : (
+              <img style={{ width: '90vw' }} src={imagereplace} alt="fallback" />
+            )}
+          </GridImage>
+        </GridThemes>
+      </ArtDiv>
+    </div>
   );
-}
+};
+
+export default LandingPage;

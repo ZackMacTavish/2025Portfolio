@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { 
   Cellphones, ProjectDetails, ProjectHeader, ProjectSubtitle, ProjectDetailsContainer, ProjectBlock, RisoItemtwo, StyledDiv,
 } from '../Giga/Giga';
-import { FullBg } from '../COMPOSITION/Composition';
-import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
-import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
+import { FullBg } from '../Access_Direct/AD';
+import { RisoFlex, RisoItem } from '../Access_Direct/AD';
+import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
 import { ProjectGrid,ProjectContent, ProjectTitle, ProjectLink, ProjectImage } from '../Giga/Giga';
 
 // Images

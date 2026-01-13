@@ -4,23 +4,27 @@ import Scene from '../../components/Three/three';
 import me from '../../assets/Me.jpeg';
 import imagereplace from '../../assets/BlackTurtleneck-popart-01.jpg';
 import quilthanging from '../../assets/hangingquilts.jpg';
-import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
+import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
 
 
 /* Writing the first main section in flex, but switching over to grids, with Theme Provider built in for dark-light modes*/
 const NewSectionTheme = styled.div`
-display: flex;
-align-items: center;
-justify-content: space-between;
-height: ${(props) => props.Backgroundheight};
-width: 100vw;
-background-color: ${(props) => props.theme.backgroundColor};
-@media (max-width: 1000px) {
-flex-direction: column;
-height: auto;
-padding-bottom: 10vh;
-;}
-`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4vw;
+  height: ${(props) => props.Backgroundheight};
+  width: 100vw;
+  background-color: ${(props) => props.theme.backgroundColor};
+  padding: 0 5vw;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    height: auto;
+    padding-bottom: 10vh;
+    gap: 2vh;
+  }
+`;
 
 /* Parent container */
 export const NewSection = styled.div`
@@ -33,11 +37,11 @@ export const NewSection = styled.div`
 
   @media (max-width: 1000px) {
     flex-direction: column;
-    align-items: center;     /* center children horizontally */
-    justify-content: center; /* stack them centered */
+    align-items: center;
+    justify-content: center;
     height: auto;
     padding: 5vh 0 10vh 0;
-    text-align: center;      /* also center any text */
+    text-align: center;
   }
 `;
 
@@ -45,7 +49,6 @@ const ParagraphTwo = styled.div`
   position: relative;
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 500;
-  padding-right: 4vw;
   font-size: 2.5rem;
   width: ${(props) => props.Widthsize};
   color: white;
@@ -56,10 +59,9 @@ const ParagraphTwo = styled.div`
 
   @media (max-width: 1000px) {  
     width: 90%;
-    padding-right: 0;
-    margin-top: 1vh;      /* move text up slightly */
-    padding-bottom: 3vh;  /* add space below */
-    text-align: left;      /* left-align text */
+    margin-top: 1vh;
+    padding-bottom: 3vh;
+    text-align: left;
   }
 
   @media (max-width: 850px) {
@@ -100,48 +102,49 @@ const Arrow = styled.div`
 
 /* ---------- About picture ---------- */
 const AboutPicture = styled.img`
-  width: 40vw;
-  padding-left: 2vw;
-  padding-top: 6vh;
+  width: 22vw;
+  height: 22vw;
+  object-fit: cover;
+  border-radius: 50%;
+  flex-shrink: 0;
 
   @media (max-width: 1000px) {
-    width: 100%;       /* full width on mobile */
-    padding-left: 0;   /* remove left padding */
-    padding-top: 5vh;  /* adjust top padding */
+    width: 60vw;
+    height: 60vw;
   }
 
   @media (max-width: 450px) {
-    width: 100%;
-    padding-top: 6vh;
+    width: 70vw;
+    height: 70vw;
   }
 `;
 
 export const QuiltContainer = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center; /* vertically center content on desktop */
-  justify-content: flex-start; /* image on left for desktop */
+  align-items: center;
+  justify-content: flex-start;
   width: 100%;
-  padding: 5vh 10vw; /* desktop padding */
+  padding: 5vh 10vw;
   gap: 4vw;
   background-color: transparent;
 
   @media (max-width: 1000px) {
     flex-direction: column;
-    padding: 4vh 0; /* remove horizontal padding on mobile */
+    padding: 4vh 0;
     gap: 2vh;
-    align-items: center; /* center block horizontally */
+    align-items: center;
   }
 `;
 
 export const QuiltImage = styled.img`
   flex: 0 0 auto;
-  max-width: 33%; /* desktop size */
+  max-width: 33%;
   height: auto;
   object-fit: contain;
 
   @media (max-width: 1000px) {
-    max-width: 100%; /* full width on mobile */
+    max-width: 100%;
     width: 100%;
   }
 `;
@@ -162,16 +165,16 @@ export const QuiltText = styled(ParagraphTwo)`
     padding-right: 0;
     font-size: 1.4rem;
     text-align: left;
-    margin-top: 1vh; /* move text up slightly */
-    padding-bottom: 3vh; /* add padding below */
+    margin-top: 1vh;
+    padding-bottom: 3vh;
   }
 `;
+
 /* ---------- Scene Section Styling ---------- */
 const ArtDiv = styled.div`
   overflow-y: hidden;
   width: 100vw;
 `;
-
 
 const GridThemes = styled.div`
   display: grid;
@@ -215,7 +218,6 @@ const GridImage = styled.div`
   grid-row-start: 2;
 `;
 
-
 const About = () => {
   const [showArrow, setShowArrow] = useState(true);
   const [hiddenForever, setHiddenForever] = useState(false);
@@ -249,8 +251,8 @@ const About = () => {
       <NewSectionTheme Backgroundheight="100vh" style={{ position: "relative" }}>
         <AboutPicture src={me} />
         <ParagraphTwo Widthsize='47vw'>
-          Hi, I’m Zack MacTavish, an artist and product designer based in Philadelphia, PA.
-          For the past three years, I’ve been with Microsoft’s Shopping Team, shaping user
+          Hi, I'm Zack MacTavish, an artist and product designer based in Philadelphia, PA.
+          For the past three years, I've been with Microsoft's Shopping Team, shaping user
           experiences for digital products.
         </ParagraphTwo>
         {!hiddenForever && (
@@ -261,49 +263,49 @@ const About = () => {
       </NewSectionTheme>
 
       {/* ---------- Module 2: Second Paragraph ---------- */}
-<FullHeightTextSection style={{ backgroundColor: 'white' }}>
-  <TextContainer>
-    <TextContent style={{ color: '#5d5d5d' }}>
-      Some of the agencies I have worked with include{' '}
-      <a
-        href="https://www.publicisgroupe.com/en"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ color: '#5d5d5d', textDecoration: 'underline' }}
-      >
-        Publicis Groupe
-      </a>
-      ,{' '}
-      <a
-        href="https://prairieandforge.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ color: '#5d5d5d', textDecoration: 'underline' }}
-      >
-        Prairie & Forge
-      </a>
-      , and{' '}
-      <a
-        href="https://varfaj.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ color: '#5d5d5d', textDecoration: 'underline' }}
-      >
-        Varfaj Partners
-      </a>
-      . I’ve also lived in New York City, working as a graphic designer in Manhattan for{' '}
-      <a
-        href="https://www.outsourceconsultants.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ color: '#5d5d5d', textDecoration: 'underline' }}
-      >
-        Outsource Consultants
-      </a>
-      , and studied design in Chicago. I’ve collaborated with clients such as Microsoft, Walmart, Seagate Technology on Disney-branded products, and Chip Ganassi Racing.
-    </TextContent>
-  </TextContainer>
-</FullHeightTextSection>
+      <FullHeightTextSection style={{ backgroundColor: 'white' }}>
+        <TextContainer>
+          <TextContent style={{ color: '#5d5d5d' }}>
+            Some of the agencies I have worked with include{' '}
+            <a
+              href="https://www.publicisgroupe.com/en"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: '#5d5d5d', textDecoration: 'underline' }}
+            >
+              Publicis Groupe
+            </a>
+            ,{' '}
+            <a
+              href="https://prairieandforge.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: '#5d5d5d', textDecoration: 'underline' }}
+            >
+              Prairie & Forge
+            </a>
+            , and{' '}
+            <a
+              href="https://varfaj.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: '#5d5d5d', textDecoration: 'underline' }}
+            >
+              Varfaj Partners
+            </a>
+            . I've also lived in New York City, working as a graphic designer in Manhattan for{' '}
+            <a
+              href="https://www.outsourceconsultants.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: '#5d5d5d', textDecoration: 'underline' }}
+            >
+              Outsource Consultants
+            </a>
+            , and studied design in Chicago. I've collaborated with clients such as Microsoft, Walmart, Seagate Technology on Disney-branded products, and Chip Ganassi Racing.
+          </TextContent>
+        </TextContainer>
+      </FullHeightTextSection>
 
       {/* ---------- Module 3: Quilt + Third Paragraph ---------- */}
       <QuiltContainer>

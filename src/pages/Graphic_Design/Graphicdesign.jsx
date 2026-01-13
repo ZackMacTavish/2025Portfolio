@@ -2,11 +2,11 @@ import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
 
 // Composition components
-import { FullBg, ParagraphFour } from '../COMPOSITION/Composition';
-import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
+import { FullBg, ParagraphFour } from '../Access_Direct/AD';
+import { RisoFlex, RisoItem } from '../Access_Direct/AD';
 import { RisoItemtwo, StyledDiv } from '../Giga/Giga';
 import { NewSection } from '../About/About';
-import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
+import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
 import { ProjectGrid,ProjectContent, ProjectTitle, ProjectLink, ProjectImage } from '../Giga/Giga';
 
 // Assets

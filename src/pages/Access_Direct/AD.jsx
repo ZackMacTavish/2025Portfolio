@@ -6,9 +6,6 @@ import {
   ProjectHeader, ProjectSubtitle, RisoItemtwo, StyledDiv, 
  ProjectGrid,ProjectContent, ProjectTitle, ProjectLink, ProjectImage, ProjectDetailsContainer, ProjectBlock
 } from '../Giga/Giga';
-import { FullBg } from '../COMPOSITION/Composition';
-import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
-import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
 
 // Assets
 import highpower from '../../assets/Highpower.jpg';
@@ -26,6 +23,139 @@ import photostwo from '../../assets/ADphotos2.jpg';
 import photosthree from '../../assets/ADphotos3.jpg';
 import guides from '../../assets/Guides2.jpg';
 import create from '../../assets/Group 274.jpg';
+
+// --- Styled Components ---
+
+export const ParagraphFour = styled.div`
+  position: relative;
+  padding-right: 6vw;       /* desktop padding */
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  font-size: 2.5rem;
+  width: 40vw;
+  color: #a0a0a0;
+
+  @media (max-width: 1770px) {
+    font-size: 1.8rem;
+  }
+
+  @media (max-width: 1000px) {
+    width: 90vw;               /* block takes most of the width */
+    max-width: 700px;          /* prevents it from being too wide */
+    font-size: 1.6rem;
+    margin: 4vh auto 0 auto;   /* centers the block horizontally */
+    padding-right: 0;          /* remove desktop padding on mobile */
+    text-align: left;          /* text stays left-aligned inside the block */
+  }
+`;
+
+export const TextContent = styled.p`
+  font-family: 'Space Grotesk', sans-serif;
+  color: #ffffff;
+  font-size: 2.3rem;
+  max-width: 50ch;
+  line-height: 1.4;
+  margin: 0;
+  text-align: left; /* always left-aligned */
+
+  @media (max-width: 1400px) {
+    font-size: 1.8rem;
+    max-width: 50ch;
+  }
+
+  @media (max-width: 850px) {
+    font-size: 1.4rem;
+    max-width: 75vw; /* still shrink width for readability */
+  }
+
+  a.inline-link {
+    color: #ffffff;
+    text-decoration: underline;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+
+    svg {
+      width: 0.8em;
+      height: 0.8em;
+      vertical-align: middle;
+    }
+  }
+`;
+
+export const TextContainer = styled.div`
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important; /* vertical centering */
+  align-items: center !important;     /* horizontal centering */
+  width: 100%; /* container takes full width */
+  box-sizing: border-box;
+  padding: 0 5vw;
+
+  @media (max-width: 850px) {
+    padding: 0 4vw;
+    justify-content: center !important;
+  }
+`;
+
+export const FullHeightTextSection = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #191919;
+  width: 100vw; /* full width */
+  min-height: 100vh;
+  padding: 5vh 5vw;
+  box-sizing: border-box;
+  text-align: left;
+
+  /* Prevent section from feeling too tall on short screens */
+  @media (max-height: 700px) {
+    min-height: 70vh;
+    padding: 4vh 5vw;
+  }
+
+  @media (max-height: 500px) {
+    min-height: 60vh;
+  }
+
+  @media (max-width: 850px) {
+    flex-direction: column;
+    justify-content: center;
+    min-height: 80vh;
+    padding: 4vh 4vw;
+  }
+`;
+
+export const RisoItem = styled.img`
+  width: ${(props) => props.Width};
+  max-width: 1000px;
+  height: auto;
+  @media (max-width: 1000px) { width: 90vw; padding-top: 3vh; }
+  @media (max-width: 450px) { padding-top: 5vh; padding-bottom: 5vh; }
+`;
+
+export const RisoFlex = styled.div`
+  display: flex;
+  justify-content: center;
+  background-color: ${(props) => props.theme.backgroundTwo};
+  align-items: center;
+  height: auto;
+  padding: 3vh 0;
+  width: 100vw;
+`;
+
+export const FullBg = styled.img`
+width: 100vw;
+height: auto;
+margin-top: -1vh;
+background-size: contain;
+background-color: ${props => props.theme.backgroundTwo};
+
+@media(max-width: 830px) {
+    padding-top: 3vh;
+}
+`
 
 export const SingleGrid = styled.div`
   display: grid;

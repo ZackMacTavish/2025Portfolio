@@ -9,7 +9,7 @@ import allpiton from '../../assets/Piton—Screens.jpg';
 import light from '../../assets/LightPhone2.png';
 import dark from '../../assets/iPhone_2—Dark.png';
 import pitonlogos from '../../assets/Group 55620@2x.png';
-import { FullHeightTextSection, TextContent, TextContainer } from '../Printmaking/Artworks';
+import { FullHeightTextSection, TextContent, TextContainer } from '../Access_Direct/AD';
 
 // Components
 import { 
@@ -18,8 +18,8 @@ import {
   ProjectSubtitle, ProjectDetailsContainer, ProjectBlock
 } from '../Giga/Giga';
 
-import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
-import { FullBg } from '../COMPOSITION/Composition';
+import { RisoFlex, RisoItem } from '../Access_Direct/AD';
+import { FullBg } from '../Access_Direct/AD';
 import { PitonScreens } from '../UX/UX';
 
 export default function Piton() {
