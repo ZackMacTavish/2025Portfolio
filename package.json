@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "homepage": "https://zackmactavish.com",
+  "homepage": "https://mactavish.xyz",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "predeploy": "vite build && cp CNAME dist/",
+    "predeploy": "vite build && echo \"mactavish.xyz\" > dist/CNAME",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {

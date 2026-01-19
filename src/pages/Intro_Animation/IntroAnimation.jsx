@@ -55,8 +55,6 @@ const IntroText = styled.h1`
 
 function FlowerModel({ onLoaded, ...props }) {
 const { scene } = useGLTF(`${import.meta.env.BASE_URL}models/scene.glb`);
-
-
   const ref = useRef();
 
   useFrame(() => {
