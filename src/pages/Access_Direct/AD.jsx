@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import Seo from '../../components/SEO/Seo';
+import { site, projects } from '../../data/metadata';
 import styled from 'styled-components';
 import { 
   Cellphones, 
@@ -182,6 +184,17 @@ export default function AccessDirect() {
 
   return (
     <StyledDiv>
+    <Seo {...projects['access-direct']} sameAs={site.sameAs} keywords={projects['access-direct'].keywords} jsonLd={{
+      '@context': 'https://schema.org',
+      '@type': 'CreativeWork',
+      headline: projects['access-direct'].title,
+      description: projects['access-direct'].description,
+      image: projects['access-direct'].image,
+      author: { '@type': 'Person', name: site.name, url: `${site.url}/about` },
+      url: projects['access-direct'].url,
+      datePublished: projects['access-direct'].datePublished,
+      keywords: projects['access-direct'].keywords,
+    }} />
     <ProjectGrid>
   <ProjectContent>
     <ProjectTitle>Access Direct</ProjectTitle>

@@ -13,6 +13,8 @@ import leysiphones from '../../assets/Leysi—iphones.jpg';
 import leysiscreens from '../../assets/LeysiApp—Screens copy.jpg';
 import leysiphones2 from '../../assets/Untitled-1800-x-1024-px-1500-x-1024-px.png';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
+import Seo from '../../components/SEO/Seo';
+import { site, projects } from '../../data/metadata';
 
 // White background wrapper for Leysi content
 const LeysiContainer = styled.div`
@@ -52,6 +54,16 @@ export default function Ux() {
 
   return (
     <StyledDiv>
+      <Seo {...projects.ux} sameAs={site.sameAs} keywords={projects.ux.keywords} jsonLd={{
+        '@context': 'https://schema.org',
+        '@type': 'CreativeWork',
+        headline: projects.ux.title,
+        description: projects.ux.description,
+        image: projects.ux.image,
+        author: { '@type': 'Person', name: site.name, url: `${site.url}/about` },
+        url: projects.ux.url,
+        keywords: projects.ux.keywords,
+      }} />
       {/* Leysi white background wrapper */}
       <LeysiContainer>
 

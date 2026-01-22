@@ -1,5 +1,7 @@
 import React, { useLayoutEffect, useEffect, useState, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
+import Seo from '../../components/SEO/Seo';
+import { site, projects } from '../../data/metadata';
 import Scene from '../../components/Three/three';
 import me from '../../assets/Me.jpeg';
 import imagereplace from '../../assets/BlackTurtleneck-popart-01.jpg';
@@ -294,6 +296,7 @@ const LandingPage = () => {
 
   return (
     <div>
+      <Seo {...projects.landing} sameAs={site.sameAs} keywords={projects.landing.keywords || site.keywords} />
       {/* Landing Section with About Picture + First Paragraph */}
       <LandingDiv>
         <AboutPicture src={me} />

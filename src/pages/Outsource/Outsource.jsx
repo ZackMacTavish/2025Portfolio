@@ -6,6 +6,8 @@ import {
 import { FullBg } from '../Access_Direct/AD';
 import { RisoFlex, RisoItem } from '../Access_Direct/AD';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
+import Seo from '../../components/SEO/Seo';
+import { site, projects } from '../../data/metadata';
 import { ProjectGrid,ProjectContent, ProjectTitle, ProjectLink, ProjectImage } from '../Giga/Giga';
 
 // Images
@@ -46,6 +48,17 @@ export default function Outsource() {
 
   return (
     <StyledDiv>
+      <Seo {...projects.outsource} sameAs={site.sameAs} keywords={projects.outsource.keywords} jsonLd={{
+        '@context': 'https://schema.org',
+        '@type': 'CreativeWork',
+        headline: projects.outsource.title,
+        description: projects.outsource.description,
+        image: projects.outsource.image,
+        author: { '@type': 'Person', name: site.name, url: `${site.url}/about` },
+        url: projects.outsource.url,
+        datePublished: projects.outsource.datePublished,
+        keywords: projects.outsource.keywords,
+      }} />
 
    <ProjectGrid>
   <ProjectContent>

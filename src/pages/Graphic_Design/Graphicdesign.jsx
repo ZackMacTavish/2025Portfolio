@@ -7,6 +7,8 @@ import { RisoFlex, RisoItem } from '../Access_Direct/AD';
 import { RisoItemtwo, StyledDiv } from '../Giga/Giga';
 import { NewSection } from '../About/About';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
+import Seo from '../../components/SEO/Seo';
+import { site, projects } from '../../data/metadata';
 import { ProjectGrid,ProjectContent, ProjectTitle, ProjectLink, ProjectImage } from '../Giga/Giga';
 
 // Assets
@@ -73,6 +75,7 @@ export default function GraphicDesign() {
 
     return (
         <StyledDiv>
+       <Seo {...projects['graphic-design']} sameAs={site.sameAs} keywords={projects['graphic-design'].keywords} />
        <ProjectGrid style={{ paddingTop: '15vh' }}>
   <ProjectContent>
     <ProjectTitle>Graphic Design</ProjectTitle>

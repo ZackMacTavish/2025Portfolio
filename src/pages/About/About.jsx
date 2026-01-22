@@ -5,6 +5,8 @@ import me from '../../assets/Me.jpeg';
 import imagereplace from '../../assets/BlackTurtleneck-popart-01.jpg';
 import quilthanging from '../../assets/hangingquilts.jpg';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
+import Seo from '../../components/SEO/Seo';
+import { site, projects } from '../../data/metadata';
 
 
 /* Writing the first main section in flex, but switching over to grids, with Theme Provider built in for dark-light modes*/
@@ -247,6 +249,7 @@ const About = () => {
 
   return (
     <div>
+      <Seo {...projects.about} sameAs={site.sameAs} keywords={projects.about.keywords} />
       {/* ---------- Module 1: About Picture + First Paragraph ---------- */}
       <NewSectionTheme Backgroundheight="100vh" style={{ position: "relative" }}>
         <AboutPicture src={me} />

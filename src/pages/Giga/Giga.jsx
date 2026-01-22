@@ -1,5 +1,7 @@
 import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
+import Seo from '../../components/SEO/Seo';
+import { site, projects } from '../../data/metadata';
 import { FullBg } from '../Access_Direct/AD';
 import { RisoFlex, RisoItem } from '../Access_Direct/AD';
 import { SingleGrid } from '../Access_Direct/AD';
@@ -267,6 +269,22 @@ export default function Giga() {
 
     return (
         <StyledDiv>
+          <Seo
+            {...projects.giga}
+            sameAs={site.sameAs}
+            keywords={projects.giga.keywords}
+            jsonLd={{
+              '@context': 'https://schema.org',
+              '@type': 'CreativeWork',
+              headline: projects.giga.title,
+              description: projects.giga.description,
+              image: projects.giga.image,
+              author: { '@type': 'Person', name: site.name, url: `${site.url}/about` },
+              url: projects.giga.url,
+              datePublished: projects.giga.datePublished,
+              keywords: projects.giga.keywords,
+            }}
+          />
 <ProjectGrid className="flex flex-col-reverse md:flex-row items-center justify-center w-full">
   {/* Text Block */}
   <div className="w-full md:w-1/2 flex justify-center md:justify-end px-6 md:px-12 mb-12 md:mb-0">

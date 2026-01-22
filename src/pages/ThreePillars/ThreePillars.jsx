@@ -16,6 +16,8 @@ import recruitingpage from '../../assets/Artboard – 11@2x.png';
 import ThreePillarsImac from '../../assets/ThreePillars_Imac_.jpg';
 import ThreePillarsMockup from '../../assets/Mockup.jpg';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
+import Seo from '../../components/SEO/Seo';
+import { site, projects } from '../../data/metadata';
 
 export default function ThreePillars() {
 
@@ -27,6 +29,7 @@ export default function ThreePillars() {
 
     return (
         <StyledDiv>
+          <Seo {...projects.threepillars} sameAs={site.sameAs} keywords={projects.threepillars.keywords} />
           <ProjectGrid>
   <ProjectContent>
     <ProjectTitle>ThreePillars</ProjectTitle>
