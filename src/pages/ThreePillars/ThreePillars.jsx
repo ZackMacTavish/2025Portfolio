@@ -2,10 +2,9 @@ import React, { useLayoutEffect } from 'react';
 
 // Components
 import { FullBg } from '../Access_Direct/AD';
-import { 
- ProjectDetails, ProjectHeader, 
-  ProjectSubtitle, RisoItemtwo, StyledDiv,ProjectGrid, ProjectContent, ProjectTitle, ProjectLink, ProjectDetailsContainer, ProjectBlock, ProjectImage
-} from '../Giga/Giga';
+import { ProjectDetails, ProjectHeader, ProjectSubtitle, RisoItemtwo, StyledDiv, ProjectDetailsContainer, ProjectBlock, ProjectImage } from '../Giga/Giga';
+import ProjectTopSection from '../../components/ProjectTopSection';
+import { FiArrowUpRight } from 'react-icons/fi';
 import { RisoFlex } from '../Access_Direct/AD';
 
 // Images (updated to assets folder)
@@ -30,15 +29,15 @@ export default function ThreePillars() {
     return (
         <StyledDiv>
           <Seo {...projects.threepillars} sameAs={site.sameAs} keywords={projects.threepillars.keywords} />
-          <ProjectGrid>
-  <ProjectContent>
-    <ProjectTitle>ThreePillars</ProjectTitle>
-    <ProjectLink href="https://threepillars.com" target="_blank" rel="noreferrer noopener">
-      threepillars.com
-    </ProjectLink>
-  </ProjectContent>
-  <ProjectImage src={ThreePillarsMac} Width="55vw" />
-</ProjectGrid>
+          <ProjectTopSection
+            title="ThreePillars"
+            imageSrc={ThreePillarsMac}
+            imageAlt="ThreePillars Macbook Mockup"
+            imageWidth="55vw"
+            buttons={[
+              { href: "https://threepillars.com", label: "Visit ThreePillars" }
+            ]}
+          />
             
 
 <ProjectDetailsContainer>
@@ -119,15 +118,14 @@ export default function ThreePillars() {
 </div>
 
 
-<FullHeightTextSection style={{ backgroundColor: 'black' }}>
-  <TextContainer>
-    <TextContent style={{ color: 'white', textAlign: 'center' }}>
-      Founders — Three Pillars Team<br />
-      Designers — Zachary MacTavish & Varfaj Team<br />
-      Development — Varfaj Team
-    </TextContent>
-  </TextContainer>
-</FullHeightTextSection>
+<ProjectTopSection
+  title="Three Pillars"
+  imageSrc={ThreePillarsMac}
+  imageAlt="Three Pillars Macbook Mockup"
+  imageWidth="44vw"
+  buttons={[]}
+  divider={true}
+/>
            
 
         </StyledDiv>

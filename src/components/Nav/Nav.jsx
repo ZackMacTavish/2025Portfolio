@@ -272,6 +272,7 @@ export default function Nav() {
           <ListItem>
             <NavLabel>Projects</NavLabel>
             <Dropdown>
+              <DropdownMenu to="/Microsoft">Microsoft</DropdownMenu>
               <DropdownMenu to="/Outsource">Outsource</DropdownMenu>
               <DropdownMenu to="/Ux">Leysi</DropdownMenu>
               <DropdownMenu to="/Piton">Piton</DropdownMenu>

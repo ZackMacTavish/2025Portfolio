@@ -8,7 +8,9 @@ import { RisoFlex, RisoItem } from '../Access_Direct/AD';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
 import Seo from '../../components/SEO/Seo';
 import { site, projects } from '../../data/metadata';
-import { ProjectGrid,ProjectContent, ProjectTitle, ProjectLink, ProjectImage } from '../Giga/Giga';
+import { ProjectImage } from '../Giga/Giga';
+import ProjectTopSection from '../../components/ProjectTopSection';
+import { FiArrowUpRight } from 'react-icons/fi';
 
 // Images
 import highpower from '../../assets/Onthemenu.jpg';
@@ -47,6 +49,7 @@ export default function Outsource() {
   }, []);
 
   return (
+
     <StyledDiv>
       <Seo {...projects.outsource} sameAs={site.sameAs} keywords={projects.outsource.keywords} jsonLd={{
         '@context': 'https://schema.org',
@@ -60,24 +63,18 @@ export default function Outsource() {
         keywords: projects.outsource.keywords,
       }} />
 
-   <ProjectGrid>
-  <ProjectContent>
-    <ProjectTitle>Outsource</ProjectTitle>
-    <ProjectLink href="https://www.outsourceconsultants.com/home" target="_blank" rel="noreferrer noopener">
-      outsourceconsultants.com
-    </ProjectLink>
-    <ProjectLink href="https://www.decoderny.com/" target="_blank" rel="noreferrer noopener">
-      decoderny.com
-    </ProjectLink>
-    <ProjectLink href="https://www.buildingowl.com/" target="_blank" rel="noreferrer noopener">
-      buildingowl.com
-    </ProjectLink>
-    <ProjectLink href="https://www.osinyc.com/" target="_blank" rel="noreferrer noopener">
-      osinyc.com
-    </ProjectLink>
-  </ProjectContent>
-  <ProjectImage src={imac} Width="55vw" />
-</ProjectGrid>
+
+      <ProjectTopSection
+        title="Outsource"
+        imageSrc={imac}
+        imageAlt="Outsource Macbook Mockup"
+        buttons={[
+          { href: "https://www.outsourceconsultants.com/home", label: "Visit Outsource" },
+          { href: "https://www.decoderny.com/", label: "Visit DecoderNY" },
+          { href: "https://www.buildingowl.com/", label: "Visit BuildingOwl" },
+          { href: "https://www.osinyc.com/", label: "Visit OSINYC" },
+        ]}
+      />
 
      <ProjectDetailsContainer>
   <ProjectDetails>

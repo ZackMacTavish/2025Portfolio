@@ -20,6 +20,7 @@ import Outsource from "./pages/Outsource/Outsource";
 import Ux from "./pages/UX/UX";
 import ThreePillars from "./pages/ThreePillars/ThreePillars";
 import Piton from "./pages/Piton/Piton";
+import Microsoft from "./pages/Microsoft/Microsoft";
 
 // Intro Animation
 import IntroAnimation from "./pages/Intro_Animation/IntroAnimation";
@@ -58,6 +59,7 @@ function App() {
             <Route path="/ThreePillars" element={<ThreePillars />} />
             <Route path="/Piton" element={<Piton />} />
             <Route path="/About" element={<About />} />
+            <Route path="/Microsoft" element={<Microsoft />} />
 
             {/* Fallback for unknown routes */}
             <Route path="*" element={<Navigate to="/" replace />} />

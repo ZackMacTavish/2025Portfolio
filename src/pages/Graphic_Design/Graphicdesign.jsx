@@ -9,7 +9,8 @@ import { NewSection } from '../About/About';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
 import Seo from '../../components/SEO/Seo';
 import { site, projects } from '../../data/metadata';
-import { ProjectGrid,ProjectContent, ProjectTitle, ProjectLink, ProjectImage } from '../Giga/Giga';
+import { ProjectTitle } from '../Giga/Giga';
+import ProjectTopSection from '../../components/ProjectTopSection';
 
 // Assets
 import gigarocket from '../../assets/4.png';
@@ -76,12 +77,14 @@ export default function GraphicDesign() {
     return (
         <StyledDiv>
        <Seo {...projects['graphic-design']} sameAs={site.sameAs} keywords={projects['graphic-design'].keywords} />
-       <ProjectGrid style={{ paddingTop: '15vh' }}>
-  <ProjectContent>
-    <ProjectTitle>Graphic Design</ProjectTitle>
-  </ProjectContent>
-  <ProjectImage src={gigarocket} Width="35vw" />
-</ProjectGrid>
+
+      <ProjectTopSection
+        title="Graphic Design"
+        imageSrc={gigarocket}
+        imageAlt="Graphic Design Cover"
+        buttons={[]}
+        divider={true}
+      />
 
 
            <FullHeightTextSection style={{ backgroundColor: '#191919' }}>

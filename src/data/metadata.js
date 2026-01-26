@@ -108,6 +108,13 @@ export const projects = {
     image: `${SITE_URL}/assets/ThreePillars—Macbook.png`,
     keywords: ['threepillars', 'branding', 'ux'],
   },
+  microsoft: {
+    title: 'Microsoft — Project | Zack MacTavish',
+    description: 'Case study: Microsoft — UX and visual design work by Zack MacTavish. Password protected.',
+    url: `${SITE_URL}/projects/microsoft`,
+    image: site.defaultImage,
+    keywords: ['microsoft', 'branding', 'ux', 'password protected'],
+  },
 };
 
 export default { site, projects };

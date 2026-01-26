@@ -1,3 +1,32 @@
+import { FiArrowUpRight } from 'react-icons/fi';
+import ProjectTopSection from '../../components/ProjectTopSection';
+
+export const ProjectButton = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32em;
+  background: #111;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.84rem;
+  border: none;
+  border-radius: 999px;
+  padding: 0.36em 1.18em 0.36em 1.18em;
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.2s;
+  width: fit-content;
+  min-width: 0;
+  flex-shrink: 0;
+  flex-grow: 0;
+  white-space: nowrap;
+  &:hover {
+    background: #333;
+  }
+`;
 import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import Seo from '../../components/SEO/Seo';
@@ -81,16 +110,18 @@ export const ProjectHeader = styled.h3`
 
 export const ProjectSubtitle = styled.h6`
   color: ${(props) => props.theme.fontColor};
-  font-size: 1.8rem;
-  margin-top: 0.8rem;
-  line-height: 1.5;
+  font-size: 1.3rem;
+  margin-top: 0.4rem;
+  line-height: 1.45;
+  font-weight: 400;
+  font-family: 'Space Grotesk', sans-serif;
 
   @media (max-width: 1320px) {
-    font-size: 1.6rem;
+    font-size: 1.15rem;
   }
 
   @media (max-width: 850px) {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 `;
 
@@ -156,15 +187,16 @@ width: ${(props) => props.Width};
 box-shadow: 5px 10px 24px rgba(0, 0, 0, 0.3);
 margin-top: 3vh;
 margin-bottom: 3vh;
+border-radius: 24px;
 
 @media(max-width: 1400px) {
-    width: 96vw;
-    height: auto;
+  width: 96vw;
+  height: auto;
 }
 
 @media(max-width: 850px) {
-    width: 96vw;
-    height: auto;
+  width: 96vw;
+  height: auto;
 }
 `
 
@@ -235,15 +267,6 @@ export const ProjectTitle = styled.h2`
   color: ${(props) => props.theme.fontColor};
   margin: 0;
 
-  &:after {
-    content: "";
-    display: block;
-    width: clamp(20px, 17vw, 500px);
-    height: 10px;
-    margin-top: 10px;
-    background: ${(props) => props.theme.fontColor};
-  }
-
   @media (max-width: 850px) {
     font-size: 3rem;
   }
@@ -285,26 +308,14 @@ export default function Giga() {
               keywords: projects.giga.keywords,
             }}
           />
-<ProjectGrid className="flex flex-col-reverse md:flex-row items-center justify-center w-full">
-  {/* Text Block */}
-  <div className="w-full md:w-1/2 flex justify-center md:justify-end px-6 md:px-12 mb-12 md:mb-0">
-    <ProjectContent className="max-w-[600px] text-left">
-      <ProjectTitle>Giga</ProjectTitle>
-      <ProjectLink
-        href="https://gigaintelligence.com"
-        target="_blank"
-        rel="noreferrer noopener"
-      >
-        gigaintelligence.com
-      </ProjectLink>
-    </ProjectContent>
-  </div>
 
-  {/* Image */}
-  <div className="flex justify-center md:justify-start w-full md:w-1/2">
-    <ProjectImage src={gigarocket} Width="55vw" />
-  </div>
-</ProjectGrid>
+<ProjectTopSection
+           title="Giga"
+           imageSrc={gigarocket}
+           imageAlt="Giga Macbook Mockup"
+           imageWidth="44vw"
+           buttons={[{ href: "https://gigaintelligence.com", label: "Visit Giga" }]}
+/>
 
 <ProjectDetailsContainer>
   <ProjectDetails>

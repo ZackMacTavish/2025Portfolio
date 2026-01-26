@@ -6,8 +6,9 @@ import {
   Cellphones, 
   ProjectDetails, 
   ProjectHeader, ProjectSubtitle, RisoItemtwo, StyledDiv, 
- ProjectGrid,ProjectContent, ProjectTitle, ProjectLink, ProjectImage, ProjectDetailsContainer, ProjectBlock
+  ProjectImage, ProjectDetailsContainer, ProjectBlock
 } from '../Giga/Giga';
+import ProjectTopSection from '../../components/ProjectTopSection';
 
 // Assets
 import highpower from '../../assets/Highpower.jpg';
@@ -195,15 +196,15 @@ export default function AccessDirect() {
       datePublished: projects['access-direct'].datePublished,
       keywords: projects['access-direct'].keywords,
     }} />
-    <ProjectGrid>
-  <ProjectContent>
-    <ProjectTitle>Access Direct</ProjectTitle>
-    <ProjectLink href="https://access-direct.net" target="_blank" rel="noreferrer noopener">
-      access-direct.net
-    </ProjectLink>
-  </ProjectContent>
-  <ProjectImage src={imac} Width="55vw" />
-</ProjectGrid>
+    <ProjectTopSection
+         title="Access Direct"
+         imageSrc={imac}
+         imageAlt="Access Direct Macbook Mockup"
+         imageWidth="44vw"
+         buttons={[
+        { href: "https://accessdirect.com", label: "Visit Access Direct" }
+      ]}
+    />
 
       {/* Project Details */}
     <ProjectDetailsContainer>
