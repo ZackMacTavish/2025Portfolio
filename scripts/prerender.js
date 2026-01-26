@@ -102,6 +102,7 @@ function getContentType(filePath) {
 }
 
 async function prerender() {
+
   const { site, projects } = await loadMetadata();
   if (!site || !site.url) {
     console.error('site.url missing in metadata.js');
@@ -114,37 +115,43 @@ async function prerender() {
   // Start static server
   const server = await startStaticServer(DIST_DIR, PORT);
 
-  const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
-  const page = await browser.newPage();
-  // set a reasonable viewport
-  await page.setViewport({ width: 1200, height: 800 });
+  let browser;
+  try {
+  browser = await puppeteer.launch({ headless: 'new', args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+    const page = await browser.newPage();
+    await page.setViewport({ width: 1200, height: 800 });
 
-  for (const route of routes) {
-    const url = `http://localhost:${PORT}${route}`;
-    try {
-      console.log('Rendering', url);
-      await page.goto(url, { waitUntil: 'networkidle0', timeout: 60000 });
-      // Wait a short while to allow any late DOM changes
-      await page.waitForTimeout(300);
-      const html = await page.content();
+    for (const route of routes) {
+      const url = `http://localhost:${PORT}${route}`;
+      try {
+        console.log('Rendering', url);
+        await page.goto(url, { waitUntil: 'networkidle0', timeout: 60000 });
+  // Wait for the OG image meta tag to appear (max 5s)
+  await page.waitForSelector("meta[property='og:image']", { timeout: 5000 });
+  // Wait a bit more for any late DOM changes
+  await new Promise(res => setTimeout(res, 300));
+        const html = await page.content();
 
-      // Determine output path
-      const outDir = path.join(DIST_DIR, route.replace(/^\//, ''));
-      const outPath = route === '/' || route === '/index/' ? path.join(DIST_DIR, 'index.html') : path.join(outDir, 'index.html');
+        // Determine output path
+        const outDir = path.join(DIST_DIR, route.replace(/^\//, ''));
+        const outPath = route === '/' || route === '/index/' ? path.join(DIST_DIR, 'index.html') : path.join(outDir, 'index.html');
 
-      // Ensure directory exists
-      const dirToEnsure = path.dirname(outPath);
-      fs.mkdirSync(dirToEnsure, { recursive: true });
-      fs.writeFileSync(outPath, html, 'utf8');
-      console.log('Wrote', outPath);
-    } catch (err) {
-      console.error('Failed to prerender', url, err);
+        // Ensure directory exists
+        const dirToEnsure = path.dirname(outPath);
+        fs.mkdirSync(dirToEnsure, { recursive: true });
+        fs.writeFileSync(outPath, html, 'utf8');
+        console.log('Wrote', outPath);
+      } catch (err) {
+        console.error('Failed to prerender', url, err);
+      }
     }
+  } catch (err) {
+    console.error('Puppeteer error:', err);
+  } finally {
+    if (browser) await browser.close();
+    server.close();
+    console.log('Prerender complete');
   }
-
-  await browser.close();
-  server.close();
-  console.log('Prerender complete');
 }
 
 prerender().catch((e) => {
