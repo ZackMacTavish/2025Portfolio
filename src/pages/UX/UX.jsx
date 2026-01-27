@@ -172,11 +172,11 @@ export default function Ux() {
         {/* Footer / Team Credits */}
         <FullHeightTextSection style={{ backgroundColor: 'black' }}>
   <TextContainer>
-    <TextContent style={{ color: 'white', textAlign: 'center', lineHeight: 1.5 }}>
-      Founders — Leysi Team<br />
-      Designers — Zachary MacTavish & Varfaj Team<br />
-      Development — Varfaj Team
-    </TextContent>
+      <TextContent style={{ color: 'white', textAlign: 'center', lineHeight: 1.5 }}>
+    Founders — Leysi Team<br />
+    Designers — Zachary MacTavish & Varfaj Team<br />
+    Development — Varfaj Team
+      </TextContent>
   </TextContainer>
 </FullHeightTextSection>
       </LeysiContainer>

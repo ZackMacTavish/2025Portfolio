@@ -118,14 +118,15 @@ export default function ThreePillars() {
 </div>
 
 
-<ProjectTopSection
-  title="Three Pillars"
-  imageSrc={ThreePillarsMac}
-  imageAlt="Three Pillars Macbook Mockup"
-  imageWidth="44vw"
-  buttons={[]}
-  divider={true}
-/>
+<FullHeightTextSection style={{ backgroundColor: 'black' }}>
+  <TextContainer>
+    <TextContent style={{ color: 'white', textAlign: 'center', lineHeight: 1.5 }}>
+      Founders — Three Pillars Team<br />
+      Designers — Zachary MacTavish & Varfaj Team<br />
+      Development — Varfaj Team
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
            
 
         </StyledDiv>
