@@ -77,6 +77,39 @@ const PasswordForm = styled.form`
   box-shadow: 0 2px 16px rgba(0,0,0,0.08);
 `;
 
+// Rounded input following site font styles
+const PasswordInput = styled.input`
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.1rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid #ccc;
+  min-width: 240px;
+  outline: none;
+  color: #111;
+  background: #fff;
+  &::placeholder { color: #9b9b9b; }
+`;
+
+// Black rounded submit button, consistent with site styles
+const PasswordButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32em;
+  background: #111;
+  color: #fff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  border: none;
+  border-radius: 999px;
+  padding: 0.56rem 1.4rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.2s ease;
+  &:hover { background: #333; }
+`;
+
 const placeholderImg = ""; // Placeholder image removed
 
 const Microsoft = () => {
@@ -133,15 +166,14 @@ const Microsoft = () => {
         <SpotlightBackground />
         <PasswordForm onSubmit={handleSubmit}>
           <h2 style={{ margin: 0 }}>Enter Password</h2>
-          <input
+          <PasswordInput
             type="password"
             value={input}
             onChange={e => setInput(e.target.value)}
             placeholder="Password"
-            style={{ padding: '0.5rem 1rem', fontSize: '1.1rem', borderRadius: '6px', border: '1px solid #ccc', minWidth: '220px' }}
             autoFocus
           />
-          <button type="submit" style={{ padding: '0.5rem 1.5rem', fontSize: '1.1rem', borderRadius: '6px', background: '#0078d4', color: '#fff', border: 'none', cursor: 'pointer' }}>Submit</button>
+          <PasswordButton type="submit">Submit</PasswordButton>
           {error && <div style={{ color: 'red', marginTop: '0.5rem' }}>{error}</div>}
         </PasswordForm>
       </PasswordContainer>

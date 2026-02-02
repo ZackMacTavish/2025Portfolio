@@ -16,7 +16,7 @@ const AppCursorstyles = styled.div`
   pointer-events: none;
   position: fixed;
   transform: translate3d(0,0,0) scale(1);
-  transition: transform 0.1s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* smoother visual hover while keeping movement snappy */
   display: none;
 
   &.hovered {
@@ -33,6 +33,7 @@ const CustomCursor = () => {
   const [isMobile, setIsMobile] = useState(false);
   const cursorRef = useRef(null);
   const hoveredRef = useRef(false);
+  const scaleRef = useRef(1);
   const target = useRef({ x: 0, y: 0 });
   const current = useRef({ x: 0, y: 0 });
   const firstMove = useRef(false);
@@ -79,26 +80,34 @@ const CustomCursor = () => {
 
     const animate = () => {
       if (cursorRef.current && firstMove.current) {
-        current.current.x += (target.current.x - current.current.x) * 0.65;
-        current.current.y += (target.current.y - current.current.y) * 0.65;
+        // Snappy position tracking
+        current.current.x += (target.current.x - current.current.x) * 0.9;
+        current.current.y += (target.current.y - current.current.y) * 0.9;
 
-        const scale = hoveredRef.current ? 0.3 : 1;
-        cursorRef.current.style.transform = `translate3d(${current.current.x}px, ${current.current.y}px, 0) scale(${scale})`;
+        // Smooth hover scaling
+        const targetScale = hoveredRef.current ? 0.3 : 1;
+        scaleRef.current += (targetScale - scaleRef.current) * 0.22;
+        cursorRef.current.style.transform = `translate3d(${current.current.x}px, ${current.current.y}px, 0) scale(${scaleRef.current})`;
       }
       requestAnimationFrame(animate);
     };
 
-    const onHover = (e) => {
-      const tag = e.currentTarget.tagName.toLowerCase();
-      if ((tag === 'a' || tag === 'svg') && cursorRef.current) {
+    // Treat anything that routes or is clearly clickable as a "linkish" hover target.
+  const LINKISH_SELECTORS = 'a, button, input, textarea, select, [role="link"], [role="button"], [data-cursor="link"], [data-route], [data-routes-to], .nav-link, .router-link, .link, .btn';
+
+    const onDocumentMouseOver = (e) => {
+      const el = e.target.closest(LINKISH_SELECTORS);
+      if (el && cursorRef.current) {
         hoveredRef.current = true;
         cursorRef.current.classList.add('hovered');
       }
     };
 
-    const onHoverOut = (e) => {
-      const tag = e.currentTarget.tagName.toLowerCase();
-      if ((tag === 'a' || tag === 'svg') && cursorRef.current) {
+    const onDocumentMouseOut = (e) => {
+      // If moving to another linkish element, keep hovered
+      const toEl = e.relatedTarget && (e.relatedTarget.closest ? e.relatedTarget.closest(LINKISH_SELECTORS) : null);
+      if (toEl) return;
+      if (cursorRef.current) {
         hoveredRef.current = false;
         cursorRef.current.classList.remove('hovered');
       }
@@ -108,11 +117,9 @@ const CustomCursor = () => {
     document.addEventListener('mouseleave', hideCursor);
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
-    const hoverElements = document.querySelectorAll('a, svg');
-    hoverElements.forEach(el => {
-      el.addEventListener('mouseenter', onHover);
-      el.addEventListener('mouseleave', onHoverOut);
-    });
+    // Event delegation so dynamically rendered links/buttons are covered
+    document.addEventListener('mouseover', onDocumentMouseOver);
+    document.addEventListener('mouseout', onDocumentMouseOut);
 
     animate();
 
@@ -120,10 +127,8 @@ const CustomCursor = () => {
       document.removeEventListener('mousemove', moveCursor);
       document.removeEventListener('mouseleave', hideCursor);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
-      hoverElements.forEach(el => {
-        el.removeEventListener('mouseenter', onHover);
-        el.removeEventListener('mouseleave', onHoverOut);
-      });
+      document.removeEventListener('mouseover', onDocumentMouseOver);
+      document.removeEventListener('mouseout', onDocumentMouseOut);
     };
   }, [isMobile]);
 
