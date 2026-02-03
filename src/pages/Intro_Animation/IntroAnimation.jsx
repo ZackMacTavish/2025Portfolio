@@ -120,7 +120,8 @@ export default function IntroAnimation() {
 
   return (
     <>
-      <LandingPage />
+      {/* Pass introDone so the landing page chevron waits until the overlay wipes away */}
+      <LandingPage introDone={!showIntro} />
       {showIntro && (
         <IntroDiv animateOut={animateOut}>
           <FloatingFlower onModelLoaded={() => setModelLoaded(true)} />

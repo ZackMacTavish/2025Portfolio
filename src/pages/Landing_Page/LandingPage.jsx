@@ -10,8 +10,8 @@ import quilthanging from '../../assets/hangingquilts.jpg';
 import leysiTile from '../../assets/LeysiApp—Screens copy.jpg';
 import threePillarsTile from '../../assets/ThreePillars—pages.jpg';
 import pitonTile from '../../assets/Group 55618@2x.png';
-import outsourceTile from '../../assets/Outsource—pages.jpg';
-import gigaTile from '../../assets/Giga—mockup.jpg';
+import outsourceTile from '../../assets/BrandGuidelines—Mockup.jpg';
+import gigaTile from '../../assets/iphones—Mockup copy.png';
 import Socials from '../../components/Social Bar/Socials';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
 import { Link } from 'react-router-dom';
@@ -164,7 +164,7 @@ const ArrowWrapper = styled.div`
   opacity: ${(props) => (props.visible ? 0.8 : 0)};
   transition: opacity 0.6s ease;
   pointer-events: none;
-  z-index: 100;    /* above content but below nav */
+  z-index: 2;      /* keep under intro overlay (which is z-index: 10) and above base content */
 `;
 
 const Arrow = styled.div`
@@ -394,8 +394,8 @@ const GridImage = styled.div`
   grid-row-start: 2;
 `;
 
-const LandingPage = () => {
-  const [showArrow, setShowArrow] = useState(true);
+const LandingPage = ({ introDone = true }) => {
+  const [showArrow, setShowArrow] = useState(false); // start hidden; reveal after intro animation
   const [hiddenForever, setHiddenForever] = useState(false);
   const [isDesktop, setDesktop] = useState(window.innerWidth > 450);
 
@@ -422,6 +422,14 @@ const LandingPage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [hiddenForever]);
 
+  // Reveal the chevron as soon as the intro overlay has completed
+  useEffect(() => {
+    if (!introDone) return;
+    if (!hiddenForever) {
+      setShowArrow(true);
+    }
+  }, [introDone, hiddenForever]);
+
   return (
     <div>
       <Seo {...projects.landing} sameAs={site.sameAs} keywords={projects.landing.keywords || site.keywords} />
@@ -440,7 +448,7 @@ const LandingPage = () => {
         </ParagraphWrapper>
 
         {/* Scroll arrow */}
-        {!hiddenForever && (
+        {!hiddenForever && introDone && (
           <ArrowWrapper visible={showArrow}>
             <Arrow />
           </ArrowWrapper>
@@ -535,7 +543,7 @@ const LandingPage = () => {
       <FullHeightTextSection style={{ backgroundColor: '#f7f7f7', padding: '10vh 5vw', minHeight: '70vh' }}>
         <TextContainer>
           <TextContent style={{ color: '#5d5d5d' }}>
-            Some of the agencies I have worked with include{' '}
+            I’ve partnered with agencies including{' '}
             <a
               href="https://www.publicisgroupe.com/en"
               target="_blank"
@@ -562,16 +570,7 @@ const LandingPage = () => {
             >
               Varfaj Partners
             </a>
-            . I've also lived in New York City, working as a graphic designer in Manhattan for{' '}
-            <a
-              href="https://www.outsourceconsultants.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: '#5d5d5d', textDecoration: 'underline' }}
-            >
-              Outsource Consultants
-            </a>
-            , and studied design in Chicago. I've collaborated with clients such as Microsoft, Walmart, Seagate Technology on Disney-branded products, and Chip Ganassi Racing.
+            {' '}on work spanning UX, product, and brand design. My background includes agency experience in New York City and formal design training in Chicago. Client collaborations have included Microsoft, Walmart, Seagate Technology, and Chip Ganassi Racing.
           </TextContent>
         </TextContainer>
       </FullHeightTextSection>

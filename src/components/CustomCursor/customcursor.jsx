@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
 const GlobalCursorStyle = createGlobalStyle`
-  * { cursor: none !important; }
+  html, body, * { cursor: none !important; }
 `;
 
 const AppCursorstyles = styled.div`
@@ -132,12 +132,12 @@ const CustomCursor = () => {
     };
   }, [isMobile]);
 
-  if (isMobile) return null; // Don’t render anything on mobile
-
+  // Always render GlobalCursorStyle to keep the native cursor hidden,
+  // even when the custom cursor is disabled on mobile.
   return (
     <>
       <GlobalCursorStyle />
-      <AppCursorstyles ref={cursorRef} />
+      {!isMobile && <AppCursorstyles ref={cursorRef} />}
     </>
   );
 };
