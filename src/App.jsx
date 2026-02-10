@@ -23,7 +23,7 @@ const Piton = lazy(() => import("./pages/Piton/Piton"));
 const Microsoft = lazy(() => import("./pages/Microsoft/Microsoft"));
 
 // Intro Animation
-import IntroAnimation from "./pages/Intro_Animation/IntroAnimation";
+const IntroAnimation = lazy(() => import("./pages/Intro_Animation/IntroAnimation"));
 
 // Assets
 import sun from './assets/Sun-DRKGREEN-01.svg';

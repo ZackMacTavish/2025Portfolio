@@ -130,7 +130,7 @@ export const FullHeightTextSection = styled.section`
   }
 `;
 
-export const RisoItem = styled.img`
+export const RisoItem = styled.img.attrs({ loading: 'lazy', decoding: 'async' })`
   width: ${(props) => props.Width};
   max-width: 1000px;
   height: auto;
@@ -148,7 +148,7 @@ export const RisoFlex = styled.div`
   width: 100vw;
 `;
 
-export const FullBg = styled.img`
+export const FullBg = styled.img.attrs({ loading: 'lazy', decoding: 'async' })`
 width: 100vw;
 height: auto;
 margin-top: -1vh;

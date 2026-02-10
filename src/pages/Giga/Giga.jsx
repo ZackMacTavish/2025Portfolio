@@ -182,7 +182,7 @@ font-size: 1.8rem;
 }
 `
 
-export const RisoItemtwo = styled.img`
+export const RisoItemtwo = styled.img.attrs({ loading: 'lazy', decoding: 'async' })`
 width: ${(props) => props.Width};
 box-shadow: 5px 10px 24px rgba(0, 0, 0, 0.3);
 margin-top: 3vh;

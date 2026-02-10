@@ -95,7 +95,7 @@ const LandingDiv = styled.div`
 
 
 
-const AboutPicture = styled.img`
+const AboutPicture = styled.img.attrs({ loading: 'eager', decoding: 'async', fetchpriority: 'high' })`
   width: 22vw;
   height: 22vw;
   object-fit: cover;
@@ -379,7 +379,7 @@ export const QuiltInner = styled.div`
   }
 `;
 
-export const QuiltImage = styled.img`
+export const QuiltImage = styled.img.attrs({ loading: 'lazy', decoding: 'async' })`
   width: 100%;
   height: auto;
   display: block; /* avoid inline image spacing quirks */
@@ -824,7 +824,13 @@ const LandingPage = ({ introDone = true }) => {
                     <Scene />
                   </Suspense>
                 ) : (
-                  <img style={{ width: '100vw', height: 'auto', display: 'block' }} src={imagereplace} alt="fallback" />
+                  <img
+                    style={{ width: '100vw', height: 'auto', display: 'block' }}
+                    src={imagereplace}
+                    alt="fallback"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 )}
               </GridImage>
             </GridThemes>
