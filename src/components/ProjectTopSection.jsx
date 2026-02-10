@@ -95,4 +95,10 @@ const TopSectionImageStyled = styled.img`
   height: auto;
   display: block;
   object-fit: contain;
+
+  /* Make the top project image larger on mobile */
+  @media (max-width: 1000px) {
+    width: 92vw;          /* override any passed width for mobile */
+    max-height: 75vh;     /* allow taller image while preserving aspect */
+  }
 `;

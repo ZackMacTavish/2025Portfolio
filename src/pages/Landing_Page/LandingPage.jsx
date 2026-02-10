@@ -90,6 +90,8 @@ const LandingDiv = styled.div`
     height: auto;
     padding: 10vh 5vw;
     gap: 2vh;
+    align-items: center;   /* explicitly center children horizontally */
+    justify-content: center; /* explicitly center children vertically within available space */
   }
 `;
 
@@ -103,15 +105,29 @@ const AboutPicture = styled.img.attrs({ loading: 'eager', decoding: 'async', fet
   flex-shrink: 0;
   position: relative;
   z-index: 1;
+  display: block; /* ensure proper centering with auto margins */
 
   @media (max-width: 1000px) {
     width: 60vw;
     height: 60vw;
+    align-self: center; /* center inside column layout */
+    margin: 0 auto;     /* explicit centering on mobile */
   }
 
   @media (max-width: 450px) {
     width: 70vw;
     height: 70vw;
+    align-self: center;
+    margin: 0 auto;
+  }
+`;
+
+const PortraitContainer = styled.div`
+  display: flex;
+  @media (max-width: 1000px) {
+    width: 100%;
+    display: grid;           /* grid centers perfectly even with subpixel widths */
+    place-items: center;     /* center both horizontally and vertically */
   }
 `;
 
@@ -164,15 +180,33 @@ const SocialsWrapper = styled.div`
 `;
 
 const ArrowWrapper = styled.div`
-  position: fixed; /* center relative to the viewport */
+  position: fixed; /* desktop: center relative to the viewport */
   bottom: 6vh;     /* consistent viewport spacing from bottom */
-  left: 50%;
-  transform: translateX(-50%);
-  animation: ${bounce} 1.5s infinite ease-in-out;
+  left: 0;
+  right: 0;
+  transform: none;
+  display: grid;
+  place-items: center; /* robust horizontal centering without relying on transforms */
   opacity: ${(props) => (props.visible ? 0.8 : 0)};
   transition: opacity 0.6s ease;
   pointer-events: none;
   z-index: 2;      /* keep under intro overlay (which is z-index: 10) and above base content */
+
+  /* mobile: keep the chevron inside the first section */
+  @media (max-width: 1000px) {
+    position: absolute; /* anchor to LandingDiv instead of viewport */
+    bottom: 4vh;        /* inside the section's bottom */
+    left: 0;
+    right: 0;
+    transform: none;
+    display: grid;
+    place-items: center;
+  }
+`;
+
+const ArrowInner = styled.div`
+  animation: ${bounce} 1.5s infinite ease-in-out; /* animate only Y so X-centering stays intact */
+  will-change: transform;
 `;
 
 const Arrow = styled.div`
@@ -182,6 +216,7 @@ const Arrow = styled.div`
   border-bottom: 3px solid white;
   transform: rotate(-45deg);
   border-radius: 2px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.35)); /* maintain visibility even near light backgrounds */
 `;
 
 // --- Projects Section Styles ---
@@ -415,10 +450,14 @@ const GridThemes = styled.div`
   background-color: ${(props) => props.theme.backgroundColor};
   height: 100dvh; /* ensure full viewport height on mobile browsers */
   width: 100vw;
+  position: relative; /* allow absolute overlay of header on mobile */
 
   @media (max-width: 800px) {
     grid-template-columns: 1fr; /* single column on mobile for full-width content */
-    grid-template-rows: auto auto; /* header above image */
+    grid-template-rows: 90dvh; /* slightly less tall on mobile; header overlays */
+    grid-template-areas: 'image';
+    height: 90dvh; /* match container height to image */
+    overflow: visible; /* prevent absolute header from being clipped */
   }
 `;
 
@@ -443,23 +482,27 @@ const GridHeader = styled.h1`
   @media (max-width: 1000px) {
     font-size: 3.2rem; /* slightly larger on mobile */
     line-height: 1.2;  /* keep tighter line-height on mobile */
-    justify-self: start; /* anchor to left of grid */
-    margin: 0;
+    justify-self: center; /* align with site grid like other sections */
+    width: 60vw;         /* match grid measure */
+    max-width: 1100px;   /* consistent cap */
+    margin: 0 auto;      /* center the container */
     text-align: left;
-    width: 100%;
-    max-width: none; /* allow full width on mobile */
   }
   @media (max-width: 800px) {
-    font-size: 2.6rem; /* slightly larger on smaller mobile */
-    line-height: 1.2;
-    grid-column-start: 1; /* full-width column */
-    grid-row-start: 1;    /* place header above image */
-    grid-row-end: auto;
-    justify-self: start;
+    grid-area: image; /* share the same grid area as the image */
+    position: relative; /* overlay via z-index without absolute clipping */
+    justify-self: center;
+    align-self: center;
+    width: 85vw; /* readable measure on mobile */
+    text-align: center; /* center inside the image */
     margin: 0;
-    text-align: left;
-    width: 100vw; /* take the full viewport width */
-    max-width: none;
+    font-size: 2.8rem;
+    line-height: 1.1; /* slightly tighter for elegance */
+    z-index: 1000; /* ensure above image */
+    padding: 0.75rem 1rem; /* create a subtle readable area */
+    border-radius: 10px;
+    display: block;
+    visibility: visible;
   }
 `;
 
@@ -467,12 +510,16 @@ const GridImage = styled.div`
   display: grid;
   grid-column-start: 3;
   grid-row-start: 2;
+  position: relative; /* allow child absolute positioning if needed */
+  z-index: 1; /* base layer so header overlays above */
+
+  /* removed semi-transparent overlay per request */
 
   @media (max-width: 800px) {
-    grid-column-start: 1; /* single column layout */
-    grid-row-start: 2;    /* image below header */
+    grid-area: image;     /* image occupies the grid area */
     justify-self: center;
     width: 100vw;
+    height: 90dvh;  /* slightly less tall on mobile */
   }
 `;
 
@@ -519,7 +566,9 @@ const LandingPage = ({ introDone = true }) => {
       <Seo {...projects.landing} sameAs={site.sameAs} keywords={projects.landing.keywords || site.keywords} />
       {/* Landing Section with About Picture + First Paragraph */}
       <LandingDiv>
-        <AboutPicture src={me} />
+        <PortraitContainer>
+          <AboutPicture src={me} />
+        </PortraitContainer>
         <ParagraphWrapper>
           <SocialsWrapper>
             <Socials />
@@ -534,7 +583,9 @@ const LandingPage = ({ introDone = true }) => {
         {/* Scroll arrow */}
         {!hiddenForever && introDone && (
           <ArrowWrapper visible={showArrow}>
-            <Arrow />
+            <ArrowInner>
+              <Arrow />
+            </ArrowInner>
           </ArrowWrapper>
         )}
       </LandingDiv>
@@ -825,7 +876,7 @@ const LandingPage = ({ introDone = true }) => {
                   </Suspense>
                 ) : (
                   <img
-                    style={{ width: '100vw', height: 'auto', display: 'block' }}
+                    style={{ width: '100vw', height: '90dvh', objectFit: 'cover', display: 'block' }}
                     src={imagereplace}
                     alt="fallback"
                     loading="lazy"

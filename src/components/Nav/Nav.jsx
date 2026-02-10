@@ -1,8 +1,8 @@
 // src/components/Nav/Nav.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import logo from '../../assets/Final-M-SinglePiece.svg';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const spotlightLeftMove = keyframes`
   0% { transform: translateX(-40%) translateY(0); opacity: 1; }
@@ -209,8 +209,11 @@ const ListItem = styled.li`
   position: relative;
   white-space: nowrap;
 
-  &:hover > div {
-    display: block;
+  /* enable hover-open for devices that support hover (desktop) */
+  @media (hover: hover) {
+    &:hover > div {
+      display: block;
+    }
   }
 `;
 
@@ -236,7 +239,7 @@ const Dropdown = styled.div`
   backdrop-filter: blur(6px);
   border-radius: 0.25rem;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  display: none;
+  display: ${(props) => (props.$open ? 'block' : 'none')};
   min-width: 10rem; /* Increased from 8rem */
   z-index: 1000;
 `;
@@ -261,6 +264,17 @@ const DropdownDivider = styled.div`
 `;
 
 export default function Nav() {
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    // close dropdown on route change
+    setOpen(false);
+  }, [location.pathname]);
+
+  const handleToggle = () => setOpen((prev) => !prev);
+  const handleClose = () => setOpen(false);
+
   return (
     <Navdiv>
       <Link to="/MacTavish" style={{ cursor: 'none' }}>
@@ -270,16 +284,23 @@ export default function Nav() {
       <NavLinksWrapper>
         <NavLinks>
           <ListItem>
-            <NavLabel>Projects</NavLabel>
-            <Dropdown>
-              <DropdownMenu to="/Microsoft">Microsoft</DropdownMenu>
-              <DropdownMenu to="/Outsource">Outsource</DropdownMenu>
-              <DropdownMenu to="/Ux">Leysi</DropdownMenu>
-              <DropdownMenu to="/Piton">Piton</DropdownMenu>
-              <DropdownMenu to="/ThreePillars">Three Pillars</DropdownMenu>
-              <DropdownMenu to="/AccessDirect">Access Direct</DropdownMenu>
-              <DropdownMenu to="/Giga">Giga</DropdownMenu>
-              <DropdownMenu to="/GraphicDesign">Graphic Design</DropdownMenu>
+            <NavLabel
+              role="button"
+              aria-haspopup="true"
+              aria-expanded={open}
+              onClick={handleToggle}
+            >
+              Projects
+            </NavLabel>
+            <Dropdown $open={open}>
+              <DropdownMenu to="/Microsoft" onClick={handleClose}>Microsoft</DropdownMenu>
+              <DropdownMenu to="/Outsource" onClick={handleClose}>Outsource</DropdownMenu>
+              <DropdownMenu to="/Ux" onClick={handleClose}>Leysi</DropdownMenu>
+              <DropdownMenu to="/Piton" onClick={handleClose}>Piton</DropdownMenu>
+              <DropdownMenu to="/ThreePillars" onClick={handleClose}>Three Pillars</DropdownMenu>
+              <DropdownMenu to="/AccessDirect" onClick={handleClose}>Access Direct</DropdownMenu>
+              <DropdownMenu to="/Giga" onClick={handleClose}>Giga</DropdownMenu>
+              <DropdownMenu to="/GraphicDesign" onClick={handleClose}>Graphic Design</DropdownMenu>
             </Dropdown>
           </ListItem>
         </NavLinks>
