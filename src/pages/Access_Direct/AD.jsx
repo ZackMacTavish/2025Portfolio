@@ -55,20 +55,16 @@ export const ParagraphFour = styled.div`
 export const TextContent = styled.p`
   font-family: 'Space Grotesk', sans-serif;
   color: #ffffff;
-  font-size: 2.3rem;
-  max-width: 50ch;
-  line-height: 1.4;
+  font-size: clamp(1.2rem, 2.2vw, 1.8rem); /* slightly smaller, scales with viewport */
+  max-width: 60ch; /* comfortable measure inside 60vw container */
+  line-height: 1.55;
   margin: 0;
   text-align: left; /* always left-aligned */
 
-  @media (max-width: 1400px) {
-    font-size: 1.8rem;
-    max-width: 50ch;
-  }
-
   @media (max-width: 850px) {
-    font-size: 1.4rem;
-    max-width: 75vw; /* still shrink width for readability */
+    font-size: 1.6rem; /* slightly bigger on responsive */
+    max-width: 90vw;
+    line-height: 1.75;
   }
 
   a.inline-link {
@@ -91,12 +87,16 @@ export const TextContainer = styled.div`
   flex-direction: column !important;
   justify-content: center !important; /* vertical centering */
   align-items: center !important;     /* horizontal centering */
-  width: 100%; /* container takes full width */
+  width: 60vw; /* constrain to site grid */
+  max-width: 1000px; /* slightly smaller cap for consistency across pages */
+  margin: 0 auto; /* center within section */
   box-sizing: border-box;
-  padding: 0 5vw;
+  padding: 0; /* no extra horizontal padding so width is true 60vw */
 
   @media (max-width: 850px) {
-    padding: 0 4vw;
+    width: 90vw;
+    max-width: 650px; /* slightly smaller mobile cap to match perceived size */
+    padding: 0;
     justify-content: center !important;
   }
 `;
@@ -107,26 +107,26 @@ export const FullHeightTextSection = styled.section`
   align-items: center;
   background-color: #191919;
   width: 100vw; /* full width */
-  min-height: 100vh;
-  padding: 5vh 5vw;
+  min-height: 70vh; /* align section height with landing page text section */
+  padding: 10vh 5vw; /* match landing page spacing */
   box-sizing: border-box;
   text-align: left;
 
   /* Prevent section from feeling too tall on short screens */
   @media (max-height: 700px) {
-    min-height: 70vh;
-    padding: 4vh 5vw;
+    min-height: 60vh;
+    padding: 8vh 5vw; /* keep comfortable spacing on shorter viewports */
   }
 
   @media (max-height: 500px) {
-    min-height: 60vh;
+    min-height: 50vh;
   }
 
   @media (max-width: 850px) {
     flex-direction: column;
     justify-content: center;
-    min-height: 80vh;
-    padding: 4vh 4vw;
+    min-height: 70vh; /* similar perceived size on mobile */
+    padding: 8vh 4vw; /* maintain visual balance on small screens */
   }
 `;
 

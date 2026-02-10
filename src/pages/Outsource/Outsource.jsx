@@ -169,7 +169,7 @@ export default function Outsource() {
       <FullBg src={ceuimac} />
       <FullBg src={bointro} />
 
-<TextContainer style={{ backgroundColor: 'white', width: '100%' }}>
+<TextContainer style={{ backgroundColor: 'white' }}>
   <FullHeightTextSection style={{ backgroundColor: 'white' }}>
     <TextContent style={{ color: '#5d5d5d' }}>
       BuildingOwl is a technology that monitors and resolves critical building issues. I was responsible for expanding the existing brand identity, supporting marketing efforts, and improving the overall UX for a more intuitive user experience.

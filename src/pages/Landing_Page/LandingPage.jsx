@@ -12,6 +12,13 @@ import threePillarsTile from '../../assets/ThreePillars—pages.jpg';
 import pitonTile from '../../assets/Group 55618@2x.png';
 import outsourceTile from '../../assets/BrandGuidelines—Mockup.jpg';
 import gigaTile from '../../assets/iphones—Mockup copy.png';
+import mediumLogo from '../../assets/medium.svg';
+import card1 from '../../assets/Card1.webp';
+import card2 from '../../assets/Card2.webp';
+import card3 from '../../assets/Card3.webp';
+import card4 from '../../assets/Card4.webp';
+import card5 from '../../assets/Card5.webp';
+import card6 from '../../assets/Card6.png';
 import Socials from '../../components/Social Bar/Socials';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
 import { Link } from 'react-router-dom';
@@ -262,6 +269,46 @@ const TileSubtitle = styled.p`
   color: #5d5d5d;
 `;
 
+// Optional section header styles for re-use
+const SectionHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  @media (max-width: 650px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+`;
+
+const SectionTitle = styled.h2`
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: #111;
+`;
+
+const SectionSubtitle = styled.p`
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  color: #5d5d5d;
+  text-align: right;
+  a {
+    color: #5d5d5d;
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+  a:hover {
+    color: ${(props) => props.theme.backgroundColor};
+    text-decoration: none;
+  }
+`;
+
 const LockCenter = styled.div`
   position: absolute;
   inset: 0;
@@ -300,50 +347,57 @@ export const QuiltContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center; /* center inner wrapper */
   width: 100%;
-  padding: 5vh 10vw;
-  gap: 4vw;
+  padding: 8vh 0; /* add more vertical space */
   background-color: transparent;
 
   @media (max-width: 1000px) {
     flex-direction: column;
     padding: 4vh 0;
-    gap: 2vh;
+    align-items: center;
+  }
+`;
+
+// Inner wrapper to constrain width similar to cards (60vw, capped at 1100px)
+export const QuiltInner = styled.div`
+  width: 62vw; /* +2vw for a bit more room */
+  max-width: 1100px; /* aligns with other sections' inner width */
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.48fr 0.52fr; /* give ~2vw more space to text */
+  align-items: center; /* vertically center text relative to image */
+  justify-content: center;
+  gap: calc(2rem + 16px); /* add ~16px more gap between image and text */
+
+  @media (max-width: 1000px) {
+    width: 90vw;
+    grid-template-columns: 1fr;
+    gap: 1rem;
     align-items: center;
   }
 `;
 
 export const QuiltImage = styled.img`
-  flex: 0 0 auto;
-  max-width: 33%;
+  width: 100%;
   height: auto;
+  display: block; /* avoid inline image spacing quirks */
   object-fit: contain;
-
-  @media (max-width: 1000px) {
-    max-width: 100%;
-    width: 100%;
-  }
+  border-radius: 18px; /* match tile rounding used elsewhere on page */
 `;
 
 export const QuiltText = styled(ParagraphTwo)`
-  flex: 1;
-  max-width: 45%;
-  padding-right: 8vw;
-  font-size: 2.2rem;
+  width: 100%;
+  min-width: 0; /* allow wrapping within grid cell */
+  padding-right: 0;
+  font-size: clamp(1.05rem, 1.6vw, 1.5rem); /* slightly smaller for better line length */
+  line-height: 1.6; /* improve readability */
   color: white;
 
-  @media (max-width: 1400px) {
-    font-size: 1.6rem;
-  }
-
+  /* On responsive (image stacks above text), increase text size for readability */
   @media (max-width: 1000px) {
-    max-width: 90%;
-    padding-right: 0;
-    font-size: 1.4rem;
-    text-align: left;
-    margin-top: 1vh;
-    padding-bottom: 3vh;
+    font-size: 1.6rem;
+    line-height: 1.75;
   }
 `;
 
@@ -365,34 +419,52 @@ const GridThemes = styled.div`
 const GridHeader = styled.h1`
   display: grid;
   grid-column-start: 3;
-  padding-left: 5vw;
   grid-row-start: 2;
   grid-row-end: 4;
-  font-size: clamp(22px, 10vw, 8rem);
-  align-self: center;
-  line-height: 14vh;
+  width: 60vw; /* constrain to site grid */
+  max-width: 1100px;
+  margin: 0 auto; /* center container, text aligns left */
+  text-align: left; /* left align text within 60vw container */
+  justify-self: center; /* keep the container centered horizontally */
+  align-self: center;   /* center the grid item vertically within its rows */
+  font-size: clamp(20px, 6vw, 4.8rem); /* slightly smaller on desktop */
+  line-height: 1.15; /* tighten line height slightly */
   color: white;
   z-index: 200;
   font-family: 'Space Grotesk', sans-serif;
   text-shadow: 2px 2px 50px rgba(0, 0, 0, 1);
 
   @media (max-width: 1000px) {
-    line-height: 7vh;
-    font-size: 4rem;
-    padding-left: 3vw;
+    font-size: 3.2rem; /* slightly larger on mobile */
+    line-height: 1.2;  /* keep tighter line-height on mobile */
+    justify-self: start; /* keep heading more towards left side */
+    margin: 0; /* avoid extra centering margins on mobile */
+    text-align: left;
+    width: 100%; /* allow full width within grid column */
+    max-width: 1100px;
+    padding-left: 4vw; /* add safe gutter so text doesn't touch screen edge */
+    padding-right: 4vw; /* symmetrical gutter */
   }
   @media (max-width: 800px) {
-    line-height: 5vh;
-    font-size: 2.8rem;
-    padding-left: 6vw;
+    font-size: 2.6rem; /* slightly larger on smaller mobile */
+    line-height: 1.2;
+    justify-self: start;
+    margin: 0;
+    text-align: left;
+    width: 100%;
+    max-width: 1100px;
+    padding-left: 4vw;
+    padding-right: 4vw;
   }
 `;
 
 const GridImage = styled.div`
-  display: grid; 
+  display: grid;
   grid-column-start: 3;
   grid-row-start: 2;
 `;
+
+/* SceneInner removed: header should move only, image stays in original grid placement */
 
 const LandingPage = ({ introDone = true }) => {
   const [showArrow, setShowArrow] = useState(false); // start hidden; reveal after intro animation
@@ -575,29 +647,173 @@ const LandingPage = ({ introDone = true }) => {
         </TextContainer>
       </FullHeightTextSection>
 
+      {/* Writing Section: Medium cards */}
+      <ProjectsSection>
+        <ProjectsInner>
+          <SectionHeader>
+            <SectionTitle>My writing</SectionTitle>
+            <SectionSubtitle>
+              <a href="https://medium.com/@zmactavish" target="_blank" rel="noopener noreferrer">
+                See my Medium Portfolio
+              </a>
+            </SectionSubtitle>
+          </SectionHeader>
+          <ProjectsGrid>
+            {[...Array(6)].map((_, i) => {
+              const isFirst = i === 0;
+              const isSecond = i === 1;
+              const isThird = i === 2;
+              const isFourth = i === 3;
+              const isSixth = i === 5;
+              const isFifth = i === 4;
+              const linkUrl = isFirst
+                ? 'https://medium.com/design-bootcamp/76-features-in-figma-to-know-7dbb35cdb5a7'
+                : isSecond
+                ? 'https://medium.com/design-bootcamp/my-journey-as-a-product-designer-at-microsoft-a5325be417b5'
+                : isThird
+                ? 'https://medium.com/design-bootcamp/12-features-to-consider-when-designing-an-e-commerce-mobile-app-740efbeee7c8'
+                : isFourth
+                ? 'https://medium.com/design-bootcamp/designing-in-the-8pt-grid-system-f3c1183ea6e8'
+                : isFifth
+                ? 'https://medium.com/@zmactavish/0643beac797a'
+                : isSixth
+                ? 'https://medium.com/@zmactavish/30-html-tags-to-know-b0a85b122ded'
+                : 'https://medium.com/@zmactavish';
+              const title = isFirst
+                ? '76 features in Figma to know'
+                : isSecond
+                ? 'My journey as a Product designer at Microsoft.'
+                : isThird
+                ? '12 features to consider when building an E-commerce app'
+                : isFourth
+                ? 'Designing in the 8pt grid system'
+                : isFifth
+                ? '30 CSS styles to know'
+                : isSixth
+                ? '30 HTML tags to know'
+                : 'Medium';
+              const subtitle = isFirst
+                ? 'A guide to all things Figma'
+                : isSecond
+                ? "What I've learned at Microsoft as a Product designer"
+                : isThird
+                ? 'A practical UX checklist for e‑commerce mobile apps'
+                : isFourth
+                ? 'Consistent spacing for scalable UI components'
+                : isFifth
+                ? 'A beginner\'s guide to CSS for designers'
+                : 'A beginner\'s guide to HTML for designers';
+              const bgStyle = isFirst
+                ? {
+                    backgroundImage: `url(${card1})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                  }
+                : isSecond
+                ? {
+                    backgroundImage: `url(${card2})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                  }
+                : isThird
+                ? {
+                    backgroundImage: `url(${card3})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                  }
+                : isFourth
+                ? {
+                    backgroundImage: `url(${card4})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                  }
+                : isFifth
+                ? {
+                    backgroundImage: `url(${card6})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                  }
+                : isSixth
+                ? {
+                    backgroundImage: `url(${card5})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                  }
+                : {
+                    backgroundImage: `url(${mediumLogo})`,
+                    backgroundColor: '#fafafa',
+                    backgroundSize: '40%',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    filter: 'none',
+                  };
+              return (
+                <ProjectCard key={`medium-card-${i}`}>
+                  <Tile
+                    to={linkUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={
+                      isFirst
+                        ? 'Medium article: 76 features in Figma to know'
+                        : isSecond
+                        ? 'Medium article: My journey as a Product designer at Microsoft.'
+                        : isThird
+                        ? 'Medium article: 12 features to consider when building an E-commerce app'
+                        : isFourth
+                        ? 'Medium article: Designing in the 8pt grid system'
+                        : isFifth
+                        ? 'Medium article: 30 CSS styles to know'
+                        : isSixth
+                        ? 'Medium article: 30 HTML tags to know'
+                        : `Medium writing card ${i + 1}`
+                    }
+                  >
+                    <TileBg style={bgStyle} />
+                    <TileOverlay />
+                  </Tile>
+                  <TileCaption>
+                    <TileTitle>{title}</TileTitle>
+                    <TileSubtitle>{subtitle}</TileSubtitle>
+                  </TileCaption>
+                </ProjectCard>
+              );
+            })}
+          </ProjectsGrid>
+        </ProjectsInner>
+      </ProjectsSection>
+
       {/* Module 3: Quilt + Third Paragraph */}
       <QuiltContainer>
-        <QuiltImage src={quilthanging} alt="Quilt hanging" />
-        <QuiltText Widthsize='45%'>
-          Outside of work, I live with my partner Olivia, who is also an artist. 
-          In my own creative time, I focus on making quilts that combine photography, 
-          textile techniques, and mixed media, exploring the intersection of art, 
-          design, and storytelling.
-        </QuiltText>
+        <QuiltInner>
+          <QuiltImage src={quilthanging} alt="Quilt hanging" />
+          <QuiltText>
+            Outside of work, I live with my partner Olivia, who is also an artist. 
+            In my own creative time, I focus on making quilts that combine photography, 
+            textile techniques, and mixed media, exploring the intersection of art, 
+            design, and storytelling.
+          </QuiltText>
+        </QuiltInner>
       </QuiltContainer>
 
       {/* Module 4: Three.js Scene */}
       <ArtDiv>
-        <GridThemes>
-          <GridHeader>Thanks for <br/>stopping by</GridHeader>
-          <GridImage>
-            {isDesktop ? (
-              <Scene />
-            ) : (
-              <img style={{ width: '90vw' }} src={imagereplace} alt="fallback" />
-            )}
-          </GridImage>
-        </GridThemes>
+            <GridThemes>
+              <GridHeader>Thanks for <br/>stopping by</GridHeader>
+              <GridImage>
+                {isDesktop ? (
+                  <Scene />
+                ) : (
+                  <img style={{ width: '90vw' }} src={imagereplace} alt="fallback" />
+                )}
+              </GridImage>
+            </GridThemes>
       </ArtDiv>
     </div>
   );

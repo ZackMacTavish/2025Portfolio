@@ -125,25 +125,44 @@ export const QuiltContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center; /* center inner wrapper */
   width: 100%;
-  padding: 5vh 10vw;
-  gap: 4vw;
+  padding: 8vh 0; /* add more vertical space */
   background-color: transparent;
 
   @media (max-width: 1000px) {
     flex-direction: column;
     padding: 4vh 0;
-    gap: 2vh;
+    align-items: center;
+  }
+`;
+
+export const QuiltInner = styled.div`
+  width: 62vw; /* +2vw for consistency with Landing page */
+  max-width: 1100px; /* aligns with other sections' inner width */
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.48fr 0.52fr; /* give text a bit more room */
+  align-items: center; /* vertically center text relative to image */
+  justify-content: center;
+  gap: calc(2rem + 16px); /* add extra gap (~16px) */
+
+  @media (max-width: 1000px) {
+    width: 90vw;
+    grid-template-columns: 1fr;
+    gap: 1rem;
     align-items: center;
   }
 `;
 
 export const QuiltImage = styled.img`
-  flex: 0 0 auto;
-  max-width: 33%;
+  flex: 0 0 25%;
+  width: 100%;
+  max-width: 100%;
   height: auto;
+  display: block;
   object-fit: contain;
+  border-radius: 18px; /* match tile rounding for consistency */
 
   @media (max-width: 1000px) {
     max-width: 100%;
@@ -153,9 +172,10 @@ export const QuiltImage = styled.img`
 
 export const QuiltText = styled(ParagraphTwo)`
   flex: 1;
-  max-width: 45%;
-  padding-right: 8vw;
-  font-size: 2.2rem;
+  min-width: 0;
+  padding-right: 0;
+  font-size: clamp(1.05rem, 1.6vw, 1.5rem);
+  line-height: 1.6;
   color: white;
 
   @media (max-width: 1400px) {
@@ -163,9 +183,10 @@ export const QuiltText = styled(ParagraphTwo)`
   }
 
   @media (max-width: 1000px) {
+    width: 90%;
     max-width: 90%;
     padding-right: 0;
-    font-size: 1.4rem;
+    font-size: 1.6rem; /* slightly bigger on responsive */
     text-align: left;
     margin-top: 1vh;
     padding-bottom: 3vh;
@@ -191,34 +212,44 @@ const GridThemes = styled.div`
 const GridHeader = styled.h1`
   display: grid;
   grid-column-start: 3;
-  padding-left: 5vw;
   grid-row-start: 2;
   grid-row-end: 4;
-  font-size: clamp(22px, 10vw, 8rem);
-  align-self: center;
-  line-height: 14vh;
+  width: 60vw;
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: left; /* left align text within 60vw container */
+  justify-self: center; /* keep the container centered horizontally */
+  align-self: center;   /* center the grid item vertically within its rows */
+  font-size: clamp(20px, 6vw, 4.8rem);
+  line-height: 1.15; /* tighten desktop line height slightly */
   color: white;
   z-index: 200;
   font-family: 'Space Grotesk', sans-serif;
   text-shadow: 2px 2px 50px rgba(0, 0, 0, 1);
 
   @media (max-width: 1000px) {
-    line-height: 7vh;
-    font-size: 4rem;
-    padding-left: 3vw;
+    font-size: 3.2rem; /* slightly larger on mobile */
+    line-height: 1.2;
+    justify-self: start; /* keep heading more towards left side */
+    margin: 0; /* avoid extra centering margins on mobile */
+    text-align: left;
   }
   @media (max-width: 800px) {
-    line-height: 5vh;
-    font-size: 2.8rem;
-    padding-left: 6vw;
+    font-size: 2.6rem; /* slightly larger on smaller mobile */
+    line-height: 1.2;
+    justify-self: start;
+    margin: 0;
+    text-align: left;
   }
 `;
 
 const GridImage = styled.div`
-  display: grid; 
+  display: grid;
   grid-column-start: 3;
   grid-row-start: 2;
 `;
+
+/* SceneInner removed to keep image in original grid placement while only moving header */
 
 const About = () => {
   const [showArrow, setShowArrow] = useState(true);
@@ -312,27 +343,29 @@ const About = () => {
 
       {/* ---------- Module 3: Quilt + Third Paragraph ---------- */}
       <QuiltContainer>
-        <QuiltImage src={quilthanging} alt="Quilt hanging" />
-        <QuiltText Widthsize='45%'>
-          Outside of work, I live with my partner Olivia, who is also an artist. 
-          In my own creative time, I focus on making quilts that combine photography, 
-          textile techniques, and mixed media, exploring the intersection of art, 
-          design, and storytelling.
-        </QuiltText>
+        <QuiltInner>
+          <QuiltImage src={quilthanging} alt="Quilt hanging" />
+          <QuiltText>
+            Outside of work, I live with my partner Olivia, who is also an artist. 
+            In my own creative time, I focus on making quilts that combine photography, 
+            textile techniques, and mixed media, exploring the intersection of art, 
+            design, and storytelling.
+          </QuiltText>
+        </QuiltInner>
       </QuiltContainer>
 
       {/* ---------- Module 4: Three.js Scene ---------- */}
       <ArtDiv>
-        <GridThemes>
-          <GridHeader>Thanks for <br/>stopping by</GridHeader>
-          <GridImage>
-            {isDesktop ? (
-              <Scene />
-            ) : (
-              <img style={{ width: '90vw' }} src={imagereplace} alt="fallback" />
-            )}
-          </GridImage>
-        </GridThemes>
+            <GridThemes>
+              <GridHeader>Thanks for <br/>stopping by</GridHeader>
+              <GridImage>
+                {isDesktop ? (
+                  <Scene />
+                ) : (
+                  <img style={{ width: '90vw' }} src={imagereplace} alt="fallback" />
+                )}
+              </GridImage>
+            </GridThemes>
       </ArtDiv>
     </div>
   );
