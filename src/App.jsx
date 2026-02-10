@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Suspense, lazy } from "react";
 import { ThemeProvider } from "styled-components";
 import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import './App.css';
@@ -10,17 +10,17 @@ import { lightTheme, darkTheme, GlobalStyles } from './components/Themes/Themes'
 import Customcursor from "./components/CustomCursor/customcursor";
 import Nav from "./components/Nav/Nav";
 
-// Pages
-import About from "./pages/About/About";
-import AccessDirect from "./pages/Access_Direct/AD";
-import Giga from "./pages/Giga/Giga";
-import GraphicDesign from "./pages/Graphic_Design/Graphicdesign";
-import LandingPage from "./pages/Landing_Page/LandingPage";
-import Outsource from "./pages/Outsource/Outsource";
-import Ux from "./pages/UX/UX";
-import ThreePillars from "./pages/ThreePillars/ThreePillars";
-import Piton from "./pages/Piton/Piton";
-import Microsoft from "./pages/Microsoft/Microsoft";
+// Pages (lazy-loaded to reduce initial bundle size)
+const About = lazy(() => import("./pages/About/About"));
+const AccessDirect = lazy(() => import("./pages/Access_Direct/AD"));
+const Giga = lazy(() => import("./pages/Giga/Giga"));
+const GraphicDesign = lazy(() => import("./pages/Graphic_Design/Graphicdesign"));
+const LandingPage = lazy(() => import("./pages/Landing_Page/LandingPage"));
+const Outsource = lazy(() => import("./pages/Outsource/Outsource"));
+const Ux = lazy(() => import("./pages/UX/UX"));
+const ThreePillars = lazy(() => import("./pages/ThreePillars/ThreePillars"));
+const Piton = lazy(() => import("./pages/Piton/Piton"));
+const Microsoft = lazy(() => import("./pages/Microsoft/Microsoft"));
 
 // Intro Animation
 import IntroAnimation from "./pages/Intro_Animation/IntroAnimation";
@@ -42,7 +42,8 @@ function App() {
         <Router>
           <Customcursor />
           <Nav />
-          <Routes>
+          <Suspense fallback={<div style={{ color: '#888', padding: '2rem', textAlign: 'center' }}>Loading…</div>}>
+            <Routes>
             {/* Root shows IntroAnimation first */}
             <Route path="/" element={<IntroAnimation />} />
 
@@ -63,7 +64,8 @@ function App() {
 
             {/* Fallback for unknown routes */}
             <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+            </Routes>
+          </Suspense>
         </Router>
       </div>
     </ThemeProvider>

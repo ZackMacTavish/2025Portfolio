@@ -2,7 +2,8 @@ import React, { useLayoutEffect, useEffect, useState, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Seo from '../../components/SEO/Seo';
 import { site, projects } from '../../data/metadata';
-import Scene from '../../components/Three/three';
+import { Suspense, lazy } from 'react';
+const Scene = lazy(() => import('../../components/Three/three'));
 import me from '../../assets/Me.jpeg';
 import imagereplace from '../../assets/BlackTurtleneck-popart-01.jpg';
 import quilthanging from '../../assets/hangingquilts.jpg';
@@ -412,8 +413,13 @@ const GridThemes = styled.div`
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   background-color: ${(props) => props.theme.backgroundColor};
-  height: 100vh;
+  height: 100dvh; /* ensure full viewport height on mobile browsers */
   width: 100vw;
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr; /* single column on mobile for full-width content */
+    grid-template-rows: auto auto; /* header above image */
+  }
 `;
 
 const GridHeader = styled.h1`
@@ -437,24 +443,23 @@ const GridHeader = styled.h1`
   @media (max-width: 1000px) {
     font-size: 3.2rem; /* slightly larger on mobile */
     line-height: 1.2;  /* keep tighter line-height on mobile */
-    justify-self: start; /* keep heading more towards left side */
-    margin: 0; /* avoid extra centering margins on mobile */
+    justify-self: start; /* anchor to left of grid */
+    margin: 0;
     text-align: left;
-    width: 100%; /* allow full width within grid column */
-    max-width: 1100px;
-    padding-left: 4vw; /* add safe gutter so text doesn't touch screen edge */
-    padding-right: 4vw; /* symmetrical gutter */
+    width: 100%;
+    max-width: none; /* allow full width on mobile */
   }
   @media (max-width: 800px) {
     font-size: 2.6rem; /* slightly larger on smaller mobile */
     line-height: 1.2;
+    grid-column-start: 1; /* full-width column */
+    grid-row-start: 1;    /* place header above image */
+    grid-row-end: auto;
     justify-self: start;
     margin: 0;
     text-align: left;
-    width: 100%;
-    max-width: 1100px;
-    padding-left: 4vw;
-    padding-right: 4vw;
+    width: 100vw; /* take the full viewport width */
+    max-width: none;
   }
 `;
 
@@ -462,6 +467,13 @@ const GridImage = styled.div`
   display: grid;
   grid-column-start: 3;
   grid-row-start: 2;
+
+  @media (max-width: 800px) {
+    grid-column-start: 1; /* single column layout */
+    grid-row-start: 2;    /* image below header */
+    justify-self: center;
+    width: 100vw;
+  }
 `;
 
 /* SceneInner removed: header should move only, image stays in original grid placement */
@@ -808,9 +820,11 @@ const LandingPage = ({ introDone = true }) => {
               <GridHeader>Thanks for <br/>stopping by</GridHeader>
               <GridImage>
                 {isDesktop ? (
-                  <Scene />
+                  <Suspense fallback={<div style={{ height: '50vh' }} />}> 
+                    <Scene />
+                  </Suspense>
                 ) : (
-                  <img style={{ width: '90vw' }} src={imagereplace} alt="fallback" />
+                  <img style={{ width: '100vw', height: 'auto', display: 'block' }} src={imagereplace} alt="fallback" />
                 )}
               </GridImage>
             </GridThemes>
