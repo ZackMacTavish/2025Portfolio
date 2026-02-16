@@ -4,6 +4,7 @@ import Seo from '../../components/SEO/Seo';
 import { site, projects } from '../../data/metadata';
 import { Suspense, lazy } from 'react';
 const Scene = lazy(() => import('../../components/Three/three'));
+import Grid60 from '../../components/Layout/Grid60';
 import me from '../../assets/Me.jpeg';
 import imagereplace from '../../assets/BlackTurtleneck-popart-01.jpg';
 import quilthanging from '../../assets/hangingquilts.jpg';
@@ -227,10 +228,9 @@ const ProjectsSection = styled.section`
   box-sizing: border-box;
 `;
 
-const ProjectsInner = styled.div`
-  width: 100%;
-  max-width: 1100px; /* align with other content widths */
-  margin: 0 auto;
+// Use shared Grid60 container to standardize the 60vw grid across sections
+const ProjectsInner = styled(Grid60)`
+  /* additional local overrides if needed */
 `;
 
 const ProjectsGrid = styled.div`
