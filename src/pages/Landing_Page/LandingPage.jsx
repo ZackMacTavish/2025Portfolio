@@ -254,7 +254,7 @@ const Tile = styled(Link)`
   display: block;
   width: 100%;
   aspect-ratio: 16/10;
-  border-radius: 18px;
+  border-radius: ${(p) => p.theme.radii.card};
   overflow: hidden;
   box-shadow: 0 8px 30px rgba(0,0,0,0.08);
   background-color: #f5f5f5;
@@ -419,7 +419,7 @@ export const QuiltImage = styled.img.attrs({ loading: 'lazy', decoding: 'async' 
   height: auto;
   display: block; /* avoid inline image spacing quirks */
   object-fit: contain;
-  border-radius: 18px; /* match tile rounding used elsewhere on page */
+  border-radius: ${(p) => p.theme.radii.card}; /* standardized card radius */
 `;
 
 export const QuiltText = styled(ParagraphTwo)`

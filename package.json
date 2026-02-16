@@ -6,6 +6,9 @@
   "engines": {
     "node": ">=20.19.0"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "homepage": "https://mactavish.xyz",
   "scripts": {
     "dev": "vite",

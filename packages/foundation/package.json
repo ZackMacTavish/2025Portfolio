@@ -1,0 +1,23 @@
+{
+  "name": "@mactavish/foundation",
+  "version": "0.1.0",
+  "description": "Shared UI foundation: SEO, custom cursor, theme tokens, and 60vw grid for MacTavish projects",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "sideEffects": false,
+  "author": "Zack MacTavish",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "styled-components": ">=6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "vite build",
+    "clean": "rm -rf dist"
+  }
+}
