@@ -95,6 +95,11 @@ const TopSectionImageStyled = styled.img`
   height: auto;
   display: block;
   object-fit: contain;
+  /* Use a responsive radius so it stays visible on large desktop widths */
+  border-radius: clamp(18px, 1.2vw, 28px) !important; /* applied to the image itself */
+  overflow: hidden; /* ensure corners clip even with scaling */
+  margin: 0;        /* no extra spacing that could mask rounding */
+  padding: 0;
 
   /* Make the top project image larger on mobile */
   @media (max-width: 1000px) {

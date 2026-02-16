@@ -5,15 +5,15 @@ import styled from 'styled-components';
 import { FullBg, ParagraphFour } from '../Access_Direct/AD';
 import { RisoFlex, RisoItem } from '../Access_Direct/AD';
 import { RisoItemtwo, StyledDiv } from '../Giga/Giga';
-import { NewSection } from '../About/About';
+// import { NewSection } from '../About/About';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
 import Seo from '../../components/SEO/Seo';
 import { site, projects } from '../../data/metadata';
 import { ProjectTitle } from '../Giga/Giga';
-import ProjectTopSection from '../../components/ProjectTopSection';
+// (Local top section used here to control image styling directly)
 
 // Assets
-import gigarocket from '../../assets/4.png';
+import pineapple from '../../assets/4.png';
 import golden from '../../assets/Cover.png';
 import mocks from '../../assets/1.png';
 import messages from '../../assets/OneSock-01.png';
@@ -39,9 +39,10 @@ import graphicposters from '../../assets/GP1.jpg';
 import oliviafloral from '../../assets/OliviaFloralMockup.jpg';
 import goodbyehello from '../../assets/GP2.jpg';
 import artbook from '../../assets/ThisIsIt.jpg';
+import Grid60, { Grid60TwoCol } from '../../components/Layout/Grid60';
 
 export const Pineapple = styled.img`
-width: 40vw;
+width: 36vw; /* reduced further per request to make the image less wide */
 height: auto;
 grid-row-start: ${(props) => props.RowStart};
 grid-row-end: 8;
@@ -49,24 +50,91 @@ align-self: center;
 justify-self: center;
 grid-column-start: ${(props) => props.ColumnStart};
 grid-column-end: ${(props) => props.ColumnEnd};
+border-radius: ${(p) => p.theme.radii.card};
+overflow: hidden;
 @media (max-width: 850px) {
     grid-row-start: 2;
-    padding-top: 4vh;
+    margin-top: 4vh; /* avoid padding inside rounded image to keep corners clean */
     grid-row-end: 3;
       grid-column-start: 1;
       width: 95vw;
 
   }
 `
-export const ThisisIt = styled.img`
-width: 30vw;
-padding-left: 15vw;
-
-@media (max-width: 1000px) { 
-  padding: 0;
+/* Local top section container to render title + 4.png with direct image radii */
+const GDTopSection = styled.div`
+  width: 60vw;
+  max-width: 1100px;
+  min-width: 320px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1vw;
+  margin: 0 auto 4vh auto;
+  padding-top: 6.5rem;
+  @media (max-width: 1000px) {
+    flex-direction: column-reverse;
     width: 96vw;
+    gap: 2vh;
+    padding: 5.5rem 2vw 0 2vw;
   }
+`;
+
+const GDTopSectionText = styled.div`
+  flex: 1.6 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+  gap: 0.5em;
+  height: 100%;
+`;
+/* Standardized card radius for non-full-width images on this page */
+const RoundedRisoItemtwo = styled(RisoItemtwo)`
+  border-radius: ${(p) => p.theme.radii.card};
+  overflow: hidden;
+  padding: 0; /* ensure border radii aren't visually offset by internal padding */
+`;
+
+const RoundedRisoItem = styled(RisoItem)`
+  border-radius: ${(p) => p.theme.radii.card};
+  overflow: hidden;
+  padding: 0; /* override base/mobile padding so corners render cleanly */
+`;
+export const ThisisIt = styled.img`
+  width: 86%; /* slightly narrower image within its column */
+  height: auto;
+  display: block;
+  margin: 0;
+  border-radius: ${(p) => p.theme.radii.card};
 `
+
+const ThisIsItContainer = styled(Grid60TwoCol)`
+  /* Narrower text column + wider gap for clearer hierarchy */
+  width: 62vw;
+  max-width: 1100px;
+  margin: 0 auto;
+  grid-template-columns: 0.56fr minmax(280px, 0.44fr); /* image narrower, text wider */
+  gap: ${(p) => p.theme.spacing['3xl']};
+  align-items: center;
+  padding: ${(p) => p.theme.spacing['3xl']} 0;
+
+  @media (max-width: 1000px) {
+    width: 90vw;
+    grid-template-columns: 1fr;
+    gap: ${(p) => p.theme.spacing.lg};
+  }
+`;
+
+const ThisIsItText = styled(ParagraphFour)`
+  color: ${(p) => p.theme.fontColor};
+  margin: 0;
+  width: auto;            /* override base 40vw */
+  max-width: 740px;       /* slightly wider to improve line breaks */
+  padding-right: 0;       /* remove base desktop padding */
+`;
 
 export default function GraphicDesign() {
 
@@ -78,13 +146,13 @@ export default function GraphicDesign() {
         <StyledDiv>
        <Seo {...projects['graphic-design']} sameAs={site.sameAs} keywords={projects['graphic-design'].keywords} />
 
-      <ProjectTopSection
-        title="Graphic Design"
-        imageSrc={gigarocket}
-        imageAlt="Graphic Design Cover"
-        buttons={[]}
-        divider={true}
-      />
+      <GDTopSection>
+        <GDTopSectionText>
+          <ProjectTitle style={{ fontSize: '2.8rem', marginBottom: '0.1em' }}>Graphic Design</ProjectTitle>
+          <div style={{ height: '1px', background: '#e0e0e0', width: '48px', margin: '0.1em 0 0.3em 0' }} />
+        </GDTopSectionText>
+        <Pineapple src={pineapple} alt="Graphic Design Cover" />
+      </GDTopSection>
 
 
            <FullHeightTextSection style={{ backgroundColor: '#191919' }}>
@@ -127,13 +195,13 @@ export default function GraphicDesign() {
             <FullBg src={oliviafloral} />
             <FullBg src={goodbyehello} />
 
-            {/*Art Book + Text */}
-          <NewSection Backgroundheight="95vh" style={{ paddingBottom: '5vh' }}>
-  <ThisisIt src={artbook} />
-  <ParagraphFour style={{ color: '#5d5d5d' }}>
-    'This is it' was a poster design I made for the 2017 SAIC VCD Design show. The piece explores a quote from the movie 'Style Wars'.
-  </ParagraphFour>
-</NewSection>
+            {/* "This is it" poster section standardized to 60vw */}
+            <ThisIsItContainer>
+              <ThisisIt src={artbook} alt="This is it poster" />
+              <ThisIsItText>
+                'This is it' was a poster design I made for the 2017 SAIC VCD Design show. The piece explores a quote from the movie 'Style Wars'.
+              </ThisIsItText>
+            </ThisIsItContainer>
 
 <FullHeightTextSection style={{ backgroundColor: '#F5F5F5' }}>
   <TextContainer>
@@ -144,25 +212,25 @@ export default function GraphicDesign() {
 </FullHeightTextSection>
 
             <RisoFlex style={{ justifyContent: 'center' }}>
-  <RisoItemtwo
+  <RoundedRisoItemtwo
     style={{ boxShadow: 'none', width: '45vw', paddingRight: '6vw' }}
     src={messages}
   />
 </RisoFlex>
 
-            <RisoFlex>
-                <RisoItemtwo style={{boxShadow:'none'}} src={messagestwo} Width='75vw' />
-            </RisoFlex>
+      <RisoFlex>
+        <RoundedRisoItemtwo style={{boxShadow:'none'}} src={messagestwo} Width='75vw' />
+      </RisoFlex>
 
-            <RisoFlex>
-                <RisoItemtwo style={{boxShadow:'none'}} src={messagesthree} Width='60vw' />
-            </RisoFlex>
+      <RisoFlex>
+        <RoundedRisoItemtwo style={{boxShadow:'none'}} src={messagesthree} Width='60vw' />
+      </RisoFlex>
 
             <FullBg style={{paddingTop: '10vh'}} src={messagesfour} />
 
-            <RisoFlex >
-                <RisoItem  src={threestack} Width='65vw' />
-            </RisoFlex>
+      <RisoFlex >
+        <RoundedRisoItem  src={threestack} Width='65vw' />
+      </RisoFlex>
 
            <div style={{ width: '100%', height: '100vh', overflow: 'hidden' }}>
   <FullBg
@@ -202,21 +270,21 @@ export default function GraphicDesign() {
   </TextContainer>
 </FullHeightTextSection>
 
-            <RisoFlex style={{height:'auto'}}>
-                <RisoItem  style={{paddingTop:'5vh'}} src={ironlakadvert} Width='65vw' />
-            </RisoFlex>
+      <RisoFlex style={{height:'auto'}}>
+        <RoundedRisoItem  style={{marginTop:'5vh'}} src={ironlakadvert} Width='65vw' />
+      </RisoFlex>
 
-            <RisoFlex style={{height:'auto'}}>
-                <RisoItem  style={{paddingTop:'5vh'}} src={ironlakadone} Width='65vw' />
-            </RisoFlex>
+      <RisoFlex style={{height:'auto'}}>
+        <RoundedRisoItem  style={{marginTop:'5vh'}} src={ironlakadone} Width='65vw' />
+      </RisoFlex>
 
-            <RisoFlex style={{height:'auto'}}>
-                <RisoItem  style={{paddingTop:'5vh'}} src={ironlakadtwo} Width='65vw' />
-            </RisoFlex>
+      <RisoFlex style={{height:'auto'}}>
+        <RoundedRisoItem  style={{marginTop:'5vh'}} src={ironlakadtwo} Width='65vw' />
+      </RisoFlex>
 
-            <RisoFlex style={{height:'auto'}}>
-                <RisoItem  style={{paddingTop:'5vh'}} src={ironlaksweaters} Width='65vw' />
-            </RisoFlex>
+      <RisoFlex style={{height:'auto'}}>
+        <RoundedRisoItem  style={{marginTop:'5vh'}} src={ironlaksweaters} Width='65vw' />
+      </RisoFlex>
 
 
 
@@ -229,28 +297,28 @@ export default function GraphicDesign() {
   </TextContainer>
 </FullHeightTextSection>
 
-            <RisoFlex>
-                <RisoItem  src={bbfone} Width='65vw' />
-            </RisoFlex>
+      <RisoFlex>
+        <RoundedRisoItem  src={bbfone} Width='65vw' />
+      </RisoFlex>
 
           
 
-            <RisoFlex style={{height:'auto'}}>
-                <RisoItem  style={{paddingTop:'5vh'}} src={bbftwo} Width='65vw' />
-            </RisoFlex>
+      <RisoFlex style={{height:'auto'}}>
+        <RoundedRisoItem  style={{marginTop:'5vh'}} src={bbftwo} Width='65vw' />
+      </RisoFlex>
 
 
-            <RisoFlex style={{height:'auto'}}>
-                <RisoItem  style={{paddingTop:'5vh'}} src={bbfthree} Width='65vw' />
-            </RisoFlex>
+      <RisoFlex style={{height:'auto'}}>
+        <RoundedRisoItem  style={{marginTop:'5vh'}} src={bbfthree} Width='65vw' />
+      </RisoFlex>
 
-            <RisoFlex style={{height:'auto'}}>
-                <RisoItem  style={{paddingTop:'5vh'}} src={bbffour} Width='65vw' />
-            </RisoFlex>
+      <RisoFlex style={{height:'auto'}}>
+        <RoundedRisoItem  style={{marginTop:'5vh'}} src={bbffour} Width='65vw' />
+      </RisoFlex>
 
-            <RisoFlex style={{height:'auto'}}>
-                <RisoItem  style={{paddingTop:'5vh', paddingBottom: '5vh'}} src={bbffive} Width='65vw' />
-            </RisoFlex>
+      <RisoFlex style={{height:'auto'}}>
+        <RoundedRisoItem  style={{marginTop:'5vh', marginBottom: '5vh'}} src={bbffive} Width='65vw' />
+      </RisoFlex>
 
      
 
