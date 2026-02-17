@@ -2,7 +2,7 @@ import { site, projects } from '../../data/metadata';
 import React, { useLayoutEffect } from 'react';
 
 // Components
-import { FullBg } from '../Access_Direct/AD';
+import { FullBg, SingleImage } from '../Access_Direct/AD';
 import { ProjectDetails, ProjectHeader, ProjectSubtitle, RisoItemtwo, StyledDiv, ProjectDetailsContainer, ProjectBlock, ProjectImage } from '../Giga/Giga';
 import ProjectTopSection from '../../components/ProjectTopSection';
 import { FiArrowUpRight } from 'react-icons/fi';
@@ -11,7 +11,7 @@ import { RisoFlex } from '../Access_Direct/AD';
 // Images (updated to assets folder)
 import ThreePillarsMac from '../../assets/ThreePillars—Macbook.png';
 import ThreePillarsIphone from '../../assets/ThreePillars—iphones.jpg';
-import ThreePillarsPages from '../../assets/ThreePillars—pages.jpg';
+const ThreePillarsPages = 'ThreePillars—pages';
 import recruitingpage from '../../assets/Artboard – 11@2x.png';
 import ThreePillarsImac from '../../assets/ThreePillars_Imac_.jpg';
 import ThreePillarsMockup from '../../assets/Mockup.jpg';
@@ -29,11 +29,13 @@ export default function ThreePillars() {
     return (
         <StyledDiv>
           <Seo {...projects.threepillars} sameAs={site.sameAs} keywords={projects.threepillars.keywords} />
+
           <ProjectTopSection
             title="ThreePillars"
-            imageSrc={ThreePillarsMac}
+            imageBaseName="assets/ThreePillars—Macbook"
+            imageExt="png"
             imageAlt="ThreePillars Macbook Mockup"
-            imageWidth="55vw"
+            imageWidth="38vw"
             buttons={[
               { href: "https://threepillars.com", label: "Visit ThreePillars" }
             ]}
@@ -72,10 +74,13 @@ export default function ThreePillars() {
   src={ThreePillarsPages}
   style={{
     width: '100vw',
-    height: '100vh',
+    maxWidth: '100vw',
+    height: 'auto',
     objectFit: 'cover',
-    display: 'block',  // removes the inline spacing that causes the white strip
+    display: 'block',
     margin: 0,
+    padding: 0,
+    borderRadius: 0
   }}
 />
 
@@ -102,20 +107,15 @@ export default function ThreePillars() {
             
           
 
-            <RisoFlex>
-                <RisoItemtwo src={recruitingpage} Width='60vw' />
+            <RisoFlex style={{ padding: '6vh 0' }}>
+              <SingleImage src={recruitingpage} />
             </RisoFlex>
             
 <FullBg 
   src={ThreePillarsImac} 
   style={{ display: 'block', width: '100%', margin: 0, padding: 0, lineHeight: 0 }} 
 />
-<div style={{ width: '100%', margin: 0, padding: 0, lineHeight: 0 }}>
-  <img 
-    src={ThreePillarsMockup} 
-    style={{ width: '100%', height: 'auto', display: 'block', margin: 0, padding: 0 }} 
-  />
-</div>
+<FullBg src={ThreePillarsMockup} style={{ margin: 0 }} />
 
 
 <FullHeightTextSection style={{ backgroundColor: 'black' }}>

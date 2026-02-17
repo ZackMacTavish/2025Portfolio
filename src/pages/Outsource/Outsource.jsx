@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { 
-  Cellphones, ProjectDetails, ProjectHeader, ProjectSubtitle, ProjectDetailsContainer, ProjectBlock, RisoItemtwo, StyledDiv,
+  Cellphones, ProjectDetails, ProjectHeader, ProjectSubtitle, ProjectDetailsContainer, ProjectBlock, StyledDiv,
 } from '../Giga/Giga';
 import { FullBg } from '../Access_Direct/AD';
-import { RisoFlex, RisoItem } from '../Access_Direct/AD';
+import { RisoFlex, SingleImage, DoubleImage } from '../Access_Direct/AD';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
 import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
@@ -14,7 +14,7 @@ import { FiArrowUpRight } from 'react-icons/fi';
 
 // Images
 import highpower from '../../assets/Onthemenu.jpg';
-import iphones from '../../assets/Outsource—iphones.jpg';
+const iphones = 'Outsource—iphones';
 import mocks from '../../assets/Outsource—pages.jpg';
 import admac from '../../assets/Outsource_Imac_2.jpg';
 import imac from '../../assets/Outsource—Macbook.png';
@@ -23,9 +23,6 @@ import dark from '../../assets/Outsource—iPhone_2—Darksq.jpg';
 import light from '../../assets/OutsourceLightPhone2.jpg';
 import imactwo from '../../assets/Outsource—iMac2.jpg';
 import about from '../../assets/Leadership.jpg';
-import photos from '../../assets/Group 55591@2x.jpg';
-import photostwo from '../../assets/Group 55593@2x.jpg';
-import photosthree from '../../assets/Group 55592@2x.jpg';
 import guides from '../../assets/Group 55604@2x.jpg';
 import create from '../../assets/nyu.jpg';
 import ceumacbook from '../../assets/Outsource—CEUMacbook.png';
@@ -66,8 +63,10 @@ export default function Outsource() {
 
       <ProjectTopSection
         title="Outsource"
-        imageSrc={imac}
+        imageBaseName="assets/Outsource—Macbook"
+        imageExt="png"
         imageAlt="Outsource Macbook Mockup"
+    imageWidth="38vw"
         buttons={[
           { href: "https://www.outsourceconsultants.com/home", label: "Visit Outsource" },
           { href: "https://www.decoderny.com/", label: "Visit DecoderNY" },
@@ -106,7 +105,7 @@ export default function Outsource() {
 
    
 
-      <FullBg src={iphones} />
+  <FullBg src={iphones} />
 
         <FullHeightTextSection style={{ backgroundColor: 'white' }}>
   <TextContainer>
@@ -116,37 +115,32 @@ export default function Outsource() {
   </TextContainer>
 </FullHeightTextSection>
 
-      <FullBg src={mocks} />
+  <FullBg src={mocks} />
 
       <RisoFlex>
-        <RisoItemtwo src={highpower} Width="60vw" />
+  <SingleImage src={highpower} />
       </RisoFlex>
 
       <RisoFlex>
-        <RisoItemtwo src={create} Width="60vw" />
+  <SingleImage src={create} />
       </RisoFlex>
 
       <FullBg src={admac} />
 
       <RisoFlex>
-        <RisoItem src={ipadtwo} Width="65vw" />
+  <SingleImage src={ipadtwo} />
       </RisoFlex>
 
-      <Cellphones>
-        <RisoItem src={dark} Width="50vw" />
-        <RisoItem src={light} Width="50vw" />
-      </Cellphones>
+    <DoubleImage srcLeft={dark} srcRight={light} />
+
+  <FullBg src={imactwo} style={{ marginTop: 0, paddingTop: 0 }} />
 
       <RisoFlex>
-        <RisoItemtwo src={imactwo} Width="65vw" />
-      </RisoFlex>
-
-      <RisoFlex>
-        <RisoItemtwo src={about} Width="65vw" style={{ boxShadow: '5px 10px 24px rgba(0,0,0,0.3)' }} />
+  <SingleImage src={about} />
       </RisoFlex>
 
       <RisoFlex style={{ backgroundColor:'#FEC748' }}>
-        <RisoItem src={ceumacbook} Width="65vw" />
+        <SingleImage src={ceumacbook} style={{ boxShadow: 'none' }} />
       </RisoFlex>
 
    <FullHeightTextSection>
@@ -159,15 +153,15 @@ export default function Outsource() {
   </TextContainer>
 </FullHeightTextSection>
 
-      <FullBg src={ceuiphones} />
-      <FullBg src={ceumocks} />
+  <FullBg src={ceuiphones} style={{ marginBottom: 0, paddingBottom: 0 }} />
+  <FullBg src={ceumocks} style={{ marginTop: 0, paddingTop: 0 }} />
 
       <RisoFlex>
-        <RisoItemtwo src={aia} Width="60vw" />
+  <SingleImage src={aia} />
       </RisoFlex>
 
-      <FullBg src={ceuimac} />
-      <FullBg src={bointro} />
+  <FullBg src={ceuimac} style={{ marginBottom: 0, paddingBottom: 0 }} />
+  <FullBg src={bointro} style={{ marginTop: 0, paddingTop: 0 }} />
 
 <TextContainer style={{ backgroundColor: 'white' }}>
   <FullHeightTextSection style={{ backgroundColor: 'white' }}>
@@ -177,41 +171,31 @@ export default function Outsource() {
   </FullHeightTextSection>
 </TextContainer>
 
-      <FullBg src={bozoom} style={{ paddingTop:'2vh' }} />
+  <FullBg src={bozoom} />
 
       <RisoFlex>
-        <RisoItem src={booklet} Width="65vw" />
+  <SingleImage src={booklet} />
       </RisoFlex>
 
-      <FullBg src={flowmap} />
+  <SingleImage src={flowmap} style={{ margin: '3vh auto', boxShadow: 'none' }} />
 
-<img src={photos} alt="" style={{ width: '100%', height: 'auto', display: 'block' }} />
-<img src={photosthree} alt="" style={{ width: '100%', height: 'auto', display: 'block' }} />
-<img src={photostwo} alt="" style={{ width: '100%', height: 'auto', display: 'block' }} />
+
 
       <RisoFlex>
-        <RisoItem src={guidelines} Width="65vw" />
+  <SingleImage src={guidelines} />
       </RisoFlex>
 
       <RisoFlex>
-        <RisoItem src={twentyfive} Width="65vw" />
+  <SingleImage src={twentyfive} />
       </RisoFlex>
 
-      <div
-  style={{
-    width: '100vw',
-    height: '45vh',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    paddingTop: '10vh',
-    overflow: 'hidden',
-  }}
->
-  <FullBg src={branding} style={{ width: '100%', height: 'auto' }} />
-</div>
+      <RisoFlex>
+        <SingleImage src={branding} />
+      </RisoFlex>
 
-      <FullBg src={guides} />
+      <RisoFlex>
+        <SingleImage src={guides} />
+      </RisoFlex>
 
    <FullHeightTextSection style={{ backgroundColor: 'black' }}>
   <TextContainer>

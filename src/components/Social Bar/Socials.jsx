@@ -34,22 +34,18 @@ export default function Socials() {
       <a href="https://dribbble.com/Zmactavish" target='_blank' rel="noreferrer">
         <SocialImages src={dribbble} />
       </a>
-      
       <a href="https://www.instagram.com/zackmichaelmactavish" target='_blank' rel="noreferrer">
         <SocialImages src={instagram} />
       </a>
-     
       <a href="https://www.linkedin.com/in/zacharymactavish/" target='_blank' rel="noreferrer">
         <SocialImages src={linkedin} />
       </a>
-      
       <a href="https://github.com/ZackMacTavish" target='_blank' rel="noreferrer">
         <SocialImages src={github} />
       </a>
-      
       <a href="https://medium.com/@zmactavish" target='_blank' rel="noreferrer">
         <SocialImages src={medium} />
-      </a>  
+      </a>
     </Socialbar>
   );
 }

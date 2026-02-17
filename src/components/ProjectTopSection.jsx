@@ -48,7 +48,9 @@ const TopSectionImage = styled.div`
 
 export default function ProjectTopSection({
   title,
-  imageSrc,
+  imageBaseName, // e.g. 'ThreePillars—Macbook' (new API)
+  imageSrc, // existing API (string or imported module)
+  imageExt = 'png',
   imageAlt = '',
   imageWidth = '38vw',
   buttons = [],
@@ -80,9 +82,17 @@ export default function ProjectTopSection({
           ))}
         </div>
       </TopSectionText>
-  <TopSectionImage>
-    <TopSectionImageStyled src={imageSrc} alt={imageAlt} imageWidth={imageWidth} />
-  </TopSectionImage>
+      <TopSectionImage>
+        {imageBaseName ? (
+          <picture>
+            <source srcSet={`${imageBaseName.startsWith('assets/') ? '/' : '/src/'}${imageBaseName}.avif`} type="image/avif" />
+            <source srcSet={`${imageBaseName.startsWith('assets/') ? '/' : '/src/'}${imageBaseName}.webp`} type="image/webp" />
+            <TopSectionImageStyled src={`${imageBaseName.startsWith('assets/') ? '/' : '/src/'}${imageBaseName}.${imageExt}`} alt={imageAlt} imageWidth={imageWidth} />
+          </picture>
+        ) : (
+          <TopSectionImageStyled src={imageSrc} alt={imageAlt} imageWidth={imageWidth} />
+        )}
+      </TopSectionImage>
     </TopSectionContainer>
   );
 }

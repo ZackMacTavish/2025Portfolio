@@ -32,12 +32,12 @@ import styled from 'styled-components';
 import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
 import { FullBg } from '../Access_Direct/AD';
-import { RisoFlex, RisoItem } from '../Access_Direct/AD';
+import { RisoFlex, SingleImage, DoubleImage } from '../Access_Direct/AD';
 import { SingleGrid } from '../Access_Direct/AD';
 
 // Assets
 import gigarocket from '../../assets/Giga—Macbookv2.png';
-import iphones from '../../assets/iphones—Mockup.png';
+const iphones = 'iphones—Mockup';
 import mocks from '../../assets/Giga—mockup.jpg';
 import messages from '../../assets/Messages—1920 x 1400.png';
 import imac from '../../assets/iMac_2.jpg';
@@ -46,10 +46,6 @@ import dark from '../../assets/iPhone_2—Dark—Sq.jpg';
 import light from '../../assets/LightPhone2—Sq.jpg';
 import imactwo from '../../assets/iMac.jpg';
 import about from '../../assets/About.png';
-import photos from '../../assets/Photos1.jpg';
-import photostwo from '../../assets/Photos2.jpg';
-import photosthree from '../../assets/Photos3.jpg';
-import photosfour from '../../assets/Photos4.jpg';
 import guides from '../../assets/Guides.jpg';
 import create from '../../assets/CreateNewPost.png';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
@@ -57,19 +53,22 @@ import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Dir
 
 
 export const ProjectDetailsContainer = styled.div`
+  width: 60vw;
   max-width: 1100px;
-  margin: 0 auto 6vh; /* add margin-bottom for extra space outside */
-  padding: 4vh 4vw 6vh; /* reduced internal padding */
+  margin: 0 auto 6vh;
+  padding: 4vh 4vw 6vh;
   background-color: #f5f5f5;
-  border-radius: 60px;
+  border-radius: 24px;
 
   @media (max-width: 1320px) {
-    max-width: 90%;
+    width: 90vw;
+    max-width: 90vw;
   }
 
   @media (max-width: 850px) {
-    width: 100%;
-    padding: 4vh 4vw 6vh; /* keep reduced padding on mobile */
+    width: 100vw;
+    max-width: 100vw;
+    padding: 4vh 4vw 6vh;
     border-radius: 0;
   }
 `;
@@ -91,27 +90,34 @@ export const ProjectDetails = styled.div`
 export const ProjectBlock = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.4rem;
 `;
 
 export const ProjectHeader = styled.h3`
   color: ${(props) => props.theme.fontColor};
-  font-size: 2.5rem;
+  font-size: 2.25rem;
   margin: 0;
 
   @media (max-width: 1320px) {
-    font-size: 2.3rem;
+    font-size: 2.1rem;
   }
 
   @media (max-width: 850px) {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 `;
 
 export const ProjectSubtitle = styled.h6`
   color: ${(props) => props.theme.fontColor};
-  font-size: 1.3rem;
+  font-size: 1.125rem;
   margin-top: 0.4rem;
+  
+  @media (max-width: 1320px) {
+    font-size: 1rem;
+  }
+  @media (max-width: 850px) {
+    font-size: 0.95rem;
+  }
   line-height: 1.45;
   font-weight: 400;
   font-family: 'Space Grotesk', sans-serif;
@@ -183,7 +189,7 @@ font-size: 1.8rem;
 `
 
 export const RisoItemtwo = styled.img.attrs({ loading: 'lazy', decoding: 'async' })`
-width: ${(props) => props.Width};
+width: 60vw;
 box-shadow: 5px 10px 24px rgba(0, 0, 0, 0.3);
 margin-top: 3vh;
 margin-bottom: 3vh;
@@ -311,11 +317,12 @@ export default function Giga() {
 
 <ProjectTopSection
            title="Giga"
-           imageSrc={gigarocket}
+           imageBaseName="assets/Giga—Macbookv2"
+           imageExt="png"
            imageAlt="Giga Macbook Mockup"
-           imageWidth="44vw"
+           imageWidth="38vw"
            buttons={[{ href: "https://gigaintelligence.com", label: "Visit Giga" }]}
-/>
+/> 
 
 <ProjectDetailsContainer>
   <ProjectDetails>
@@ -347,7 +354,7 @@ export default function Giga() {
 </ProjectDetailsContainer>
 
 
-            <FullBg src={iphones} />
+            <FullBg src={iphones} style={{ width: '100vw', maxWidth: '100vw', height: 'auto', objectFit: 'cover', display: 'block', margin: 0, padding: 0, borderRadius: 0 }} />
 
  <FullHeightTextSection style={{ backgroundColor: '#ffffff' }}>
   <TextContainer>
@@ -361,37 +368,32 @@ export default function Giga() {
             <FullBg src={mocks} />
 
             <RisoFlex>
-                <RisoItemtwo src={messages} Width='60vw' />
+                <SingleImage src={messages} />
             </RisoFlex>
 
             <RisoFlex>
-                <RisoItemtwo src={create} Width='60vw' />
+                <SingleImage src={create} />
             </RisoFlex>
 
             <FullBg src={imac} />
 
             <RisoFlex>
-                <RisoItem src={ipadtwo} Width='65vw' />
+                <SingleImage src={ipadtwo} />
             </RisoFlex>
 
-           <Cellphones>
-                <RisoItem Width='50vw' src={dark} />
-                <RisoItem Width='50vw' src={light} />
-            </Cellphones>
+       <DoubleImage srcLeft={dark} srcRight={light} />
 
             <RisoFlex>
-                <RisoItem src={imactwo} Width='65vw' />
+                <SingleImage src={imactwo} />
             </RisoFlex>
 <RisoFlex style={{ paddingBottom: '7vh' }}>
-  <RisoItem src={about} Width='65vw' />
+  <SingleImage src={about} />
 </RisoFlex>
 
 
-<img src={photos} alt="" style={{ width: "100%", height: "auto", display: "block" }} />
-<img src={photostwo} alt="" style={{ width: "100%", height: "auto", display: "block" }} />
-<img src={photosthree} alt="" style={{ width: "100%", height: "auto", display: "block" }} />
-<img src={photosfour} alt="" style={{ width: "100%", height: "auto", display: "block" }} />
-        <FullBg src={guides} />
+<RisoFlex style={{ justifyContent: 'center' }}>
+  <SingleImage src={guides} />
+</RisoFlex>
 
 
             

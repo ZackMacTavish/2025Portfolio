@@ -1,31 +1,52 @@
+// Functional FullBg component for AVIF/WebP/PNG support
+export const FullBg = ({ src, alt = '', style = {} }) => {
+  const srcBase = typeof src === 'string' ? src.split('/').pop().replace(/\.[^.]+$/, '') : '';
+  return (
+    <picture>
+      <source srcSet={`/assets/${srcBase}.avif`} type="image/avif" />
+      <source srcSet={`/assets/${srcBase}.webp`} type="image/webp" />
+      <img
+        src={`/assets/${srcBase}.png`}
+        alt={alt}
+        style={{
+          width: '100vw',
+          height: 'auto',
+          margin: '3vh auto',
+          display: 'block',
+          backgroundColor: 'white',
+          ...style
+        }}
+        loading="lazy"
+        decoding="async"
+      />
+    </picture>
+  );
+};
 import React, { useEffect } from 'react';
 import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
 import styled from 'styled-components';
 import { 
   Cellphones, 
-  ProjectDetails, 
-  ProjectHeader, ProjectSubtitle, RisoItemtwo, StyledDiv, 
+  ProjectDetails, ProjectHeader, ProjectSubtitle, StyledDiv, 
   ProjectImage, ProjectDetailsContainer, ProjectBlock
 } from '../Giga/Giga';
 import ProjectTopSection from '../../components/ProjectTopSection';
 
 // Assets
-import highpower from '../../assets/Highpower.jpg';
-import iphones from '../../assets/AD—iphones.jpg';
-import mocks from '../../assets/AD—pages.jpg';
-import admac from '../../assets/AD—Macs.jpg';
-import imac from '../../assets/AD—Macbook.png';
-import ipadtwo from '../../assets/AD-ipad.jpg';
-import dark from '../../assets/iPhone_2—Dark.jpg';
-import light from '../../assets/LightPhone2.jpg';
-import imactwo from '../../assets/ADiMac.jpg';
-import about from '../../assets/Group 375.jpg';
-import photos from '../../assets/ADphotos1.jpg';
-import photostwo from '../../assets/ADphotos2.jpg';
-import photosthree from '../../assets/ADphotos3.jpg';
-import guides from '../../assets/Guides2.jpg';
-import create from '../../assets/Group 274.jpg';
+// All images now referenced by base filename for modern formats
+const highpower = 'Highpower';
+const iphones = 'AD—iphones';
+const mocks = 'AD—pages';
+const admac = 'AD—Macs';
+const imac = 'AD—Macbook';
+const ipadtwo = 'AD-ipad';
+const dark = 'ADiPhone_2—Dark'; // Confirmed asset and modern formats exist
+const light = 'ADLightPhone2';
+const imactwo = 'ADiMac';
+const about = 'Group 375';
+const guides2 = 'Guides2';
+const create = 'Group 274';
 
 // --- Styled Components ---
 
@@ -130,13 +151,33 @@ export const FullHeightTextSection = styled.section`
   }
 `;
 
-export const RisoItem = styled.img.attrs({ loading: 'lazy', decoding: 'async' })`
-  width: ${(props) => props.Width};
-  max-width: 1000px;
-  height: auto;
-  @media (max-width: 1000px) { width: 90vw; padding-top: 3vh; }
-  @media (max-width: 450px) { padding-top: 5vh; padding-bottom: 5vh; }
-`;
+
+// Replace styled.img RisoItem with functional component
+// Unified RisoImage component (was RisoItem/RisoItemtwo)
+export const SingleImage = ({ src, alt = '', width = '60vw', style = {} }) => {
+  const srcBase = typeof src === 'string' ? src.split('/').pop().replace(/\.[^.]+$/, '') : '';
+  return (
+    <picture>
+      <source srcSet={`/assets/${srcBase}.avif`} type="image/avif" />
+      <source srcSet={`/assets/${srcBase}.webp`} type="image/webp" />
+      <img
+        src={`/assets/${srcBase}.png`}
+        alt={alt}
+        style={{
+          width,
+          maxWidth: '1000px',
+          height: 'auto',
+          display: 'block',
+          borderRadius: '24px',
+          boxShadow: '0 2px 12px 0 rgba(0,0,0,0.06)',
+          ...style
+        }}
+        loading="lazy"
+        decoding="async"
+      />
+    </picture>
+  );
+};
 
 export const RisoFlex = styled.div`
   display: flex;
@@ -147,18 +188,6 @@ export const RisoFlex = styled.div`
   padding: 3vh 0;
   width: 100vw;
 `;
-
-export const FullBg = styled.img.attrs({ loading: 'lazy', decoding: 'async' })`
-width: 100vw;
-height: auto;
-margin-top: -1vh;
-background-size: contain;
-background-color: ${props => props.theme.backgroundTwo};
-
-@media(max-width: 830px) {
-    padding-top: 3vh;
-}
-`
 
 export const SingleGrid = styled.div`
   display: grid;
@@ -176,6 +205,43 @@ export const SingleGrid = styled.div`
       grid-template-rows: auto 1fr auto ;
   }
 `;
+
+export const DoubleImage = ({ srcLeft, srcRight, altLeft = '', altRight = '', styleLeft = {}, styleRight = {} }) => (
+  <div style={{ display: 'flex', width: '100vw', height: 'auto', flexWrap: 'wrap', margin: 0, padding: 0 }}>
+    <img
+      src={srcLeft}
+      alt={altLeft}
+      style={{
+        width: '50vw',
+        height: 'auto',
+        display: 'block',
+        borderRadius: 0,
+        boxShadow: 'none',
+        margin: 0,
+        padding: 0,
+        ...styleLeft
+      }}
+      loading="lazy"
+      decoding="async"
+    />
+    <img
+      src={srcRight}
+      alt={altRight}
+      style={{
+        width: '50vw',
+        height: 'auto',
+        display: 'block',
+        borderRadius: 0,
+        boxShadow: 'none',
+        margin: 0,
+        padding: 0,
+        ...styleRight
+      }}
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+);
 
 export default function AccessDirect() {
   // Scroll to top when component mounts
@@ -198,9 +264,10 @@ export default function AccessDirect() {
     }} />
     <ProjectTopSection
          title="Access Direct"
-         imageSrc={imac}
+         imageBaseName="assets/AD—Macbook"
+         imageExt="png"
          imageAlt="Access Direct Macbook Mockup"
-         imageWidth="44vw"
+         imageWidth="38vw"
          buttons={[
         { href: "https://accessdirect.com", label: "Visit Access Direct" }
       ]}
@@ -238,7 +305,7 @@ export default function AccessDirect() {
 </ProjectDetailsContainer>
 
       {/* Sections */}
-      <FullBg src={iphones} style={{ backgroundColor: 'white' }} />
+  <FullBg src={iphones} style={{ backgroundColor: 'white', width: '100vw', maxWidth: '100vw', height: 'auto', objectFit: 'cover', display: 'block', margin: 0, padding: 0, borderRadius: 0 }} />
 
       <FullHeightTextSection style={{ backgroundColor: 'white' }}>
   <TextContainer>
@@ -248,56 +315,47 @@ export default function AccessDirect() {
   </TextContainer>
 </FullHeightTextSection>
 
-      <FullBg src={mocks} style={{ backgroundColor: 'white' }} />
+  <FullBg src={mocks} style={{ backgroundColor: 'white', width: '100vw', maxWidth: '100vw', borderRadius: 0, margin: '0 auto' }} />
 
       <RisoFlex>
-        <RisoItemtwo src={highpower} Width='60vw' />
+        <SingleImage src={highpower} />
       </RisoFlex>
 
       <RisoFlex>
-        <RisoItemtwo src={create} Width='60vw' style={{ marginBottom: '3vh' }} />
+        <SingleImage src={create} />
       </RisoFlex>
 
-      <FullBg src={admac} style={{ backgroundColor: 'white' }} />
+  <FullBg src={admac} style={{ backgroundColor: 'white', width: '100vw', maxWidth: '100vw', borderRadius: 0, margin: '0 auto' }} />
 
       <RisoFlex>
-        <RisoItem src={ipadtwo} Width='65vw' />
+        <SingleImage src={ipadtwo} />
       </RisoFlex>
 
-      <Cellphones>
-        <RisoItem Width='50vw' src={dark} />
-        <RisoItem Width='50vw' src={light} />
-      </Cellphones>
+      <DoubleImage srcLeft={dark} srcRight={light} />
 
       <RisoFlex>
-        <RisoItem src={imactwo} Width='65vw' />
+        <SingleImage src={imactwo} />
       </RisoFlex>
-<RisoFlex style={{ marginBottom: '5vh' }}>
-  <RisoItem 
-    src={about} 
-    Width='65vw' 
-    style={{ boxShadow: '5px 10px 24px rgba(0, 0, 0, 0.1)' }} 
-  />
-</RisoFlex>
 
-   
-      {/* Photo sections */}
-    <img src={photosthree} alt="" style={{ width: '100%', height: 'auto', display: 'block', backgroundColor: 'white' }} />
-<img src={photostwo} alt="" style={{ width: '100%', height: 'auto', display: 'block', backgroundColor: 'white' }} />
-<img src={photos} alt="" style={{ width: '100%', height: 'auto', display: 'block', backgroundColor: 'white' }} />
-<img src={guides} alt="" style={{ width: '100%', height: 'auto', display: 'block', backgroundColor: 'white' }} />
+      <RisoFlex>
+        <SingleImage src={about} />
+      </RisoFlex>
+
+  <RisoFlex>
+    <SingleImage src={guides2} />
+  </RisoFlex>
 
       {/* Footer */}
-     <FullHeightTextSection style={{ backgroundColor: 'black' }}>
-  <TextContainer>
-    <TextContent style={{ color: 'white', textAlign: 'center' }}>
-      Founder — David Smith<br />
-      Lead Designer — Zachary MacTavish<br />
-      Website Development — Zachary MacTavish<br />
-      Content Direction — Wendy Majewski, Alek Vasic
-    </TextContent>
-  </TextContainer>
-</FullHeightTextSection>
+      <FullHeightTextSection style={{ backgroundColor: 'black' }}>
+        <TextContainer>
+          <TextContent style={{ color: 'white', textAlign: 'center' }}>
+            Founder — David Smith<br />
+            Lead Designer — Zachary MacTavish<br />
+            Website Development — Zachary MacTavish<br />
+            Content Direction — Wendy Majewski, Alek Vasic
+          </TextContent>
+        </TextContainer>
+      </FullHeightTextSection>
     </StyledDiv>
   );
 }

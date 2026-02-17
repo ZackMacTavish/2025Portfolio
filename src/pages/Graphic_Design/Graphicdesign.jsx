@@ -2,9 +2,9 @@ import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
 
 // Composition components
-import { FullBg, ParagraphFour } from '../Access_Direct/AD';
-import { RisoFlex, RisoItem } from '../Access_Direct/AD';
-import { RisoItemtwo, StyledDiv } from '../Giga/Giga';
+import { FullBg, ParagraphFour, RisoFlex } from '../Access_Direct/AD';
+import { StyledDiv } from '../Giga/Giga';
+import { SingleImage } from '../Access_Direct/AD';
 // import { NewSection } from '../About/About';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
 import { Seo } from '@zackmactavish/foundation';
@@ -14,7 +14,7 @@ import { ProjectTitle } from '../Giga/Giga';
 
 // Assets
 import pineapple from '../../assets/4.png';
-import golden from '../../assets/Cover.png';
+const golden = 'Cover';
 import mocks from '../../assets/1.png';
 import messages from '../../assets/OneSock-01.png';
 import messagestwo from '../../assets/BHCwelcomemat2-01.png';
@@ -91,18 +91,7 @@ const GDTopSectionText = styled.div`
   gap: 0.5em;
   height: 100%;
 `;
-/* Standardized card radius for non-full-width images on this page */
-const RoundedRisoItemtwo = styled(RisoItemtwo)`
-  border-radius: ${(p) => p.theme.radii.card};
-  overflow: hidden;
-  padding: 0; /* ensure border radii aren't visually offset by internal padding */
-`;
-
-const RoundedRisoItem = styled(RisoItem)`
-  border-radius: ${(p) => p.theme.radii.card};
-  overflow: hidden;
-  padding: 0; /* override base/mobile padding so corners render cleanly */
-`;
+// Removed legacy RisoItem/RisoItemtwo styled components. Use SingleImage instead.
 export const ThisisIt = styled.img`
   width: 86%; /* slightly narrower image within its column */
   height: auto;
@@ -142,6 +131,7 @@ export default function GraphicDesign() {
         window.scrollTo(0, 0)
     });
 
+
     return (
         <StyledDiv>
        <Seo {...projects['graphic-design']} sameAs={site.sameAs} keywords={projects['graphic-design'].keywords} />
@@ -154,6 +144,9 @@ export default function GraphicDesign() {
         <Pineapple src={pineapple} alt="Graphic Design Cover" />
       </GDTopSection>
 
+  {/* Hero Cover image, now in FullBg for modern format and full width */}
+
+
 
            <FullHeightTextSection style={{ backgroundColor: '#191919' }}>
   <TextContainer>
@@ -164,22 +157,10 @@ export default function GraphicDesign() {
   </TextContainer>
 </FullHeightTextSection>
 
+      <FullBg src={golden} style={{ width: '100vw', height: 'auto', objectFit: 'cover', display: 'block', margin: 0, padding: 0, borderRadius: 0 }} />
 
-           <FullBg
-  src={golden}
-  style={{
-    width: '100%',
-    height: 'auto',
-    objectFit: 'cover',
-    display: 'block',
-    margin: 0,
-    padding: 0,
-  }}
-/>
-            { /* <FullBg src={mocks} />
-            <FullBg src={backcover} />
-            <FullBg src={backcovertwo} /> 
-            <FullBg src={backcoverthree} />*/}
+
+
 
                 <FullHeightTextSection style={{ backgroundColor: '#191919' }}>
   <TextContainer>
@@ -191,9 +172,9 @@ export default function GraphicDesign() {
 </FullHeightTextSection>
 
           
-            <FullBg src={graphicposters} />
-            <FullBg src={oliviafloral} />
-            <FullBg src={goodbyehello} />
+            <FullBg src={graphicposters} style={{ borderRadius: 0 }} />
+            <FullBg src={oliviafloral} style={{ borderRadius: 0 }} />
+            <FullBg src={goodbyehello} style={{ borderRadius: 0 }} />
 
             {/* "This is it" poster section standardized to 60vw */}
             <ThisIsItContainer>
@@ -212,24 +193,23 @@ export default function GraphicDesign() {
 </FullHeightTextSection>
 
             <RisoFlex style={{ justifyContent: 'center' }}>
-  <RoundedRisoItemtwo
-    style={{ boxShadow: 'none', width: '45vw', paddingRight: '6vw' }}
-    src={messages}
-  />
+        <div style={{ width: '60vw', margin: '0 auto', display: 'flex', justifyContent: 'center', boxShadow: 'none' }}>
+          <SingleImage src={messages} width="30vw" style={{ boxShadow: 'none' }} />
+        </div>
 </RisoFlex>
 
       <RisoFlex>
-        <RoundedRisoItemtwo style={{boxShadow:'none'}} src={messagestwo} Width='75vw' />
+        <SingleImage src={messagestwo} width="45vw" style={{ boxShadow: 'none' }} />
       </RisoFlex>
 
       <RisoFlex>
-        <RoundedRisoItemtwo style={{boxShadow:'none'}} src={messagesthree} Width='60vw' />
+        <SingleImage src={messagesthree} width="45vw" style={{ boxShadow: 'none' }} />
       </RisoFlex>
 
-            <FullBg style={{paddingTop: '10vh'}} src={messagesfour} />
+            <FullBg style={{paddingTop: '10vh', borderRadius: 0}} src={messagesfour} />
 
-      <RisoFlex >
-        <RoundedRisoItem  src={threestack} Width='65vw' />
+      <RisoFlex>
+  <SingleImage src={threestack} width="45vw" style={{ boxShadow: 'none', paddingTop: '5vh', paddingBottom: '5vh' }} />
       </RisoFlex>
 
            <div style={{ width: '100%', height: '100vh', overflow: 'hidden' }}>
@@ -243,6 +223,7 @@ export default function GraphicDesign() {
       display: 'block',
       margin: 0,
       padding: 0,
+      borderRadius: 0
     }}
   />
 </div>
@@ -258,6 +239,7 @@ export default function GraphicDesign() {
       display: 'block',
       margin: 0,
       padding: 0,
+      borderRadius: 0
     }}
   />
 </div>
@@ -271,19 +253,19 @@ export default function GraphicDesign() {
 </FullHeightTextSection>
 
       <RisoFlex style={{height:'auto'}}>
-        <RoundedRisoItem  style={{marginTop:'5vh'}} src={ironlakadvert} Width='65vw' />
+        <SingleImage src={ironlakadvert} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }} />
       </RisoFlex>
 
       <RisoFlex style={{height:'auto'}}>
-        <RoundedRisoItem  style={{marginTop:'5vh'}} src={ironlakadone} Width='65vw' />
+        <SingleImage src={ironlakadone} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }} />
       </RisoFlex>
 
       <RisoFlex style={{height:'auto'}}>
-        <RoundedRisoItem  style={{marginTop:'5vh'}} src={ironlakadtwo} Width='65vw' />
+        <SingleImage src={ironlakadtwo} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }} />
       </RisoFlex>
 
       <RisoFlex style={{height:'auto'}}>
-        <RoundedRisoItem  style={{marginTop:'5vh'}} src={ironlaksweaters} Width='65vw' />
+        <SingleImage src={ironlaksweaters} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }} />
       </RisoFlex>
 
 
@@ -298,26 +280,26 @@ export default function GraphicDesign() {
 </FullHeightTextSection>
 
       <RisoFlex>
-        <RoundedRisoItem  src={bbfone} Width='65vw' />
+        <SingleImage src={bbfone} width="45vw" style={{ boxShadow: 'none' }} />
       </RisoFlex>
 
           
 
       <RisoFlex style={{height:'auto'}}>
-        <RoundedRisoItem  style={{marginTop:'5vh'}} src={bbftwo} Width='65vw' />
+        <SingleImage src={bbftwo} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }} />
       </RisoFlex>
 
 
       <RisoFlex style={{height:'auto'}}>
-        <RoundedRisoItem  style={{marginTop:'5vh'}} src={bbfthree} Width='65vw' />
+        <SingleImage src={bbfthree} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }} />
       </RisoFlex>
 
       <RisoFlex style={{height:'auto'}}>
-        <RoundedRisoItem  style={{marginTop:'5vh'}} src={bbffour} Width='65vw' />
+        <SingleImage src={bbffour} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }} />
       </RisoFlex>
 
       <RisoFlex style={{height:'auto'}}>
-        <RoundedRisoItem  style={{marginTop:'5vh', marginBottom: '5vh'}} src={bbffive} Width='65vw' />
+        <SingleImage src={bbffive} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh', marginBottom: '5vh' }} />
       </RisoFlex>
 
      

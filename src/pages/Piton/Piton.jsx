@@ -20,7 +20,7 @@ import {
   ProjectSubtitle, ProjectDetailsContainer, ProjectBlock
 } from '../Giga/Giga';
 
-import { RisoFlex, RisoItem } from '../Access_Direct/AD';
+import { RisoFlex, SingleImage, DoubleImage } from '../Access_Direct/AD';
 import { FullBg } from '../Access_Direct/AD';
 import { PitonScreens } from '../UX/UX';
 
@@ -33,7 +33,7 @@ export default function Piton() {
     return (
         <StyledDiv>
             <RisoFlex style={{height: '100vh'}}>
-                <RisoItem src={pitonlogo} Width='50vw'  />
+                <SingleImage src={pitonlogo} style={{ boxShadow: 'none' }} />
             </RisoFlex>
 
        <ProjectDetailsContainer>
@@ -64,7 +64,7 @@ export default function Piton() {
 
            
 
-            <FullBg src={pitoniphones} />
+            <FullBg src={pitoniphones} style={{ width: '100vw', maxWidth: '100vw', height: 'auto', objectFit: 'cover', display: 'block', margin: 0, padding: 0, borderRadius: 0 }} />
              <FullHeightTextSection style={{ backgroundColor: 'white' }}>
   <TextContainer>
     <TextContent style={{ color: '#5d5d5d'}}>
@@ -84,33 +84,31 @@ export default function Piton() {
   </TextContainer>
 </FullHeightTextSection>
 
-   <div style={{ backgroundColor: '#f5f5f5', paddingTop: '5vh', paddingBottom: '10vh', width: '100%' }}>
-  <PitonScreens ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='2vh 15vh 2vh'>
-    <GigaRocket RowStart='2' ColumnStart="2" ColumnEnd="4" src={pitonscreens} />
-    <BackgroundColor style={{ backgroundColor:'#1794BA' }} />
-  </PitonScreens>
+      <div style={{ width: '100vw', margin: '0px calc(50% - 50vw)', padding: '0', background: '#f5f5f5', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ width: '60vw', margin: '0px auto', padding: '4vh 0 0 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <SingleImage alt="Piton App Screen 1" src={pitonscreens} style={{ width: '60vw', maxWidth: 800, height: 'auto', display: 'block', borderRadius: 16, boxShadow: 'none', background: '#f5f5f5' }} />
+        </div>
+        <div style={{ width: '60vw', margin: '0px auto', padding: '0 0 4vh 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <SingleImage alt="Piton App Screen 2" src={pitonscreens2} style={{ width: '60vw', maxWidth: 800, height: 'auto', display: 'block', borderRadius: 16, boxShadow: 'none', background: '#f5f5f5' }} />
+        </div>
+      </div>
 
-  <PitonScreens ColumnsSet='4vw 60vw 32vw 4vw' RowsSet='2vh 15vh 2vh' style={{ marginTop: '5vh' }}>
-    <GigaRocket RowStart='2' ColumnStart="2" ColumnEnd="4" src={pitonscreens2} />
-    <BackgroundColor style={{ backgroundColor:'#1794BA' }} />
-  </PitonScreens>
-</div>
            <FullBg
-  src={allpiton}
-  style={{
-    display: "block",        // removes inline-block gaps
-    width: "100vw",
-    height: "auto",
-    maxHeight: "100%",       // keeps image from adding extra space
-    margin: 0,               // remove default margin
-    padding: 0,              // remove default padding
-    objectFit: "cover",
-  }}
-/>
+                src={allpiton}
+                style={{
+                  display: "block",
+                  width: "100vw",
+                  height: "auto",
+                  maxHeight: "100%",
+                  margin: 0,
+                  padding: 0,
+                  objectFit: "cover",
+                  borderRadius: 0,
+                }}
+              />
 
             <Cellphones>
-                <RisoItem Width='50vw' src={dark} />
-                <RisoItem Width='50vw' src={light} />
+                <DoubleImage srcLeft={dark} srcRight={light} />
             </Cellphones>
 
           <FullBg 

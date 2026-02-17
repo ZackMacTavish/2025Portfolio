@@ -2,14 +2,14 @@ import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import {  ProjectDetails, ProjectHeader, ProjectSubtitle, ProjectDetailsContainer, ProjectBlock, RisoItemtwo, StyledDiv } from '../Giga/Giga';
 import { FullBg } from '../Access_Direct/AD';
-import { RisoFlex, RisoItem } from '../Access_Direct/AD';
+import { RisoFlex, SingleImage, DoubleImage } from '../Access_Direct/AD';
 
 // Assets
 import LeysiLogo from '../../assets/Leysi-White-01.jpg';
 import LeysiBlue from '../../assets/Leysi-LG-02.jpg';
 import LeysiBluetwo from '../../assets/Leysi-LG-01.jpg';
 import leysimockup2 from '../../assets/mobile-phone-1c.png';
-import leysiphones from '../../assets/Leysi—iphones.jpg';
+const leysiphones = 'Leysi—iphones';
 import leysiscreens from '../../assets/LeysiApp—Screens copy.jpg';
 import leysiphones2 from '../../assets/Untitled-1800-x-1024-px-1500-x-1024-px.png';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
@@ -36,13 +36,13 @@ export const FlexLeysi = styled.div`
 export const PitonScreens = styled.div`
   display: grid;
   grid-template-columns: ${(props) => props.ColumnsSet};
-  grid-template-rows: ${(props) => props.RowsSet};
-  height: 60vh;
+  grid-template-rows: ${(props) => props.RowsSet || '1vh 15vh 1vh'};
+  height: 38vh;
   width: 100vw;
 
   @media (max-width: 850px) {
     grid-template-columns: 100vw;
-    grid-template-rows: 5vw auto 5vw;
+    grid-template-rows: 2vw auto 2vw;
     height: auto;
   }
 `;
@@ -75,8 +75,7 @@ export default function Ux() {
     boxShadow: 'none'   // removes the shadow
   }}
   src={LeysiLogo}
-  Width='60vw'
-/>
+/> 
         </FlexLeysi>
 
         {/* Project Details */}
@@ -118,11 +117,13 @@ export default function Ux() {
     src={leysiphones}
     style={{
       display: 'block',
-      width: '100%',
-      height: '100%',
+      width: '100vw',
+      maxWidth: '100vw',
+      height: 'auto',
       objectFit: 'cover',
       margin: 0,
-      padding: 0
+      padding: 0,
+      borderRadius: 0
     }}
   />
 </div>
@@ -138,11 +139,11 @@ export default function Ux() {
 
         {/* Blue Background Sections */}
         <RisoFlex style={{ height: '85vh', backgroundColor: '#0A84E3' }}>
-          <RisoItem src={LeysiBlue} Width='50vw' />
+          <SingleImage src={LeysiBlue} />
         </RisoFlex>
 
         <RisoFlex style={{ height: '60vh', backgroundColor: '#0A84E3' }}>
-          <RisoItem src={LeysiBluetwo} Width='50vw' />
+          <SingleImage src={LeysiBluetwo} />
         </RisoFlex>
 
         {/* Screenshots */}
@@ -161,12 +162,12 @@ export default function Ux() {
 </div>
 
         <RisoFlex>
-          <RisoItem src={leysimockup2} Width='50vw' />
+          <SingleImage src={leysimockup2} style={{ boxShadow: 'none' }} />
         </RisoFlex>
 
         {/* Leysi Phones Two with full-width white background */}
         <RisoFlex style={{ backgroundColor: '#FFFFFF', width: '100vw', padding: '4vw 0' }}>
-          <RisoItem src={leysiphones2} Width='50vw' />
+          <SingleImage src={leysiphones2} style={{ boxShadow: 'none' }} />
         </RisoFlex>
 
         {/* Footer / Team Credits */}

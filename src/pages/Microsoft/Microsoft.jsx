@@ -2,8 +2,8 @@ import React, { useLayoutEffect, useState, useRef, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
-import { FullBg, RisoFlex, RisoItem, SingleGrid, FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
-import { ProjectDetailsContainer, ProjectDetails, ProjectBlock, ProjectHeader, ProjectSubtitle, ProjectImage, Cellphones, StyledDiv, RisoItemtwo } from '../Giga/Giga';
+import { FullBg, RisoFlex, SingleImage, SingleGrid, FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
+import { ProjectDetailsContainer, ProjectDetails, ProjectBlock, ProjectHeader, ProjectSubtitle, ProjectImage, Cellphones, StyledDiv } from '../Giga/Giga';
 import ProjectTopSection from '../../components/ProjectTopSection';
 import { FiArrowUpRight } from 'react-icons/fi';
 
@@ -185,7 +185,8 @@ const Microsoft = () => {
       <Seo {...projects.microsoft} sameAs={site.sameAs} keywords={projects.microsoft.keywords} />
       <ProjectTopSection
         title="Microsoft"
-        imageSrc={"/assets/MSFTlogo.png"}
+        imageBaseName="assets/MSFTlogo"
+        imageExt="png"
         imageAlt="Microsoft Logo"
         imageWidth="44vw"
         buttons={[
@@ -227,10 +228,10 @@ const Microsoft = () => {
       </FullHeightTextSection>
       
       <RisoFlex>
-        <RisoItemtwo src={"/assets/Copilot%20style%20GRP.png"} Width='60vw' style={{ borderRadius: '24px', boxShadow: '0 2px 24px rgba(0,0,0,0.10)', border: '4px solid #fff' }} />
+  <SingleImage src={"/assets/Copilot%20style%20GRP.png"} style={{ borderRadius: '24px', boxShadow: '0 2px 24px rgba(0,0,0,0.10)', border: '4px solid #fff' }} />
       </RisoFlex>
       <RisoFlex>
-        <RisoItemtwo src={"/assets/HP.png"} Width='60vw' style={{ borderRadius: '24px', boxShadow: '0 2px 24px rgba(0,0,0,0.10)', border: '4px solid #fff' }} />
+  <SingleImage src={"/assets/HP.png"} style={{ borderRadius: '24px', boxShadow: '0 2px 24px rgba(0,0,0,0.10)', border: '4px solid #fff' }} />
       </RisoFlex>
         <RisoFlex>
         <VideoWithOverlay ref={videoRefs[2]} src="/assets/microsoft-demo3.mp4" poster="/assets/Preview3.png" />
@@ -246,7 +247,7 @@ const Microsoft = () => {
       <div style={{ paddingTop: '64px' }} />
 
       <RisoFlex>
-        <RisoItemtwo src={"/assets/Journeys.png"} Width='60vw' style={{ borderRadius: '24px', boxShadow: '0 2px 24px rgba(0,0,0,0.10)', border: '4px solid #fff' }} />
+  <SingleImage src={"/assets/Journeys.png"} style={{ borderRadius: '24px', boxShadow: '0 2px 24px rgba(0,0,0,0.10)', border: '4px solid #fff' }} />
       </RisoFlex>
       
       <RisoFlex>
@@ -264,10 +265,10 @@ const Microsoft = () => {
       </FullHeightTextSection>
 
        <RisoFlex>
-        <RisoItemtwo src={"/assets/Wallet.png"} Width='60vw' style={{ borderRadius: '24px', boxShadow: 'none' }} />
+  <SingleImage src={"/assets/Wallet.png"} style={{ borderRadius: '24px', boxShadow: 'none' }} />
       </RisoFlex>
       <RisoFlex>
-        <RisoItemtwo src={"/assets/Cashback.png"} Width='60vw' style={{ borderRadius: '24px', boxShadow: '0 2px 24px rgba(0,0,0,0.10)', border: '4px solid #fff' }} />
+  <SingleImage src={"/assets/Cashback.png"} style={{ borderRadius: '24px', boxShadow: '0 2px 24px rgba(0,0,0,0.10)', border: '4px solid #fff' }} />
       </RisoFlex>
      
 
@@ -280,17 +281,17 @@ const Microsoft = () => {
       </FullHeightTextSection>
 
       <RisoFlex>
-        <RisoItemtwo src={"/assets/Ruby.png"} Width='60vw' style={{ borderRadius: '24px', boxShadow: '0 2px 24px rgba(0,0,0,0.10)', border: '4px solid #fff' }} />
+  <SingleImage src={"/assets/Ruby.png"} style={{ borderRadius: '24px', boxShadow: '0 2px 24px rgba(0,0,0,0.10)', border: '4px solid #fff' }} />
       </RisoFlex>
       <RisoFlex>
-        <RisoItemtwo src={"/assets/ReceiptScan.png"} Width='60vw' style={{ borderRadius: '24px', boxShadow: '0 2px 24px rgba(0,0,0,0.10)', border: '4px solid #fff' }} />
+  <SingleImage src={"/assets/ReceiptScan.png"} style={{ borderRadius: '24px', boxShadow: '0 2px 24px rgba(0,0,0,0.10)', border: '4px solid #fff' }} />
       </RisoFlex>
       <RisoFlex>
-        <RisoItemtwo src={"/assets/ShoppingCopilot.png"} Width='60vw' style={{ borderRadius: '8px', boxShadow: 'none', border: 'none' }} />
+  <SingleImage src={"/assets/ShoppingCopilot.png"} style={{ borderRadius: '8px', boxShadow: 'none', border: 'none' }} />
       </RisoFlex>
       {/* New Outlook image section */}
       <RisoFlex>
-        <RisoItemtwo src={"/assets/Outlook.png"} Width='60vw' style={{ borderRadius: '24px', boxShadow: '0 2px 24px rgba(0,0,0,0.10)', border: '4px solid #fff' }} />
+  <SingleImage src={"/assets/Outlook.png"} style={{ borderRadius: '24px', boxShadow: '0 2px 24px rgba(0,0,0,0.10)', border: '4px solid #fff' }} />
       </RisoFlex>
       <FullHeightTextSection style={{ backgroundColor: 'black' }}>
         <TextContainer>
@@ -332,20 +333,23 @@ const PlayIcon = styled.div`
 `;
 
 const VideoWrapper = styled.div`
+  border-radius: 24px;
   position: relative;
   width: 60vw;
+  max-width: 1000px;
   aspect-ratio: 16/9;
   margin: 0 auto 4vh auto;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  @media(max-width: 1400px) {
+  @media(max-width: 1320px) {
     width: 96vw;
-    height: auto;
+    max-width: 96vw;
   }
   @media(max-width: 850px) {
-    width: 96vw;
+    width: 100vw;
+    max-width: 100vw;
     height: auto;
   }
 `;
