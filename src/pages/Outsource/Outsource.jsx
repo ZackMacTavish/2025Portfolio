@@ -6,7 +6,7 @@ import {
 import { FullBg } from '../Access_Direct/AD';
 import { RisoFlex, RisoItem } from '../Access_Direct/AD';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
-import Seo from '../../components/SEO/Seo';
+import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
 import { ProjectImage } from '../Giga/Giga';
 import ProjectTopSection from '../../components/ProjectTopSection';

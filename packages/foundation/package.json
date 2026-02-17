@@ -1,19 +1,45 @@
 {
-  "name": "@mactavish/foundation",
-  "version": "0.1.0",
+  "name": "@zackmactavish/foundation",
+  "version": "0.1.5",
   "description": "Shared UI foundation: SEO, custom cursor, theme tokens, and 60vw grid for MacTavish projects",
   "type": "module",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js"
+    }
+  },
   "sideEffects": false,
   "author": "Zack MacTavish",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZackMacTavish/2025Portfolio.git"
+  },
+  "homepage": "https://mactavish.xyz",
+  "bugs": {
+    "url": "https://github.com/ZackMacTavish/2025Portfolio/issues"
+  },
+  "keywords": [
+    "design-system",
+    "styled-components",
+    "grid",
+    "seo",
+    "cursor",
+    "theme"
+  ],
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18",
     "styled-components": ">=6"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "devDependencies": {},
   "scripts": {

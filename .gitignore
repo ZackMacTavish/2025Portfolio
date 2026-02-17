@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# npm auth (project-level) — keep tokens out of git
+.npmrc

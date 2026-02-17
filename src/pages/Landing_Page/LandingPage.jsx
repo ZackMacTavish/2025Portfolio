@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useEffect, useState, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
-import Seo from '../../components/SEO/Seo';
+import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
 import { Suspense, lazy } from 'react';
 const Scene = lazy(() => import('../../components/Three/three'));

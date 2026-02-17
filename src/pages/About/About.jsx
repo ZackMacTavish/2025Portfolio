@@ -5,7 +5,7 @@ import me from '../../assets/Me.jpeg';
 import imagereplace from '../../assets/BlackTurtleneck-popart-01.jpg';
 import quilthanging from '../../assets/hangingquilts.jpg';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
-import Seo from '../../components/SEO/Seo';
+import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
 
 

@@ -7,7 +7,7 @@ import { RisoFlex, RisoItem } from '../Access_Direct/AD';
 import { RisoItemtwo, StyledDiv } from '../Giga/Giga';
 // import { NewSection } from '../About/About';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
-import Seo from '../../components/SEO/Seo';
+import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
 import { ProjectTitle } from '../Giga/Giga';
 // (Local top section used here to control image styling directly)

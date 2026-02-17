@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState, useRef, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
-import Seo from '../../components/SEO/Seo';
+import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
 import { FullBg, RisoFlex, RisoItem, SingleGrid, FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
 import { ProjectDetailsContainer, ProjectDetails, ProjectBlock, ProjectHeader, ProjectSubtitle, ProjectImage, Cellphones, StyledDiv, RisoItemtwo } from '../Giga/Giga';

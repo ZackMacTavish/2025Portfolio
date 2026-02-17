@@ -10,7 +10,7 @@ import light from '../../assets/LightPhone2.png';
 import dark from '../../assets/iPhone_2—Dark.png';
 import pitonlogos from '../../assets/Group 55620@2x.png';
 import { FullHeightTextSection, TextContent, TextContainer } from '../Access_Direct/AD';
-import Seo from '../../components/SEO/Seo';
+import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
 
 // Components

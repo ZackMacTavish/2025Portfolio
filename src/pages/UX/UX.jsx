@@ -13,7 +13,7 @@ import leysiphones from '../../assets/Leysi—iphones.jpg';
 import leysiscreens from '../../assets/LeysiApp—Screens copy.jpg';
 import leysiphones2 from '../../assets/Untitled-1800-x-1024-px-1500-x-1024-px.png';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
-import Seo from '../../components/SEO/Seo';
+import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
 
 // White background wrapper for Leysi content

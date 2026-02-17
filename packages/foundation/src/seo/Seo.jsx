@@ -14,6 +14,13 @@ const Seo = ({
   jsonLd = null,
   favicons = null,
   siteDefaults = null,
+  // Additional meta support
+  siteName = null,      // og:site_name
+  locale = null,        // og:locale (e.g., en_US)
+  robots = null,        // meta name="robots" (e.g., index,follow)
+  themeColor = null,    // meta name="theme-color"
+  twitterSite = null,   // @handle or site name
+  twitterCreator = null // @handle
 }) => {
   useEffect(() => {
     if (title) document.title = title;
@@ -45,6 +52,21 @@ const Seo = ({
     }
     setMeta("[property='og:type']", 'content', type);
     if (url) setMeta("[property='og:url']", 'content', url);
+
+    // Resolve additional meta values from explicit props or siteDefaults
+    const effSiteName = siteName || (siteDefaults && siteDefaults.siteName) || null;
+    const effLocale = locale || (siteDefaults && siteDefaults.locale) || null;
+    const effRobots = robots || (siteDefaults && siteDefaults.robots) || null;
+    const effThemeColor = themeColor || (siteDefaults && siteDefaults.themeColor) || null;
+    const effTwitterSite = twitterSite || (siteDefaults && siteDefaults.twitterSite) || null;
+    const effTwitterCreator = twitterCreator || (siteDefaults && siteDefaults.twitterCreator) || null;
+
+    if (effSiteName) setMeta("[property='og:site_name']", 'content', effSiteName);
+    if (effLocale) setMeta("[property='og:locale']", 'content', effLocale);
+    if (effRobots) setMeta("[name='robots']", 'content', effRobots);
+    if (effThemeColor) setMeta("[name='theme-color']", 'content', effThemeColor);
+    if (effTwitterSite) setMeta("[name='twitter:site']", 'content', effTwitterSite);
+    if (effTwitterCreator) setMeta("[name='twitter:creator']", 'content', effTwitterCreator);
 
     const siteImages = (siteDefaults && siteDefaults.ogImages) || [];
     const imagesArray = images || (image ? [image] : null) || siteImages;
@@ -185,7 +207,7 @@ const Seo = ({
         });
       }
     }
-  }, [title, description, url, image, type, authorName, authorAlternateNames, sameAs, keywords, jsonLd, favicons, siteDefaults]);
+  }, [title, description, url, image, type, authorName, authorAlternateNames, sameAs, keywords, jsonLd, favicons, siteDefaults, siteName, locale, robots, themeColor, twitterSite, twitterCreator]);
 
   return null;
 };

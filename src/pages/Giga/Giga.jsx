@@ -29,7 +29,7 @@ export const ProjectButton = styled.a`
 `;
 import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
-import Seo from '../../components/SEO/Seo';
+import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
 import { FullBg } from '../Access_Direct/AD';
 import { RisoFlex, RisoItem } from '../Access_Direct/AD';

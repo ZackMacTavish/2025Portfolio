@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Seo from '../../components/SEO/Seo';
+import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
 import styled from 'styled-components';
 import { 
