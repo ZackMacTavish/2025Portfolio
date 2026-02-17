@@ -1,3 +1,4 @@
+import { site, projects } from '../../data/metadata';
 import React, { useLayoutEffect } from 'react';
 
 // Components
@@ -15,7 +16,6 @@ import recruitingpage from '../../assets/Artboard – 11@2x.png';
 import ThreePillarsImac from '../../assets/ThreePillars_Imac_.jpg';
 import ThreePillarsMockup from '../../assets/Mockup.jpg';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
-import { Seo } from '@zackmactavish/foundation';
 import { Seo } from '@zackmactavish/foundation';
 
 export default function ThreePillars() {
