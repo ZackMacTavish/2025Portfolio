@@ -14,7 +14,7 @@ import { FiArrowUpRight } from 'react-icons/fi';
 
 // Images
 import highpower from '../../assets/Onthemenu.jpg';
-const iphones = 'Outsource—iphones';
+import iphones from '../../assets/Outsource—iphones.jpg';
 import mocks from '../../assets/Outsource—pages.jpg';
 import admac from '../../assets/Outsource_Imac_2.jpg';
 import imac from '../../assets/Outsource—Macbook.png';

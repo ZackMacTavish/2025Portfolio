@@ -9,7 +9,9 @@ import LeysiLogo from '../../assets/Leysi-White-01.jpg';
 import LeysiBlue from '../../assets/Leysi-LG-02.jpg';
 import LeysiBluetwo from '../../assets/Leysi-LG-01.jpg';
 import leysimockup2 from '../../assets/mobile-phone-1c.png';
-const leysiphones = 'Leysi—iphones';
+import leysiphonesAvif from '../../assets/Leysi—iphones.avif';
+import leysiphonesWebp from '../../assets/Leysi—iphones.webp';
+import leysiphonesJpg from '../../assets/Leysi—iphones.jpg';
 import leysiscreens from '../../assets/LeysiApp—Screens copy.jpg';
 import leysiphones2 from '../../assets/Untitled-1800-x-1024-px-1500-x-1024-px.png';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
@@ -114,7 +116,9 @@ export default function Ux() {
         {/* Full Background Image */}
     <div style={{ width: '100vw', overflow: 'hidden' }}>
   <FullBg
-    src={leysiphones}
+  src={leysiphonesAvif}
+  webp={leysiphonesWebp}
+  fallback={leysiphonesJpg}
     style={{
       display: 'block',
       width: '100vw',

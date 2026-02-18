@@ -11,7 +11,9 @@ import { RisoFlex } from '../Access_Direct/AD';
 // Images (updated to assets folder)
 import ThreePillarsMac from '../../assets/ThreePillars—Macbook.png';
 import ThreePillarsIphone from '../../assets/ThreePillars—iphones.jpg';
-const ThreePillarsPages = 'ThreePillars—pages';
+import ThreePillarsPagesAvif from '../../assets/ThreePillars—pages.avif';
+import ThreePillarsPagesWebp from '../../assets/ThreePillars—pages.webp';
+import ThreePillarsPagesJpg from '../../assets/ThreePillars—pages.jpg';
 import recruitingpage from '../../assets/Artboard – 11@2x.png';
 import ThreePillarsImac from '../../assets/ThreePillars_Imac_.jpg';
 import ThreePillarsMockup from '../../assets/Mockup.jpg';
@@ -71,7 +73,9 @@ export default function ThreePillars() {
 </ProjectDetailsContainer>
 
               <FullBg
-  src={ThreePillarsPages}
+  src={ThreePillarsPagesAvif}
+  webp={ThreePillarsPagesWebp}
+  fallback={ThreePillarsPagesJpg}
   style={{
     width: '100vw',
     maxWidth: '100vw',

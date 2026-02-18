@@ -37,7 +37,9 @@ import { SingleGrid } from '../Access_Direct/AD';
 
 // Assets
 import gigarocket from '../../assets/Giga—Macbookv2.png';
-const iphones = 'iphones—Mockup';
+import iphonesAvif from '../../assets/iphones—Mockup.avif';
+import iphonesWebp from '../../assets/iphones—Mockup.webp';
+import iphonesPng from '../../assets/iphones—Mockup.png';
 import mocks from '../../assets/Giga—mockup.jpg';
 import messages from '../../assets/Messages—1920 x 1400.png';
 import imac from '../../assets/iMac_2.jpg';
@@ -354,7 +356,7 @@ export default function Giga() {
 </ProjectDetailsContainer>
 
 
-            <FullBg src={iphones} style={{ width: '100vw', maxWidth: '100vw', height: 'auto', objectFit: 'cover', display: 'block', margin: 0, padding: 0, borderRadius: 0 }} />
+            <FullBg src={iphonesAvif} webp={iphonesWebp} fallback={iphonesPng} style={{ width: '100vw', maxWidth: '100vw', height: 'auto', objectFit: 'cover', display: 'block', margin: 0, padding: 0, borderRadius: 0 }} />
 
  <FullHeightTextSection style={{ backgroundColor: '#ffffff' }}>
   <TextContainer>

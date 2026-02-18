@@ -14,7 +14,9 @@ import { ProjectTitle } from '../Giga/Giga';
 
 // Assets
 import pineapple from '../../assets/4.png';
-const golden = 'Cover';
+import goldenAvif from '../../assets/Cover.avif';
+import goldenWebp from '../../assets/Cover.webp';
+import goldenPng from '../../assets/Cover.png';
 import mocks from '../../assets/1.png';
 import messages from '../../assets/OneSock-01.png';
 import messagestwo from '../../assets/BHCwelcomemat2-01.png';
@@ -174,7 +176,7 @@ export default function GraphicDesign() {
   </TextContainer>
 </FullHeightTextSection>
 
-      <FullBg src={golden} style={{ width: '100vw', height: 'auto', objectFit: 'cover', display: 'block', margin: 0, padding: 0, borderRadius: 0 }} />
+  <FullBg src={goldenAvif} webp={goldenWebp} fallback={goldenPng} style={{ width: '100vw', height: 'auto', objectFit: 'cover', display: 'block', margin: 0, padding: 0, borderRadius: 0 }} />
 
 
 
