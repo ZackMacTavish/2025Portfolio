@@ -6,7 +6,7 @@ import { FiArrowUpRight } from 'react-icons/fi';
 // 60vw-wide, left-aligned, responsive top section for project pages
 const TopSectionContainer = styled.div`
   width: 60vw;
-  max-width: 1100px;
+  max-width: 1000px;
   min-width: 320px;
   display: flex;
   flex-direction: row;
@@ -15,9 +15,14 @@ const TopSectionContainer = styled.div`
   gap: 1vw;
   margin: 0 auto 4vh auto;
   padding-top: 6.5rem;
-  @media (max-width: 1000px) {
+  @media (max-width: 1320px) {
+    width: 90vw;
+    max-width: 90vw;
+  }
+  @media (max-width: 850px) {
     flex-direction: column-reverse;
-    width: 96vw;
+    width: 100vw;
+    max-width: 100vw;
     gap: 2vh;
     padding: 5.5rem 2vw 0 2vw;
   }
@@ -52,7 +57,7 @@ export default function ProjectTopSection({
   imageSrc, // existing API (string or imported module)
   imageExt = 'png',
   imageAlt = '',
-  imageWidth = '38vw',
+    $imageWidth = '38vw',
   buttons = [],
   divider = true,
 }) {
@@ -87,10 +92,10 @@ export default function ProjectTopSection({
           <picture>
             <source srcSet={`${imageBaseName.startsWith('assets/') ? '/' : '/src/'}${imageBaseName}.avif`} type="image/avif" />
             <source srcSet={`${imageBaseName.startsWith('assets/') ? '/' : '/src/'}${imageBaseName}.webp`} type="image/webp" />
-            <TopSectionImageStyled src={`${imageBaseName.startsWith('assets/') ? '/' : '/src/'}${imageBaseName}.${imageExt}`} alt={imageAlt} imageWidth={imageWidth} />
+              <TopSectionImageStyled src={`${imageBaseName.startsWith('assets/') ? '/' : '/src/'}${imageBaseName}.${imageExt}`} alt={imageAlt} $imageWidth={$imageWidth} />
           </picture>
         ) : (
-          <TopSectionImageStyled src={imageSrc} alt={imageAlt} imageWidth={imageWidth} />
+            <TopSectionImageStyled src={imageSrc} alt={imageAlt} $imageWidth={$imageWidth} />
         )}
       </TopSectionImage>
     </TopSectionContainer>
@@ -99,7 +104,7 @@ export default function ProjectTopSection({
 
 const TopSectionImageStyled = styled.img`
   max-height: 600px;
-  width: ${({ imageWidth }) => imageWidth || '68vw'};
+  width: ${({ $imageWidth }) => $imageWidth || '68vw'};
   min-width: 0;
   max-width: 100vw;
   height: auto;

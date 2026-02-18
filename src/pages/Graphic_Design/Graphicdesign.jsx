@@ -35,9 +35,26 @@ import ironlaksweaters from '../../assets/Group 55616@2x.png';
 import backcover from '../../assets/Back + Cover.png';
 import backcovertwo from '../../assets/3.png';
 import backcoverthree from '../../assets/2.png';
-import graphicposters from '../../assets/GP1.jpg';
-import oliviafloral from '../../assets/OliviaFloralMockup.jpg';
-import goodbyehello from '../../assets/GP2.jpg';
+import graphicpostersAvif from '../../assets/GP1.avif';
+import graphicpostersWebp from '../../assets/GP1.webp';
+import oliviafloralAvif from '../../assets/OliviaFloralMockup.avif';
+import oliviafloralWebp from '../../assets/OliviaFloralMockup.webp';
+import goodbyehelloAvif from '../../assets/GP2.avif';
+import goodbyehelloWebp from '../../assets/GP2.webp';
+import onesockAvif from '../../assets/OneSock-01.avif';
+import onesockWebp from '../../assets/OneSock-01.webp';
+import bhcwelcomematAvif from '../../assets/BHCwelcomemat2-01.avif';
+import bhcwelcomematWebp from '../../assets/BHCwelcomemat2-01.webp';
+import bringhomeAvif from '../../assets/BringHomeChristmas2 (2).avif';
+import bringhomeWebp from '../../assets/BringHomeChristmas2 (2).webp';
+import bhcstackedAvif from '../../assets/BHCstacked3-01.avif';
+import bhcstackedWebp from '../../assets/BHCstacked3-01.webp';
+import threestackAvif from '../../assets/3Stack.avif';
+import threestackWebp from '../../assets/3Stack.webp';
+import gobackbigAvif from '../../assets/GobackBig.avif';
+import gobackbigWebp from '../../assets/GobackBig.webp';
+import btcAvif from '../../assets/BTC-2.avif';
+import btcWebp from '../../assets/BTC-2.webp';
 import artbook from '../../assets/ThisIsIt.jpg';
 import Grid60, { Grid60TwoCol } from '../../components/Layout/Grid60';
 
@@ -172,9 +189,24 @@ export default function GraphicDesign() {
 </FullHeightTextSection>
 
           
-            <FullBg src={graphicposters} style={{ borderRadius: 0 }} />
-            <FullBg src={oliviafloral} style={{ borderRadius: 0 }} />
-            <FullBg src={goodbyehello} style={{ borderRadius: 0 }} />
+            <FullBg 
+              src={graphicpostersAvif}
+              webp={graphicpostersWebp}
+              style={{ borderRadius: 0 }}
+              alt="Graphic Posters 1"
+            />
+            <FullBg 
+              src={oliviafloralAvif}
+              webp={oliviafloralWebp}
+              style={{ borderRadius: 0 }}
+              alt="Olivia Floral Mockup"
+            />
+            <FullBg 
+              src={goodbyehelloAvif}
+              webp={goodbyehelloWebp}
+              style={{ borderRadius: 0 }}
+              alt="Graphic Posters 2"
+            />
 
             {/* "This is it" poster section standardized to 60vw */}
             <ThisIsItContainer>
@@ -194,22 +226,30 @@ export default function GraphicDesign() {
 
             <RisoFlex style={{ justifyContent: 'center' }}>
         <div style={{ width: '60vw', margin: '0 auto', display: 'flex', justifyContent: 'center', boxShadow: 'none' }}>
-          <SingleImage src={messages} width="30vw" style={{ boxShadow: 'none' }} />
+          <SingleImage src={messages} width="30vw" style={{ boxShadow: 'none' }}
+            responsiveWidth="95vw"
+          />
         </div>
 </RisoFlex>
 
       <RisoFlex>
-        <SingleImage src={messagestwo} width="45vw" style={{ boxShadow: 'none' }} />
+        <SingleImage src={messagestwo} width="45vw" style={{ boxShadow: 'none' }}
+          responsiveWidth="95vw"
+        />
       </RisoFlex>
 
       <RisoFlex>
-        <SingleImage src={messagesthree} width="45vw" style={{ boxShadow: 'none' }} />
+        <SingleImage src={messagesthree} width="45vw" style={{ boxShadow: 'none' }}
+          responsiveWidth="95vw"
+        />
       </RisoFlex>
 
             <FullBg style={{paddingTop: '10vh', borderRadius: 0}} src={messagesfour} />
 
       <RisoFlex>
-  <SingleImage src={threestack} width="45vw" style={{ boxShadow: 'none', paddingTop: '5vh', paddingBottom: '5vh' }} />
+  <SingleImage src={threestack} width="45vw" style={{ boxShadow: 'none', paddingTop: '5vh', paddingBottom: '5vh' }}
+    responsiveWidth="95vw"
+  />
       </RisoFlex>
 
            <div style={{ width: '100%', height: '100vh', overflow: 'hidden' }}>
@@ -253,19 +293,27 @@ export default function GraphicDesign() {
 </FullHeightTextSection>
 
       <RisoFlex style={{height:'auto'}}>
-        <SingleImage src={ironlakadvert} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }} />
+        <SingleImage src={ironlakadvert} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }}
+          responsiveWidth="95vw"
+        />
       </RisoFlex>
 
       <RisoFlex style={{height:'auto'}}>
-        <SingleImage src={ironlakadone} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }} />
+        <SingleImage src={ironlakadone} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }}
+          responsiveWidth="95vw"
+        />
       </RisoFlex>
 
       <RisoFlex style={{height:'auto'}}>
-        <SingleImage src={ironlakadtwo} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }} />
+        <SingleImage src={ironlakadtwo} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }}
+          responsiveWidth="95vw"
+        />
       </RisoFlex>
 
       <RisoFlex style={{height:'auto'}}>
-        <SingleImage src={ironlaksweaters} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }} />
+        <SingleImage src={ironlaksweaters} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }}
+          responsiveWidth="95vw"
+        />
       </RisoFlex>
 
 
@@ -280,26 +328,36 @@ export default function GraphicDesign() {
 </FullHeightTextSection>
 
       <RisoFlex>
-        <SingleImage src={bbfone} width="45vw" style={{ boxShadow: 'none' }} />
+        <SingleImage src={bbfone} width="45vw" style={{ boxShadow: 'none' }}
+          responsiveWidth="95vw"
+        />
       </RisoFlex>
 
           
 
       <RisoFlex style={{height:'auto'}}>
-        <SingleImage src={bbftwo} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }} />
+        <SingleImage src={bbftwo} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }}
+          responsiveWidth="95vw"
+        />
       </RisoFlex>
 
 
       <RisoFlex style={{height:'auto'}}>
-        <SingleImage src={bbfthree} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }} />
+        <SingleImage src={bbfthree} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }}
+          responsiveWidth="95vw"
+        />
       </RisoFlex>
 
       <RisoFlex style={{height:'auto'}}>
-        <SingleImage src={bbffour} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }} />
+        <SingleImage src={bbffour} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }}
+          responsiveWidth="95vw"
+        />
       </RisoFlex>
 
       <RisoFlex style={{height:'auto'}}>
-        <SingleImage src={bbffive} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh', marginBottom: '5vh' }} />
+        <SingleImage src={bbffive} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh', marginBottom: '5vh' }}
+          responsiveWidth="95vw"
+        />
       </RisoFlex>
 
      

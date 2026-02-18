@@ -138,11 +138,11 @@ export default function Ux() {
 </FullHeightTextSection>
 
         {/* Blue Background Sections */}
-        <RisoFlex style={{ height: '85vh', backgroundColor: '#0A84E3' }}>
+        <RisoFlex style={{ backgroundColor: '#0A84E3', padding: '6vh 0' }}>
           <SingleImage src={LeysiBlue} />
         </RisoFlex>
 
-        <RisoFlex style={{ height: '60vh', backgroundColor: '#0A84E3' }}>
+        <RisoFlex style={{ backgroundColor: '#0A84E3', padding: '4vh 0' }}>
           <SingleImage src={LeysiBluetwo} />
         </RisoFlex>
 

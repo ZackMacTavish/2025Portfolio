@@ -98,7 +98,7 @@ const LandingDiv = styled.div`
 
 
 
-const AboutPicture = styled.img.attrs({ loading: 'eager', decoding: 'async', fetchpriority: 'high' })`
+const AboutPicture = styled.img.attrs({ loading: 'eager', decoding: 'async', fetchPriority: 'high' })`
   width: 22vw;
   height: 22vw;
   object-fit: cover;
@@ -149,7 +149,7 @@ const ParagraphTwo = styled.div`
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 500;
   font-size: 2.5rem;
-  width: ${(props) => props.Widthsize};
+  width: ${({ $widthsize }) => $widthsize};
   color: white;
   z-index: 1;
 
@@ -188,7 +188,7 @@ const ArrowWrapper = styled.div`
   transform: none;
   display: grid;
   place-items: center; /* robust horizontal centering without relying on transforms */
-  opacity: ${(props) => (props.visible ? 0.8 : 0)};
+  opacity: ${({ $visible }) => ($visible ? 0.8 : 0)};
   transition: opacity 0.6s ease;
   pointer-events: none;
   z-index: 2;      /* keep under intro overlay (which is z-index: 10) and above base content */
@@ -573,7 +573,7 @@ const LandingPage = ({ introDone = true }) => {
           <SocialsWrapper>
             <Socials />
           </SocialsWrapper>
-          <ParagraphTwo Widthsize='47vw'>
+          <ParagraphTwo $widthsize='47vw'>
             Hi, I'm Zack MacTavish, an artist and product designer based in Philadelphia, PA.
             For almost four years, I've been with Microsoft's Shopping Team, shaping user
             experiences for digital products.
@@ -582,7 +582,7 @@ const LandingPage = ({ introDone = true }) => {
 
         {/* Scroll arrow */}
         {!hiddenForever && introDone && (
-          <ArrowWrapper visible={showArrow}>
+          <ArrowWrapper $visible={showArrow}>
             <ArrowInner>
               <Arrow />
             </ArrowInner>

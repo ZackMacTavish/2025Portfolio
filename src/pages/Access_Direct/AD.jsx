@@ -1,12 +1,20 @@
-// Functional FullBg component for AVIF/WebP/PNG support
-export const FullBg = ({ src, alt = '', style = {} }) => {
-  const srcBase = typeof src === 'string' ? src.split('/').pop().replace(/\.[^.]+$/, '') : '';
+import lightWebp from '../../assets/ADLightPhone2.webp';
+// Functional FullBg component for AVIF/WebP/PNG support (import-based)
+export const FullBg = ({ src, avif, webp, alt = '', style = {} }) => {
+  // src: imported fallback (png/jpg), avif/webp: imported modern formats
+  // If avif/webp not provided, try to auto-derive from src
+  let srcBase = '';
+  if (typeof src === 'string') {
+    srcBase = src.split('/').pop().replace(/\.[^.]+$/, '');
+  }
+  // If avif/webp not provided, try to require them based on srcBase
+  // (User should import all formats for best reliability)
   return (
     <picture>
-      <source srcSet={`/assets/${srcBase}.avif`} type="image/avif" />
-      <source srcSet={`/assets/${srcBase}.webp`} type="image/webp" />
+      {avif && <source srcSet={avif} type="image/avif" />}
+      {webp && <source srcSet={webp} type="image/webp" />}
       <img
-        src={`/assets/${srcBase}.png`}
+        src={src}
         alt={alt}
         style={{
           width: '100vw',
@@ -33,20 +41,39 @@ import {
 } from '../Giga/Giga';
 import ProjectTopSection from '../../components/ProjectTopSection';
 
-// Assets
-// All images now referenced by base filename for modern formats
-const highpower = 'Highpower';
-const iphones = 'AD—iphones';
-const mocks = 'AD—pages';
-const admac = 'AD—Macs';
-const imac = 'AD—Macbook';
-const ipadtwo = 'AD-ipad';
-const dark = 'ADiPhone_2—Dark'; // Confirmed asset and modern formats exist
-const light = 'ADLightPhone2';
-const imactwo = 'ADiMac';
-const about = 'Group 375';
-const guides2 = 'Guides2';
-const create = 'Group 274';
+// Assets (import all formats for each image)
+import highpowerJpg from '../../assets/Highpower.jpg';
+import highpowerAvif from '../../assets/Highpower.avif';
+import highpowerWebp from '../../assets/Highpower.webp';
+import iphonesJpg from '../../assets/AD—iphones.jpg';
+import iphonesAvif from '../../assets/AD—iphones.avif';
+import iphonesWebp from '../../assets/AD—iphones.webp';
+import mocksJpg from '../../assets/AD—pages.jpg';
+import mocksAvif from '../../assets/AD—pages.avif';
+import mocksWebp from '../../assets/AD—pages.webp';
+import admacJpg from '../../assets/AD—Macs.jpg';
+import admacAvif from '../../assets/AD—Macs.avif';
+import admacWebp from '../../assets/AD—Macs.webp';
+import ipadtwoJpg from '../../assets/AD-ipad.jpg';
+import ipadtwoAvif from '../../assets/AD-ipad.avif';
+import ipadtwoWebp from '../../assets/AD-ipad.webp';
+import darkJpg from '../../assets/ADiPhone_2—Dark.jpg';
+import darkAvif from '../../assets/ADiPhone_2—Dark.avif';
+import darkWebp from '../../assets/ADiPhone_2—Dark.webp';
+import lightJpg from '../../assets/ADLightPhone2.jpg';
+import lightAvif from '../../assets/ADLightPhone2.avif';
+import imactwoPng from '../../assets/ADiMac.png';
+import imactwoAvif from '../../assets/ADiMac.avif';
+import imactwoWebp from '../../assets/ADiMac.webp';
+import aboutPng from '../../assets/Group 375.png';
+import aboutAvif from '../../assets/Group 375.avif';
+import aboutWebp from '../../assets/Group 375.webp';
+import guides2Png from '../../assets/Guides2.png';
+import guides2Avif from '../../assets/Guides2.avif';
+import guides2Webp from '../../assets/Guides2.webp';
+import createPng from '../../assets/Group 274.png';
+import createAvif from '../../assets/Group 274.avif';
+import createWebp from '../../assets/Group 274.webp';
 
 // --- Styled Components ---
 
@@ -154,24 +181,40 @@ export const FullHeightTextSection = styled.section`
 
 // Replace styled.img RisoItem with functional component
 // Unified RisoImage component (was RisoItem/RisoItemtwo)
-export const SingleImage = ({ src, alt = '', width = '60vw', style = {} }) => {
-  const srcBase = typeof src === 'string' ? src.split('/').pop().replace(/\.[^.]+$/, '') : '';
+// Functional SingleImage component for AVIF/WebP/PNG support (import-based)
+export const SingleImage = ({ src, avif, webp, alt = '', width = '60vw', style = {} }) => {
+  // src: imported fallback (png/jpg), avif/webp: imported modern formats
+  // If avif/webp not provided, try to auto-derive from src
+  let srcBase = '';
+  if (typeof src === 'string') {
+    srcBase = src.split('/').pop().replace(/\.[^.]+$/, '');
+  }
+  // If avif/webp not provided, try to require them based on srcBase
+  // (User should import all formats for best reliability)
+  // Responsive style: 95vw at <=1000px, else use width prop
+  const responsiveStyle = {
+    width,
+    maxWidth: '1000px',
+    height: 'auto',
+    display: 'block',
+    borderRadius: '24px',
+    boxShadow: '0 2px 12px 0 rgba(0,0,0,0.06)',
+    ...style
+  };
+
+  // Inline style for media query
+  const mediaQuery = `@media (max-width: 1320px) { width: 90vw !important; max-width: 90vw !important; } @media (max-width: 850px) { width: 100vw !important; max-width: 100vw !important; border-radius: 0 !important; }`;
+
   return (
     <picture>
-      <source srcSet={`/assets/${srcBase}.avif`} type="image/avif" />
-      <source srcSet={`/assets/${srcBase}.webp`} type="image/webp" />
+      {avif && <source srcSet={avif} type="image/avif" />}
+      {webp && <source srcSet={webp} type="image/webp" />}
+      <style>{`.single-image-responsive { ${mediaQuery} }`}</style>
       <img
-        src={`/assets/${srcBase}.png`}
+        src={src}
         alt={alt}
-        style={{
-          width,
-          maxWidth: '1000px',
-          height: 'auto',
-          display: 'block',
-          borderRadius: '24px',
-          boxShadow: '0 2px 12px 0 rgba(0,0,0,0.06)',
-          ...style
-        }}
+        className="single-image-responsive"
+        style={responsiveStyle}
         loading="lazy"
         decoding="async"
       />
@@ -305,7 +348,7 @@ export default function AccessDirect() {
 </ProjectDetailsContainer>
 
       {/* Sections */}
-  <FullBg src={iphones} style={{ backgroundColor: 'white', width: '100vw', maxWidth: '100vw', height: 'auto', objectFit: 'cover', display: 'block', margin: 0, padding: 0, borderRadius: 0 }} />
+  <FullBg src={iphonesJpg} avif={iphonesAvif} webp={iphonesWebp} style={{ backgroundColor: 'white', width: '100vw', maxWidth: '100vw', height: 'auto', objectFit: 'cover', display: 'block', margin: 0, padding: 0, borderRadius: 0 }} />
 
       <FullHeightTextSection style={{ backgroundColor: 'white' }}>
   <TextContainer>
@@ -315,34 +358,41 @@ export default function AccessDirect() {
   </TextContainer>
 </FullHeightTextSection>
 
-  <FullBg src={mocks} style={{ backgroundColor: 'white', width: '100vw', maxWidth: '100vw', borderRadius: 0, margin: '0 auto' }} />
+  <FullBg src={mocksJpg} avif={mocksAvif} webp={mocksWebp} style={{ backgroundColor: 'white', width: '100vw', maxWidth: '100vw', borderRadius: 0, margin: '0 auto' }} />
 
       <RisoFlex>
-        <SingleImage src={highpower} />
+        <SingleImage src={highpowerJpg} avif={highpowerAvif} webp={highpowerWebp} />
       </RisoFlex>
 
       <RisoFlex>
-        <SingleImage src={create} />
+        <SingleImage src={createPng} avif={createAvif} webp={createWebp} />
       </RisoFlex>
 
-  <FullBg src={admac} style={{ backgroundColor: 'white', width: '100vw', maxWidth: '100vw', borderRadius: 0, margin: '0 auto' }} />
+  <FullBg src={admacJpg} avif={admacAvif} webp={admacWebp} style={{ backgroundColor: 'white', width: '100vw', maxWidth: '100vw', borderRadius: 0, margin: '0 auto' }} />
 
       <RisoFlex>
-        <SingleImage src={ipadtwo} />
+          <SingleImage src={ipadtwoJpg} avif={ipadtwoAvif} webp={ipadtwoWebp} />
       </RisoFlex>
 
-      <DoubleImage srcLeft={dark} srcRight={light} />
+      <DoubleImage 
+        srcLeft={darkJpg} 
+        srcRight={lightJpg} 
+        altLeft="AD iPhone 2 Dark" 
+        altRight="AD Light Phone 2" 
+        styleLeft={{}} 
+        styleRight={{}} 
+      />
 
       <RisoFlex>
-        <SingleImage src={imactwo} />
+        <SingleImage src={imactwoPng} avif={imactwoAvif} webp={imactwoWebp} />
       </RisoFlex>
 
       <RisoFlex>
-        <SingleImage src={about} />
+        <SingleImage src={aboutPng} avif={aboutAvif} webp={aboutWebp} />
       </RisoFlex>
 
   <RisoFlex>
-    <SingleImage src={guides2} />
+    <SingleImage src={guides2Png} avif={guides2Avif} webp={guides2Webp} />
   </RisoFlex>
 
       {/* Footer */}

@@ -54,7 +54,7 @@ import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Dir
 
 export const ProjectDetailsContainer = styled.div`
   width: 60vw;
-  max-width: 1100px;
+  max-width: 1000px;
   margin: 0 auto 6vh;
   padding: 4vh 4vw 6vh;
   background-color: #f5f5f5;
