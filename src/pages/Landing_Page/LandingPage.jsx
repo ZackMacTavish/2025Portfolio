@@ -6,21 +6,46 @@ import { Suspense, lazy } from 'react';
 const Scene = lazy(() => import('../../components/Three/three'));
 import Grid60 from '../../components/Layout/Grid60';
 import me from '../../assets/Me.jpeg';
+import meAvif from '../../assets/Me.avif';
+import meWebp from '../../assets/Me.webp';
 import imagereplace from '../../assets/BlackTurtleneck-popart-01.jpg';
+import imagereplaceAvif from '../../assets/BlackTurtleneck-popart-01.avif';
+import imagereplaceWebp from '../../assets/BlackTurtleneck-popart-01.webp';
 import quilthanging from '../../assets/hangingquilts.jpg';
+import quilthangingAvif from '../../assets/hangingquilts.avif';
+import quilthangingWebp from '../../assets/hangingquilts.webp';
+import { SingleImage } from '../Access_Direct/AD';
+import { ImageTextSplit } from '@zackmactavish/foundation';
 // Project tile images (served via bundler from src/assets)
 import leysiTile from '../../assets/LeysiApp—Screens copy.jpg';
+import leysiTileAvif from '../../assets/LeysiApp—Screens copy.avif';
+import leysiTileWebp from '../../assets/LeysiApp—Screens copy.webp';
 import threePillarsTile from '../../assets/ThreePillars—pages.jpg';
+import threePillarsTileAvif from '../../assets/ThreePillars—pages.avif';
+import threePillarsTileWebp from '../../assets/ThreePillars—pages.webp';
 import pitonTile from '../../assets/Group 55618@2x.png';
+import pitonTileAvif from '../../assets/Group 55618@2x.avif';
+import pitonTileWebp from '../../assets/Group 55618@2x.webp';
 import outsourceTile from '../../assets/BrandGuidelines—Mockup.jpg';
+import outsourceTileAvif from '../../assets/BrandGuidelines—Mockup.avif';
+import outsourceTileWebp from '../../assets/BrandGuidelines—Mockup.webp';
 import gigaTile from '../../assets/iphones—Mockup copy.png';
+import gigaTileAvif from '../../assets/iphones—Mockup copy.avif';
+import gigaTileWebp from '../../assets/iphones—Mockup copy.webp';
 import mediumLogo from '../../assets/medium.svg';
 import card1 from '../../assets/Card1.webp';
+import card1Avif from '../../assets/Card1.avif';
 import card2 from '../../assets/Card2.webp';
+import card2Avif from '../../assets/Card2.avif';
 import card3 from '../../assets/Card3.webp';
+import card3Avif from '../../assets/Card3.avif';
 import card4 from '../../assets/Card4.webp';
+import card4Avif from '../../assets/Card4.avif';
 import card5 from '../../assets/Card5.webp';
+import card5Avif from '../../assets/Card5.avif';
 import card6 from '../../assets/Card6.png';
+import card6Avif from '../../assets/Card6.avif';
+import card6Webp from '../../assets/Card6.webp';
 import Socials from '../../components/Social Bar/Socials';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
 import { Link } from 'react-router-dom';
@@ -98,30 +123,32 @@ const LandingDiv = styled.div`
 
 
 
-const AboutPicture = styled.img.attrs({ loading: 'eager', decoding: 'async', fetchPriority: 'high' })`
-  width: 22vw;
-  height: 22vw;
-  object-fit: cover;
-  border-radius: 50%;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 1;
-  display: block; /* ensure proper centering with auto margins */
 
-  @media (max-width: 1000px) {
-    width: 60vw;
-    height: 60vw;
-    align-self: center; /* center inside column layout */
-    margin: 0 auto;     /* explicit centering on mobile */
-  }
-
-  @media (max-width: 450px) {
-    width: 70vw;
-    height: 70vw;
-    align-self: center;
-    margin: 0 auto;
-  }
-`;
+// AboutPicture as <picture>
+const AboutPicture = (props) => (
+  <picture>
+    <source srcSet={meAvif} type="image/avif" />
+    <source srcSet={meWebp} type="image/webp" />
+    <img
+      src={me}
+      alt="Zack MacTavish portrait"
+      loading="eager"
+      decoding="async"
+      fetchPriority="high"
+      style={{
+        width: '22vw',
+        height: '22vw',
+        objectFit: 'cover',
+        borderRadius: '50%',
+        flexShrink: 0,
+        position: 'relative',
+        zIndex: 1,
+        display: 'block',
+        ...props.style
+      }}
+    />
+  </picture>
+);
 
 const PortraitContainer = styled.div`
   display: flex;
@@ -614,7 +641,7 @@ const LandingPage = ({ introDone = true }) => {
             {/* Leysi */}
             <ProjectCard>
               <Tile to="/Ux" aria-label="Leysi project">
-                <TileBg style={{ backgroundImage: `url(${leysiTile})` }} />
+                <SingleImage src={leysiTile} avif={leysiTileAvif} webp={leysiTileWebp} alt="Leysi project tile" width="100%" style={{position:'absolute',inset:0,height:'100%',objectFit:'cover',zIndex:0}} />
                 <TileOverlay />
               </Tile>
               <TileCaption>
@@ -626,7 +653,7 @@ const LandingPage = ({ introDone = true }) => {
             {/* ThreePillars */}
             <ProjectCard>
               <Tile to="/ThreePillars" aria-label="Three Pillars project">
-                <TileBg style={{ backgroundImage: `url(${threePillarsTile})` }} />
+                <SingleImage src={threePillarsTile} avif={threePillarsTileAvif} webp={threePillarsTileWebp} alt="Three Pillars project tile" width="100%" style={{position:'absolute',inset:0,height:'100%',objectFit:'cover',zIndex:0}} />
                 <TileOverlay />
               </Tile>
               <TileCaption>
@@ -638,7 +665,7 @@ const LandingPage = ({ introDone = true }) => {
             {/* Piton */}
             <ProjectCard>
               <Tile to="/Piton" aria-label="Piton project">
-                <TileBg style={{ backgroundImage: `url(${pitonTile})` }} />
+                <SingleImage src={pitonTile} avif={pitonTileAvif} webp={pitonTileWebp} alt="Piton project tile" width="100%" style={{position:'absolute',inset:0,height:'100%',objectFit:'cover',zIndex:0}} />
                 <TileOverlay />
               </Tile>
               <TileCaption>
@@ -650,7 +677,7 @@ const LandingPage = ({ introDone = true }) => {
             {/* Outsource */}
             <ProjectCard>
               <Tile to="/Outsource" aria-label="Outsource project">
-                <TileBg style={{ backgroundImage: `url(${outsourceTile})` }} />
+                <SingleImage src={outsourceTile} avif={outsourceTileAvif} webp={outsourceTileWebp} alt="Outsource project tile" width="100%" style={{position:'absolute',inset:0,height:'100%',objectFit:'cover',zIndex:0}} />
                 <TileOverlay />
               </Tile>
               <TileCaption>
@@ -662,7 +689,7 @@ const LandingPage = ({ introDone = true }) => {
             {/* Giga */}
             <ProjectCard>
               <Tile to="/Giga" aria-label="Giga project">
-                <TileBg style={{ backgroundImage: `url(${gigaTile})` }} />
+                <SingleImage src={gigaTile} avif={gigaTileAvif} webp={gigaTileWebp} alt="Giga project tile" width="100%" style={{position:'absolute',inset:0,height:'100%',objectFit:'cover',zIndex:0}} />
                 <TileOverlay />
               </Tile>
               <TileCaption>
@@ -853,17 +880,20 @@ const LandingPage = ({ introDone = true }) => {
       </ProjectsSection>
 
       {/* Module 3: Quilt + Third Paragraph */}
-      <QuiltContainer>
-        <QuiltInner>
-          <QuiltImage src={quilthanging} alt="Quilt hanging" />
-          <QuiltText>
-            Outside of work, I live with my partner Olivia, who is also an artist. 
-            In my own creative time, I focus on making quilts that combine photography, 
-            textile techniques, and mixed media, exploring the intersection of art, 
-            design, and storytelling.
-          </QuiltText>
-        </QuiltInner>
-      </QuiltContainer>
+      <ImageTextSplit
+        imageSrc={quilthanging}
+        imageAvif={quilthangingAvif}
+        imageWebp={quilthangingWebp}
+        imageAlt="Quilt hanging"
+        textSize="1.4rem"
+        textColor="#fff"
+        style={{ color: '#fff' }}
+      >
+        Outside of work, I live with my partner Olivia, who is also an artist. 
+        In my own creative time, I focus on making quilts that combine photography, 
+        textile techniques, and mixed media, exploring the intersection of art, 
+        design, and storytelling.
+      </ImageTextSplit>
 
       {/* Module 4: Three.js Scene */}
       <ArtDiv>

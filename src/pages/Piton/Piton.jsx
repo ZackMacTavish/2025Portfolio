@@ -2,13 +2,29 @@ import React, { useLayoutEffect } from 'react';
 
 // Assets
 import pitonlogo from '../../assets/FullLogo-02.png';
+import pitonlogoAvif from '../../assets/FullLogo-02.avif';
+import pitonlogoWebp from '../../assets/FullLogo-02.webp';
 import pitoniphones from '../../assets/Piton—iphones copy.jpg';
+import pitoniphonesAvif from '../../assets/Piton—iphones copy.avif';
+import pitoniphonesWebp from '../../assets/Piton—iphones copy.webp';
 import pitonscreens from '../../assets/Group 55618@2x.png';
+import pitonscreensAvif from '../../assets/Group 55618@2x.avif';
+import pitonscreensWebp from '../../assets/Group 55618@2x.webp';
 import pitonscreens2 from '../../assets/Group 55619@2x.png';
+import pitonscreens2Avif from '../../assets/Group 55619@2x.avif';
+import pitonscreens2Webp from '../../assets/Group 55619@2x.webp';
 import allpiton from '../../assets/Piton—Screens.jpg';
+import allpitonAvif from '../../assets/Piton—Screens.avif';
+import allpitonWebp from '../../assets/Piton—Screens.webp';
 import light from '../../assets/LightPhone2.png';
+import lightAvif from '../../assets/LightPhone2.avif';
+import lightWebp from '../../assets/LightPhone2.webp';
 import dark from '../../assets/iPhone_2—Dark.png';
+import darkAvif from '../../assets/iPhone_2—Dark.avif';
+import darkWebp from '../../assets/iPhone_2—Dark.webp';
 import pitonlogos from '../../assets/Group 55620@2x.png';
+import pitonlogosAvif from '../../assets/Group 55620@2x.avif';
+import pitonlogosWebp from '../../assets/Group 55620@2x.webp';
 import { FullHeightTextSection, TextContent, TextContainer } from '../Access_Direct/AD';
 import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
@@ -32,9 +48,9 @@ export default function Piton() {
 
     return (
         <StyledDiv>
-            <RisoFlex style={{height: '100vh'}}>
-                <SingleImage src={pitonlogo} style={{ boxShadow: 'none' }} />
-            </RisoFlex>
+      <RisoFlex style={{height: '100vh'}}>
+        <SingleImage src={pitonlogo} avif={pitonlogoAvif} webp={pitonlogoWebp} style={{ boxShadow: 'none' }} />
+      </RisoFlex>
 
        <ProjectDetailsContainer>
   <ProjectDetails>
@@ -64,7 +80,7 @@ export default function Piton() {
 
            
 
-            <FullBg src={pitoniphones} style={{ width: '100vw', maxWidth: '100vw', height: 'auto', objectFit: 'cover', display: 'block', margin: 0, padding: 0, borderRadius: 0 }} />
+            <FullBg src={pitoniphones} avif={pitoniphonesAvif} webp={pitoniphonesWebp} style={{ width: '100vw', maxWidth: '100vw', height: 'auto', objectFit: 'cover', display: 'block', margin: 0, padding: 0, borderRadius: 0 }} />
              <FullHeightTextSection style={{ backgroundColor: 'white' }}>
   <TextContainer>
     <TextContent style={{ color: '#5d5d5d'}}>
@@ -86,15 +102,17 @@ export default function Piton() {
 
       <div style={{ width: '100vw', margin: '0px calc(50% - 50vw)', padding: '0', background: '#f5f5f5', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <div style={{ width: '60vw', margin: '0px auto', padding: '4vh 0 0 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <SingleImage alt="Piton App Screen 1" src={pitonscreens} style={{ width: '60vw', maxWidth: 800, height: 'auto', display: 'block', borderRadius: 16, boxShadow: 'none', background: '#f5f5f5' }} />
+          <SingleImage alt="Piton App Screen 1" src={pitonscreens} avif={pitonscreensAvif} webp={pitonscreensWebp} style={{ width: '60vw', maxWidth: 800, height: 'auto', display: 'block', borderRadius: 16, boxShadow: 'none', background: '#f5f5f5' }} />
         </div>
         <div style={{ width: '60vw', margin: '0px auto', padding: '0 0 4vh 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <SingleImage alt="Piton App Screen 2" src={pitonscreens2} style={{ width: '60vw', maxWidth: 800, height: 'auto', display: 'block', borderRadius: 16, boxShadow: 'none', background: '#f5f5f5' }} />
+          <SingleImage alt="Piton App Screen 2" src={pitonscreens2} avif={pitonscreens2Avif} webp={pitonscreens2Webp} style={{ width: '60vw', maxWidth: 800, height: 'auto', display: 'block', borderRadius: 16, boxShadow: 'none', background: '#f5f5f5' }} />
         </div>
       </div>
 
            <FullBg
                 src={allpiton}
+                avif={allpitonAvif}
+                webp={allpitonWebp}
                 style={{
                   display: "block",
                   width: "100vw",
@@ -108,13 +126,15 @@ export default function Piton() {
               />
 
             <Cellphones>
-                <DoubleImage srcLeft={dark} srcRight={light} />
+                <DoubleImage srcLeft={dark} avifLeft={darkAvif} webpLeft={darkWebp} srcRight={light} avifRight={lightAvif} webpRight={lightWebp} />
             </Cellphones>
 
           <FullBg 
-  src={pitonlogos} 
-  style={{ display: 'block', width: '100%', height: 'auto', margin: 0, padding: 0 }} 
-/>
+          src={pitonlogos} 
+          avif={pitonlogosAvif}
+          webp={pitonlogosWebp}
+          style={{ display: 'block', width: '100%', height: 'auto', margin: 0, padding: 0 }} 
+        /> 
 
      <FullHeightTextSection style={{ backgroundColor: 'black' }}>
   <TextContainer>

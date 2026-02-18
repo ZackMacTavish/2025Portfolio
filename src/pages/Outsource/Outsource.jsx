@@ -13,30 +13,78 @@ import ProjectTopSection from '../../components/ProjectTopSection';
 import { FiArrowUpRight } from 'react-icons/fi';
 
 // Images
+
 import highpower from '../../assets/Onthemenu.jpg';
+import highpowerAvif from '../../assets/Onthemenu.avif';
+import highpowerWebp from '../../assets/Onthemenu.webp';
 import iphones from '../../assets/Outsource—iphones.jpg';
+import iphonesAvif from '../../assets/Outsource—iphones.avif';
+import iphonesWebp from '../../assets/Outsource—iphones.webp';
 import mocks from '../../assets/Outsource—pages.jpg';
+import mocksAvif from '../../assets/Outsource—pages.avif';
+import mocksWebp from '../../assets/Outsource—pages.webp';
 import admac from '../../assets/Outsource_Imac_2.jpg';
+import admacAvif from '../../assets/Outsource_Imac_2.avif';
+import admacWebp from '../../assets/Outsource_Imac_2.webp';
 import imac from '../../assets/Outsource—Macbook.png';
+import imacAvif from '../../assets/Outsource—Macbook.avif';
+import imacWebp from '../../assets/Outsource—Macbook.webp';
 import ipadtwo from '../../assets/Outsource-ipad.jpg';
+import ipadtwoAvif from '../../assets/Outsource-ipad.avif';
+import ipadtwoWebp from '../../assets/Outsource-ipad.webp';
 import dark from '../../assets/Outsource—iPhone_2—Darksq.jpg';
+import darkAvif from '../../assets/Outsource—iPhone_2—Darksq.avif';
+import darkWebp from '../../assets/Outsource—iPhone_2—Darksq.webp';
 import light from '../../assets/OutsourceLightPhone2.jpg';
+import lightAvif from '../../assets/OutsourceLightPhone2.avif';
 import imactwo from '../../assets/Outsource—iMac2.jpg';
+import imactwoAvif from '../../assets/Outsource—iMac2.avif';
+import imactwoWebp from '../../assets/Outsource—iMac2.webp';
 import about from '../../assets/Leadership.jpg';
+import aboutAvif from '../../assets/Leadership.avif';
+import aboutWebp from '../../assets/Leadership.webp';
 import guides from '../../assets/Group 55604@2x.jpg';
+import guidesAvif from '../../assets/Group 55604@2x.avif';
+import guidesWebp from '../../assets/Group 55604@2x.webp';
 import create from '../../assets/nyu.jpg';
+import createAvif from '../../assets/nyu.avif';
+import createWebp from '../../assets/nyu.webp';
 import ceumacbook from '../../assets/Outsource—CEUMacbook.png';
+import ceumacbookAvif from '../../assets/Outsource—CEUMacbook.avif';
+import ceumacbookWebp from '../../assets/Outsource—CEUMacbook.webp';
 import ceuiphones from '../../assets/CEU—iphones.jpg';
+import ceuiphonesAvif from '../../assets/CEU—iphones.avif';
+import ceuiphonesWebp from '../../assets/CEU—iphones.webp';
 import ceumocks from '../../assets/Outsource—CEUpages.jpg';
+import ceumocksAvif from '../../assets/Outsource—CEUpages.avif';
+import ceumocksWebp from '../../assets/Outsource—CEUpages.webp';
 import aia from '../../assets/AIA.jpg';
+import aiaAvif from '../../assets/AIA.avif';
+import aiaWebp from '../../assets/AIA.webp';
 import ceuimac from '../../assets/CEU_Imac_2.jpg';
+import ceuimacAvif from '../../assets/CEU_Imac_2.avif';
+import ceuimacWebp from '../../assets/CEU_Imac_2.webp';
 import bointro from '../../assets/BookADemo-01.jpg';
+import bointroAvif from '../../assets/BookADemo-01.avif';
+import bointroWebp from '../../assets/BookADemo-01.webp';
 import bozoom from '../../assets/BO_Zoomface-01.png';
+import bozoomAvif from '../../assets/BO_Zoomface-01.avif';
+import bozoomWebp from '../../assets/BO_Zoomface-01.webp';
 import booklet from '../../assets/BO—Booklet.png';
+import bookletAvif from '../../assets/BO—Booklet.avif';
+import bookletWebp from '../../assets/BO—Booklet.webp';
 import flowmap from '../../assets/BOFlowMap—Long-01-01.jpg';
+import flowmapAvif from '../../assets/BOFlowMap—Long-01-01.avif';
+import flowmapWebp from '../../assets/BOFlowMap—Long-01-01.webp';
 import guidelines from '../../assets/BrandGuidelines—Mockup.jpg';
+import guidelinesAvif from '../../assets/BrandGuidelines—Mockup.avif';
+import guidelinesWebp from '../../assets/BrandGuidelines—Mockup.webp';
 import twentyfive from '../../assets/Outsource25-07.png';
+import twentyfiveAvif from '../../assets/Outsource25-07.avif';
+import twentyfiveWebp from '../../assets/Outsource25-07.webp';
 import branding from '../../assets/Branding_LogoPatterns-01.png';
+import brandingAvif from '../../assets/Branding_LogoPatterns-01.avif';
+import brandingWebp from '../../assets/Branding_LogoPatterns-01.webp';
 
 
 export default function Outsource() {
@@ -65,8 +113,6 @@ export default function Outsource() {
         title="Outsource"
         imageBaseName="assets/Outsource—Macbook"
         imageExt="png"
-        imageAlt="Outsource Macbook Mockup"
-    imageWidth="38vw"
         buttons={[
           { href: "https://www.outsourceconsultants.com/home", label: "Visit Outsource" },
           { href: "https://www.decoderny.com/", label: "Visit DecoderNY" },
@@ -118,17 +164,17 @@ export default function Outsource() {
   <FullBg src={mocks} />
 
       <RisoFlex>
-  <SingleImage src={highpower} />
+        <SingleImage src={highpower} avif={highpowerAvif} />
       </RisoFlex>
 
       <RisoFlex>
-  <SingleImage src={create} />
+        <SingleImage src={create} avif={createAvif} webp={createWebp} />
       </RisoFlex>
 
       <FullBg src={admac} />
 
       <RisoFlex>
-  <SingleImage src={ipadtwo} />
+        <SingleImage src={ipadtwo} avif={ipadtwoAvif} webp={ipadtwoWebp} />
       </RisoFlex>
 
     <DoubleImage srcLeft={dark} srcRight={light} />
@@ -136,11 +182,11 @@ export default function Outsource() {
   <FullBg src={imactwo} style={{ marginTop: 0, paddingTop: 0 }} />
 
       <RisoFlex>
-  <SingleImage src={about} />
+        <SingleImage src={about} avif={aboutAvif} webp={aboutWebp} />
       </RisoFlex>
 
       <RisoFlex style={{ backgroundColor:'#FEC748' }}>
-        <SingleImage src={ceumacbook} style={{ boxShadow: 'none' }} />
+        <SingleImage src={ceumacbook} avif={ceumacbookAvif} webp={ceumacbookWebp} style={{ boxShadow: 'none' }} />
       </RisoFlex>
 
    <FullHeightTextSection>
@@ -157,7 +203,7 @@ export default function Outsource() {
   <FullBg src={ceumocks} style={{ marginTop: 0, paddingTop: 0 }} />
 
       <RisoFlex>
-  <SingleImage src={aia} />
+        <SingleImage src={aia} avif={aiaAvif} webp={aiaWebp} />
       </RisoFlex>
 
   <FullBg src={ceuimac} style={{ marginBottom: 0, paddingBottom: 0 }} />
@@ -174,27 +220,27 @@ export default function Outsource() {
   <FullBg src={bozoom} />
 
       <RisoFlex>
-  <SingleImage src={booklet} />
+        <SingleImage src={booklet} avif={bookletAvif} webp={bookletWebp} />
       </RisoFlex>
 
-  <SingleImage src={flowmap} style={{ margin: '3vh auto', boxShadow: 'none' }} />
+  <SingleImage src={flowmap} avif={flowmapAvif} webp={flowmapWebp} style={{ margin: '3vh auto', boxShadow: 'none' }} />
 
 
 
       <RisoFlex>
-  <SingleImage src={guidelines} />
+        <SingleImage src={guidelines} avif={guidelinesAvif} webp={guidelinesWebp} />
       </RisoFlex>
 
       <RisoFlex>
-  <SingleImage src={twentyfive} />
+        <SingleImage src={twentyfive} avif={twentyfiveAvif} webp={twentyfiveWebp} />
       </RisoFlex>
 
       <RisoFlex>
-        <SingleImage src={branding} />
+        <SingleImage src={branding} avif={brandingAvif} webp={brandingWebp} />
       </RisoFlex>
 
       <RisoFlex>
-        <SingleImage src={guides} />
+        <SingleImage src={guides} avif={guidesAvif} webp={guidesWebp} />
       </RisoFlex>
 
    <FullHeightTextSection style={{ backgroundColor: 'black' }}>

@@ -4,14 +4,32 @@ import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
 import { FullBg, RisoFlex, SingleImage, SingleGrid, FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
 import copilotGrp from '../../assets/Copilot style GRP.png';
+import copilotGrpAvif from '../../assets/Copilot style GRP.avif';
+import copilotGrpWebp from '../../assets/Copilot style GRP.webp';
 import hp from '../../assets/HP.png';
+import hpAvif from '../../assets/HP.avif';
+import hpWebp from '../../assets/HP.webp';
 import journeys from '../../assets/Journeys.png';
+import journeysAvif from '../../assets/Journeys.avif';
+import journeysWebp from '../../assets/Journeys.webp';
 import wallet from '../../assets/Wallet.png';
+import walletAvif from '../../assets/Wallet.avif';
+import walletWebp from '../../assets/Wallet.webp';
 import cashback from '../../assets/Cashback.png';
+import cashbackAvif from '../../assets/Cashback.avif';
+import cashbackWebp from '../../assets/Cashback.webp';
 import ruby from '../../assets/Ruby.png';
+import rubyAvif from '../../assets/Ruby.avif';
+import rubyWebp from '../../assets/Ruby.webp';
 import receiptScan from '../../assets/ReceiptScan.png';
+import receiptScanAvif from '../../assets/ReceiptScan.avif';
+import receiptScanWebp from '../../assets/ReceiptScan.webp';
 import shoppingCopilot from '../../assets/ShoppingCopilot.png';
+import shoppingCopilotAvif from '../../assets/ShoppingCopilot.avif';
+import shoppingCopilotWebp from '../../assets/ShoppingCopilot.webp';
 import outlook from '../../assets/Outlook.png';
+import outlookAvif from '../../assets/Outlook.avif';
+import outlookWebp from '../../assets/Outlook.webp';
 import { ProjectDetailsContainer, ProjectDetails, ProjectBlock, ProjectHeader, ProjectSubtitle, ProjectImage, Cellphones, StyledDiv } from '../Giga/Giga';
 import ProjectTopSection from '../../components/ProjectTopSection';
 import { FiArrowUpRight } from 'react-icons/fi';
@@ -237,10 +255,10 @@ const Microsoft = () => {
       </FullHeightTextSection>
       
       <RisoFlex>
-  <SingleImage src={copilotGrp} />
+        <SingleImage src={copilotGrp} avif={copilotGrpAvif} webp={copilotGrpWebp} />
       </RisoFlex>
       <RisoFlex>
-  <SingleImage src={hp} />
+        <SingleImage src={hp} avif={hpAvif} webp={hpWebp} />
       </RisoFlex>
         <RisoFlex>
         <VideoWithOverlay ref={videoRefs[2]} src="/assets/microsoft-demo3.mp4" poster="/assets/Preview3.png" />
@@ -256,7 +274,7 @@ const Microsoft = () => {
       <div style={{ paddingTop: '64px' }} />
 
       <RisoFlex>
-  <SingleImage src={journeys} />
+        <SingleImage src={journeys} avif={journeysAvif} webp={journeysWebp} />
       </RisoFlex>
       
       <RisoFlex>
@@ -273,11 +291,11 @@ const Microsoft = () => {
         </TextContainer>
       </FullHeightTextSection>
 
-       <RisoFlex>
-  <SingleImage src={wallet} />
+      <RisoFlex>
+        <SingleImage src={wallet} avif={walletAvif} webp={walletWebp} />
       </RisoFlex>
       <RisoFlex>
-  <SingleImage src={cashback} />
+        <SingleImage src={cashback} avif={cashbackAvif} webp={cashbackWebp} />
       </RisoFlex>
      
 
@@ -290,17 +308,17 @@ const Microsoft = () => {
       </FullHeightTextSection>
 
       <RisoFlex>
-  <SingleImage src={ruby} />
+        <SingleImage src={ruby} avif={rubyAvif} webp={rubyWebp} />
       </RisoFlex>
       <RisoFlex>
-  <SingleImage src={receiptScan} />
+        <SingleImage src={receiptScan} avif={receiptScanAvif} webp={receiptScanWebp} />
       </RisoFlex>
       <RisoFlex>
-  <SingleImage src={shoppingCopilot} />
+        <SingleImage src={shoppingCopilot} avif={shoppingCopilotAvif} webp={shoppingCopilotWebp} />
       </RisoFlex>
       {/* New Outlook image section */}
       <RisoFlex>
-  <SingleImage src={outlook} />
+        <SingleImage src={outlook} avif={outlookAvif} webp={outlookWebp} />
       </RisoFlex>
       <FullHeightTextSection style={{ backgroundColor: 'black' }}>
         <TextContainer>

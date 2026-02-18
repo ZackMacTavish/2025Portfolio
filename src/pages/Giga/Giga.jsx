@@ -37,19 +37,41 @@ import { SingleGrid } from '../Access_Direct/AD';
 
 // Assets
 import gigarocket from '../../assets/Giga—Macbookv2.png';
+import gigarocketAvif from '../../assets/Giga—Macbookv2.avif';
+import gigarocketWebp from '../../assets/Giga—Macbookv2.webp';
 import iphonesAvif from '../../assets/iphones—Mockup.avif';
 import iphonesWebp from '../../assets/iphones—Mockup.webp';
 import iphonesPng from '../../assets/iphones—Mockup.png';
 import mocks from '../../assets/Giga—mockup.jpg';
+import mocksAvif from '../../assets/Giga—mockup.avif';
+import mocksWebp from '../../assets/Giga—mockup.webp';
 import messages from '../../assets/Messages—1920 x 1400.png';
+import messagesAvif from '../../assets/Messages—1920 x 1400.avif';
+import messagesWebp from '../../assets/Messages—1920 x 1400.webp';
 import imac from '../../assets/iMac_2.jpg';
+import imacAvif from '../../assets/iMac_2.avif';
+import imacWebp from '../../assets/iMac_2.webp';
 import ipadtwo from '../../assets/iPad2.jpg';
+import ipadtwoAvif from '../../assets/iPad2.avif';
+import ipadtwoWebp from '../../assets/iPad2.webp';
 import dark from '../../assets/iPhone_2—Dark—Sq.jpg';
+import darkAvif from '../../assets/iPhone_2—Dark—Sq.avif';
+import darkWebp from '../../assets/iPhone_2—Dark—Sq.webp';
 import light from '../../assets/LightPhone2—Sq.jpg';
+import lightAvif from '../../assets/LightPhone2—Sq.avif';
+import lightWebp from '../../assets/LightPhone2—Sq.webp';
 import imactwo from '../../assets/iMac.jpg';
+import imactwoAvif from '../../assets/iMac.avif';
+import imactwoWebp from '../../assets/iMac.webp';
 import about from '../../assets/About.png';
+import aboutAvif from '../../assets/About.avif';
+import aboutWebp from '../../assets/About.webp';
 import guides from '../../assets/Guides.jpg';
+import guidesAvif from '../../assets/Guides.avif';
+import guidesWebp from '../../assets/Guides.webp';
 import create from '../../assets/CreateNewPost.png';
+import createAvif from '../../assets/CreateNewPost.avif';
+import createWebp from '../../assets/CreateNewPost.webp';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
 
 
@@ -370,31 +392,31 @@ export default function Giga() {
             <FullBg src={mocks} />
 
             <RisoFlex>
-                <SingleImage src={messages} />
+                <SingleImage src={messages} avif={messagesAvif} webp={messagesWebp} />
             </RisoFlex>
 
             <RisoFlex>
-                <SingleImage src={create} />
+                <SingleImage src={create} avif={createAvif} webp={createWebp} />
             </RisoFlex>
 
             <FullBg src={imac} />
 
             <RisoFlex>
-                <SingleImage src={ipadtwo} />
+                <SingleImage src={ipadtwo} avif={ipadtwoAvif} webp={ipadtwoWebp} />
             </RisoFlex>
 
-       <DoubleImage srcLeft={dark} srcRight={light} />
+  <DoubleImage srcLeft={dark} avifLeft={darkAvif} webpLeft={darkWebp} srcRight={light} avifRight={lightAvif} webpRight={lightWebp} />
 
             <RisoFlex>
-                <SingleImage src={imactwo} />
+                <SingleImage src={imactwo} avif={imactwoAvif} webp={imactwoWebp} />
             </RisoFlex>
 <RisoFlex style={{ paddingBottom: '7vh' }}>
-  <SingleImage src={about} />
+  <SingleImage src={about} avif={aboutAvif} webp={aboutWebp} />
 </RisoFlex>
 
 
 <RisoFlex style={{ justifyContent: 'center' }}>
-  <SingleImage src={guides} />
+  <SingleImage src={guides} avif={guidesAvif} webp={guidesWebp} />
 </RisoFlex>
 
 

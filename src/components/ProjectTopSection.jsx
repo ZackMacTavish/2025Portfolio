@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ProjectGrid, ProjectContent, ProjectTitle, ProjectImage, ProjectButton } from '../pages/Giga/Giga';
+import { ButtonsGrid } from './ButtonsGrid';
 import { FiArrowUpRight } from 'react-icons/fi';
 
 // 60vw-wide, left-aligned, responsive top section for project pages
@@ -29,7 +30,7 @@ const TopSectionContainer = styled.div`
 `;
 
 const TopSectionText = styled.div`
-  flex: 1.6 1 0;
+  flex: 1 1 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -40,14 +41,36 @@ const TopSectionText = styled.div`
 `;
 
 const TopSectionImage = styled.div`
+  flex: 2 1 0;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: auto;
+  width: 100%;
   max-width: none;
+  min-width: 0;
+  min-height: 0;
   @media (max-width: 1000px) {
     justify-content: center;
     width: 100%;
+    margin-bottom: 2rem;
+  }
+`;
+
+// Styled image for the top section
+const TopSectionImageStyled = styled.img`
+  width: 100%;
+  max-width: 700px;
+  min-width: 220px;
+  height: auto;
+  border-radius: 18px;
+  /* Removed box-shadow and background for a flat look */
+  object-fit: cover;
+  display: block;
+  @media (max-width: 1000px) {
+    width: 90vw;
+    max-width: 98vw;
+    min-width: 0;
+    margin: 0 auto;
   }
 `;
 
@@ -68,24 +91,18 @@ export default function ProjectTopSection({
         {divider && (
           <div style={{ height: '1px', background: '#e0e0e0', width: '48px', margin: '0.1em 0 0.3em 0' }} />
         )}
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '0.3em 0.7em',
-            marginBottom: '0.5em',
-            maxWidth: '520px',
-            width: 'auto',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-          }}
-        >
+        <ButtonsGrid>
           {buttons.map(({ href, label }, i) => (
             <ProjectButton key={i} href={href} target="_blank" rel="noopener noreferrer">
               {label} <FiArrowUpRight style={{ marginLeft: 6, fontSize: '1.2em' }} />
             </ProjectButton>
           ))}
-        </div>
+        </ButtonsGrid>
+
+
+
+
+
       </TopSectionText>
       <TopSectionImage>
         {imageBaseName ? (
@@ -102,23 +119,5 @@ export default function ProjectTopSection({
   );
 }
 
-const TopSectionImageStyled = styled.img`
-  max-height: 600px;
-  width: ${({ $imageWidth }) => $imageWidth || '68vw'};
-  min-width: 0;
-  max-width: 100vw;
-  height: auto;
-  display: block;
-  object-fit: contain;
-  /* Use a responsive radius so it stays visible on large desktop widths */
-  border-radius: clamp(18px, 1.2vw, 28px) !important; /* applied to the image itself */
-  overflow: hidden; /* ensure corners clip even with scaling */
-  margin: 0;        /* no extra spacing that could mask rounding */
-  padding: 0;
 
-  /* Make the top project image larger on mobile */
-  @media (max-width: 1000px) {
-    width: 92vw;          /* override any passed width for mobile */
-    max-height: 75vh;     /* allow taller image while preserving aspect */
-  }
-`;
+

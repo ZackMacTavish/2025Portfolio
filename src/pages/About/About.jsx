@@ -2,9 +2,16 @@ import React, { useLayoutEffect, useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Scene from '../../components/Three/three';
 import me from '../../assets/Me.jpeg';
+import meAvif from '../../assets/Me.avif';
+import meWebp from '../../assets/Me.webp';
 import imagereplace from '../../assets/BlackTurtleneck-popart-01.jpg';
+import imagereplaceAvif from '../../assets/BlackTurtleneck-popart-01.avif';
+import imagereplaceWebp from '../../assets/BlackTurtleneck-popart-01.webp';
 import quilthanging from '../../assets/hangingquilts.jpg';
+import quilthangingAvif from '../../assets/hangingquilts.avif';
+import quilthangingWebp from '../../assets/hangingquilts.webp';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
+import { ImageTextSplit } from '@zackmactavish/foundation';
 import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
 
@@ -103,23 +110,27 @@ const Arrow = styled.div`
 `;
 
 /* ---------- About picture ---------- */
-const AboutPicture = styled.img`
-  width: 22vw;
-  height: 22vw;
-  object-fit: cover;
-  border-radius: 50%;
-  flex-shrink: 0;
-
-  @media (max-width: 1000px) {
-    width: 60vw;
-    height: 60vw;
-  }
-
-  @media (max-width: 450px) {
-    width: 70vw;
-    height: 70vw;
-  }
-`;
+const AboutPicture = (props) => (
+  <picture>
+    <source srcSet={meAvif} type="image/avif" />
+    <source srcSet={meWebp} type="image/webp" />
+    <img
+      src={me}
+      alt="Zack MacTavish portrait"
+      loading="eager"
+      decoding="async"
+      fetchPriority="high"
+      style={{
+        width: '22vw',
+        height: '22vw',
+        objectFit: 'cover',
+        borderRadius: '50%',
+        flexShrink: 0,
+        ...props.style
+      }}
+    />
+  </picture>
+);
 
 export const QuiltContainer = styled.div`
   display: flex;
@@ -155,20 +166,28 @@ export const QuiltInner = styled.div`
   }
 `;
 
-export const QuiltImage = styled.img`
-  flex: 0 0 25%;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  display: block;
-  object-fit: contain;
-  border-radius: 18px; /* match tile rounding for consistency */
 
-  @media (max-width: 1000px) {
-    max-width: 100%;
-    width: 100%;
-  }
-`;
+// QuiltImage as a functional component using <picture>
+export const QuiltImage = (props) => (
+  <picture>
+    <source srcSet={quilthangingAvif} type="image/avif" />
+    <source srcSet={quilthangingWebp} type="image/webp" />
+    <img
+      src={quilthanging}
+      alt={props.alt || "Quilt hanging"}
+      style={{
+        flex: '0 0 25%',
+        width: '100%',
+        maxWidth: '100%',
+        height: 'auto',
+        display: 'block',
+        objectFit: 'contain',
+        borderRadius: 18,
+        ...(props.style || {})
+      }}
+    />
+  </picture>
+);
 
 export const QuiltText = styled(ParagraphTwo)`
   flex: 1;
@@ -283,7 +302,7 @@ const About = () => {
       <Seo {...projects.about} sameAs={site.sameAs} keywords={projects.about.keywords} />
       {/* ---------- Module 1: About Picture + First Paragraph ---------- */}
       <NewSectionTheme Backgroundheight="100vh" style={{ position: "relative" }}>
-        <AboutPicture src={me} />
+  <AboutPicture />
         <ParagraphTwo Widthsize='47vw'>
           Hi, I'm Zack MacTavish, an artist and product designer based in Philadelphia, PA.
           For the past three years, I've been with Microsoft's Shopping Team, shaping user
@@ -341,18 +360,22 @@ const About = () => {
         </TextContainer>
       </FullHeightTextSection>
 
-      {/* ---------- Module 3: Quilt + Third Paragraph ---------- */}
-      <QuiltContainer>
-        <QuiltInner>
-          <QuiltImage src={quilthanging} alt="Quilt hanging" />
-          <QuiltText>
+      {/* ---------- Module 3: Quilt + Third Paragraph now uses ImageTextSplit ---------- */}
+        <div style={{ padding: '8vh 0' }}>
+          <ImageTextSplit
+            imageSrc={quilthanging}
+            imageAvif={quilthangingAvif}
+            imageWebp={quilthangingWebp}
+            imageAlt="Quilt hanging"
+            textSize="2.6rem"
+            textColor="#fff"
+          >
             Outside of work, I live with my partner Olivia, who is also an artist. 
             In my own creative time, I focus on making quilts that combine photography, 
             textile techniques, and mixed media, exploring the intersection of art, 
             design, and storytelling.
-          </QuiltText>
-        </QuiltInner>
-      </QuiltContainer>
+          </ImageTextSplit>
+        </div>
 
       {/* ---------- Module 4: Three.js Scene ---------- */}
       <ArtDiv>
@@ -362,7 +385,11 @@ const About = () => {
                 {isDesktop ? (
                   <Scene />
                 ) : (
-                  <img style={{ width: '90vw' }} src={imagereplace} alt="fallback" />
+                  <picture>
+                    <source srcSet={imagereplaceAvif} type="image/avif" />
+                    <source srcSet={imagereplaceWebp} type="image/webp" />
+                    <img style={{ width: '90vw' }} src={imagereplace} alt="fallback" />
+                  </picture>
                 )}
               </GridImage>
             </GridThemes>

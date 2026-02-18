@@ -7,13 +7,21 @@ import { RisoFlex, SingleImage, DoubleImage } from '../Access_Direct/AD';
 // Assets
 import LeysiLogo from '../../assets/Leysi-White-01.jpg';
 import LeysiBlue from '../../assets/Leysi-LG-02.jpg';
+import LeysiBlueAvif from '../../assets/Leysi-LG-02.avif';
+import LeysiBlueWebp from '../../assets/Leysi-LG-02.webp';
 import LeysiBluetwo from '../../assets/Leysi-LG-01.jpg';
+import LeysiBluetwoAvif from '../../assets/Leysi-LG-01.avif';
+import LeysiBluetwoWebp from '../../assets/Leysi-LG-01.webp';
 import leysimockup2 from '../../assets/mobile-phone-1c.png';
+import leysimockup2Avif from '../../assets/mobile-phone-1c.avif';
+import leysimockup2Webp from '../../assets/mobile-phone-1c.webp';
 import leysiphonesAvif from '../../assets/Leysi—iphones.avif';
 import leysiphonesWebp from '../../assets/Leysi—iphones.webp';
 import leysiphonesJpg from '../../assets/Leysi—iphones.jpg';
 import leysiscreens from '../../assets/LeysiApp—Screens copy.jpg';
 import leysiphones2 from '../../assets/Untitled-1800-x-1024-px-1500-x-1024-px.png';
+import leysiphones2Avif from '../../assets/Untitled-1800-x-1024-px-1500-x-1024-px.avif';
+import leysiphones2Webp from '../../assets/Untitled-1800-x-1024-px-1500-x-1024-px.webp';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
 import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
@@ -143,11 +151,11 @@ export default function Ux() {
 
         {/* Blue Background Sections */}
         <RisoFlex style={{ backgroundColor: '#0A84E3', padding: '6vh 0' }}>
-          <SingleImage src={LeysiBlue} />
+          <SingleImage src={LeysiBlue} avif={LeysiBlueAvif} webp={LeysiBlueWebp} />
         </RisoFlex>
 
         <RisoFlex style={{ backgroundColor: '#0A84E3', padding: '4vh 0' }}>
-          <SingleImage src={LeysiBluetwo} />
+          <SingleImage src={LeysiBluetwo} avif={LeysiBluetwoAvif} webp={LeysiBluetwoWebp} />
         </RisoFlex>
 
         {/* Screenshots */}
@@ -166,12 +174,12 @@ export default function Ux() {
 </div>
 
         <RisoFlex>
-          <SingleImage src={leysimockup2} style={{ boxShadow: 'none' }} />
+          <SingleImage src={leysimockup2} avif={leysimockup2Avif} webp={leysimockup2Webp} style={{ boxShadow: 'none' }} />
         </RisoFlex>
 
         {/* Leysi Phones Two with full-width white background */}
         <RisoFlex style={{ backgroundColor: '#FFFFFF', width: '100vw', padding: '4vw 0' }}>
-          <SingleImage src={leysiphones2} style={{ boxShadow: 'none' }} />
+          <SingleImage src={leysiphones2} avif={leysiphones2Avif} webp={leysiphones2Webp} style={{ boxShadow: 'none' }} />
         </RisoFlex>
 
         {/* Footer / Team Credits */}

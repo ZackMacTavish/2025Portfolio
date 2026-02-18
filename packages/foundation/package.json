@@ -1,6 +1,6 @@
 {
   "name": "@zackmactavish/foundation",
-  "version": "0.1.5",
+  "version": "0.1.9",
   "description": "Shared UI foundation: SEO, custom cursor, theme tokens, and 60vw grid for MacTavish projects",
   "type": "module",
   "main": "dist/index.cjs.js",
