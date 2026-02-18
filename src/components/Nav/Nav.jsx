@@ -53,7 +53,7 @@ const Navdiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0,0,0,0.6);
   backdrop-filter: blur(6px);
   position: fixed;
   width: 100vw;
@@ -233,11 +233,12 @@ const NavLink = styled(Link)`
 
 const Dropdown = styled.div`
   position: absolute;
-  top: 100%;
-  right: 0; /* Changed from left: 0 to right: 0 */
-  background-color: rgba(74, 74, 74, 0.9);
+  top: calc(100% + 24px);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0,0,0,0.6);
   backdrop-filter: blur(6px);
-  border-radius: 0.25rem;
+  border-radius: 0 0 0.25rem 0.25rem;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   display: ${(props) => (props.$open ? 'block' : 'none')};
   min-width: 10rem; /* Increased from 8rem */
@@ -285,13 +286,34 @@ export default function Nav() {
         <NavLinks>
           <ListItem>
             <NavLabel
-              role="button"
+              role="presentation"
               aria-haspopup="true"
               aria-expanded={open}
-              onClick={handleToggle}
+              style={{ cursor: 'default' }}
+              onClick={(e) => {
+                // Only allow click on mobile
+                if (window.matchMedia('(hover: none)').matches) {
+                  handleToggle();
+                } else {
+                  e.preventDefault();
+                }
+              }}
             >
               Projects
             </NavLabel>
+            <div
+              style={{
+                position: 'absolute',
+                left: '-40px',
+                top: 'calc(100% - 40px)',
+                width: '180px',
+                height: '75px',
+                background: 'rgba(255,0,0,0.0)',
+                border: 'none',
+                pointerEvents: 'auto',
+                zIndex: 1100,
+              }}
+            />
             <Dropdown $open={open}>
               <DropdownMenu to="/Microsoft" onClick={handleClose}>Microsoft</DropdownMenu>
               <DropdownMenu to="/Outsource" onClick={handleClose}>Outsource</DropdownMenu>
