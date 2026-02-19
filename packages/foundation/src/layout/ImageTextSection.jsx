@@ -14,8 +14,9 @@ const Section = styled.div`
   display: flex;
   flex-direction: row;
   gap: 2.2vw;
-  align-items: stretch;
+  align-items: center; /* Vertically center both image and text */
   padding: ${(p) => (p.theme?.spacing?.['3xl'] || '3rem')} 0;
+  height: auto;
 
   @media (max-width: 1320px) {
     width: 90vw;
@@ -27,6 +28,7 @@ const Section = styled.div`
     flex-direction: column;
     gap: 1.5rem;
     align-items: center;
+    height: auto;
   }
 `;
 
@@ -85,16 +87,17 @@ const TextBlock = styled.div`
   line-height: 1.4;
   font-weight: 500;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start; /* children left-aligned */
+  justify-content: center; /* center children vertically in text block */
+  gap: 0.25em;
+  text-align: left;
   min-width: 0;
+  height: auto;
   @media (max-width: 1000px) {
     font-size: 1.7rem;
-    display: flex;
     width: 92vw;
     margin: 0 auto;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
     min-height: 40px;
   }
 `;
