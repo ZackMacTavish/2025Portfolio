@@ -135,9 +135,10 @@ const AboutPicture = (props) => (
       loading="eager"
       decoding="async"
       fetchPriority="high"
+      className="about-picture-img"
       style={{
-        width: '22vw',
-        height: '22vw',
+  width: '21vw',
+  height: '21vw',
         objectFit: 'cover',
         borderRadius: '50%',
         flexShrink: 0,
@@ -147,6 +148,24 @@ const AboutPicture = (props) => (
         ...props.style
       }}
     />
+    <style>{`
+      @media (max-width: 1000px) {
+        .about-picture-img {
+          width: 38vw !important;
+          height: 38vw !important;
+          min-width: 160px !important;
+          min-height: 160px !important;
+        }
+      }
+      @media (max-width: 700px) {
+        .about-picture-img {
+          width: 44vw !important;
+          height: 44vw !important;
+          min-width: 120px !important;
+          min-height: 120px !important;
+        }
+      }
+    `}</style>
   </picture>
 );
 
@@ -156,6 +175,9 @@ const PortraitContainer = styled.div`
     width: 100%;
     display: grid;           /* grid centers perfectly even with subpixel widths */
     place-items: center;     /* center both horizontally and vertically */
+  }
+  @media (max-width: 700px) {
+    margin-bottom: 3.5vh;
   }
 `;
 
@@ -175,13 +197,13 @@ const ParagraphTwo = styled.div`
   position: relative;
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 500;
-  font-size: 2.5rem;
-  width: ${({ $widthsize }) => $widthsize};
+  font-size: 1.7rem;
+  width: 32vw;
   color: white;
   z-index: 1;
 
   @media (max-width: 1400px) {  
-    font-size: 1.8rem;
+    font-size: 1.3rem;
   }
 
   @media (max-width: 1000px) {  
@@ -205,6 +227,9 @@ const SocialsWrapper = styled.div`
   position: relative;
   z-index: 10;
   margin-bottom: 2vh;
+  @media (max-width: 700px) {
+    margin-bottom: 0.7vh;
+  }
 `;
 
 const ArrowWrapper = styled.div`

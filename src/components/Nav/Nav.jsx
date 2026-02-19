@@ -242,7 +242,7 @@ const Dropdown = styled.div`
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   display: ${(props) => (props.$open ? 'block' : 'none')};
   min-width: 10rem; /* Increased from 8rem */
-  z-index: 1000;
+  z-index: 1200;
 `;
 
 const DropdownMenu = styled(Link)`
@@ -267,11 +267,34 @@ const DropdownDivider = styled.div`
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const dropdownRef = React.useRef();
 
   useEffect(() => {
     // close dropdown on route change
     setOpen(false);
   }, [location.pathname]);
+
+  // Mobile: close dropdown on scroll or outside click
+  useEffect(() => {
+    if (!open) return;
+    // Only activate on mobile
+    if (!window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+
+    const handleScroll = () => setOpen(false);
+    const handleClick = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    document.addEventListener('mousedown', handleClick);
+    document.addEventListener('touchstart', handleClick);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClick);
+      document.removeEventListener('touchstart', handleClick);
+    };
+  }, [open]);
 
   const handleToggle = () => setOpen((prev) => !prev);
   const handleClose = () => setOpen(false);
@@ -310,11 +333,14 @@ export default function Nav() {
                 height: '75px',
                 background: 'rgba(255,0,0,0.0)',
                 border: 'none',
-                pointerEvents: 'auto',
+                pointerEvents:
+                  window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches
+                    ? 'none'
+                    : 'auto',
                 zIndex: 1100,
               }}
             />
-            <Dropdown $open={open}>
+            <Dropdown $open={open} ref={dropdownRef}>
               <DropdownMenu to="/Microsoft" onClick={handleClose}>Microsoft</DropdownMenu>
               <DropdownMenu to="/Outsource" onClick={handleClose}>Outsource</DropdownMenu>
               <DropdownMenu to="/Ux" onClick={handleClose}>Leysi</DropdownMenu>

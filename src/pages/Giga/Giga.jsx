@@ -411,7 +411,31 @@ export default function Giga() {
                 <SingleImage src={imactwo} avif={imactwoAvif} webp={imactwoWebp} />
             </RisoFlex>
 <RisoFlex style={{ paddingBottom: '7vh' }}>
-  <SingleImage src={about} avif={aboutAvif} webp={aboutWebp} />
+  <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+    <SingleImage
+      src={about}
+      avif={aboutAvif}
+      webp={aboutWebp}
+      style={{
+        width: '60vw',
+        maxWidth: '420px',
+        minHeight: 'auto',
+        height: 'auto',
+        borderRadius: 24,
+        boxShadow: '0 2px 12px 0 rgba(0,0,0,0.06)',
+      }}
+    />
+    <style>{`
+      @media (max-width: 850px) {
+        .about-me-img {
+          width: 96vw !important;
+          max-width: 96vw !important;
+          min-height: 60vw !important;
+          border-radius: 0 !important;
+        }
+      }
+    `}</style>
+  </div>
 </RisoFlex>
 
 
