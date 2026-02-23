@@ -1,4 +1,4 @@
-import{j as e}from"./three-D9NkSzoP.js";import{c as i,b as r,l as f}from"./vendor-D7aqownG.js";import x from"./three-CjHHChrF.js";import{q as d,a as l,b as c,i as u,m as v,c as y,d as b}from"./hangingquilts-BKKYfKg7.js";import{y as j,p as s,s as k,F as S,T as z,a as T,b as A}from"./AD-B6CeZidd.js";const W=""+new URL("BlackTurtleneck-popart-01-DGpWYBfA.avif",import.meta.url).href,C=""+new URL("BlackTurtleneck-popart-01-BJpD-mJF.webp",import.meta.url).href,I=i.div`
+import{j as e}from"./three-D9NkSzoP.js";import{c as i,b as r,l as f}from"./vendor-D7aqownG.js";import x from"./three-CjHHChrF.js";import{q as d,a as l,b as c,i as u,m as v,c as y,d as b}from"./hangingquilts-BKKYfKg7.js";import{y as j,p as s,s as k,F as S,T as z,a as T,b as A}from"./AD-DqENfHwD.js";import"./index-OWNjQ_yi.js";const W=""+new URL("BlackTurtleneck-popart-01-DGpWYBfA.avif",import.meta.url).href,C=""+new URL("BlackTurtleneck-popart-01-BJpD-mJF.webp",import.meta.url).href,I=i.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,7 +14,7 @@ import{j as e}from"./three-D9NkSzoP.js";import{c as i,b as r,l as f}from"./vendo
     padding-bottom: 10vh;
     gap: 2vh;
   }
-`,H=i.div`
+`,_=i.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -76,7 +76,7 @@ import{j as e}from"./three-D9NkSzoP.js";import{c as i,b as r,l as f}from"./vendo
   border-bottom: 3px solid white;
   transform: rotate(-45deg);
   border-radius: 2px;
-`,E=t=>e.jsxs("picture",{children:[e.jsx("source",{srcSet:v,type:"image/avif"}),e.jsx("source",{srcSet:y,type:"image/webp"}),e.jsx("img",{src:b,alt:"Zack MacTavish portrait",loading:"eager",decoding:"async",fetchPriority:"high",style:{width:"22vw",height:"22vw",objectFit:"cover",borderRadius:"50%",flexShrink:0,...t.style}})]}),_=i.div`
+`,E=t=>e.jsxs("picture",{children:[e.jsx("source",{srcSet:v,type:"image/avif"}),e.jsx("source",{srcSet:y,type:"image/webp"}),e.jsx("img",{src:b,alt:"Zack MacTavish portrait",loading:"eager",decoding:"async",fetchPriority:"high",style:{width:"22vw",height:"22vw",objectFit:"cover",borderRadius:"50%",flexShrink:0,...t.style}})]}),N=i.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -90,7 +90,7 @@ import{j as e}from"./three-D9NkSzoP.js";import{c as i,b as r,l as f}from"./vendo
     padding: 4vh 0;
     align-items: center;
   }
-`,N=i.div`
+`,O=i.div`
   width: 62vw; /* +2vw for consistency with Landing page */
   max-width: 1100px; /* aligns with other sections' inner width */
   margin: 0 auto;
@@ -106,7 +106,7 @@ import{j as e}from"./three-D9NkSzoP.js";import{c as i,b as r,l as f}from"./vendo
     gap: 1rem;
     align-items: center;
   }
-`,O=t=>e.jsxs("picture",{children:[e.jsx("source",{srcSet:d,type:"image/avif"}),e.jsx("source",{srcSet:l,type:"image/webp"}),e.jsx("img",{src:c,alt:t.alt||"Quilt hanging",style:{flex:"0 0 25%",width:"100%",maxWidth:"100%",height:"auto",display:"block",objectFit:"contain",borderRadius:18,...t.style||{}}})]}),J=i(h)`
+`,J=t=>e.jsxs("picture",{children:[e.jsx("source",{srcSet:d,type:"image/avif"}),e.jsx("source",{srcSet:l,type:"image/webp"}),e.jsx("img",{src:c,alt:t.alt||"Quilt hanging",style:{flex:"0 0 25%",width:"100%",maxWidth:"100%",height:"auto",display:"block",objectFit:"contain",borderRadius:18,...t.style||{}}})]}),U=i(h)`
   flex: 1;
   min-width: 0;
   padding-right: 0;
@@ -174,4 +174,4 @@ import{j as e}from"./three-D9NkSzoP.js";import{c as i,b as r,l as f}from"./vendo
   display: grid;
   grid-column-start: 3;
   grid-row-start: 2;
-`,U=()=>{const[t,g]=r.useState(!0),[n,m]=r.useState(!1),[p,w]=r.useState(window.innerWidth>450);return r.useLayoutEffect(()=>{window.scrollTo(0,0)},[]),r.useEffect(()=>{const a=()=>{!n&&window.scrollY>50&&(g(!1),m(!0))};window.addEventListener("scroll",a);const o=()=>w(window.innerWidth>450);return window.addEventListener("resize",o),()=>{window.removeEventListener("scroll",a),window.removeEventListener("resize",o)}},[n]),e.jsxs("div",{children:[e.jsx(j,{...s.about,sameAs:k.sameAs,keywords:s.about.keywords}),e.jsxs(I,{Backgroundheight:"100vh",style:{position:"relative"},children:[e.jsx(E,{}),e.jsx(h,{Widthsize:"47vw",children:"Hi, I'm Zack MacTavish, an artist and product designer based in Philadelphia, PA. For the past three years, I've been with Microsoft's Shopping Team, shaping user experiences for digital products."}),!n&&e.jsx(F,{visible:t,children:e.jsx(B,{})})]}),e.jsx(S,{style:{backgroundColor:"white"},children:e.jsx(z,{children:e.jsxs(T,{style:{color:"#5d5d5d"},children:["Some of the agencies I have worked with include"," ",e.jsx("a",{href:"https://www.publicisgroupe.com/en",target:"_blank",rel:"noopener noreferrer",style:{color:"#5d5d5d",textDecoration:"underline"},children:"Publicis Groupe"}),","," ",e.jsx("a",{href:"https://prairieandforge.com/",target:"_blank",rel:"noopener noreferrer",style:{color:"#5d5d5d",textDecoration:"underline"},children:"Prairie & Forge"}),", and"," ",e.jsx("a",{href:"https://varfaj.com/",target:"_blank",rel:"noopener noreferrer",style:{color:"#5d5d5d",textDecoration:"underline"},children:"Varfaj Partners"}),". I've also lived in New York City, working as a graphic designer in Manhattan for"," ",e.jsx("a",{href:"https://www.outsourceconsultants.com/",target:"_blank",rel:"noopener noreferrer",style:{color:"#5d5d5d",textDecoration:"underline"},children:"Outsource Consultants"}),", and studied design in Chicago. I've collaborated with clients such as Microsoft, Walmart, Seagate Technology on Disney-branded products, and Chip Ganassi Racing."]})})}),e.jsx("div",{style:{padding:"8vh 0"},children:e.jsx(A,{imageSrc:c,imageAvif:d,imageWebp:l,imageAlt:"Quilt hanging",textSize:"2.6rem",textColor:"#fff",children:"Outside of work, I live with my partner Olivia, who is also an artist. In my own creative time, I focus on making quilts that combine photography, textile techniques, and mixed media, exploring the intersection of art, design, and storytelling."})}),e.jsx(G,{children:e.jsxs(L,{children:[e.jsxs(P,{children:["Thanks for ",e.jsx("br",{}),"stopping by"]}),e.jsx($,{children:p?e.jsx(x,{}):e.jsxs("picture",{children:[e.jsx("source",{srcSet:W,type:"image/avif"}),e.jsx("source",{srcSet:C,type:"image/webp"}),e.jsx("img",{style:{width:"90vw"},src:u,alt:"fallback"})]})})]})})]})};export{H as NewSection,_ as QuiltContainer,O as QuiltImage,N as QuiltInner,J as QuiltText,U as default};
+`,Z=()=>{const[t,g]=r.useState(!0),[n,m]=r.useState(!1),[p,w]=r.useState(window.innerWidth>450);return r.useLayoutEffect(()=>{window.scrollTo(0,0)},[]),r.useEffect(()=>{const a=()=>{!n&&window.scrollY>50&&(g(!1),m(!0))};window.addEventListener("scroll",a);const o=()=>w(window.innerWidth>450);return window.addEventListener("resize",o),()=>{window.removeEventListener("scroll",a),window.removeEventListener("resize",o)}},[n]),e.jsxs("div",{children:[e.jsx(j,{...s.about,sameAs:k.sameAs,keywords:s.about.keywords}),e.jsxs(I,{Backgroundheight:"100vh",style:{position:"relative"},children:[e.jsx(E,{}),e.jsx(h,{Widthsize:"47vw",children:"Hi, I'm Zack MacTavish, an artist and product designer based in Philadelphia, PA. For the past three years, I've been with Microsoft's Shopping Team, shaping user experiences for digital products."}),!n&&e.jsx(F,{visible:t,children:e.jsx(B,{})})]}),e.jsx(S,{style:{backgroundColor:"white"},children:e.jsx(z,{children:e.jsxs(T,{style:{color:"#5d5d5d"},children:["Some of the agencies I have worked with include"," ",e.jsx("a",{href:"https://www.publicisgroupe.com/en",target:"_blank",rel:"noopener noreferrer",style:{color:"#5d5d5d",textDecoration:"underline"},children:"Publicis Groupe"}),","," ",e.jsx("a",{href:"https://prairieandforge.com/",target:"_blank",rel:"noopener noreferrer",style:{color:"#5d5d5d",textDecoration:"underline"},children:"Prairie & Forge"}),", and"," ",e.jsx("a",{href:"https://varfaj.com/",target:"_blank",rel:"noopener noreferrer",style:{color:"#5d5d5d",textDecoration:"underline"},children:"Varfaj Partners"}),". I've also lived in New York City, working as a graphic designer in Manhattan for"," ",e.jsx("a",{href:"https://www.outsourceconsultants.com/",target:"_blank",rel:"noopener noreferrer",style:{color:"#5d5d5d",textDecoration:"underline"},children:"Outsource Consultants"}),", and studied design in Chicago. I've collaborated with clients such as Microsoft, Walmart, Seagate Technology on Disney-branded products, and Chip Ganassi Racing."]})})}),e.jsx("div",{style:{padding:"8vh 0"},children:e.jsx(A,{imageSrc:c,imageAvif:d,imageWebp:l,imageAlt:"Quilt hanging",textSize:"2.6rem",textColor:"#fff",children:"Outside of work, I live with my partner Olivia, who is also an artist. In my own creative time, I focus on making quilts that combine photography, textile techniques, and mixed media, exploring the intersection of art, design, and storytelling."})}),e.jsx(G,{children:e.jsxs(L,{children:[e.jsxs(P,{children:["Thanks for ",e.jsx("br",{}),"stopping by"]}),e.jsx($,{children:p?e.jsx(x,{}):e.jsxs("picture",{children:[e.jsx("source",{srcSet:W,type:"image/avif"}),e.jsx("source",{srcSet:C,type:"image/webp"}),e.jsx("img",{style:{width:"90vw"},src:u,alt:"fallback"})]})})]})})]})};export{_ as NewSection,N as QuiltContainer,J as QuiltImage,O as QuiltInner,U as QuiltText,Z as default};
