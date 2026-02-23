@@ -184,10 +184,10 @@ const NavLinks = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 1.5rem;
+  gap: 2.5rem;
 
-  @media (max-width: 1200px) { gap: 1rem; }
-  @media (max-width: 800px) { gap: 0.8rem; font-size: 1rem; }
+  @media (max-width: 1200px) { gap: 1.5rem; }
+  @media (max-width: 800px) { gap: 1rem; font-size: 1rem; }
 `;
 
 const NavLabel = styled.span`
@@ -327,9 +327,9 @@ export default function Nav() {
             <div
               style={{
                 position: 'absolute',
-                left: '-40px',
+                left: '-20px',
                 top: 'calc(100% - 40px)',
-                width: '180px',
+                width: '120px',
                 height: '75px',
                 background: 'rgba(255,0,0,0.0)',
                 border: 'none',
@@ -350,6 +350,9 @@ export default function Nav() {
               <DropdownMenu to="/Giga" onClick={handleClose}>Giga</DropdownMenu>
               <DropdownMenu to="/GraphicDesign" onClick={handleClose}>Graphic Design</DropdownMenu>
             </Dropdown>
+          </ListItem>
+          <ListItem>
+            <NavLink to="/Resume">Resume</NavLink>
           </ListItem>
         </NavLinks>
 

@@ -1,0 +1,136 @@
+import React from 'react';
+import resumeImage from '../assets/ResumeJPEG.jpg';
+import { FiDownload } from 'react-icons/fi';
+
+const Resume = () => (
+  <div
+    style={{
+      width: '80vw',
+      maxWidth: '900px',
+      margin: '0 auto',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '24px',
+      paddingTop: '100px',
+      position: 'relative',
+    }}
+  >
+    {/* Button for desktop/tablet */}
+    <div className="resume-download-desktop" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <a
+        href={resumeImage}
+        download="Resume2026.jpg"
+        className="resume-download-btn"
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '14px 24px',
+          fontWeight: 700,
+          color: '#fff',
+          background: '#111',
+          borderRadius: '6px',
+          textDecoration: 'none',
+          fontSize: '1.1rem',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+          border: 'none',
+          gap: '10px',
+          width: 'auto',
+          maxWidth: '100%',
+        }}
+      >
+        <FiDownload style={{ color: '#fff', fontSize: '1.5rem' }} />
+        Download Resume
+      </a>
+    </div>
+    <img
+      src={resumeImage}
+      alt="Resume"
+      className="resume-img"
+      style={{
+        maxWidth: '900px',
+        width: '100%',
+        height: 'auto',
+        boxShadow: '0 4px 32px rgba(0,0,0,0.12)',
+        background: 'white',
+        borderRadius: '8px',
+        marginBottom: '32px',
+      }}
+    />
+    {/* Button for mobile */}
+    <div className="resume-download-mobile">
+      <a
+        href={resumeImage}
+        download="Resume2026.jpg"
+        className="resume-download-btn"
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '14px 24px',
+          fontWeight: 700,
+          color: '#fff',
+          background: '#111',
+          borderRadius: '6px',
+          textDecoration: 'none',
+          fontSize: '1.1rem',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+          border: 'none',
+          gap: '10px',
+          width: '92vw',
+          marginLeft: '4vw',
+          marginRight: '4vw',
+        }}
+      >
+        <FiDownload style={{ color: '#fff', fontSize: '1.5rem' }} />
+        Download Resume
+      </a>
+    </div>
+    <style>{`
+      @media (max-width: 600px) {
+        body, .App {
+          background: #fff !important;
+        }
+        .resume-download-desktop { display: none !important; }
+        .resume-download-mobile {
+          display: flex !important;
+          position: fixed !important;
+          left: 0 !important;
+          right: 0 !important;
+          bottom: 0 !important;
+          width: 100vw !important;
+          justify-content: center !important;
+          background: rgba(17,17,17,0.95);
+          z-index: 9999;
+          padding: 12px 0 12px 0 !important;
+        }
+        .resume-img {
+          width: 100vw !important;
+          max-width: 100vw !important;
+          display: block;
+          box-shadow: none !important;
+          margin: 0 !important;
+          left: 50%;
+          transform: translateX(-50%);
+          position: relative;
+        }
+        .resume-download-btn {
+          width: 100vw !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+          display: block;
+        }
+        .resume-download-mobile {
+          padding-left: 0 !important;
+          padding-right: 0 !important;
+        }
+      }
+      @media (min-width: 601px) {
+        .resume-download-mobile { display: none !important; }
+      }
+    `}</style>
+  </div>
+);
+
+export default Resume;
+

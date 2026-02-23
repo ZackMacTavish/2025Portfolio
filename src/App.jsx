@@ -11,6 +11,7 @@ import Customcursor from "./components/CustomCursor/customcursor";
 import Nav from "./components/Nav/Nav";
 
 // Pages (lazy-loaded to reduce initial bundle size)
+const Resume = lazy(() => import("./pages/Resume"));
 const About = lazy(() => import("./pages/About/About"));
 const AccessDirect = lazy(() => import("./pages/Access_Direct/AD"));
 const Giga = lazy(() => import("./pages/Giga/Giga"));
@@ -61,6 +62,7 @@ function App() {
             <Route path="/Piton" element={<Piton />} />
             <Route path="/About" element={<About />} />
             <Route path="/Microsoft" element={<Microsoft />} />
+            <Route path="/Resume" element={<Resume />} />
 
             {/* Fallback for unknown routes */}
             <Route path="*" element={<Navigate to="/" replace />} />
