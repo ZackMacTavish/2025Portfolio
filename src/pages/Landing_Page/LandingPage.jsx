@@ -626,9 +626,7 @@ const LandingPage = ({ introDone = true }) => {
             <Socials />
           </SocialsWrapper>
           <ParagraphTwo $widthsize='47vw'>
-            Hi, I'm Zack MacTavish, an artist and product designer based in Philadelphia, PA.
-            For almost four years, I've been with Microsoft's Shopping Team, shaping user
-            experiences for digital products.
+          Hi, I'm Zack MacTavish, a product designer based in Philadelphia, PA. I'm currently shaping shopping experiences at Microsoft.
           </ParagraphTwo>
         </ParagraphWrapper>
 

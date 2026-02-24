@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 
 const GlobalCursorStyle = createGlobalStyle`
   html, body, * { cursor: none !important; }
+  .hide-cursor, .hide-cursor * { cursor: none !important; }
 `;
 
 const AppCursorstyles = styled.div`
@@ -30,7 +31,7 @@ const AppCursorstyles = styled.div`
 `;
 
 const CustomCursor = () => {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isTouchOrTablet, setIsTouchOrTablet] = useState(false);
   const cursorRef = useRef(null);
   const hoveredRef = useRef(false);
   const scaleRef = useRef(1);
@@ -39,15 +40,27 @@ const CustomCursor = () => {
   const firstMove = useRef(false);
 
   useEffect(() => {
-    // Detect if screen is mobile size
-    const checkMobile = () => setIsMobile(window.innerWidth <= 450);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    // Detect touch device or tablet (touch + width <= 1100)
+    const checkTouchOrTablet = () => {
+      const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+      const isTabletSize = window.innerWidth <= 1100 && window.innerWidth > 450;
+      const isMobileSize = window.innerWidth <= 450;
+      // Hide cursor for all touch devices, and for tablets (touch + width <= 1100)
+      setIsTouchOrTablet(isTouch || isTabletSize && isTouch);
+      // Add/remove class to body for native cursor hiding
+      if (isTouch || isTabletSize && isTouch || isMobileSize && isTouch) {
+        document.body.classList.add('hide-cursor');
+      } else {
+        document.body.classList.remove('hide-cursor');
+      }
+    };
+    checkTouchOrTablet();
+    window.addEventListener('resize', checkTouchOrTablet);
+    return () => window.removeEventListener('resize', checkTouchOrTablet);
   }, []);
 
   useEffect(() => {
-    if (isMobile) return; // disable all cursor logic on mobile
+    if (isTouchOrTablet) return; // disable all cursor logic on touch/tablet
 
     const moveCursor = (e) => {
       if (!cursorRef.current) return;
@@ -137,7 +150,7 @@ const CustomCursor = () => {
   return (
     <>
       <GlobalCursorStyle />
-      {!isMobile && <AppCursorstyles ref={cursorRef} />}
+      {!isTouchOrTablet && <AppCursorstyles ref={cursorRef} />}
     </>
   );
 };

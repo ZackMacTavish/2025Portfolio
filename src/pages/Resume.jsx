@@ -113,6 +113,7 @@ const Resume = () => (
           left: 50%;
           transform: translateX(-50%);
           position: relative;
+          padding-top: 4vw !important;
         }
         .resume-download-btn {
           width: 100vw !important;

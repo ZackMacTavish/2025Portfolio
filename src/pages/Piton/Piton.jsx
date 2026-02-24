@@ -141,7 +141,6 @@ export default function Piton() {
     <TextContent style={{ color: 'white', textAlign: 'center', lineHeight: 1.5 }}>
       Founders — Jemir Martinez<br />
       Designers — Zachary MacTavish<br />
-      Development — TBD
     </TextContent>
   </TextContainer>
 </FullHeightTextSection>

@@ -312,7 +312,7 @@ export default function AccessDirect() {
          imageAlt="Access Direct Macbook Mockup"
          imageWidth="38vw"
          buttons={[
-        { href: "https://accessdirect.com", label: "Visit Access Direct" }
+        { href: "https://access-direct.net", label: "Visit Access Direct" }
       ]}
     />
 
