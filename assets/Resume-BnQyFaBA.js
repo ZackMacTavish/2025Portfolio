@@ -25,6 +25,7 @@ import{j as e}from"./three-D9NkSzoP.js";import"./vendor-D7aqownG.js";import{F as
           left: 50%;
           transform: translateX(-50%);
           position: relative;
+          padding-top: 4vw !important;
         }
         .resume-download-btn {
           width: 100vw !important;
