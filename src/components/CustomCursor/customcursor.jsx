@@ -143,7 +143,7 @@ const CustomCursor = () => {
       document.removeEventListener('mouseover', onDocumentMouseOver);
       document.removeEventListener('mouseout', onDocumentMouseOut);
     };
-  }, [isMobile]);
+  }, [isTouchOrTablet]);
 
   // Always render GlobalCursorStyle to keep the native cursor hidden,
   // even when the custom cursor is disabled on mobile.
