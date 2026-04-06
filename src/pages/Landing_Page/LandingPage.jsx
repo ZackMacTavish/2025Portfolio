@@ -513,69 +513,120 @@ const GridThemes = styled.div`
   }
 `;
 
-const GridHeader = styled.h1`
+const GridHeaderContainer = styled.div`
   display: grid;
-  grid-column-start: 3;
+  grid-column-start: 2;
+  grid-column-end: 5;
   grid-row-start: 2;
   grid-row-end: 4;
-  width: 60vw; /* constrain to site grid */
-  max-width: 1100px;
-  margin: 0 auto; /* center container, text aligns left */
-  text-align: left; /* left align text within 60vw container */
-  justify-self: center; /* keep the container centered horizontally */
-  align-self: center;   /* center the grid item vertically within its rows */
-  font-size: clamp(20px, 6vw, 4.8rem); /* slightly smaller on desktop */
-  line-height: 1.15; /* tighten line height slightly */
-  color: white;
+  align-self: center;
+  justify-self: center;
   z-index: 200;
-  font-family: 'Space Grotesk', sans-serif;
-  text-shadow: 2px 2px 50px rgba(0, 0, 0, 1);
+  gap: 0.3rem;
+  width: 100%;
+  padding-left: 0;
+  padding: 1.5rem 2rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
 
   @media (max-width: 1000px) {
-    font-size: 3.2rem; /* slightly larger on mobile */
-    line-height: 1.2;  /* keep tighter line-height on mobile */
-    justify-self: center; /* align with site grid like other sections */
-    width: 60vw;         /* match grid measure */
-    max-width: 1100px;   /* consistent cap */
-    margin: 0 auto;      /* center the container */
-    text-align: left;
+    width: 85vw;
+    padding: 1.2rem 1.5rem;
   }
   @media (max-width: 800px) {
-    grid-area: image; /* share the same grid area as the image */
-    position: relative; /* overlay via z-index without absolute clipping */
-    justify-self: center;
-    align-self: center;
-    width: 85vw; /* readable measure on mobile */
-    text-align: center; /* center inside the image */
-    margin: 0;
-    font-size: 2.8rem;
-    line-height: 1.1; /* slightly tighter for elegance */
-    z-index: 1000; /* ensure above image */
-    padding: 0.75rem 1rem; /* create a subtle readable area */
-    border-radius: 10px;
-    display: block;
-    visibility: visible;
+    padding: 1.2rem 1rem 1.2rem 1.5rem;
+    width: fit-content;
+    margin-left: 2vw;
+  }
+`;
+
+const GridHeader = styled.h1`
+  font-size: clamp(16px, 5.5vw, 3.8rem);
+  line-height: 1.2;
+  color: white;
+  font-family: 'Space Grotesk', sans-serif;
+  text-shadow: 2px 2px 50px rgba(0, 0, 0, 1);
+  margin: 0;
+
+  @media (max-width: 1400px) {
+    font-size: clamp(14px, 4.2vw, 3.2rem);
+  }
+  @media (max-width: 1200px) {
+    font-size: clamp(14px, 5vw, 3rem);
+  }
+  @media (max-width: 1000px) {
+    font-size: clamp(14px, 4.5vw, 2.8rem);
+  }
+  @media (max-width: 800px) {
+    font-size: clamp(12px, 3.5vw, 2rem);
+  }
+`;
+
+const GridSubtext = styled.p`
+  font-size: clamp(14px, 2.5vw, 1.4rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: 'Space Grotesk', sans-serif;
+  text-shadow: 1px 1px 30px rgba(0, 0, 0, 0.8);
+  margin: 0;
+  font-weight: 400;
+
+  @media (max-width: 1000px) {
+    font-size: clamp(12px, 2.2vw, 1.2rem);
+  }
+  @media (max-width: 800px) {
+    font-size: clamp(14px, 3.5vw, 1.1rem);
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.95), 1px 1px 8px rgba(0, 0, 0, 0.9);
+  }
+`;
+
+const GridCTA = styled.a`
+  display: inline-block;
+  width: fit-content;
+  padding: 0.85rem 2rem;
+  background-color: white;
+  color: #1a1a1a;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(13px, 1.8vw, 1.1rem);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  text-shadow: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  @media (max-width: 1000px) {
+    padding: 0.75rem 1.8rem;
+    font-size: clamp(12px, 1.5vw, 1rem);
+  }
+  @media (max-width: 800px) {
+    padding: 0.7rem 1.6rem;
+    font-size: clamp(11px, 1.3vw, 0.9rem);
   }
 `;
 
 const GridImage = styled.div`
-  display: grid;
-  grid-column-start: 3;
+  display: grid; 
+  grid-column-start: 1;
+  grid-column-end: -1;
   grid-row-start: 2;
-  position: relative; /* allow child absolute positioning if needed */
-  z-index: 1; /* base layer so header overlays above */
-
-  /* removed semi-transparent overlay per request */
-
-  @media (max-width: 800px) {
-    grid-area: image;     /* image occupies the grid area */
-    justify-self: center;
-    width: 100vw;
-    height: 90dvh;  /* slightly less tall on mobile */
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  
+  canvas {
+    width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important;
   }
 `;
-
-/* SceneInner removed: header should move only, image stays in original grid placement */
 
 const LandingPage = ({ introDone = true }) => {
   const [showArrow, setShowArrow] = useState(false); // start hidden; reveal after intro animation
@@ -912,32 +963,33 @@ const LandingPage = ({ introDone = true }) => {
         textColor="#fff"
         style={{ color: '#fff' }}
       >
-        Outside of work, I live with my partner Olivia, who is also an artist. 
-        In my own creative time, I focus on making quilts that combine photography, 
-        textile techniques, and mixed media, exploring the intersection of art, 
-        design, and storytelling.
+        <div style={{ lineHeight: '1.6' }}>
+          Outside of work, I live with my partner <a href="https://oliviazitasmith.com" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>Olivia Smith</a>, who is also an artist. In my own creative time, I focus on making quilts that combine photography, textile techniques, and mixed media, exploring the intersection of art, design, and storytelling.
+        </div>
       </ImageTextSplit>
 
       {/* Module 4: Three.js Scene */}
       <ArtDiv>
-            <GridThemes>
-              <GridHeader>Thanks for <br/>stopping by</GridHeader>
-              <GridImage>
-                {isDesktop ? (
-                  <Suspense fallback={<div style={{ height: '50vh' }} />}> 
-                    <Scene />
-                  </Suspense>
-                ) : (
-                  <img
-                    style={{ width: '100vw', height: '90dvh', objectFit: 'cover', display: 'block' }}
-                    src={imagereplace}
-                    alt="fallback"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                )}
-              </GridImage>
-            </GridThemes>
+        <GridThemes>
+          <GridHeaderContainer>
+            <GridHeader>Thanks for stopping by</GridHeader>
+            <GridSubtext>I'm also an artist. Check out my art portfolio.</GridSubtext>
+            <GridCTA href="https://zackmactavish.com" target="_blank" rel="noopener noreferrer">View Portfolio</GridCTA>
+          </GridHeaderContainer>
+          <GridImage>
+            {isDesktop ? (
+              <Suspense fallback={<div style={{ height: '50vh' }} />}> 
+                <Scene />
+              </Suspense>
+            ) : (
+              <picture>
+                <source srcSet={imagereplaceAvif} type="image/avif" />
+                <source srcSet={imagereplaceWebp} type="image/webp" />
+                <img style={{ width: '100vw', height: '90dvh', objectFit: 'cover', display: 'block' }} src={imagereplace} alt="fallback" loading="lazy" decoding="async" />
+              </picture>
+            )}
+          </GridImage>
+        </GridThemes>
       </ArtDiv>
     </div>
   );

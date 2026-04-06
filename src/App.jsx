@@ -1,6 +1,7 @@
 import React, { useState, Suspense, lazy } from "react";
 import { ThemeProvider } from "styled-components";
 import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { Agentation } from "agentation";
 import './App.css';
 
 // Themes
@@ -69,6 +70,7 @@ function App() {
             </Routes>
           </Suspense>
         </Router>
+        {process.env.NODE_ENV === "development" && <Agentation />}
       </div>
     </ThemeProvider>
   );

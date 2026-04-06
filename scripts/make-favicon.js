@@ -2,7 +2,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import sharp from 'sharp';
-import toIco from 'to-ico';
+import pngToIco from 'png-to-ico';
 
 async function run() {
   try {
@@ -82,7 +82,7 @@ async function run() {
     // fallback to cleaned 256
     buffers.push(await fs.readFile(path.join(outDir, 'favicon-clean-256.png')));
   }
-  const buf = await toIco(buffers);
+  const buf = await pngToIco(buffers);
   const icoPath = path.join(cwd, 'public', 'favicon.ico');
 
   // Respect manual favicon: do not overwrite `public/favicon.ico` unless explicitly forced.
