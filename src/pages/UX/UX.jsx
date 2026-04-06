@@ -70,7 +70,7 @@ export default function Ux() {
         headline: projects.ux.title,
         description: projects.ux.description,
         image: projects.ux.image,
-        author: { '@type': 'Person', name: site.name, url: `${site.url}/about` },
+        author: { '@type': 'Person', name: site.name, url: `${site.url}/MacTavish` },
         url: projects.ux.url,
         keywords: projects.ux.keywords,
       }} />
