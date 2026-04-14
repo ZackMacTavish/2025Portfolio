@@ -65,7 +65,7 @@ export const GlobalStyles = createGlobalStyle`
         --space-lg: ${tokens.spacing.lg};
     }
     * { box-sizing: border-box; }
-    html, body, #root { height: 100%; }
+    html, body, #root { min-height: 100%; }
     body {
         margin: 0;
         background-color: ${(props) => props.theme.backgroundColor};

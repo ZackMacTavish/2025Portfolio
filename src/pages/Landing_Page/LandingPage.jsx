@@ -8,9 +8,7 @@ import Grid60 from '../../components/Layout/Grid60';
 import me from '../../assets/Me.jpeg';
 import meAvif from '../../assets/Me.avif';
 import meWebp from '../../assets/Me.webp';
-import imagereplace from '../../assets/BlackTurtleneck-popart-01.jpg';
-import imagereplaceAvif from '../../assets/BlackTurtleneck-popart-01.avif';
-import imagereplaceWebp from '../../assets/BlackTurtleneck-popart-01.webp';
+
 import quilthanging from '../../assets/hangingquilts.jpg';
 import quilthangingAvif from '../../assets/hangingquilts.avif';
 import quilthangingWebp from '../../assets/hangingquilts.webp';
@@ -87,6 +85,7 @@ const LandingDiv = styled.div`
   position: relative;
   overflow: hidden;
   padding: 0 5vw;
+  box-sizing: border-box;
 
   &::before, &::after {
     content: '';
@@ -114,10 +113,18 @@ const LandingDiv = styled.div`
   @media (max-width: 1000px) {
     flex-direction: column;
     height: auto;
-    padding: 10vh 5vw;
+    min-height: 100dvh;
+    padding: 12vh 5vw 6vh;
     gap: 2vh;
-    align-items: center;   /* explicitly center children horizontally */
-    justify-content: center; /* explicitly center children vertically within available space */
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  @media (max-width: 768px) {
+    padding: 10vh 5vw 5vh;
+    gap: 1.5vh;
   }
 `;
 
@@ -171,6 +178,8 @@ const AboutPicture = (props) => (
 
 const PortraitContainer = styled.div`
   display: flex;
+  position: relative;
+  z-index: 1;
   @media (max-width: 1000px) {
     width: 100%;
     display: grid;           /* grid centers perfectly even with subpixel widths */
@@ -189,7 +198,10 @@ const ParagraphWrapper = styled.div`
   z-index: 1;
 
   @media (max-width: 1000px) {
-    width: 90%;
+    width: 90vw;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
   }
 `;
 
@@ -207,10 +219,10 @@ const ParagraphTwo = styled.div`
   }
 
   @media (max-width: 1000px) {  
-    width: 90%;
+    width: 100%;
     margin-top: 1vh;
     padding-bottom: 3vh;
-    text-align: left;
+    text-align: center;
   }
 
   @media (max-width: 850px) {
@@ -227,6 +239,11 @@ const SocialsWrapper = styled.div`
   position: relative;
   z-index: 10;
   margin-bottom: 2vh;
+  @media (max-width: 1000px) {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
   @media (max-width: 700px) {
     margin-bottom: 0.7vh;
   }
@@ -533,8 +550,19 @@ const GridHeaderContainer = styled.div`
     padding: 1.2rem 1.5rem;
   }
   @media (max-width: 800px) {
-    padding: 1.2rem 1rem 1.2rem 1.5rem;
-    margin-left: 2vw;
+    grid-column: 1;
+    grid-row: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    margin-left: 0;
+    padding: 1.5rem;
+    text-align: center;
+    justify-self: center;
+    align-self: center;
+    box-sizing: border-box;
   }
 `;
 
@@ -608,6 +636,8 @@ const GridCTA = styled.a`
   @media (max-width: 800px) {
     padding: 0.7rem 1.6rem;
     font-size: clamp(11px, 1.3vw, 0.9rem);
+    margin-left: auto;
+    margin-right: auto;
   }
 `;
 
@@ -621,25 +651,27 @@ const GridImage = styled.div`
   
   canvas {
     width: 100vw !important;
+    height: 100% !important;
     margin-left: calc(-50vw + 50%) !important;
+  }
+
+  @media (max-width: 800px) {
+    grid-area: image;
+    width: 100vw;
+    margin-left: 0;
+
+    canvas {
+      width: 100vw !important;
+      margin-left: 0 !important;
+    }
   }
 `;
 
 const LandingPage = ({ introDone = true }) => {
   const [showArrow, setShowArrow] = useState(false); // start hidden; reveal after intro animation
   const [hiddenForever, setHiddenForever] = useState(false);
-  const [isDesktop, setDesktop] = useState(window.innerWidth > 450);
-
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
-
-  // Detect desktop/mobile
-  useEffect(() => {
-    const updateMedia = () => setDesktop(window.innerWidth > 450);
-    updateMedia();
-    window.addEventListener('resize', updateMedia);
-    return () => window.removeEventListener('resize', updateMedia);
   }, []);
 
   useEffect(() => {
@@ -974,17 +1006,9 @@ const LandingPage = ({ introDone = true }) => {
             <GridCTA href="https://zackmactavish.com" target="_blank" rel="noopener noreferrer">View Portfolio</GridCTA>
           </GridHeaderContainer>
           <GridImage>
-            {isDesktop ? (
-              <Suspense fallback={<div style={{ height: '50vh' }} />}> 
-                <Scene />
-              </Suspense>
-            ) : (
-              <picture>
-                <source srcSet={imagereplaceAvif} type="image/avif" />
-                <source srcSet={imagereplaceWebp} type="image/webp" />
-                <img style={{ width: '100vw', height: '90dvh', objectFit: 'cover', display: 'block' }} src={imagereplace} alt="fallback" loading="lazy" decoding="async" />
-              </picture>
-            )}
+            <Suspense fallback={<div style={{ height: '50vh' }} />}> 
+              <Scene />
+            </Suspense>
           </GridImage>
         </GridThemes>
       </ArtDiv>
