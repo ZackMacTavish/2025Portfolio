@@ -164,6 +164,8 @@ const PinkMicroStroke = styled.span`
 
 const Logo = styled.img`
   width: clamp(46px, 2.6vw, 90px);
+  max-height: 5vh;
+  object-fit: contain;
   transition: all 0.3s ease;
 
   &:hover {
@@ -173,18 +175,22 @@ const Logo = styled.img`
 
 const NavLinksWrapper = styled.div`
   display: flex;
+  align-items: stretch;
   justify-content: flex-end;
   width: 100%;
+  height: 100%;
   padding-right: 6vw;
   max-width: calc(100vw - 6vw);
 `;
 
 const NavLinks = styled.ul`
   display: flex;
+  align-items: center;
   list-style: none;
   margin: 0;
   padding: 0;
   gap: 2.5rem;
+  height: 100%;
 
   @media (max-width: 1200px) { gap: 1.5rem; }
   @media (max-width: 800px) { gap: 1rem; font-size: 1rem; }
@@ -208,6 +214,9 @@ const NavLabel = styled.span`
 const ListItem = styled.li`
   position: relative;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  height: 100%;
 
   /* enable hover-open for devices that support hover (desktop) */
   @media (hover: hover) {
@@ -233,7 +242,7 @@ const NavLink = styled(Link)`
 
 const Dropdown = styled.div`
   position: absolute;
-  top: calc(100% + 24px);
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
   background-color: rgba(0,0,0,0.6);
@@ -324,14 +333,15 @@ export default function Nav() {
             >
               Projects
             </NavLabel>
+            {/* Bridge div to keep hover active between nav label and dropdown */}
             <div
               style={{
                 position: 'absolute',
                 left: '-20px',
-                top: 'calc(100% - 40px)',
+                top: '0',
                 width: '120px',
-                height: '75px',
-                background: 'rgba(255,0,0,0.0)',
+                height: '100%',
+                background: 'transparent',
                 border: 'none',
                 pointerEvents:
                   window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches

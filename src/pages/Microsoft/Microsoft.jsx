@@ -342,8 +342,8 @@ const PlayOverlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: none;
   z-index: 2;
+  cursor: pointer;
 `;
 
 const PlayIcon = styled.div`
@@ -361,6 +361,7 @@ const PlayIcon = styled.div`
 
 const VideoWrapper = styled.div`
   border-radius: 24px;
+  overflow: hidden;
   position: relative;
   width: 60vw;
   max-width: 1000px;
@@ -384,20 +385,30 @@ const VideoWrapper = styled.div`
 
 const VideoWithOverlay = React.forwardRef(({ src, poster }, ref) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const videoRef = ref || useRef(null);
+  const internalRef = useRef(null);
+  const videoRef = ref || internalRef;
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
     const handlePlay = () => setIsPlaying(true);
     const handlePause = () => setIsPlaying(false);
+    const handleEnded = () => setIsPlaying(false);
     video.addEventListener('play', handlePlay);
     video.addEventListener('pause', handlePause);
+    video.addEventListener('ended', handleEnded);
     return () => {
       video.removeEventListener('play', handlePlay);
       video.removeEventListener('pause', handlePause);
+      video.removeEventListener('ended', handleEnded);
     };
   }, [videoRef]);
+
+  const handleOverlayClick = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.play().catch(() => {});
+  };
 
   return (
     <VideoWrapper>
@@ -405,12 +416,13 @@ const VideoWithOverlay = React.forwardRef(({ src, poster }, ref) => {
         ref={videoRef}
         src={src}
         controls
+        playsInline
         preload="auto"
         poster={poster}
-        style={{ width: '100%', height: '100%', borderRadius: '24px', background: '#000', display: 'block', objectFit: 'cover' }}
+        style={{ width: '100%', height: '100%', borderRadius: 'inherit', background: '#000', display: 'block', objectFit: 'cover' }}
       />
       {!isPlaying && (
-        <PlayOverlay>
+        <PlayOverlay onClick={handleOverlayClick}>
           <PlayIcon>
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.5)" />

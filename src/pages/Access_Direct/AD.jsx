@@ -182,7 +182,7 @@ export const FullHeightTextSection = styled.section`
 // Replace styled.img RisoItem with functional component
 // Unified RisoImage component (was RisoItem/RisoItemtwo)
 // Functional SingleImage component for AVIF/WebP/PNG support (import-based)
-export const SingleImage = ({ src, avif, webp, alt = '', width = '60vw', style = {} }) => {
+export const SingleImage = ({ src, avif, webp, alt = '', width = '60vw', style = {}, responsive = true }) => {
   // src: imported fallback (png/jpg), avif/webp: imported modern formats
   // If avif/webp not provided, try to auto-derive from src
   let srcBase = '';
@@ -209,11 +209,11 @@ export const SingleImage = ({ src, avif, webp, alt = '', width = '60vw', style =
     <picture>
       {avif && <source srcSet={avif} type="image/avif" />}
       {webp && <source srcSet={webp} type="image/webp" />}
-      <style>{`.single-image-responsive { ${mediaQuery} }`}</style>
+      {responsive && <style>{`.single-image-responsive { ${mediaQuery} }`}</style>}
       <img
         src={src}
         alt={alt}
-        className="single-image-responsive"
+        className={responsive ? 'single-image-responsive' : undefined}
         style={responsiveStyle}
         loading="lazy"
         decoding="async"

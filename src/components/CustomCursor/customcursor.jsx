@@ -14,10 +14,12 @@ const AppCursorstyles = styled.div`
   border: none;
   background-color: rgba(136,136,136,0.2);
   backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   pointer-events: none;
   position: fixed;
   transform: translate3d(0,0,0) scale(1);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* smoother visual hover while keeping movement snappy */
+  will-change: transform;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
   display: none;
 
   &.hovered {
@@ -31,52 +33,80 @@ const AppCursorstyles = styled.div`
 `;
 
 const CustomCursor = () => {
-  const [isTouchOrTablet, setIsTouchOrTablet] = useState(false);
+  const [showCursor, setShowCursor] = useState(false);
   const cursorRef = useRef(null);
   const hoveredRef = useRef(false);
   const scaleRef = useRef(1);
   const target = useRef({ x: 0, y: 0 });
   const current = useRef({ x: 0, y: 0 });
   const firstMove = useRef(false);
+  const rafId = useRef(null);
 
+  // Detect whether this device actually uses a mouse/fine pointer.
+  // Many Windows PCs (e.g. HP touchscreen laptops) report touch support
+  // via maxTouchPoints but still primarily use a mouse. We use the
+  // (pointer: fine) media query as the primary signal — it's true for
+  // any device with a mouse/trackpad — and fall back to waiting for
+  // the first real mousemove on devices where the media query is absent.
   useEffect(() => {
-    // Detect touch device or tablet (touch + width <= 1100)
-    const checkTouchOrTablet = () => {
-      const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
-      const isTabletSize = window.innerWidth <= 1100 && window.innerWidth > 450;
-      const isMobileSize = window.innerWidth <= 450;
-      // Hide cursor for all touch devices, and for tablets (touch + width <= 1100)
-      setIsTouchOrTablet(isTouch || isTabletSize && isTouch);
-      // Add/remove class to body for native cursor hiding
-      if (isTouch || isTabletSize && isTouch || isMobileSize && isTouch) {
-        document.body.classList.add('hide-cursor');
-      } else {
-        document.body.classList.remove('hide-cursor');
+    // Pure mobile / tablet with no mouse → skip
+    const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+    const isMobileOnly = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) &&
+      !hasFinePointer;
+
+    if (isMobileOnly) {
+      setShowCursor(false);
+      return;
+    }
+
+    // Desktop or touch-laptop with a mouse → enable immediately
+    if (hasFinePointer) {
+      setShowCursor(true);
+      return;
+    }
+
+    // Edge case: no fine pointer detected yet (some browsers).
+    // Wait for first real mousemove (non-simulated) before enabling.
+    const onFirstMouse = (e) => {
+      // Touch-simulated mouse events have 0 movementX/Y and width > 1
+      if (e.sourceCapabilities && !e.sourceCapabilities.firesTouchEvents) {
+        setShowCursor(true);
+        window.removeEventListener('mousemove', onFirstMouse);
+      } else if (e.movementX !== 0 || e.movementY !== 0) {
+        setShowCursor(true);
+        window.removeEventListener('mousemove', onFirstMouse);
       }
     };
-    checkTouchOrTablet();
-    window.addEventListener('resize', checkTouchOrTablet);
-    return () => window.removeEventListener('resize', checkTouchOrTablet);
+    window.addEventListener('mousemove', onFirstMouse);
+    return () => window.removeEventListener('mousemove', onFirstMouse);
   }, []);
 
   useEffect(() => {
-    if (isTouchOrTablet) return; // disable all cursor logic on touch/tablet
+    if (!showCursor) return;
+
+    // Cache half-dimensions to avoid layout thrashing on every mousemove
+    let halfW = 25, halfH = 25;
+    if (cursorRef.current) {
+      halfW = cursorRef.current.offsetWidth / 2;
+      halfH = cursorRef.current.offsetHeight / 2;
+    }
 
     const moveCursor = (e) => {
       if (!cursorRef.current) return;
 
-      const mouseX = e.clientX - cursorRef.current.clientWidth / 2;
-      const mouseY = e.clientY - cursorRef.current.clientHeight / 2;
+      const x = e.clientX - halfW;
+      const y = e.clientY - halfH;
+
+      target.current.x = x;
+      target.current.y = y;
 
       if (!firstMove.current) {
-        current.current = { x: mouseX, y: mouseY };
-        target.current = { x: mouseX, y: mouseY };
-        cursorRef.current.classList.add('visible');
         firstMove.current = true;
-      } else {
-        target.current = { x: mouseX, y: mouseY };
         cursorRef.current.classList.add('visible');
       }
+
+      // Apply position immediately for zero-lag tracking
+      cursorRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scaleRef.current})`;
     };
 
     const hideCursor = () => {
@@ -93,20 +123,15 @@ const CustomCursor = () => {
 
     const animate = () => {
       if (cursorRef.current && firstMove.current) {
-        // Snappy position tracking
-        current.current.x += (target.current.x - current.current.x) * 0.9;
-        current.current.y += (target.current.y - current.current.y) * 0.9;
-
-        // Smooth hover scaling
+        // Only animate scale (for hover effect); position is set directly in mousemove
         const targetScale = hoveredRef.current ? 0.3 : 1;
         scaleRef.current += (targetScale - scaleRef.current) * 0.22;
-        cursorRef.current.style.transform = `translate3d(${current.current.x}px, ${current.current.y}px, 0) scale(${scaleRef.current})`;
+        cursorRef.current.style.transform = `translate3d(${target.current.x}px, ${target.current.y}px, 0) scale(${scaleRef.current})`;
       }
-      requestAnimationFrame(animate);
+      rafId.current = requestAnimationFrame(animate);
     };
 
-    // Treat anything that routes or is clearly clickable as a "linkish" hover target.
-  const LINKISH_SELECTORS = 'a, button, input, textarea, select, [role="link"], [role="button"], [data-cursor="link"], [data-route], [data-routes-to], .nav-link, .router-link, .link, .btn';
+    const LINKISH_SELECTORS = 'a, button, input, textarea, select, [role="link"], [role="button"], [data-cursor="link"], [data-route], [data-routes-to], .nav-link, .router-link, .link, .btn';
 
     const onDocumentMouseOver = (e) => {
       const el = e.target.closest(LINKISH_SELECTORS);
@@ -117,7 +142,6 @@ const CustomCursor = () => {
     };
 
     const onDocumentMouseOut = (e) => {
-      // If moving to another linkish element, keep hovered
       const toEl = e.relatedTarget && (e.relatedTarget.closest ? e.relatedTarget.closest(LINKISH_SELECTORS) : null);
       if (toEl) return;
       if (cursorRef.current) {
@@ -129,12 +153,10 @@ const CustomCursor = () => {
     document.addEventListener('mousemove', moveCursor);
     document.addEventListener('mouseleave', hideCursor);
     document.addEventListener('visibilitychange', handleVisibilityChange);
-
-    // Event delegation so dynamically rendered links/buttons are covered
     document.addEventListener('mouseover', onDocumentMouseOver);
     document.addEventListener('mouseout', onDocumentMouseOut);
 
-    animate();
+    rafId.current = requestAnimationFrame(animate);
 
     return () => {
       document.removeEventListener('mousemove', moveCursor);
@@ -142,15 +164,14 @@ const CustomCursor = () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       document.removeEventListener('mouseover', onDocumentMouseOver);
       document.removeEventListener('mouseout', onDocumentMouseOut);
+      if (rafId.current) cancelAnimationFrame(rafId.current);
     };
-  }, [isTouchOrTablet]);
+  }, [showCursor]);
 
-  // Always render GlobalCursorStyle to keep the native cursor hidden,
-  // even when the custom cursor is disabled on mobile.
   return (
     <>
-      <GlobalCursorStyle />
-      {!isTouchOrTablet && <AppCursorstyles ref={cursorRef} />}
+      {showCursor && <GlobalCursorStyle />}
+      {showCursor && <AppCursorstyles ref={cursorRef} />}
     </>
   );
 };

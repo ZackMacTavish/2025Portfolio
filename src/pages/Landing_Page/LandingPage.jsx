@@ -744,7 +744,7 @@ const LandingPage = ({ introDone = true }) => {
             {/* Leysi */}
             <ProjectCard>
               <Tile to="/Ux" aria-label="Leysi project">
-                <SingleImage src={leysiTile} avif={leysiTileAvif} webp={leysiTileWebp} alt="Leysi project tile" width="100%" style={{position:'absolute',inset:0,height:'100%',objectFit:'cover',zIndex:0}} />
+                <SingleImage src={leysiTile} avif={leysiTileAvif} webp={leysiTileWebp} alt="Leysi project tile" width="100%" responsive={false} style={{position:'absolute',inset:0,height:'100%',objectFit:'cover',zIndex:0,borderRadius:0,boxShadow:'none'}} />
                 <TileOverlay />
               </Tile>
               <TileCaption>
@@ -756,7 +756,7 @@ const LandingPage = ({ introDone = true }) => {
             {/* ThreePillars */}
             <ProjectCard>
               <Tile to="/ThreePillars" aria-label="Three Pillars project">
-                <SingleImage src={threePillarsTile} avif={threePillarsTileAvif} webp={threePillarsTileWebp} alt="Three Pillars project tile" width="100%" style={{position:'absolute',inset:0,height:'100%',objectFit:'cover',zIndex:0}} />
+                <SingleImage src={threePillarsTile} avif={threePillarsTileAvif} webp={threePillarsTileWebp} alt="Three Pillars project tile" width="100%" responsive={false} style={{position:'absolute',inset:0,height:'100%',objectFit:'cover',zIndex:0,borderRadius:0,boxShadow:'none'}} />
                 <TileOverlay />
               </Tile>
               <TileCaption>
@@ -768,7 +768,7 @@ const LandingPage = ({ introDone = true }) => {
             {/* Piton */}
             <ProjectCard>
               <Tile to="/Piton" aria-label="Piton project">
-                <SingleImage src={pitonTile} avif={pitonTileAvif} webp={pitonTileWebp} alt="Piton project tile" width="100%" style={{position:'absolute',inset:0,height:'100%',objectFit:'cover',zIndex:0}} />
+                <SingleImage src={pitonTile} avif={pitonTileAvif} webp={pitonTileWebp} alt="Piton project tile" width="100%" responsive={false} style={{position:'absolute',inset:0,height:'100%',objectFit:'cover',zIndex:0,borderRadius:0,boxShadow:'none'}} />
                 <TileOverlay />
               </Tile>
               <TileCaption>
@@ -780,7 +780,7 @@ const LandingPage = ({ introDone = true }) => {
             {/* Outsource */}
             <ProjectCard>
               <Tile to="/Outsource" aria-label="Outsource project">
-                <SingleImage src={outsourceTile} avif={outsourceTileAvif} webp={outsourceTileWebp} alt="Outsource project tile" width="100%" style={{position:'absolute',inset:0,height:'100%',objectFit:'cover',zIndex:0}} />
+                <SingleImage src={outsourceTile} avif={outsourceTileAvif} webp={outsourceTileWebp} alt="Outsource project tile" width="100%" responsive={false} style={{position:'absolute',inset:0,height:'100%',objectFit:'cover',zIndex:0,borderRadius:0,boxShadow:'none'}} />
                 <TileOverlay />
               </Tile>
               <TileCaption>
@@ -792,7 +792,7 @@ const LandingPage = ({ introDone = true }) => {
             {/* Giga */}
             <ProjectCard>
               <Tile to="/Giga" aria-label="Giga project">
-                <SingleImage src={gigaTile} avif={gigaTileAvif} webp={gigaTileWebp} alt="Giga project tile" width="100%" style={{position:'absolute',inset:0,height:'100%',objectFit:'cover',zIndex:0}} />
+                <SingleImage src={gigaTile} avif={gigaTileAvif} webp={gigaTileWebp} alt="Giga project tile" width="100%" responsive={false} style={{position:'absolute',inset:0,height:'100%',objectFit:'cover',zIndex:0,borderRadius:0,boxShadow:'none'}} />
                 <TileOverlay />
               </Tile>
               <TileCaption>
