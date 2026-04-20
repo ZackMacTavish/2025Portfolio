@@ -111,6 +111,7 @@ const CustomCursor = () => {
 
     const hideCursor = () => {
       if (cursorRef.current) cursorRef.current.classList.remove('visible');
+      firstMove.current = false;
     };
 
     const handleVisibilityChange = () => {
