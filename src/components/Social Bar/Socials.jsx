@@ -17,11 +17,18 @@ const Socialbar = styled.div`
     justify-content: flex-start;
     gap: 3vw;
   }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px;
+  }
 `;
 
 const SocialImages = styled.img`
   width: clamp(44px, 2vw, 70px);
   transition: all 1s ease;
+  display: block;
 
   &:hover {
     filter: invert(0.2) sepia(0.5) saturate(11.7) hue-rotate(313.2deg) brightness(1.2);

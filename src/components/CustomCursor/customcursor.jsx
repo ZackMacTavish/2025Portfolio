@@ -4,6 +4,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 const GlobalCursorStyle = createGlobalStyle`
   html, body, * { cursor: none !important; }
   .hide-cursor, .hide-cursor * { cursor: none !important; }
+  [data-agentation], [data-agentation] *, #feedback-toolbar, #feedback-toolbar * { cursor: auto !important; }
 `;
 
 const AppCursorstyles = styled.div`
@@ -84,12 +85,32 @@ const CustomCursor = () => {
   useEffect(() => {
     if (!showCursor) return;
 
-    // Cache half-dimensions to avoid layout thrashing on every mousemove
-    let halfW = 25, halfH = 25;
-    if (cursorRef.current) {
-      halfW = cursorRef.current.offsetWidth / 2;
-      halfH = cursorRef.current.offsetHeight / 2;
-    }
+    // The cursor element starts display:none, so offsetWidth/Height are 0.
+    // Use the known CSS dimensions (50×50) directly.
+    const halfW = 25, halfH = 25;
+
+    const LINKISH_SELECTORS = 'a, button, input, textarea, select, [role="link"], [role="button"], [data-cursor="link"], [data-route], [data-routes-to], .nav-link, .router-link, .link, .btn';
+
+    let unhoverTimer = null;
+
+    const updateHover = (el) => {
+      const isOver = el && el.closest && !!el.closest(LINKISH_SELECTORS);
+      if (isOver) {
+        // Immediately show hover; cancel any pending unhover
+        if (unhoverTimer) { clearTimeout(unhoverTimer); unhoverTimer = null; }
+        if (!hoveredRef.current) {
+          hoveredRef.current = true;
+          if (cursorRef.current) cursorRef.current.classList.add('hovered');
+        }
+      } else if (hoveredRef.current && !unhoverTimer) {
+        // Debounce unhover so moving between adjacent targets stays smooth
+        unhoverTimer = setTimeout(() => {
+          unhoverTimer = null;
+          hoveredRef.current = false;
+          if (cursorRef.current) cursorRef.current.classList.remove('hovered');
+        }, 60);
+      }
+    };
 
     const moveCursor = (e) => {
       if (!cursorRef.current) return;
@@ -104,6 +125,9 @@ const CustomCursor = () => {
         firstMove.current = true;
         cursorRef.current.classList.add('visible');
       }
+
+      // Check hover state on every move — more reliable than mouseover/mouseout
+      updateHover(e.target);
 
       // Apply position immediately for zero-lag tracking
       cursorRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scaleRef.current})`;
@@ -126,36 +150,17 @@ const CustomCursor = () => {
       if (cursorRef.current && firstMove.current) {
         // Only animate scale (for hover effect); position is set directly in mousemove
         const targetScale = hoveredRef.current ? 0.3 : 1;
-        scaleRef.current += (targetScale - scaleRef.current) * 0.22;
+        const diff = targetScale - scaleRef.current;
+        // Snap when close enough, otherwise lerp quickly
+        scaleRef.current = Math.abs(diff) < 0.01 ? targetScale : scaleRef.current + diff * 0.55;
         cursorRef.current.style.transform = `translate3d(${target.current.x}px, ${target.current.y}px, 0) scale(${scaleRef.current})`;
       }
       rafId.current = requestAnimationFrame(animate);
     };
 
-    const LINKISH_SELECTORS = 'a, button, input, textarea, select, [role="link"], [role="button"], [data-cursor="link"], [data-route], [data-routes-to], .nav-link, .router-link, .link, .btn';
-
-    const onDocumentMouseOver = (e) => {
-      const el = e.target.closest(LINKISH_SELECTORS);
-      if (el && cursorRef.current) {
-        hoveredRef.current = true;
-        cursorRef.current.classList.add('hovered');
-      }
-    };
-
-    const onDocumentMouseOut = (e) => {
-      const toEl = e.relatedTarget && (e.relatedTarget.closest ? e.relatedTarget.closest(LINKISH_SELECTORS) : null);
-      if (toEl) return;
-      if (cursorRef.current) {
-        hoveredRef.current = false;
-        cursorRef.current.classList.remove('hovered');
-      }
-    };
-
     document.addEventListener('mousemove', moveCursor);
     document.addEventListener('mouseleave', hideCursor);
     document.addEventListener('visibilitychange', handleVisibilityChange);
-    document.addEventListener('mouseover', onDocumentMouseOver);
-    document.addEventListener('mouseout', onDocumentMouseOut);
 
     rafId.current = requestAnimationFrame(animate);
 
@@ -163,9 +168,8 @@ const CustomCursor = () => {
       document.removeEventListener('mousemove', moveCursor);
       document.removeEventListener('mouseleave', hideCursor);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
-      document.removeEventListener('mouseover', onDocumentMouseOver);
-      document.removeEventListener('mouseout', onDocumentMouseOut);
       if (rafId.current) cancelAnimationFrame(rafId.current);
+      if (unhoverTimer) clearTimeout(unhoverTimer);
     };
   }, [showCursor]);
 
