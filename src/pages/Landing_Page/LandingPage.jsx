@@ -45,6 +45,7 @@ import card6 from '../../assets/Card6.png';
 import card6Avif from '../../assets/Card6.avif';
 import card6Webp from '../../assets/Card6.webp';
 import Socials from '../../components/Social Bar/Socials';
+import PortfolioCardsSection from '../../components/PortfolioCardsSection';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
 import { Link } from 'react-router-dom';
 import { FiLock } from 'react-icons/fi';
@@ -720,89 +721,7 @@ const LandingPage = ({ introDone = true }) => {
         )}
       </LandingDiv>
 
-      {/* Projects Section (routing tiles) */}
-      <ProjectsSection>
-        <ProjectsInner>
-          <ProjectsGrid>
-            {/* Microsoft (locked) */}
-            <ProjectCard>
-              <Tile to="/Microsoft" aria-label="Microsoft project">
-                {/* Slightly blurred background behind the lock */}
-                <TileBg style={{ backgroundImage: "url('/assets/HP.png')", filter: 'saturate(0.9) blur(2px)', transform: 'scale(1.03)' }} />
-                {/* white haze for locked tile */}
-                <div style={{ position: 'absolute', inset: 0, background: 'rgba(255,255,255,0.7)' }} />
-                <LockCenter>
-                  <FiLock size={48} />
-                </LockCenter>
-              </Tile>
-              <TileCaption>
-                <TileTitle>Microsoft</TileTitle>
-                <TileSubtitle>Shopping ecosystem across Bing, Copilot, Windows, Outlook</TileSubtitle>
-              </TileCaption>
-            </ProjectCard>
-
-            {/* Leysi */}
-            <ProjectCard>
-              <Tile to="/Ux" aria-label="Leysi project">
-                <SingleImage src={leysiTile} avif={leysiTileAvif} webp={leysiTileWebp} alt="Leysi project tile" width="100%" responsive={false} style={{position:'absolute',inset:0,height:'100%',objectFit:'cover',zIndex:0,borderRadius:0,boxShadow:'none'}} />
-                <TileOverlay />
-              </Tile>
-              <TileCaption>
-                <TileTitle>Leysi</TileTitle>
-                <TileSubtitle>Brand identity and iOS app for campus deals</TileSubtitle>
-              </TileCaption>
-            </ProjectCard>
-
-            {/* ThreePillars */}
-            <ProjectCard>
-              <Tile to="/ThreePillars" aria-label="Three Pillars project">
-                <SingleImage src={threePillarsTile} avif={threePillarsTileAvif} webp={threePillarsTileWebp} alt="Three Pillars project tile" width="100%" responsive={false} style={{position:'absolute',inset:0,height:'100%',objectFit:'cover',zIndex:0,borderRadius:0,boxShadow:'none'}} />
-                <TileOverlay />
-              </Tile>
-              <TileCaption>
-                <TileTitle>ThreePillars</TileTitle>
-                <TileSubtitle>Recruiting site redesign and brand refresh</TileSubtitle>
-              </TileCaption>
-            </ProjectCard>
-
-            {/* Piton */}
-            <ProjectCard>
-              <Tile to="/Piton" aria-label="Piton project">
-                <SingleImage src={pitonTile} avif={pitonTileAvif} webp={pitonTileWebp} alt="Piton project tile" width="100%" responsive={false} style={{position:'absolute',inset:0,height:'100%',objectFit:'cover',zIndex:0,borderRadius:0,boxShadow:'none'}} />
-                <TileOverlay />
-              </Tile>
-              <TileCaption>
-                <TileTitle>Piton</TileTitle>
-                <TileSubtitle>Product design and mobile interface work</TileSubtitle>
-              </TileCaption>
-            </ProjectCard>
-
-            {/* Outsource */}
-            <ProjectCard>
-              <Tile to="/Outsource" aria-label="Outsource project">
-                <SingleImage src={outsourceTile} avif={outsourceTileAvif} webp={outsourceTileWebp} alt="Outsource project tile" width="100%" responsive={false} style={{position:'absolute',inset:0,height:'100%',objectFit:'cover',zIndex:0,borderRadius:0,boxShadow:'none'}} />
-                <TileOverlay />
-              </Tile>
-              <TileCaption>
-                <TileTitle>Outsource</TileTitle>
-                <TileSubtitle>Commerce and editorial design across surfaces</TileSubtitle>
-              </TileCaption>
-            </ProjectCard>
-
-            {/* Giga */}
-            <ProjectCard>
-              <Tile to="/Giga" aria-label="Giga project">
-                <SingleImage src={gigaTile} avif={gigaTileAvif} webp={gigaTileWebp} alt="Giga project tile" width="100%" responsive={false} style={{position:'absolute',inset:0,height:'100%',objectFit:'cover',zIndex:0,borderRadius:0,boxShadow:'none'}} />
-                <TileOverlay />
-              </Tile>
-              <TileCaption>
-                <TileTitle>Giga</TileTitle>
-                <TileSubtitle>Cross-platform product design and experiments</TileSubtitle>
-              </TileCaption>
-            </ProjectCard>
-          </ProjectsGrid>
-        </ProjectsInner>
-      </ProjectsSection>
+      <PortfolioCardsSection />
 
       {/* Module 2: Second Paragraph */}
       <FullHeightTextSection style={{ backgroundColor: '#f7f7f7', padding: '10vh 5vw', minHeight: '70vh' }}>

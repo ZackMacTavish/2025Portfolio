@@ -22,6 +22,7 @@ const Ux = lazy(() => import("./pages/UX/UX"));
 const ThreePillars = lazy(() => import("./pages/ThreePillars/ThreePillars"));
 const Piton = lazy(() => import("./pages/Piton/Piton"));
 const Microsoft = lazy(() => import("./pages/Microsoft/Microsoft"));
+const BusinessConnectors = lazy(() => import("./pages/BusinessConnectors/BusinessConnectors"));
 
 // Intro Animation
 const IntroAnimation = lazy(() => import("./pages/Intro_Animation/IntroAnimation"));
@@ -61,6 +62,7 @@ function App() {
             <Route path="/ThreePillars" element={<ThreePillars />} />
             <Route path="/Piton" element={<Piton />} />
             <Route path="/Microsoft" element={<Microsoft />} />
+            <Route path="/BusinessConnectors" element={<BusinessConnectors />} />
             <Route path="/Resume" element={<Resume />} />
 
             {/* Fallback for unknown routes */}

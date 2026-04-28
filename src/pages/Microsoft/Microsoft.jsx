@@ -32,6 +32,7 @@ import outlookAvif from '../../assets/Outlook.avif';
 import outlookWebp from '../../assets/Outlook.webp';
 import { ProjectDetailsContainer, ProjectDetails, ProjectBlock, ProjectHeader, ProjectSubtitle, ProjectImage, Cellphones, StyledDiv } from '../Giga/Giga';
 import ProjectTopSection from '../../components/ProjectTopSection';
+import { BusinessConnectorsModule } from '../../components/BusinessConnectorsIntro';
 import { FiArrowUpRight } from 'react-icons/fi';
 
 const PASSWORD = 'yourpassword'; // Change this to your desired password
@@ -245,6 +246,8 @@ const Microsoft = () => {
       <RisoFlex>
         <VideoWithOverlay ref={videoRefs[0]} src="/assets/microsoft-demo2.mp4" poster="/assets/Preview1.png" />
       </RisoFlex>
+
+      <BusinessConnectorsModule />
       
       <FullHeightTextSection style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
         <TextContainer>

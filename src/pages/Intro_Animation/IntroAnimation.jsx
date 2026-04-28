@@ -1,28 +1,13 @@
-import React, { useEffect, Suspense, useRef, useState } from 'react';
-import styled, { keyframes, css } from 'styled-components';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, OrbitControls, useGLTF } from '@react-three/drei';
+import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
+import { gsap } from 'gsap';
 import LandingPage from '../Landing_Page/LandingPage';
+import CaseStudyTransition from '../../components/CaseStudyTransition';
 
-// Slide-up + blur fade-in for text
-const slideUpBlur = keyframes`
-  0% { 
-    opacity: 0; 
-    transform: translateY(250px); 
-    filter: blur(15px); 
-  }
-  100% { 
-    opacity: 1; 
-    transform: translateY(0); 
-    filter: blur(0); 
-  }
-`;
-
-// Main vertical windshield wipe
-const wipeOutVertical = keyframes`
-  0% { transform: translateY(0%); }
-  100% { transform: translateY(100%); }
-`;
+import leysiTile from '../../assets/LeysiApp—Screens copy.jpg';
+import threePillarsTile from '../../assets/ThreePillars—pages.jpg';
+import pitonTile from '../../assets/Piton—Screens.jpg';
+import outsourceTile from '../../assets/BrandGuidelines—Mockup.jpg';
 
 const IntroDiv = styled.div`
   display: flex;
@@ -36,96 +21,174 @@ const IntroDiv = styled.div`
   left: 0;
   overflow: hidden;
   z-index: 10;
-
-  ${props =>
-    props.$animateOut &&
-    css`
-      animation: ${wipeOutVertical} 0.35s ease-in-out forwards;
-    `}
+  clip-path: inset(0% 0% 0% 0%);
 `;
 
 const IntroText = styled.h1`
+  margin: 0;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(2.5rem, 8vw, 6rem);
-  color: white;
-  animation: ${slideUpBlur} 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  font-size: clamp(2.1rem, 7vw, 6.2rem);
+  letter-spacing: 0.04em;
+  color: #000;
+  position: relative;
   text-align: center;
-  z-index: 20;
+  z-index: 60;
+  line-height: 1.04;
+
+  @media (max-width: 900px) {
+    letter-spacing: 0.03em;
+  }
 `;
 
-function FlowerModel({ onLoaded, ...props }) {
-const { scene } = useGLTF(`${import.meta.env.BASE_URL}models/scene.glb`);
-  const ref = useRef();
+const IntroNameWrap = styled.div`
+  position: relative;
+  z-index: 60;
+`;
 
-  useFrame(() => {
-    if (ref.current) {
-      ref.current.rotation.y += 0.0015;
-      ref.current.rotation.x += 0.0008;
-    }
-  });
+const LetterMask = styled.span`
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+`;
 
-  useEffect(() => {
-    if (ref.current && onLoaded) onLoaded();
-  }, [ref, onLoaded]);
+const LetterInner = styled.span`
+  display: inline-block;
+  will-change: transform, opacity;
+`;
 
-  return <primitive ref={ref} object={scene} {...props} />;
-}
+const IntroCounter = styled.div`
+  position: absolute;
+  right: clamp(18px, 2.8vw, 40px);
+  bottom: clamp(18px, 2.8vw, 40px);
+  z-index: 60;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(0.9rem, 1.35vw, 1.2rem);
+  letter-spacing: 0.08em;
+`;
 
-function FloatingFlower({ onModelLoaded }) {
-  return (
-    <Canvas
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 0,
-        pointerEvents: 'none',
-      }}
-      camera={{ position: [0, 0, 2.5], fov: 50 }}
-    >
-      <ambientLight intensity={0.8} />
-      <directionalLight position={[5, 5, 5]} intensity={1} />
-      <Suspense fallback={null}>
-        <Float floatIntensity={0.1} rotationIntensity={0.05}>
-          <FlowerModel scale={8} position={[0, 0, 0]} onLoaded={onModelLoaded} />
-        </Float>
-      </Suspense>
-      <OrbitControls enableZoom={false} enablePan={false} enableRotate={false} />
-    </Canvas>
-  );
+const baseIntroTransitionImages = [
+  {
+    src: '/assets/HP.png',
+    alt: 'Microsoft shopping ecosystem preview',
+    objectPosition: 'top center',
+  },
+  {
+    src: leysiTile,
+    alt: 'Leysi project preview',
+  },
+  {
+    src: threePillarsTile,
+    alt: 'ThreePillars project preview',
+  },
+  {
+    src: pitonTile,
+    alt: 'Piton project preview',
+  },
+  {
+    src: outsourceTile,
+    alt: 'Outsource project preview',
+  },
+];
+
+function shuffleImages(images) {
+  const shuffled = [...images];
+  for (let i = shuffled.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
 }
 
 export default function IntroAnimation() {
-  const text = "Hi, I'm Zack MacTavish";
-  const [showText, setShowText] = useState(false);
-  const [animateOut, setAnimateOut] = useState(false);
+  const text = 'ZACHARY MACTAVISH.';
+  const introGreen = '#3F4739';
+  const [counter, setCounter] = useState('000%');
   const [showIntro, setShowIntro] = useState(true);
-  const [modelLoaded, setModelLoaded] = useState(false);
+  const [introTransitionImages] = useState(() =>
+    shuffleImages(baseIntroTransitionImages)
+  );
+  const introRef = useRef(null);
+  const letterRefs = useRef([]);
 
   useEffect(() => {
-    if (!modelLoaded) return;
+    if (!showIntro) return;
 
-    const textTimer = setTimeout(() => setShowText(true), 1000);
-    const wipeTimer = setTimeout(() => setAnimateOut(true), 3800);
-    const hideTimer = setTimeout(() => setShowIntro(false), 4200);
+    const letters = letterRefs.current.filter(Boolean);
+    const progress = { value: 0 };
+
+    gsap.set(letters, { yPercent: 110, autoAlpha: 0 });
+    gsap.set(introRef.current, { clipPath: 'inset(0% 0% 0% 0%)' });
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setShowIntro(false);
+      },
+    });
+
+    tl.to(progress, {
+      value: 100,
+      duration: 2.5,
+      ease: 'power2.inOut',
+      onUpdate: () => {
+        setCounter(`${String(Math.round(progress.value)).padStart(3, '0')}%`);
+      },
+    });
+
+    tl.to(
+      letters,
+      {
+        yPercent: 0,
+        autoAlpha: 1,
+        duration: 0.8,
+        stagger: 0.04,
+        ease: 'power3.out',
+      },
+      '-=2'
+    );
+
+    tl.to(introRef.current, {
+      clipPath: 'inset(0% 0% 100% 0%)',
+      duration: 0.8,
+      ease: 'power4.inOut',
+    });
 
     return () => {
-      clearTimeout(textTimer);
-      clearTimeout(wipeTimer);
-      clearTimeout(hideTimer);
+      tl.kill();
     };
-  }, [modelLoaded]);
+  }, [showIntro]);
+
+  const handleTransitionComplete = () => {};
 
   return (
     <>
       {/* Pass introDone so the landing page chevron waits until the overlay wipes away */}
       <LandingPage introDone={!showIntro} />
       {showIntro && (
-  <IntroDiv $animateOut={animateOut}>
-          <FloatingFlower onModelLoaded={() => setModelLoaded(true)} />
-          {showText && <IntroText>{text}</IntroText>}
+        <IntroDiv ref={introRef}>
+          <CaseStudyTransition
+            images={introTransitionImages}
+            isActive={showIntro}
+            onComplete={handleTransitionComplete}
+            overlayColor={introGreen}
+            loadingBackgroundColor={introGreen}
+          />
+          <IntroNameWrap>
+            <IntroText aria-label={text}>
+              {Array.from(text).map((char, index) => (
+                <LetterMask key={`intro-char-${index}`}>
+                  <LetterInner
+                    ref={el => {
+                      letterRefs.current[index] = el;
+                    }}
+                  >
+                    {char === ' ' ? '\u00A0' : char}
+                  </LetterInner>
+                </LetterMask>
+              ))}
+            </IntroText>
+          </IntroNameWrap>
+          <IntroCounter>{counter}</IntroCounter>
         </IntroDiv>
       )}
     </>
