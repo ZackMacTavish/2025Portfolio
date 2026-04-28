@@ -4,9 +4,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CaseStudyTransition from "./CaseStudyTransition";
 import { caseStudies } from "../data/caseStudies";
-import copilotGrp from '../assets/Copilot style GRP.png';
-import copilotGrpAvif from '../assets/Copilot style GRP.avif';
-import copilotGrpWebp from '../assets/Copilot style GRP.webp';
 
 const IntroSection = styled.section`
   background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
@@ -176,9 +173,9 @@ export function BusinessConnectorsIntro({ onLaunch }: BusinessConnectorsIntroPro
           transition={{ duration: 0.7, delay: 0.1 }}
         >
           <StyledImage>
-            <source srcSet={copilotGrpAvif} type="image/avif" />
-            <source srcSet={copilotGrpWebp} type="image/webp" />
-            <img src={copilotGrp} alt="Business Connectors interface design" />
+            <source srcSet="/assets/business-connectors/Connectors1.avif" type="image/avif" />
+            <source srcSet="/assets/business-connectors/Connectors1.webp" type="image/webp" />
+            <img src="/assets/business-connectors/Connectors1.jpg" alt="Business Connectors interface design" />
           </StyledImage>
         </ImageColumn>
       </IntroContent>
