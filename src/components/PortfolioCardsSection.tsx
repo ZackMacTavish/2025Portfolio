@@ -146,7 +146,7 @@ export default function PortfolioCardsSection() {
   return (
     <Section>
       <Inner>
-        <SectionTitle>See more</SectionTitle>
+        <SectionTitle>My projects</SectionTitle>
         <Grid>
           <ProjectCard>
             <Tile to="/Microsoft" aria-label="Microsoft project">
