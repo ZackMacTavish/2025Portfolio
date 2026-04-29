@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CaseStudyTransition from "./CaseStudyTransition";
+import CaseStudyTransition, { preloadTransitionImages } from "./CaseStudyTransition";
 import { caseStudies } from "../data/caseStudies";
 
 const IntroSection = styled.section`
@@ -10,6 +10,14 @@ const IntroSection = styled.section`
   padding: 8rem 1.5rem;
   display: flex;
   align-items: center;
+
+  @media (max-width: 1023px) {
+    padding: 5.5rem 2rem;
+  }
+
+  @media (max-width: 640px) {
+    padding: 4.5rem 1.25rem;
+  }
 
   @media (min-width: 768px) {
     padding: 10rem 1.5rem;
@@ -24,6 +32,10 @@ const IntroContent = styled.div`
   gap: 3rem;
   align-items: center;
 
+  @media (max-width: 1023px) {
+    gap: 2rem;
+  }
+
   @media (min-width: 1024px) {
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
@@ -34,10 +46,16 @@ const TextColumn = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+
+  @media (max-width: 1023px) {
+    gap: 1.1rem;
+    max-width: 64ch;
+    margin: 0 auto;
+  }
 `;
 
 const IntroHeading = styled(motion.h2)`
-  font-size: 2.25rem;
+  font-size: clamp(1.85rem, 4vw, 2.25rem);
   font-weight: 700;
   line-height: 1.2;
   color: #111827;
@@ -53,14 +71,15 @@ const IntroHeading = styled(motion.h2)`
 `;
 
 const IntroSubtitle = styled(motion.p)`
-  font-size: 1rem;
-  line-height: 1.75;
+  font-size: 0.98rem;
+  line-height: 1.65;
   color: #4b5563;
   margin: 0;
-  max-width: 65ch;
+  max-width: 62ch;
 
   @media (min-width: 768px) {
     font-size: 1.125rem;
+    line-height: 1.72;
   }
 `;
 
@@ -70,10 +89,14 @@ const ImageColumn = styled(motion.div)`
   justify-content: center;
   border-radius: 16px;
   overflow: hidden;
+  max-width: 42rem;
+  width: 100%;
+  margin: 0 auto;
 
   @media (max-width: 1023px) {
     order: -1;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    max-width: 34rem;
   }
 `;
 
@@ -195,6 +218,10 @@ export function BusinessConnectorsModule() {
   const navigate = useNavigate();
   const [transitioning, setTransitioning] = useState(false);
   const caseStudy = caseStudies[0];
+
+  useEffect(() => {
+    preloadTransitionImages(caseStudy.transitionImages);
+  }, [caseStudy.transitionImages]);
 
   return (
     <>

@@ -23,6 +23,41 @@ interface CaseStudyTransitionProps {
 
   /** Optional background color for the loading state */
   loadingBackgroundColor?: string;
+type TransitionImage = { src: string; alt: string; objectPosition?: string };
+
+const decodedImageCache = new Set<string>();
+
+export async function preloadTransitionImages(images: TransitionImage[]) {
+  const imagePromises = images.map(
+    (image) =>
+      new Promise<void>((resolve) => {
+        if (decodedImageCache.has(image.src)) {
+          resolve();
+          return;
+        }
+
+        const img = new Image();
+        img.onload = async () => {
+          if (typeof img.decode === "function") {
+            try {
+              await img.decode();
+            } catch {
+              // Decode may reject in some cached or unsupported cases.
+            }
+          }
+          decodedImageCache.add(image.src);
+          resolve();
+        };
+        img.onerror = () => {
+          resolve();
+        };
+        img.src = image.src;
+      })
+  );
+
+  await Promise.all(imagePromises);
+}
+  images: TransitionImage[];
 }
 
 const StyledContainer = styled(motion.div)`
@@ -154,17 +189,8 @@ export default function CaseStudyTransition({
     if (!isActive) return;
 
     setImagesLoaded(false);
-    const imagePromises = images.map(
-      (image) =>
-        new Promise((resolve) => {
-          const img = new Image();
-          img.onload = resolve;
-          img.onerror = resolve;
-          img.src = image.src;
-        })
-    );
 
-    Promise.all(imagePromises).then(() => {
+    preloadTransitionImages(images).then(() => {
       setImagesLoaded(true);
     });
   }, [isActive, images]);

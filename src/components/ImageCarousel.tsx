@@ -31,7 +31,7 @@ const Frame = styled(motion.div)`
   border-radius: 12px;
   overflow: hidden;
   aspect-ratio: 3 / 2;
-  background: #111;
+  background: #f0efeb;
 `;
 
 const ControlsOverlay = styled.div<{ $visible: boolean }>`
@@ -159,10 +159,31 @@ export default function ImageCarousel({
   useEffect(() => {
     if (total < 2) return;
 
-    images.forEach((img) => {
-      const preloader = new Image();
-      preloader.src = img.src;
-    });
+    const preloadSource = (source: string) =>
+      new Promise<void>((resolve) => {
+        const preloader = new Image();
+        preloader.onload = async () => {
+          if (typeof preloader.decode === "function") {
+            try {
+              await preloader.decode();
+            } catch {
+              // Ignore decode errors and proceed.
+            }
+          }
+          resolve();
+        };
+        preloader.onerror = () => resolve();
+        preloader.src = source;
+      });
+
+    const preloadAll = async () => {
+      const sources = images.flatMap((img) =>
+        [img.avif, img.webp, img.src].filter((source): source is string => Boolean(source))
+      );
+      await Promise.all(sources.map((source) => preloadSource(source)));
+    };
+
+    void preloadAll();
   }, [images, total]);
 
   if (!total) return null;

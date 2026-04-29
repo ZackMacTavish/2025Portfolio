@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 import { CaseStudy } from "../../types/caseStudy";
 import CaseStudyCard from "./CaseStudyCard";
-import CaseStudyTransition from "./CaseStudyTransition";
+import CaseStudyTransition, { preloadTransitionImages } from "./CaseStudyTransition";
 import CaseStudyPage from "./CaseStudyPage";
 
 interface CaseStudyContainerProps {
@@ -103,6 +103,13 @@ export default function CaseStudyContainer({
 }: CaseStudyContainerProps) {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [phase, setPhase] = useState<Phase>("browsing");
+
+  useEffect(() => {
+    const allTransitionImages = caseStudies.flatMap(
+      (caseStudy) => caseStudy.transitionImages
+    );
+    preloadTransitionImages(allTransitionImages);
+  }, [caseStudies]);
 
   // Get current active case study
   const activeCaseStudy = caseStudies.find((cs) => cs.slug === activeSlug);

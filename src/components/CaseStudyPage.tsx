@@ -35,6 +35,11 @@ const HeroSection = styled.section`
     min-height: 96vh;
     padding: 7rem 1.5rem 14rem;
   }
+
+  @media (max-width: 900px) {
+    min-height: auto;
+    padding: 4.5rem 1.25rem 2rem;
+  }
 `;
 
 const HeroContent = styled.div`
@@ -60,6 +65,21 @@ const HeroPeekImageWrap = styled.div`
   @media (max-width: 768px) {
     bottom: -18%;
     width: 120vw;
+  }
+
+  @media (max-width: 900px) {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    margin: 1rem auto 0;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-top: 0.75rem;
   }
 `;
 
@@ -144,6 +164,7 @@ const SectionBody = styled.div`
 
 const Paragraph = styled.p`
   margin: 0;
+  max-width: 68ch;
   font-size: 1rem;
   line-height: 1.625;
   color: #666666;
@@ -538,43 +559,41 @@ const QuoteAttribution = styled.cite`
 `;
 
 const StickySplitWrapper = styled.section`
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
+  display: flex;
+  flex-direction: column;
   gap: 0;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
+  padding: 0 0 4rem;
 `;
 
 const StickyColumn = styled.div`
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
   padding: 0;
   background: white;
-
-  @media (min-width: 769px) {
-    padding: 0;
-  }
 `;
 
 const StickyMediaPin = styled.div`
-  position: sticky;
-  top: 6rem;
+  position: static;
+  width: min(65vw, 1080px);
+  margin: 0 auto;
+  padding-top: 1.5rem;
+
+  @media (max-width: 1024px) {
+    width: min(72vw, 980px);
+  }
 
   @media (max-width: 768px) {
-    position: static;
-    top: auto;
+    width: calc(100vw - 2.5rem);
+    padding-top: 1rem;
   }
 `;
 
 const StickyHeroFrame = styled.div`
-  min-height: 76vh;
-  max-height: 92vh;
-  height: 84vh;
+  min-height: 0;
+  height: clamp(340px, 46vw, 680px);
 
   @media (max-width: 768px) {
-    min-height: 50vh;
-    max-height: 70vh;
-    height: 56vh;
+    height: clamp(260px, 58vw, 460px);
   }
 `;
 
@@ -606,15 +625,33 @@ const TagDivider = styled.span`
 
 const CollateralMediaWrap = styled.div`
   margin-top: 1rem;
-  padding: 0 1.25rem 1.25rem;
+  padding: 0 0 1.25rem;
 `;
 
 const ScrollColumn = styled.div`
-  padding: 4rem 2rem;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: 3.5rem 0 3rem;
   background: #f0efeb;
 
+  > * {
+    width: min(65vw, 1080px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (max-width: 1024px) {
+    > * {
+      width: min(72vw, 980px);
+    }
+  }
+
   @media (max-width: 768px) {
-    padding: 2rem 1.25rem;
+    padding: 2.5rem 0 2.5rem;
+
+    > * {
+      width: calc(100vw - 2.5rem);
+    }
   }
 `;
 
@@ -1311,60 +1348,6 @@ export default function CaseStudyPage({
 
     return (
       <StickySplitWrapper key={section.id}>
-        <StickyColumn>
-          <StickyMediaPin>
-            {stickyImage && (
-              <StickyHeroFrame>
-                <StickyHeroImage
-                  src={stickyImage.src}
-                  alt={stickyImage.alt}
-                  avif={stickyImage.avif}
-                  webp={stickyImage.webp}
-                  borderRadius="0"
-                  objectFit="cover"
-                  imageScale={1.1}
-                />
-              </StickyHeroFrame>
-            )}
-
-            {tags.length > 0 && (
-              <TagsRow>
-                {tags.map((tag, idx) => (
-                  <motion.div
-                    key={`${tag}-${idx}`}
-                    initial={{ opacity: 0, y: 8 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{ duration: 0.35, delay: idx * 0.04 }}
-                  >
-                    <Tag>
-                      {tag}
-                      {idx < tags.length - 1 && <TagDivider>•</TagDivider>}
-                    </Tag>
-                  </motion.div>
-                ))}
-              </TagsRow>
-            )}
-
-            {collateralImages.length > 0 && (
-              <CollateralMediaWrap>
-                <motion.div
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.45 }}
-                >
-                  <ImageCarousel
-                    images={collateralImages}
-                    autoPlay
-                    intervalMs={2800}
-                  />
-                </motion.div>
-              </CollateralMediaWrap>
-            )}
-          </StickyMediaPin>
-        </StickyColumn>
-
         <ScrollColumn>
           {blocks.map((block, idx) => {
             if (block.type === "text") {
@@ -1448,6 +1431,59 @@ export default function CaseStudyPage({
             return null;
           })}
         </ScrollColumn>
+
+        <StickyColumn>
+          <StickyMediaPin>
+            {stickyImage && (
+              <StickyHeroFrame>
+                <StickyHeroImage
+                  src={stickyImage.src}
+                  alt={stickyImage.alt}
+                  avif={stickyImage.avif}
+                  webp={stickyImage.webp}
+                  borderRadius="12px"
+                  objectFit="cover"
+                />
+              </StickyHeroFrame>
+            )}
+
+            {tags.length > 0 && (
+              <TagsRow>
+                {tags.map((tag, idx) => (
+                  <motion.div
+                    key={`${tag}-${idx}`}
+                    initial={{ opacity: 0, y: 8 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.35, delay: idx * 0.04 }}
+                  >
+                    <Tag>
+                      {tag}
+                      {idx < tags.length - 1 && <TagDivider>•</TagDivider>}
+                    </Tag>
+                  </motion.div>
+                ))}
+              </TagsRow>
+            )}
+
+            {collateralImages.length > 0 && (
+              <CollateralMediaWrap>
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.45 }}
+                >
+                  <ImageCarousel
+                    images={collateralImages}
+                    autoPlay
+                    intervalMs={2800}
+                  />
+                </motion.div>
+              </CollateralMediaWrap>
+            )}
+          </StickyMediaPin>
+        </StickyColumn>
       </StickySplitWrapper>
     );
   };
