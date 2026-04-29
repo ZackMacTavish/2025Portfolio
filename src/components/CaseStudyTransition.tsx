@@ -2,9 +2,11 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
+type TransitionImage = { src: string; alt: string; objectPosition?: string };
+
 interface CaseStudyTransitionProps {
   /** Array of exactly 5 images to animate */
-  images: { src: string; alt: string; objectPosition?: string }[];
+  images: TransitionImage[];
 
   /** Controls mount/unmount of the transition overlay */
   isActive: boolean;
@@ -23,7 +25,7 @@ interface CaseStudyTransitionProps {
 
   /** Optional background color for the loading state */
   loadingBackgroundColor?: string;
-type TransitionImage = { src: string; alt: string; objectPosition?: string };
+}
 
 const decodedImageCache = new Set<string>();
 
@@ -56,8 +58,6 @@ export async function preloadTransitionImages(images: TransitionImage[]) {
   );
 
   await Promise.all(imagePromises);
-}
-  images: TransitionImage[];
 }
 
 const StyledContainer = styled(motion.div)`
