@@ -101,20 +101,32 @@ function shuffleImages(images) {
   return shuffled;
 }
 
+
 export default function IntroAnimation() {
   const text = 'ZACHARY MACTAVISH.';
   const introGreen = '#3F4739';
   const [counter, setCounter] = useState('000%');
   const [showIntro, setShowIntro] = useState(true);
-  const [introTransitionImages] = useState(() =>
-    shuffleImages(baseIntroTransitionImages)
-  );
+  const [introTransitionImages] = useState(() => shuffleImages(baseIntroTransitionImages));
+  const [firstImageLoaded, setFirstImageLoaded] = useState(false);
   const introRef = useRef(null);
   const letterRefs = useRef([]);
   const prefersReducedMotion = useReducedMotion();
 
+  // Preload the first image in the shuffled array
   useEffect(() => {
-    if (!showIntro) return;
+    const img = new window.Image();
+    img.src = introTransitionImages[0]?.src;
+    if (img.complete) {
+      setFirstImageLoaded(true);
+    } else {
+      img.onload = () => setFirstImageLoaded(true);
+      img.onerror = () => setFirstImageLoaded(true); // fail gracefully
+    }
+  }, [introTransitionImages]);
+
+  useEffect(() => {
+    if (!showIntro || !firstImageLoaded) return;
 
     // Skip animation if user prefers reduced motion
     if (prefersReducedMotion) {
@@ -132,6 +144,7 @@ export default function IntroAnimation() {
     const tl = gsap.timeline({
       onComplete: () => {
         setShowIntro(false);
+        window.dispatchEvent(new Event("intro-animation-done"));
       },
     });
 
@@ -165,7 +178,7 @@ export default function IntroAnimation() {
     return () => {
       tl.kill();
     };
-  }, [showIntro, prefersReducedMotion]);
+  }, [showIntro, prefersReducedMotion, firstImageLoaded]);
 
   const handleTransitionComplete = () => {};
 
@@ -175,28 +188,37 @@ export default function IntroAnimation() {
       <LandingPage introDone={!showIntro} />
       {showIntro && (
         <IntroDiv ref={introRef}>
-          <CaseStudyTransition
-            images={introTransitionImages}
-            isActive={showIntro}
-            onComplete={handleTransitionComplete}
-            overlayColor={introGreen}
-            loadingBackgroundColor={introGreen}
-          />
-          <IntroNameWrap>
-            <IntroText aria-label={text}>
-              {Array.from(text).map((char, index) => (
-                <LetterMask key={`intro-char-${index}`}>
-                  <LetterInner
-                    ref={el => {
-                      letterRefs.current[index] = el;
-                    }}
-                  >
-                    {char === ' ' ? '\u00A0' : char}
-                  </LetterInner>
-                </LetterMask>
-              ))}
-            </IntroText>
-          </IntroNameWrap>
+          {/* Optionally, show a solid background or spinner until the first image is loaded */}
+          {!firstImageLoaded && (
+            <div style={{position: 'absolute', inset: 0, background: introGreen, zIndex: 1}} />
+          )}
+          {firstImageLoaded && (
+            <CaseStudyTransition
+              images={introTransitionImages}
+              isActive={showIntro}
+              onComplete={handleTransitionComplete}
+              overlayColor={introGreen}
+              loadingBackgroundColor={introGreen}
+            />
+          )}
+          {/* Only show the intro text when the first image is loaded (so it doesn't flash early) */}
+          {firstImageLoaded && (
+            <IntroNameWrap>
+              <IntroText aria-label={text}>
+                {Array.from(text).map((char, index) => (
+                  <LetterMask key={`intro-char-${index}`}>
+                    <LetterInner
+                      ref={el => {
+                        letterRefs.current[index] = el;
+                      }}
+                    >
+                      {char === ' ' ? '\u00A0' : char}
+                    </LetterInner>
+                  </LetterMask>
+                ))}
+              </IntroText>
+            </IntroNameWrap>
+          )}
           <IntroCounter>{counter}</IntroCounter>
         </IntroDiv>
       )}

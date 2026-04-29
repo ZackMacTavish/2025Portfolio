@@ -37,7 +37,7 @@ export default function BusinessConnectors() {
       />
       <PortfolioCardsSection />
       {/* Social tray below portfolio cards, with tight spacing */}
-      <Grid60 style={{ margin: "1.5rem auto 4rem", display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+      <Grid60 style={{ paddingTop: "1.5rem", paddingBottom: "4rem", display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
         <Socials />
         <a
           href="https://zackmactavish.com"

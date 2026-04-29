@@ -34,9 +34,11 @@ import sun from './assets/Sun-DRKGREEN-01.svg';
 import { caseStudies } from './data/caseStudies';
 import { warmPreloadTransitionImages } from './components/CaseStudyTransition';
 
+
 function App() {
   const [theme, setTheme] = useState("light");
   const [showShortcutsHelp, setShowShortcutsHelp] = useState(false);
+  const [showShortcutsPill, setShowShortcutsPill] = useState(false);
   const helpDialogRef = useRef(null);
   const lastFocusedElementRef = useRef(null);
 
@@ -156,6 +158,17 @@ function App() {
     }
   };
 
+
+  // Listen for when the intro animation is done (LandingPage receives introDone prop)
+  // We'll use a custom event to signal when to show the pill
+  useEffect(() => {
+    function handleIntroDone() {
+      setShowShortcutsPill(true);
+    }
+    window.addEventListener("intro-animation-done", handleIntroDone);
+    return () => window.removeEventListener("intro-animation-done", handleIntroDone);
+  }, []);
+
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <GlobalStyles />
@@ -163,29 +176,31 @@ function App() {
         <Router>
           <Customcursor />
           <Nav />
-          <button
-            type="button"
-            onClick={() => setShowShortcutsHelp(true)}
-            aria-label="Open keyboard shortcuts help"
-            style={{
-              position: "fixed",
-              right: "1rem",
-              bottom: "1rem",
-              zIndex: 110,
-              border: "1px solid #d1d5db",
-              background: "#ffffff",
-              color: "#111827",
-              borderRadius: "999px",
-              padding: "0.5rem 0.85rem",
-              fontSize: "0.8rem",
-              fontWeight: 600,
-              letterSpacing: "0.04em",
-              cursor: "pointer",
-              boxShadow: "0 6px 18px rgba(0, 0, 0, 0.12)",
-            }}
-          >
-            ? Shortcuts
-          </button>
+          {showShortcutsPill && (
+            <button
+              type="button"
+              onClick={() => setShowShortcutsHelp(true)}
+              aria-label="Open keyboard shortcuts help"
+              style={{
+                position: "fixed",
+                right: "1rem",
+                bottom: "1rem",
+                zIndex: 110,
+                border: "1px solid #d1d5db",
+                background: "#ffffff",
+                color: "#111827",
+                borderRadius: "999px",
+                padding: "0.5rem 0.85rem",
+                fontSize: "0.8rem",
+                fontWeight: 600,
+                letterSpacing: "0.04em",
+                cursor: "pointer",
+                boxShadow: "0 6px 18px rgba(0, 0, 0, 0.12)",
+              }}
+            >
+              ? Shortcuts
+            </button>
+          )}
 
           {showShortcutsHelp && (
             <div
