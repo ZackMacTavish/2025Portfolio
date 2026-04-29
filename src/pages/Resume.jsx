@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import resumeImage from '../assets/ResumeJPEG.jpg';
 import { FiDownload } from 'react-icons/fi';
 
-const Resume = () => (
+const Resume = () => {
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
   <div
     style={{
       width: '80vw',
@@ -131,7 +136,8 @@ const Resume = () => (
       }
     `}</style>
   </div>
-);
+  );
+};
 
 export default Resume;
 
