@@ -1,5 +1,5 @@
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 
 interface ResponsiveImageProps {
@@ -71,6 +71,16 @@ export default function ResponsiveImage({
 }: ResponsiveImageProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  // Detect mobile breakpoint on mount and resize
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -79,7 +89,7 @@ export default function ResponsiveImage({
 
   const parallaxAmount = Math.max(0, parallaxSpeed) * 60;
   const parallaxY = useTransform(scrollYProgress, [0, 1], [-parallaxAmount, parallaxAmount]);
-  const shouldParallax = parallaxSpeed > 0 && !prefersReducedMotion;
+  const shouldParallax = parallaxSpeed > 0 && !prefersReducedMotion && !isMobile;
 
   return (
     <Container
@@ -87,10 +97,14 @@ export default function ResponsiveImage({
       className={className}
       $aspectRatio={aspectRatio}
       $borderRadius={borderRadius}
-      initial={disableRevealAnimation ? false : { opacity: 0, y: 24 }}
-      whileInView={disableRevealAnimation ? undefined : { opacity: 1, y: 0 }}
-      viewport={disableRevealAnimation ? undefined : { once: true, amount: 0.2 }}
-      transition={disableRevealAnimation ? undefined : { duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+      {...(disableRevealAnimation
+        ? {}
+        : {
+            initial: { opacity: 0, y: 24 },
+            whileInView: { opacity: 1, y: 0 },
+            viewport: { once: true, amount: 0.2 },
+            transition: { duration: 0.9, ease: [0.25, 0.1, 0.25, 1] },
+          })}
     >
       <Picture>
         {avif && <source srcSet={avif} type="image/avif" />}

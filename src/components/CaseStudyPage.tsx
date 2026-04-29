@@ -1,7 +1,9 @@
-import { motion } from "framer-motion";
+import Socials from "../components/Social Bar/Socials";
+import PortfolioCardsSection from "./PortfolioCardsSection";
+import { motion, useInView } from "framer-motion";
 import styled from "styled-components";
-import { ReactNode } from "react";
-import { CaseStudy, CaseStudySection } from "../../types/caseStudy";
+import { ReactNode, memo, useRef, useState } from "react";
+import { CaseStudy, CaseStudyImage, CaseStudySection } from "../../types/caseStudy";
 import ResponsiveImage from "./ResponsiveImage";
 import ImageCarousel from "./ImageCarousel";
 
@@ -89,6 +91,34 @@ const HeroPeekImage = styled(ResponsiveImage)`
   img {
     filter: saturate(0.96);
   }
+`;
+
+const SkeletonLoader = styled(motion.div)`
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    #e8e8e8 0%,
+    #f5f5f5 50%,
+    #e8e8e8 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+`;
+
+const HeroPeekImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
 `;
 
 const MetadataGrid = styled.div`
@@ -802,6 +832,47 @@ const NextProjectContent = styled.div`
   max-width: 64rem;
 `;
 
+const FooterActionsRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+`;
+
+const FooterLabel = styled.p`
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  color: #9ca3af;
+  text-transform: uppercase;
+`;
+
+const ShareActions = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+`;
+
+const ShareButton = styled.button`
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #111827;
+  border-radius: 999px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 180ms ease;
+
+  &:hover {
+    border-color: #9ca3af;
+    background: #f9fafb;
+  }
+`;
+
 const NextProjectButton = styled(motion.button)`
   width: 100%;
   display: flex;
@@ -862,6 +933,70 @@ const IMAGE_TRANSITION = {
 
 const VIEWPORT_ONCE = { once: true, amount: 0.2 };
 
+/**
+ * LazyTagsSection
+ * Defers tag DOM creation until section scrolls into view
+ */
+interface LazyTagsSectionProps {
+  tags: string[];
+}
+
+function LazyTagsSection({ tags }: LazyTagsSectionProps) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "100px" });
+
+  return (
+    <div ref={ref}>
+      {isInView && (
+        <TagsRow>
+          {tags.map((tag, idx) => (
+            <motion.div
+              key={`${tag}-${idx}`}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: idx * 0.04 }}
+            >
+              <Tag>
+                {tag}
+                {idx < tags.length - 1 && <TagDivider>•</TagDivider>}
+              </Tag>
+            </motion.div>
+          ))}
+        </TagsRow>
+      )}
+    </div>
+  );
+}
+
+/**
+ * LazyCollateralSection
+ * Defers collateral carousel DOM creation until section scrolls into view
+ */
+interface LazyCollateralSectionProps {
+  images: CaseStudyImage[];
+}
+
+function LazyCollateralSection({ images }: LazyCollateralSectionProps) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "100px" });
+
+  return (
+    <div ref={ref}>
+      {isInView && (
+        <CollateralMediaWrap>
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45 }}
+          >
+            <ImageCarousel images={images} autoPlay intervalMs={2800} />
+          </motion.div>
+        </CollateralMediaWrap>
+      )}
+    </div>
+  );
+}
+
 const IMAGE_HEAVY_LAYOUTS = new Set<CaseStudySection["layout"]>([
   "full-width-image",
   "parallax-reveal",
@@ -888,12 +1023,15 @@ const SELF_MANAGED_SECTION_LAYOUTS = new Set<CaseStudySection["layout"]>([
  *   onNextProject={(slug) => navigate(`/case-study/${slug}`)}
  * />
  */
-export default function CaseStudyPage({
+export default memo(function CaseStudyPage({
   caseStudy,
   nextProject,
   onNextProject,
   topAction,
 }: CaseStudyPageProps) {
+  const [heroImageLoaded, setHeroImageLoaded] = useState(false);
+  const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "error">("idle");
+
   // Split multi-paragraph text by \n\n
   const parseBody = (text?: string): string[] => {
     if (!text) return [];
@@ -1441,46 +1579,17 @@ export default function CaseStudyPage({
                   alt={stickyImage.alt}
                   avif={stickyImage.avif}
                   webp={stickyImage.webp}
+                  aspectRatio={stickyImage.aspectRatio || "16/9"}
                   borderRadius="12px"
                   objectFit="cover"
                 />
               </StickyHeroFrame>
             )}
 
-            {tags.length > 0 && (
-              <TagsRow>
-                {tags.map((tag, idx) => (
-                  <motion.div
-                    key={`${tag}-${idx}`}
-                    initial={{ opacity: 0, y: 8 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{ duration: 0.35, delay: idx * 0.04 }}
-                  >
-                    <Tag>
-                      {tag}
-                      {idx < tags.length - 1 && <TagDivider>•</TagDivider>}
-                    </Tag>
-                  </motion.div>
-                ))}
-              </TagsRow>
-            )}
+            {tags.length > 0 && <LazyTagsSection tags={tags} />}
 
             {collateralImages.length > 0 && (
-              <CollateralMediaWrap>
-                <motion.div
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.45 }}
-                >
-                  <ImageCarousel
-                    images={collateralImages}
-                    autoPlay
-                    intervalMs={2800}
-                  />
-                </motion.div>
-              </CollateralMediaWrap>
+              <LazyCollateralSection images={collateralImages} />
             )}
           </StickyMediaPin>
         </StickyColumn>
@@ -1610,6 +1719,48 @@ export default function CaseStudyPage({
     }
   };
 
+  const getShareUrl = (): string => {
+    if (typeof window === "undefined") return "";
+    return window.location.href;
+  };
+
+  const handleShareLinkedIn = () => {
+    const shareUrl = encodeURIComponent(getShareUrl());
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`, "_blank", "noopener,noreferrer");
+  };
+
+  const handleShareX = () => {
+    const text = encodeURIComponent(`Check out this case study: ${caseStudy.title}`);
+    const shareUrl = encodeURIComponent(getShareUrl());
+    window.open(`https://twitter.com/intent/tweet?text=${text}&url=${shareUrl}`, "_blank", "noopener,noreferrer");
+  };
+
+  const handleCopyLink = async () => {
+    const shareUrl = getShareUrl();
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(shareUrl);
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = shareUrl;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "absolute";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
+
+      setCopyStatus("copied");
+      window.setTimeout(() => setCopyStatus("idle"), 1600);
+    } catch {
+      setCopyStatus("error");
+      window.setTimeout(() => setCopyStatus("idle"), 1600);
+    }
+  };
+
   return (
     <Page>
       {/* Hero Section */}
@@ -1631,16 +1782,27 @@ export default function CaseStudyPage({
         </HeroContent>
 
         <HeroPeekImageWrap>
-          <HeroPeekImage
-            src={caseStudy.coverImage.src}
-            alt={caseStudy.coverImage.alt}
-            avif={caseStudy.coverImage.avif}
-            webp={caseStudy.coverImage.webp}
-            aspectRatio={caseStudy.coverImage.aspectRatio || "16/9"}
-            borderRadius="0"
-            objectFit="cover"
-            imageScale={1.08}
-          />
+          <HeroPeekImageContainer>
+            <HeroPeekImage
+              src={caseStudy.coverImage.src}
+              alt={caseStudy.coverImage.alt}
+              avif={caseStudy.coverImage.avif}
+              webp={caseStudy.coverImage.webp}
+              aspectRatio={caseStudy.coverImage.aspectRatio || "16/9"}
+              borderRadius="8px"
+              objectFit="cover"
+              imageScale={1}
+              onLoad={() => setHeroImageLoaded(true)}
+            />
+            {!heroImageLoaded && (
+              <SkeletonLoader
+                initial={{ opacity: 1 }}
+                animate={{ opacity: 0 }}
+                transition={{ duration: 0.4, delay: 0.3 }}
+                aria-hidden="true"
+              />
+            )}
+          </HeroPeekImageContainer>
         </HeroPeekImageWrap>
       </HeroSection>
 
@@ -1660,35 +1822,25 @@ export default function CaseStudyPage({
           }
 
           return (
-            <Section
+            <motion.div
               key={section.id}
-              $background={getSectionBackground(section, idx % 2 === 0)}
-              $compact={isCompact}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: "200px" }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              <SectionContent>{renderSection(section)}</SectionContent>
-            </Section>
+              <Section
+                $background={getSectionBackground(section, idx % 2 === 0)}
+                $compact={isCompact}
+              >
+                <SectionContent>{renderSection(section)}</SectionContent>
+              </Section>
+            </motion.div>
           );
         })}
       </SectionsContainer>
 
-      {/* Next Project Footer */}
-      {nextProject && (
-        <NextProjectSection>
-          <NextProjectContent>
-            <NextProjectButton
-              onClick={() => onNextProject?.(nextProject.slug)}
-              whileHover={{ x: 8 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div>
-                <NextProjectLabel>Next Project</NextProjectLabel>
-                <NextProjectTitle>{nextProject.title}</NextProjectTitle>
-              </div>
-              <NextProjectArrow>→</NextProjectArrow>
-            </NextProjectButton>
-          </NextProjectContent>
-        </NextProjectSection>
-      )}
+      {/* See My Other Work Section: Social tray only (removed, now only on BusinessConnectors page) */}
     </Page>
   );
-}
+});

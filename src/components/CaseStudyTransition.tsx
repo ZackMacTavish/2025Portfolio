@@ -29,6 +29,50 @@ interface CaseStudyTransitionProps {
 
 const decodedImageCache = new Set<string>();
 
+/**
+ * Non-blocking warm preload: start loading images but don't await them.
+ * Returns immediately so animation can start while images load in background.
+ */
+export function warmPreloadTransitionImages(images: TransitionImage[]): Promise<void> {
+  const imagePromises = images.map(
+    (image) =>
+      new Promise<void>((resolve) => {
+        if (decodedImageCache.has(image.src)) {
+          resolve();
+          return;
+        }
+
+        const img = new Image();
+        img.onload = async () => {
+          if (typeof img.decode === "function") {
+            try {
+              await img.decode();
+            } catch {
+              // Ignore decode errors
+            }
+          }
+          decodedImageCache.add(image.src);
+          resolve();
+        };
+        img.onerror = () => {
+          // Mark as cached even on error so we don't retry
+          decodedImageCache.add(image.src);
+          resolve();
+        };
+        img.src = image.src;
+      })
+  );
+
+  // Fire off preloads but DON'T await them before returning.
+  // This lets the transition animate while images load in the background.
+  Promise.all(imagePromises).catch(() => {});
+  return Promise.resolve();
+}
+
+/**
+ * Blocking preload: wait for all images to be ready.
+ * Only used when you need guaranteed ready state (rare).
+ */
 export async function preloadTransitionImages(images: TransitionImage[]) {
   const imagePromises = images.map(
     (image) =>
@@ -44,13 +88,14 @@ export async function preloadTransitionImages(images: TransitionImage[]) {
             try {
               await img.decode();
             } catch {
-              // Decode may reject in some cached or unsupported cases.
+              // Ignore decode errors
             }
           }
           decodedImageCache.add(image.src);
           resolve();
         };
         img.onerror = () => {
+          decodedImageCache.add(image.src);
           resolve();
         };
         img.src = image.src;
@@ -184,15 +229,14 @@ export default function CaseStudyTransition({
   const cardWidth = isMobile ? "85vw" : "55vw";
   const cardMaxWidth = isMobile ? "400px" : "700px";
 
-  // Preload images
+  // Warm-preload images in background (non-blocking)
+  // Mark as loaded immediately so animation can start
   useEffect(() => {
     if (!isActive) return;
 
-    setImagesLoaded(false);
-
-    preloadTransitionImages(images).then(() => {
-      setImagesLoaded(true);
-    });
+    setImagesLoaded(true);
+    // Start background warm-preload for smoother rendering
+    warmPreloadTransitionImages(images);
   }, [isActive, images]);
 
   // Scroll lock — compensate for scrollbar width to prevent layout shift
@@ -237,7 +281,7 @@ export default function CaseStudyTransition({
           >
             {images.map((image, index) => (
               <StyledCard
-                key={index}
+                key={image.src}
                 src={image.src}
                 alt={image.alt}
                 style={{
@@ -391,7 +435,7 @@ export default function CaseStudyTransition({
 
             return (
               <StyledCard
-                key={index}
+                key={image.src}
                 src={image.src}
                 alt={image.alt}
                 style={{

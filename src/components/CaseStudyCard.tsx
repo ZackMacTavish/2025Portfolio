@@ -102,12 +102,10 @@ export default function CaseStudyCard({
 }: CaseStudyCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
-  // Preload transition images on hover for instant animation on click
+  // Warm-preload transition images on hover (non-blocking)
   const preloadImages = () => {
-    transitionImages.forEach((image) => {
-      const img = new Image();
-      img.src = image.src;
-    });
+    const { warmPreloadTransitionImages } = require("./CaseStudyTransition");
+    warmPreloadTransitionImages(transitionImages);
   };
 
   const handleMouseEnter = () => {

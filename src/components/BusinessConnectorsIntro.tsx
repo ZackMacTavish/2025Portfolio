@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CaseStudyTransition, { preloadTransitionImages } from "./CaseStudyTransition";
+import CaseStudyTransition, { warmPreloadTransitionImages } from "./CaseStudyTransition";
 import { caseStudies } from "../data/caseStudies";
 
 const IntroSection = styled.section`
@@ -220,7 +220,7 @@ export function BusinessConnectorsModule() {
   const caseStudy = caseStudies[0];
 
   useEffect(() => {
-    preloadTransitionImages(caseStudy.transitionImages);
+    warmPreloadTransitionImages(caseStudy.transitionImages);
   }, [caseStudy.transitionImages]);
 
   return (

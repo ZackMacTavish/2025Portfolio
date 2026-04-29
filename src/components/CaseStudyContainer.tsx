@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 import { CaseStudy } from "../../types/caseStudy";
 import CaseStudyCard from "./CaseStudyCard";
-import CaseStudyTransition, { preloadTransitionImages } from "./CaseStudyTransition";
+import CaseStudyTransition, { warmPreloadTransitionImages } from "./CaseStudyTransition";
 import CaseStudyPage from "./CaseStudyPage";
 
 interface CaseStudyContainerProps {
@@ -104,11 +104,25 @@ export default function CaseStudyContainer({
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [phase, setPhase] = useState<Phase>("browsing");
 
+  // Store/restore scroll position for back navigation
+  const saveScrollPosition = () => {
+    sessionStorage.setItem("caseStudyGridScrollY", String(window.scrollY));
+  };
+
+  const restoreScrollPosition = () => {
+    const saved = sessionStorage.getItem("caseStudyGridScrollY");
+    if (saved) {
+      const y = parseInt(saved, 10);
+      window.scrollTo(0, y);
+      sessionStorage.removeItem("caseStudyGridScrollY");
+    }
+  };
+
   useEffect(() => {
     const allTransitionImages = caseStudies.flatMap(
       (caseStudy) => caseStudy.transitionImages
     );
-    preloadTransitionImages(allTransitionImages);
+    warmPreloadTransitionImages(allTransitionImages);
   }, [caseStudies]);
 
   // Get current active case study
@@ -123,6 +137,7 @@ export default function CaseStudyContainer({
 
   // Handle card click: transition to TRANSITIONING phase
   const handleCardSelect = (slug: string) => {
+    saveScrollPosition();
     setActiveSlug(slug);
     setPhase("transitioning");
   };
@@ -141,6 +156,8 @@ export default function CaseStudyContainer({
   const handleReverseTransitionComplete = () => {
     setPhase("browsing");
     setActiveSlug(null);
+    // Restore scroll position after phase change (next render)
+    setTimeout(() => restoreScrollPosition(), 0);
   };
 
   // Handle next project navigation

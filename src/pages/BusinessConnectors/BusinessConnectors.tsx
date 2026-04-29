@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import CaseStudyPage from "../../components/CaseStudyPage";
 import PortfolioCardsSection from "../../components/PortfolioCardsSection";
+import Socials from "../../components/Social Bar/Socials";
+import Grid60 from "../../components/Layout/Grid60";
 import { caseStudies } from "../../data/caseStudies";
 
 const ViewingContainer = styled(motion.div)`
@@ -23,7 +25,39 @@ export default function BusinessConnectors() {
       transition={{ duration: 0.5 }}
     >
       <CaseStudyPage caseStudy={caseStudy} />
+      {/* Divider stroke flush on white page above portfolio cards */}
+      <div
+        style={{
+          borderTop: "1px solid #e5e7eb",
+          width: "100vw",
+          position: "relative",
+          left: 0,
+          right: 0
+        }}
+      />
       <PortfolioCardsSection />
+      {/* Social tray below portfolio cards, with tight spacing */}
+      <Grid60 style={{ margin: "1.5rem auto 4rem", display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+        <Socials />
+        <a
+          href="https://zackmactavish.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontFamily: 'Space Grotesk, sans-serif',
+            fontWeight: 600,
+            fontSize: '1.1rem',
+            color: '#fff',
+            textDecoration: 'none',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.4em',
+            transition: 'color 0.18s',
+          }}
+        >
+          Art Portfolio <span style={{fontSize: '1.3em', lineHeight: 1, display: 'inline-block', transform: 'translateY(1px)'}}>&rarr;</span>
+        </a>
+      </Grid60>
     </ViewingContainer>
   );
 }

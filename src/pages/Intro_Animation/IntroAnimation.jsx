@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { gsap } from 'gsap';
+import { useReducedMotion } from 'framer-motion';
 import LandingPage from '../Landing_Page/LandingPage';
 import CaseStudyTransition from '../../components/CaseStudyTransition';
 
@@ -110,9 +111,17 @@ export default function IntroAnimation() {
   );
   const introRef = useRef(null);
   const letterRefs = useRef([]);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     if (!showIntro) return;
+
+    // Skip animation if user prefers reduced motion
+    if (prefersReducedMotion) {
+      setCounter('100%');
+      setShowIntro(false);
+      return;
+    }
 
     const letters = letterRefs.current.filter(Boolean);
     const progress = { value: 0 };
@@ -156,7 +165,7 @@ export default function IntroAnimation() {
     return () => {
       tl.kill();
     };
-  }, [showIntro]);
+  }, [showIntro, prefersReducedMotion]);
 
   const handleTransitionComplete = () => {};
 

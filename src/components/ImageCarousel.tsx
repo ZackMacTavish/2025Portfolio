@@ -1,5 +1,5 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { CaseStudyImage } from "../../types/caseStudy";
 import ResponsiveImage from "./ResponsiveImage";
@@ -25,14 +25,25 @@ const CarouselRoot = styled.div`
   width: 100%;
 `;
 
-const Frame = styled(motion.div)`
-  position: relative;
-  width: 100%;
-  border-radius: 12px;
-  overflow: hidden;
-  aspect-ratio: 3 / 2;
-  background: #f0efeb;
-`;
+
+import React from "react";
+
+const Frame = React.forwardRef<HTMLDivElement, React.ComponentProps<typeof motion.div>>((props, ref) => (
+  <motion.div
+    ref={ref}
+    style={{
+      position: "relative",
+      width: "100%",
+      borderRadius: "12px",
+      overflow: "hidden",
+      aspectRatio: "3 / 2",
+      background: "#f0efeb",
+      ...(props.style || {})
+    }}
+    {...props}
+  />
+));
+Frame.displayName = "Frame";
 
 const ControlsOverlay = styled.div<{ $visible: boolean }>`
   position: absolute;
@@ -88,7 +99,7 @@ const PauseButton = styled.button`
   }
 `;
 
-const Slide = styled(motion.div)`
+const Slide = styled.div`
   position: absolute;
   inset: 0;
   width: 100%;
@@ -120,11 +131,6 @@ const Dot = styled.button<{ $active: boolean }>`
   transition: all 0.3s;
 `;
 
-const slideTransition = {
-  duration: 0,
-  ease: [0.25, 0.1, 0.25, 1],
-};
-
 export default function ImageCarousel({
   images,
   autoPlay = false,
@@ -132,15 +138,36 @@ export default function ImageCarousel({
   showControls = true,
   showDots = true,
 }: ImageCarouselProps) {
+
+  // Auto-focus the carousel frame on mount only if preventScroll is supported
+  useEffect(() => {
+    if (!frameRef.current) return;
+    let supportsPreventScroll = false;
+    try {
+      frameRef.current.focus({ preventScroll: true });
+      supportsPreventScroll = true;
+    } catch {
+      // If error, preventScroll is not supported
+    }
+    // If not supported, do not focus at all (prevents scroll jumps in Safari)
+    if (!supportsPreventScroll) {
+      // Do nothing
+    }
+  }, []);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [prevIndex, setPrevIndex] = useState(0);
+  const [isImageLoaded, setIsImageLoaded] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const [isManuallyPaused, setIsManuallyPaused] = useState(false);
+  const frameRef = useRef<HTMLDivElement | null>(null);
 
   const total = images.length;
 
   const goTo = (nextIndex: number) => {
     if (!total) return;
     const wrapped = (nextIndex + total) % total;
+    setPrevIndex(activeIndex);
+    setIsImageLoaded(false);
     setActiveIndex(wrapped);
   };
 
@@ -188,20 +215,25 @@ export default function ImageCarousel({
 
   if (!total) return null;
   const activeImage = images[activeIndex];
+  const prevImage = images[prevIndex];
 
   return (
     <CarouselRoot>
       <Frame
+        ref={frameRef}
         tabIndex={0}
+        data-carousel-frame="true"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onKeyDown={(e) => {
           if (e.key === "ArrowRight") {
             e.preventDefault();
+            setIsManuallyPaused(true);
             goNext();
           }
           if (e.key === "ArrowLeft") {
             e.preventDefault();
+            setIsManuallyPaused(true);
             goPrev();
           }
         }}
@@ -215,19 +247,16 @@ export default function ImageCarousel({
           }
         }}
       >
-        <AnimatePresence initial={false} mode="sync">
-          <Slide
-            key={`${activeImage.src}-${activeIndex}`}
-            initial={{ opacity: 1, x: 0 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 1, x: 0 }}
-            transition={slideTransition}
-          >
+        {/* Previous image, visible while new image loads */}
+        {!isImageLoaded && (
+          <Slide style={{ zIndex: 1 }}>
             <SlideImage
-              src={activeImage.src}
-              alt={activeImage.alt}
-              avif={activeImage.avif}
-              webp={activeImage.webp}
+              key={`prev-${prevImage.src}-${prevIndex}`}
+              src={prevImage.src}
+              alt={prevImage.alt}
+              avif={prevImage.avif}
+              webp={prevImage.webp}
+              aspectRatio={prevImage.aspectRatio || "3/2"}
               borderRadius="0"
               objectFit="cover"
               disableRevealAnimation
@@ -235,7 +264,25 @@ export default function ImageCarousel({
               decoding="auto"
             />
           </Slide>
-        </AnimatePresence>
+        )}
+        {/* Active image */}
+        <Slide style={{ zIndex: 2 }}>
+          <SlideImage
+            key={`active-${activeImage.src}-${activeIndex}`}
+            src={activeImage.src}
+            alt={activeImage.alt}
+            avif={activeImage.avif}
+            webp={activeImage.webp}
+            aspectRatio={activeImage.aspectRatio || "3/2"}
+            borderRadius="0"
+            objectFit="cover"
+            disableRevealAnimation
+            loading="eager"
+            decoding="auto"
+            onLoad={() => setIsImageLoaded(true)}
+            style={{ position: isImageLoaded ? "relative" : "absolute" }}
+          />
+        </Slide>
 
         {total > 1 && showControls && (
           <ControlsOverlay $visible={isHovered}>
