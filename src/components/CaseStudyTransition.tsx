@@ -34,6 +34,14 @@ const cardEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 let cardTransitionsLockedOffForSession = false;
 const MAX_TRANSITION_IMAGE_RETRIES = 1;
 
+function isLocalDevelopmentHost() {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  return ["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
+}
+
 function loadAndDecodeImage(src: string, attempt = 0): Promise<boolean> {
   if (decodedImageCache.has(src)) {
     return Promise.resolve(true);
@@ -150,6 +158,11 @@ export async function shouldRunCardTransition(
     return true;
   }
 
+  if (isLocalDevelopmentHost()) {
+    const { allDecoded } = await measureTransitionDecodeDuration(images);
+    return allDecoded;
+  }
+
   if (cardTransitionsLockedOffForSession) {
     return false;
   }
@@ -258,6 +271,7 @@ export default function CaseStudyTransition({
 }: CaseStudyTransitionProps) {
   const prefersReducedMotion = useReducedMotion();
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [transitionReady, setTransitionReady] = useState(false);
   const hasCalledComplete = useRef(false);
   const onCompleteRef = useRef(onComplete);
 
@@ -280,13 +294,13 @@ export default function CaseStudyTransition({
 
   // Fire onComplete after the full 3s animation finishes — never rely on individual card onAnimationComplete
   useEffect(() => {
-    if (!isActive || !imagesLoaded || isReverse) return;
+    if (!isActive || !imagesLoaded || !transitionReady || isReverse) return;
     const ANIMATION_DURATION = prefersReducedMotion ? 400 : 2450;
     const timer = setTimeout(() => {
       completeTransition();
     }, ANIMATION_DURATION);
     return () => clearTimeout(timer);
-  }, [isActive, imagesLoaded, isReverse, prefersReducedMotion]);
+  }, [isActive, imagesLoaded, transitionReady, isReverse, prefersReducedMotion]);
 
   // Validate exactly 5 images
   if (images.length !== 5) {
@@ -320,6 +334,7 @@ export default function CaseStudyTransition({
   useEffect(() => {
     if (!isActive) {
       setImagesLoaded(false);
+      setTransitionReady(false);
       return;
     }
 
@@ -354,6 +369,27 @@ export default function CaseStudyTransition({
     };
   }, [isActive, images]);
 
+  useEffect(() => {
+    if (!isActive || !imagesLoaded) {
+      setTransitionReady(false);
+      return;
+    }
+
+    let frameOne = 0;
+    let frameTwo = 0;
+
+    frameOne = window.requestAnimationFrame(() => {
+      frameTwo = window.requestAnimationFrame(() => {
+        setTransitionReady(true);
+      });
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frameOne);
+      window.cancelAnimationFrame(frameTwo);
+    };
+  }, [isActive, imagesLoaded]);
+
   // Scroll lock — compensate for scrollbar width to prevent layout shift
   useEffect(() => {
     if (isActive) {
@@ -386,7 +422,7 @@ export default function CaseStudyTransition({
   if (prefersReducedMotion) {
     return (
       <AnimatePresence>
-        {isActive && imagesLoaded && (
+        {isActive && imagesLoaded && transitionReady && (
           <StyledContainer
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -421,7 +457,7 @@ export default function CaseStudyTransition({
   }
 
   // Loading state indicator
-  if (isActive && !imagesLoaded) {
+  if (isActive && (!imagesLoaded || !transitionReady)) {
     return (
       <motion.div
         style={{
@@ -450,7 +486,7 @@ export default function CaseStudyTransition({
   // Full motion variant with 3-phase animation or reverse animation
   return (
     <AnimatePresence>
-      {isActive && imagesLoaded && (
+      {isActive && imagesLoaded && transitionReady && (
         <StyledContainer
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
