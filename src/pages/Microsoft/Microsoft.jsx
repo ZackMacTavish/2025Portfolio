@@ -420,7 +420,7 @@ const VideoWithOverlay = React.forwardRef(({ src, poster }, ref) => {
         src={src}
         controls
         playsInline
-        preload="auto"
+        preload="none"
         poster={poster}
         style={{ width: '100%', height: '100%', borderRadius: 'inherit', background: '#000', display: 'block', objectFit: 'cover' }}
       />

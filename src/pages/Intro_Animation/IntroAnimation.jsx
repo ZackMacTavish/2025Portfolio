@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { gsap } from 'gsap';
 import { useReducedMotion } from 'framer-motion';
 import LandingPage from '../Landing_Page/LandingPage';
-import CaseStudyTransition from '../../components/CaseStudyTransition';
+import CaseStudyTransition, { preloadTransitionImages } from '../../components/CaseStudyTransition';
 
 import leysiTile from '../../assets/LeysiApp—Screens copy.jpg';
 import threePillarsTile from '../../assets/ThreePillars—pages.jpg';
@@ -108,25 +108,32 @@ export default function IntroAnimation() {
   const [counter, setCounter] = useState('000%');
   const [showIntro, setShowIntro] = useState(true);
   const [introTransitionImages] = useState(() => shuffleImages(baseIntroTransitionImages));
-  const [firstImageLoaded, setFirstImageLoaded] = useState(false);
+  const [transitionImagesReady, setTransitionImagesReady] = useState(false);
   const introRef = useRef(null);
   const letterRefs = useRef([]);
   const prefersReducedMotion = useReducedMotion();
 
-  // Preload the first image in the shuffled array
+  // Decode the full intro card stack before letting the transition start.
   useEffect(() => {
-    const img = new window.Image();
-    img.src = introTransitionImages[0]?.src;
-    if (img.complete) {
-      setFirstImageLoaded(true);
-    } else {
-      img.onload = () => setFirstImageLoaded(true);
-      img.onerror = () => setFirstImageLoaded(true); // fail gracefully
-    }
+    let isCancelled = false;
+
+    preloadTransitionImages(introTransitionImages)
+      .catch(() => {
+        // Fail gracefully and continue to the intro even if one image fails.
+      })
+      .finally(() => {
+        if (!isCancelled) {
+          setTransitionImagesReady(true);
+        }
+      });
+
+    return () => {
+      isCancelled = true;
+    };
   }, [introTransitionImages]);
 
   useEffect(() => {
-    if (!showIntro || !firstImageLoaded) return;
+    if (!showIntro || !transitionImagesReady) return;
 
     // Skip animation if user prefers reduced motion
     if (prefersReducedMotion) {
@@ -178,7 +185,7 @@ export default function IntroAnimation() {
     return () => {
       tl.kill();
     };
-  }, [showIntro, prefersReducedMotion, firstImageLoaded]);
+  }, [showIntro, prefersReducedMotion, transitionImagesReady]);
 
   const handleTransitionComplete = () => {};
 
@@ -189,10 +196,10 @@ export default function IntroAnimation() {
       {showIntro && (
         <IntroDiv ref={introRef}>
           {/* Optionally, show a solid background or spinner until the first image is loaded */}
-          {!firstImageLoaded && (
+          {!transitionImagesReady && (
             <div style={{position: 'absolute', inset: 0, background: introGreen, zIndex: 1}} />
           )}
-          {firstImageLoaded && (
+          {transitionImagesReady && (
             <CaseStudyTransition
               images={introTransitionImages}
               isActive={showIntro}
@@ -201,8 +208,8 @@ export default function IntroAnimation() {
               loadingBackgroundColor={introGreen}
             />
           )}
-          {/* Only show the intro text when the first image is loaded (so it doesn't flash early) */}
-          {firstImageLoaded && (
+          {/* Only show the intro text once the card stack is ready to animate. */}
+          {transitionImagesReady && (
             <IntroNameWrap>
               <IntroText aria-label={text}>
                 {Array.from(text).map((char, index) => (

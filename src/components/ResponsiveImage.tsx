@@ -1,4 +1,4 @@
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useMotionValue, useReducedMotion } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 
@@ -18,6 +18,18 @@ interface ResponsiveImageProps {
   loading?: "lazy" | "eager";
   decoding?: "sync" | "async" | "auto";
   onLoad?: () => void;
+}
+
+function normalizeAssetUrl(url?: string) {
+  if (!url) {
+    return url;
+  }
+
+  try {
+    return encodeURI(decodeURI(url));
+  } catch {
+    return encodeURI(url);
+  }
 }
 
 const Container = styled(motion.div)<{ $aspectRatio?: string; $borderRadius: string }>`
@@ -72,6 +84,7 @@ export default function ResponsiveImage({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const parallaxY = useMotionValue(0);
 
   // Detect mobile breakpoint on mount and resize
   useEffect(() => {
@@ -82,14 +95,42 @@ export default function ResponsiveImage({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
   const parallaxAmount = Math.max(0, parallaxSpeed) * 60;
-  const parallaxY = useTransform(scrollYProgress, [0, 1], [-parallaxAmount, parallaxAmount]);
   const shouldParallax = parallaxSpeed > 0 && !prefersReducedMotion && !isMobile;
+  const normalizedSrc = normalizeAssetUrl(src);
+  const normalizedAvif = normalizeAssetUrl(avif);
+  const normalizedWebp = normalizeAssetUrl(webp);
+
+  useEffect(() => {
+    if (!shouldParallax) {
+      parallaxY.set(0);
+      return;
+    }
+
+    const updateParallax = () => {
+      const element = containerRef.current;
+      if (!element) {
+        return;
+      }
+
+      const rect = element.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const totalTravel = viewportHeight + rect.height;
+      const progress = totalTravel > 0 ? (viewportHeight - rect.top) / totalTravel : 0.5;
+      const clampedProgress = Math.min(1, Math.max(0, progress));
+      const nextY = -parallaxAmount + clampedProgress * parallaxAmount * 2;
+      parallaxY.set(nextY);
+    };
+
+    updateParallax();
+    window.addEventListener("scroll", updateParallax, { passive: true });
+    window.addEventListener("resize", updateParallax);
+
+    return () => {
+      window.removeEventListener("scroll", updateParallax);
+      window.removeEventListener("resize", updateParallax);
+    };
+  }, [parallaxAmount, parallaxY, shouldParallax]);
 
   return (
     <Container
@@ -107,10 +148,10 @@ export default function ResponsiveImage({
           })}
     >
       <Picture>
-        {avif && <source srcSet={avif} type="image/avif" />}
-        {webp && <source srcSet={webp} type="image/webp" />}
+        {normalizedAvif && <source srcSet={normalizedAvif} type="image/avif" />}
+        {normalizedWebp && <source srcSet={normalizedWebp} type="image/webp" />}
         <StyledImg
-          src={src}
+          src={normalizedSrc}
           alt={alt}
           loading={loading}
           decoding={decoding}

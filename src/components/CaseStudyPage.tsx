@@ -38,7 +38,18 @@ const HeroSection = styled.section`
     padding: 7rem 1.5rem 14rem;
   }
 
+  @media (max-height: 980px) and (min-width: 901px) {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1rem, 2vh, 1.5rem);
+    min-height: auto;
+    padding: 6rem 1.5rem 3rem;
+  }
+
   @media (max-width: 900px) {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1rem, 3vw, 1.75rem);
     min-height: auto;
     padding: 4.5rem 1.25rem 2rem;
   }
@@ -82,6 +93,16 @@ const HeroPeekImageWrap = styled.div`
   @media (max-width: 768px) {
     width: 100%;
     margin-top: 0.75rem;
+  }
+
+  @media (max-height: 980px) and (min-width: 901px) {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    transform: none;
+    width: min(64rem, 88vw);
+    max-width: 100%;
+    margin: 0 auto;
   }
 `;
 
@@ -603,7 +624,7 @@ const StickyColumn = styled.div`
 `;
 
 const StickyMediaPin = styled.div`
-  position: static;
+  position: relative;
   width: min(65vw, 1080px);
   margin: 0 auto;
   padding-top: 1.5rem;
@@ -619,6 +640,7 @@ const StickyMediaPin = styled.div`
 `;
 
 const StickyHeroFrame = styled.div`
+  position: relative;
   min-height: 0;
   height: clamp(340px, 46vw, 680px);
 

@@ -102,6 +102,16 @@ const TextBlock = styled.div`
   }
 `;
 
+function normalizeAssetUrl(url) {
+  if (!url) return url;
+
+  try {
+    return encodeURI(decodeURI(url));
+  } catch {
+    return encodeURI(url);
+  }
+}
+
 export default function ImageTextSection({
   imageSrc,
   imageAvif,
@@ -116,14 +126,18 @@ export default function ImageTextSection({
   className,
   ...rest
 }) {
+  const normalizedImageSrc = normalizeAssetUrl(imageSrc);
+  const normalizedImageAvif = normalizeAssetUrl(imageAvif);
+  const normalizedImageWebp = normalizeAssetUrl(imageWebp);
+
   // Flexbox: image and text both flex to fill container
   return (
     <Section $width={width} className={className} {...rest}>
       <ImgWrapper>
         <picture>
-          {imageAvif && <source srcSet={imageAvif} type="image/avif" />}
-          {imageWebp && <source srcSet={imageWebp} type="image/webp" />}
-          <Img src={imageSrc} alt={imageAlt} />
+          {normalizedImageAvif && <source srcSet={normalizedImageAvif} type="image/avif" />}
+          {normalizedImageWebp && <source srcSet={normalizedImageWebp} type="image/webp" />}
+          <Img src={normalizedImageSrc} alt={imageAlt} />
         </picture>
       </ImgWrapper>
       <TextBlock $textSize={textSize} $textColor={textColor}>{children}</TextBlock>

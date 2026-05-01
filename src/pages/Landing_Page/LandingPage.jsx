@@ -130,15 +130,26 @@ const LandingDiv = styled.div`
 `;
 
 
+const normalizeAssetUrl = (url) => {
+  if (!url) return url;
+
+  try {
+    return encodeURI(decodeURI(url));
+  } catch {
+    return encodeURI(url);
+  }
+};
+
+
 
 
 // AboutPicture as <picture>
 const AboutPicture = (props) => (
   <picture>
-    <source srcSet={meAvif} type="image/avif" />
-    <source srcSet={meWebp} type="image/webp" />
+    <source srcSet={normalizeAssetUrl(meAvif)} type="image/avif" />
+    <source srcSet={normalizeAssetUrl(meWebp)} type="image/webp" />
     <img
-      src={me}
+      src={normalizeAssetUrl(me)}
       alt="Zack MacTavish portrait"
       loading="eager"
       decoding="async"
@@ -210,8 +221,9 @@ const ParagraphTwo = styled.div`
   position: relative;
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 500;
-  font-size: 1.7rem;
+  font-size: clamp(1.2rem, 1vw + 0.85rem, 1.7rem);
   width: 32vw;
+  max-width: 34rem;
   color: white;
   z-index: 1;
 
@@ -221,18 +233,20 @@ const ParagraphTwo = styled.div`
 
   @media (max-width: 1000px) {  
     width: 100%;
+    max-width: 36rem;
     margin-top: 1vh;
     padding-bottom: 3vh;
     text-align: center;
+    font-size: clamp(1.1rem, 2.8vw, 1.25rem);
   }
 
   @media (max-width: 850px) {
-    font-size: 1.4rem;
+    font-size: clamp(1.05rem, 4vw, 1.2rem);
     padding-top: 2vh;
   }
 
   @media (max-width: 450px) {
-    font-size: 1.4rem;
+    font-size: 1.05rem;
   }
 `;
 
@@ -500,10 +514,10 @@ export const QuiltText = styled(ParagraphTwo)`
   line-height: 1.6; /* improve readability */
   color: white;
 
-  /* On responsive (image stacks above text), increase text size for readability */
+  /* Keep stacked text readable without becoming visually oversized on smaller screens */
   @media (max-width: 1000px) {
-    font-size: 1.6rem;
-    line-height: 1.75;
+    font-size: clamp(1rem, 2.7vw, 1.2rem);
+    line-height: 1.65;
   }
 `;
 

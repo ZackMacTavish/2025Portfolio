@@ -1,4 +1,14 @@
 import lightWebp from '../../assets/ADLightPhone2.webp';
+const normalizeAssetUrl = (url) => {
+  if (!url) return url;
+
+  try {
+    return encodeURI(decodeURI(url));
+  } catch {
+    return encodeURI(url);
+  }
+};
+
 // Functional FullBg component for AVIF/WebP/PNG support (import-based)
 export const FullBg = ({ src, avif, webp, alt = '', style = {} }) => {
   // src: imported fallback (png/jpg), avif/webp: imported modern formats
@@ -7,14 +17,17 @@ export const FullBg = ({ src, avif, webp, alt = '', style = {} }) => {
   if (typeof src === 'string') {
     srcBase = src.split('/').pop().replace(/\.[^.]+$/, '');
   }
+  const normalizedSrc = normalizeAssetUrl(src);
+  const normalizedAvif = normalizeAssetUrl(avif);
+  const normalizedWebp = normalizeAssetUrl(webp);
   // If avif/webp not provided, try to require them based on srcBase
   // (User should import all formats for best reliability)
   return (
     <picture>
-      {avif && <source srcSet={avif} type="image/avif" />}
-      {webp && <source srcSet={webp} type="image/webp" />}
+      {normalizedAvif && <source srcSet={normalizedAvif} type="image/avif" />}
+      {normalizedWebp && <source srcSet={normalizedWebp} type="image/webp" />}
       <img
-        src={src}
+        src={normalizedSrc}
         alt={alt}
         style={{
           width: '100vw',
@@ -103,16 +116,16 @@ export const ParagraphFour = styled.div`
 export const TextContent = styled.p`
   font-family: 'Space Grotesk', sans-serif;
   color: #ffffff;
-  font-size: clamp(1.2rem, 2.2vw, 1.8rem); /* slightly smaller, scales with viewport */
+  font-size: clamp(1.05rem, 1.4vw + 0.75rem, 1.55rem);
   max-width: 60ch; /* comfortable measure inside 60vw container */
-  line-height: 1.55;
+  line-height: 1.6;
   margin: 0;
   text-align: left; /* always left-aligned */
 
   @media (max-width: 850px) {
-    font-size: 1.6rem; /* slightly bigger on responsive */
+    font-size: clamp(1rem, 3.8vw, 1.2rem);
     max-width: 90vw;
-    line-height: 1.75;
+    line-height: 1.65;
   }
 
   a.inline-link {
@@ -199,6 +212,9 @@ export const SingleImage = ({
   if (typeof src === 'string') {
     srcBase = src.split('/').pop().replace(/\.[^.]+$/, '');
   }
+  const normalizedSrc = normalizeAssetUrl(src);
+  const normalizedAvif = normalizeAssetUrl(avif);
+  const normalizedWebp = normalizeAssetUrl(webp);
   // If avif/webp not provided, try to require them based on srcBase
   // (User should import all formats for best reliability)
   // Responsive style: 95vw at <=1000px, else use width prop
@@ -217,11 +233,11 @@ export const SingleImage = ({
 
   return (
     <picture>
-      {avif && <source srcSet={avif} type="image/avif" />}
-      {webp && <source srcSet={webp} type="image/webp" />}
+      {normalizedAvif && <source srcSet={normalizedAvif} type="image/avif" />}
+      {normalizedWebp && <source srcSet={normalizedWebp} type="image/webp" />}
       {responsive && <style>{`.single-image-responsive { ${mediaQuery} }`}</style>}
       <img
-        src={src}
+        src={normalizedSrc}
         alt={alt}
         className={responsive ? 'single-image-responsive' : undefined}
         style={responsiveStyle}

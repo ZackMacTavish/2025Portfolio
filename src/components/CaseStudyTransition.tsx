@@ -28,40 +28,70 @@ interface CaseStudyTransitionProps {
 }
 
 const decodedImageCache = new Set<string>();
+const imagePreloadPromises = new Map<string, Promise<void>>();
+
+function loadAndDecodeImage(src: string): Promise<void> {
+  if (decodedImageCache.has(src)) {
+    return Promise.resolve();
+  }
+
+  const existingPromise = imagePreloadPromises.get(src);
+  if (existingPromise) {
+    return existingPromise;
+  }
+
+  const preloadPromise = new Promise<void>((resolve) => {
+    const img = new Image();
+    img.decoding = "async";
+
+    const finalize = () => {
+      decodedImageCache.add(src);
+      imagePreloadPromises.delete(src);
+      resolve();
+    };
+
+    img.onload = async () => {
+      if (typeof img.decode === "function") {
+        try {
+          await img.decode();
+        } catch {
+          // Ignore decode errors and continue with the loaded image.
+        }
+      }
+      finalize();
+    };
+
+    img.onerror = () => {
+      finalize();
+    };
+
+    img.src = src;
+
+    if (img.complete) {
+      void Promise.resolve().then(async () => {
+        if (typeof img.decode === "function") {
+          try {
+            await img.decode();
+          } catch {
+            // Ignore decode errors and continue with the loaded image.
+          }
+        }
+        finalize();
+      });
+    }
+  });
+
+  imagePreloadPromises.set(src, preloadPromise);
+  return preloadPromise;
+}
 
 /**
- * Non-blocking warm preload: start loading images but don't await them.
- * Returns immediately so animation can start while images load in background.
+ * Non-blocking warm preload: start loading images in the background.
+ * Used for hover/app-start warmup so the transition is already decoded by the
+ * time the user clicks, without blocking the current UI.
  */
 export function warmPreloadTransitionImages(images: TransitionImage[]): Promise<void> {
-  const imagePromises = images.map(
-    (image) =>
-      new Promise<void>((resolve) => {
-        if (decodedImageCache.has(image.src)) {
-          resolve();
-          return;
-        }
-
-        const img = new Image();
-        img.onload = async () => {
-          if (typeof img.decode === "function") {
-            try {
-              await img.decode();
-            } catch {
-              // Ignore decode errors
-            }
-          }
-          decodedImageCache.add(image.src);
-          resolve();
-        };
-        img.onerror = () => {
-          // Mark as cached even on error so we don't retry
-          decodedImageCache.add(image.src);
-          resolve();
-        };
-        img.src = image.src;
-      })
-  );
+  const imagePromises = images.map((image) => loadAndDecodeImage(image.src));
 
   // Fire off preloads but DON'T await them before returning.
   // This lets the transition animate while images load in the background.
@@ -74,33 +104,7 @@ export function warmPreloadTransitionImages(images: TransitionImage[]): Promise<
  * Only used when you need guaranteed ready state (rare).
  */
 export async function preloadTransitionImages(images: TransitionImage[]) {
-  const imagePromises = images.map(
-    (image) =>
-      new Promise<void>((resolve) => {
-        if (decodedImageCache.has(image.src)) {
-          resolve();
-          return;
-        }
-
-        const img = new Image();
-        img.onload = async () => {
-          if (typeof img.decode === "function") {
-            try {
-              await img.decode();
-            } catch {
-              // Ignore decode errors
-            }
-          }
-          decodedImageCache.add(image.src);
-          resolve();
-        };
-        img.onerror = () => {
-          decodedImageCache.add(image.src);
-          resolve();
-        };
-        img.src = image.src;
-      })
-  );
+  const imagePromises = images.map((image) => loadAndDecodeImage(image.src));
 
   await Promise.all(imagePromises);
 }
@@ -138,12 +142,15 @@ const StyledLoadingDot = styled(motion.div)`
 `;
 
 const StyledCard = styled(motion.img)`
+  display: block;
   position: absolute;
   overflow: hidden;
   border-radius: 0.75rem;
   object-fit: cover;
   object-position: var(--card-object-position, center center);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  backface-visibility: hidden;
+  contain: paint;
   will-change: transform, opacity;
   transform-origin: bottom center;
 `;
@@ -188,20 +195,34 @@ export default function CaseStudyTransition({
   const prefersReducedMotion = useReducedMotion();
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const hasCalledComplete = useRef(false);
+  const onCompleteRef = useRef(onComplete);
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
+
+  useEffect(() => {
+    hasCalledComplete.current = false;
+  }, [isActive, images, isReverse]);
+
+  const completeTransition = () => {
+    if (hasCalledComplete.current) {
+      return;
+    }
+
+    hasCalledComplete.current = true;
+    onCompleteRef.current();
+  };
 
   // Fire onComplete after the full 3s animation finishes — never rely on individual card onAnimationComplete
   useEffect(() => {
     if (!isActive || !imagesLoaded || isReverse) return;
-    hasCalledComplete.current = false;
     const ANIMATION_DURATION = prefersReducedMotion ? 400 : 2450;
     const timer = setTimeout(() => {
-      if (!hasCalledComplete.current) {
-        hasCalledComplete.current = true;
-        onComplete();
-      }
+      completeTransition();
     }, ANIMATION_DURATION);
     return () => clearTimeout(timer);
-  }, [isActive, imagesLoaded, isReverse, prefersReducedMotion, onComplete]);
+  }, [isActive, imagesLoaded, isReverse, prefersReducedMotion]);
 
   // Validate exactly 5 images
   if (images.length !== 5) {
@@ -229,14 +250,37 @@ export default function CaseStudyTransition({
   const cardWidth = isMobile ? "85vw" : "55vw";
   const cardMaxWidth = isMobile ? "400px" : "700px";
 
-  // Warm-preload images in background (non-blocking)
-  // Mark as loaded immediately so animation can start
+  // Block the transition until the active image set has been decoded.
+  // This avoids cards shifting on slower machines while the shared layout
+  // animation is already in flight.
   useEffect(() => {
-    if (!isActive) return;
+    if (!isActive) {
+      setImagesLoaded(false);
+      return;
+    }
 
-    setImagesLoaded(true);
-    // Start background warm-preload for smoother rendering
-    warmPreloadTransitionImages(images);
+    if (images.every((image) => decodedImageCache.has(image.src))) {
+      setImagesLoaded(true);
+      return;
+    }
+
+    let isCancelled = false;
+    setImagesLoaded(false);
+
+    preloadTransitionImages(images)
+      .catch(() => {
+        // Errors are handled inside preloadTransitionImages and still resolve,
+        // but keep a local catch so activation never rejects.
+      })
+      .finally(() => {
+        if (!isCancelled) {
+          setImagesLoaded(true);
+        }
+      });
+
+    return () => {
+      isCancelled = true;
+    };
   }, [isActive, images]);
 
   // Scroll lock — compensate for scrollbar width to prevent layout shift
@@ -257,15 +301,15 @@ export default function CaseStudyTransition({
     if (!isActive) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
+      if (e.key === "Escape" || e.key === "Esc") {
         e.preventDefault();
-        onComplete();
+        completeTransition();
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isActive, onComplete]);
+    window.addEventListener("keydown", handleKeyDown, true);
+    return () => window.removeEventListener("keydown", handleKeyDown, true);
+  }, [isActive]);
 
   // Reduced motion variant: simple crossfade
   if (prefersReducedMotion) {
@@ -277,13 +321,15 @@ export default function CaseStudyTransition({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            onAnimationComplete={onComplete}
+            onAnimationComplete={completeTransition}
           >
             {images.map((image, index) => (
               <StyledCard
                 key={image.src}
                 src={image.src}
                 alt={image.alt}
+                decoding="sync"
+                fetchPriority="high"
                 style={{
                   "--card-object-position": image.objectPosition || "center center",
                   width: cardWidth,
@@ -438,6 +484,8 @@ export default function CaseStudyTransition({
                 key={image.src}
                 src={image.src}
                 alt={image.alt}
+                decoding="sync"
+                fetchPriority="high"
                 style={{
                   "--card-object-position": image.objectPosition || "center center",
                   width: cardWidth,
@@ -459,7 +507,7 @@ export default function CaseStudyTransition({
                 onAnimationComplete={() => {
                   // Only used for reverse animation completion
                   if (isReverse && index === 4) {
-                    onComplete();
+                    completeTransition();
                   }
                 }}
               />

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import styled from "styled-components";
+import { warmPreloadTransitionImages } from "./CaseStudyTransition";
 
 interface CaseStudyCardProps {
   /** Main title displayed on the card */
@@ -104,7 +105,6 @@ export default function CaseStudyCard({
 
   // Warm-preload transition images on hover (non-blocking)
   const preloadImages = () => {
-    const { warmPreloadTransitionImages } = require("./CaseStudyTransition");
     warmPreloadTransitionImages(transitionImages);
   };
 
@@ -122,6 +122,8 @@ export default function CaseStudyCard({
       layoutId={slug}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
+      onFocus={preloadImages}
+      onPointerDown={preloadImages}
       onMouseLeave={() => setIsHovered(false)}
       aria-label={`View case study: ${title}`}
       type="button"

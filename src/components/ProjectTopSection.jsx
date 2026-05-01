@@ -4,6 +4,16 @@ import { ProjectGrid, ProjectContent, ProjectTitle, ProjectImage, ProjectButton 
 import { ButtonsGrid } from './ButtonsGrid';
 import { FiArrowUpRight } from 'react-icons/fi';
 
+function normalizeAssetUrl(url) {
+  if (!url) return url;
+
+  try {
+    return encodeURI(decodeURI(url));
+  } catch {
+    return encodeURI(url);
+  }
+}
+
 // 60vw-wide, left-aligned, responsive top section for project pages
 const TopSectionContainer = styled.div`
   width: 60vw;
@@ -38,6 +48,13 @@ const TopSectionText = styled.div`
   text-align: left;
   gap: 0.5em;
   height: 100%;
+
+  @media (max-width: 850px) {
+    width: min(40rem, 100%);
+    align-items: center;
+    text-align: center;
+    gap: 0.75rem;
+  }
 `;
 
 const TopSectionImage = styled.div`
@@ -74,6 +91,31 @@ const TopSectionImageStyled = styled.img`
   }
 `;
 
+const TopSectionTitle = styled.h1`
+  font-family: 'Space Grotesk', sans-serif;
+  color: ${(props) => props.theme.fontColor};
+  margin: 0;
+  font-size: clamp(2.2rem, 4vw + 0.6rem, 4.25rem);
+  line-height: 0.96;
+  text-wrap: balance;
+
+  @media (max-width: 850px) {
+    font-size: clamp(1.9rem, 8vw, 2.7rem);
+    line-height: 1.02;
+  }
+`;
+
+const Divider = styled.div`
+  height: 1px;
+  background: #e0e0e0;
+  width: 48px;
+  margin: 0.1em 0 0.3em 0;
+
+  @media (max-width: 850px) {
+    margin: 0 auto 0.2rem;
+  }
+`;
+
 export default function ProjectTopSection({
   title,
   imageBaseName, // e.g. 'ThreePillars—Macbook' (new API)
@@ -84,12 +126,19 @@ export default function ProjectTopSection({
   buttons = [],
   divider = true,
 }) {
+  const imageBasePath = imageBaseName
+    ? `${imageBaseName.startsWith('assets/') ? '/' : '/src/'}${imageBaseName}`
+    : null;
+  const normalizedImageAvif = imageBasePath ? normalizeAssetUrl(`${imageBasePath}.avif`) : null;
+  const normalizedImageWebp = imageBasePath ? normalizeAssetUrl(`${imageBasePath}.webp`) : null;
+  const normalizedImageSrc = imageBasePath ? normalizeAssetUrl(`${imageBasePath}.${imageExt}`) : null;
+
   return (
     <TopSectionContainer>
       <TopSectionText>
-        <ProjectTitle style={{ fontSize: '2.8rem', marginBottom: '0.1em' }}>{title}</ProjectTitle>
+        <TopSectionTitle>{title}</TopSectionTitle>
         {divider && (
-          <div style={{ height: '1px', background: '#e0e0e0', width: '48px', margin: '0.1em 0 0.3em 0' }} />
+          <Divider />
         )}
         <ButtonsGrid>
           {buttons.map(({ href, label }, i) => (
@@ -107,12 +156,12 @@ export default function ProjectTopSection({
       <TopSectionImage>
         {imageBaseName ? (
           <picture>
-            <source srcSet={`${imageBaseName.startsWith('assets/') ? '/' : '/src/'}${imageBaseName}.avif`} type="image/avif" />
-            <source srcSet={`${imageBaseName.startsWith('assets/') ? '/' : '/src/'}${imageBaseName}.webp`} type="image/webp" />
-              <TopSectionImageStyled src={`${imageBaseName.startsWith('assets/') ? '/' : '/src/'}${imageBaseName}.${imageExt}`} alt={imageAlt} $imageWidth={$imageWidth} />
+            <source srcSet={normalizedImageAvif} type="image/avif" />
+            <source srcSet={normalizedImageWebp} type="image/webp" />
+              <TopSectionImageStyled src={normalizedImageSrc} alt={imageAlt} $imageWidth={$imageWidth} />
           </picture>
         ) : (
-            <TopSectionImageStyled src={imageSrc} alt={imageAlt} $imageWidth={$imageWidth} />
+            <TopSectionImageStyled src={normalizeAssetUrl(imageSrc)} alt={imageAlt} $imageWidth={$imageWidth} />
         )}
       </TopSectionImage>
     </TopSectionContainer>

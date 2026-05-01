@@ -5,6 +5,14 @@ import { useNavigate } from "react-router-dom";
 import CaseStudyTransition, { warmPreloadTransitionImages } from "./CaseStudyTransition";
 import { caseStudies } from "../data/caseStudies";
 
+function normalizeAssetUrl(url: string) {
+  try {
+    return encodeURI(decodeURI(url));
+  } catch {
+    return encodeURI(url);
+  }
+}
+
 const IntroSection = styled.section`
   background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
   padding: 8rem 1.5rem;
@@ -112,7 +120,7 @@ const StyledImage = styled.picture`
   }
 `;
 
-const StyledCTA = styled(motion.a)`
+const StyledCTA = styled(motion.button)`
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -150,6 +158,10 @@ interface BusinessConnectorsIntroProps {
  * Two-column layout with title, subtitle, and project image.
  */
 export function BusinessConnectorsIntro({ onLaunch }: BusinessConnectorsIntroProps) {
+  const connectorPreviewAvif = normalizeAssetUrl("/assets/business-connectors/Connectors1.avif");
+  const connectorPreviewWebp = normalizeAssetUrl("/assets/business-connectors/Connectors1.webp");
+  const connectorPreviewJpg = normalizeAssetUrl("/assets/business-connectors/Connectors1.jpg");
+
   return (
     <IntroSection>
       <IntroContent>
@@ -179,7 +191,7 @@ export function BusinessConnectorsIntro({ onLaunch }: BusinessConnectorsIntroPro
             This work demonstrates how thoughtful interaction design and AI integration create genuine value for users by reducing friction and consolidating loyalty rewards into Copilot.
           </IntroSubtitle>
           <StyledCTA
-            as="button"
+            type="button"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
@@ -196,9 +208,9 @@ export function BusinessConnectorsIntro({ onLaunch }: BusinessConnectorsIntroPro
           transition={{ duration: 0.7, delay: 0.1 }}
         >
           <StyledImage>
-            <source srcSet="/assets/business-connectors/Connectors1.avif" type="image/avif" />
-            <source srcSet="/assets/business-connectors/Connectors1.webp" type="image/webp" />
-            <img src="/assets/business-connectors/Connectors1.jpg" alt="Business Connectors interface design" />
+            <source srcSet={connectorPreviewAvif} type="image/avif" />
+            <source srcSet={connectorPreviewWebp} type="image/webp" />
+            <img src={connectorPreviewJpg} alt="Business Connectors interface design" />
           </StyledImage>
         </ImageColumn>
       </IntroContent>
