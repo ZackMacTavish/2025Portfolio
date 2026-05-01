@@ -3,7 +3,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 import { CaseStudy } from "../../types/caseStudy";
 import CaseStudyCard from "./CaseStudyCard";
-import CaseStudyTransition, { warmPreloadTransitionImages } from "./CaseStudyTransition";
+import CaseStudyTransition, {
+  shouldSkipCardTransitionForPerformance,
+  warmPreloadTransitionImages,
+} from "./CaseStudyTransition";
 import CaseStudyPage from "./CaseStudyPage";
 
 interface CaseStudyContainerProps {
@@ -101,6 +104,9 @@ export default function CaseStudyContainer({
   caseStudies,
   onNavigateNext,
 }: CaseStudyContainerProps) {
+  const [skipHeavyTransitions] = useState(() =>
+    shouldSkipCardTransitionForPerformance()
+  );
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [phase, setPhase] = useState<Phase>("browsing");
 
@@ -139,6 +145,12 @@ export default function CaseStudyContainer({
   const handleCardSelect = (slug: string) => {
     saveScrollPosition();
     setActiveSlug(slug);
+
+    if (skipHeavyTransitions) {
+      setPhase("viewing");
+      return;
+    }
+
     setPhase("transitioning");
   };
 
@@ -149,6 +161,11 @@ export default function CaseStudyContainer({
 
   // Handle back button: trigger reverse transition then return to BROWSING
   const handleBack = () => {
+    if (skipHeavyTransitions) {
+      handleReverseTransitionComplete();
+      return;
+    }
+
     setPhase("reverse-transitioning");
   };
 
@@ -163,6 +180,13 @@ export default function CaseStudyContainer({
   // Handle next project navigation
   const handleNextProject = (slug: string) => {
     setActiveSlug(slug);
+
+    if (skipHeavyTransitions) {
+      setPhase("viewing");
+      onNavigateNext?.(slug);
+      return;
+    }
+
     setPhase("transitioning");
     onNavigateNext?.(slug);
   };

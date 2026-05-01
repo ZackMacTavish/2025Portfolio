@@ -2,7 +2,10 @@ import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CaseStudyTransition, { warmPreloadTransitionImages } from "./CaseStudyTransition";
+import CaseStudyTransition, {
+  shouldSkipCardTransitionForPerformance,
+  warmPreloadTransitionImages,
+} from "./CaseStudyTransition";
 import { caseStudies } from "../data/caseStudies";
 
 function normalizeAssetUrl(url: string) {
@@ -228,6 +231,9 @@ type Phase = "intro" | "transitioning";
  */
 export function BusinessConnectorsModule() {
   const navigate = useNavigate();
+  const [skipHeavyTransitions] = useState(() =>
+    shouldSkipCardTransitionForPerformance()
+  );
   const [transitioning, setTransitioning] = useState(false);
   const caseStudy = caseStudies[0];
 
@@ -238,7 +244,16 @@ export function BusinessConnectorsModule() {
   return (
     <>
       {/* Intro always stays mounted so it shows beneath the overlay */}
-      <BusinessConnectorsIntro onLaunch={() => setTransitioning(true)} />
+      <BusinessConnectorsIntro
+        onLaunch={() => {
+          if (skipHeavyTransitions) {
+            navigate("/BusinessConnectors");
+            return;
+          }
+
+          setTransitioning(true);
+        }}
+      />
 
       {/* Transition overlays on top (position: fixed) without unmounting the intro */}
       {transitioning && (

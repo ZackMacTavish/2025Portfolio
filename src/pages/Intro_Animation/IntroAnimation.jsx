@@ -1,9 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { gsap } from 'gsap';
 import { useReducedMotion } from 'framer-motion';
 import LandingPage from '../Landing_Page/LandingPage';
-import CaseStudyTransition, { preloadTransitionImages } from '../../components/CaseStudyTransition';
+import CaseStudyTransition, {
+  preloadTransitionImages,
+  shouldSkipCardTransitionForPerformance,
+} from '../../components/CaseStudyTransition';
 
 import leysiTile from '../../assets/LeysiApp—Screens copy.jpg';
 import threePillarsTile from '../../assets/ThreePillars—pages.jpg';
@@ -55,6 +58,7 @@ const LetterMask = styled.span`
 const LetterInner = styled.span`
   display: inline-block;
   will-change: transform, opacity;
+  opacity: 0;
 `;
 
 const IntroCounter = styled.div`
@@ -109,12 +113,22 @@ export default function IntroAnimation() {
   const [showIntro, setShowIntro] = useState(true);
   const [introTransitionImages] = useState(() => shuffleImages(baseIntroTransitionImages));
   const [transitionImagesReady, setTransitionImagesReady] = useState(false);
+  const [skipHeavyCardTransition] = useState(() =>
+    shouldSkipCardTransitionForPerformance()
+  );
   const introRef = useRef(null);
   const letterRefs = useRef([]);
   const prefersReducedMotion = useReducedMotion();
+  const introCardsEnabled = !skipHeavyCardTransition;
+  const introReady = introCardsEnabled ? transitionImagesReady : true;
 
   // Decode the full intro card stack before letting the transition start.
   useEffect(() => {
+    if (!introCardsEnabled) {
+      setTransitionImagesReady(true);
+      return;
+    }
+
     let isCancelled = false;
 
     preloadTransitionImages(introTransitionImages)
@@ -130,10 +144,10 @@ export default function IntroAnimation() {
     return () => {
       isCancelled = true;
     };
-  }, [introTransitionImages]);
+  }, [introCardsEnabled, introTransitionImages]);
 
-  useEffect(() => {
-    if (!showIntro || !transitionImagesReady) return;
+  useLayoutEffect(() => {
+    if (!showIntro || !introReady) return;
 
     // Skip animation if user prefers reduced motion
     if (prefersReducedMotion) {
@@ -185,7 +199,7 @@ export default function IntroAnimation() {
     return () => {
       tl.kill();
     };
-  }, [showIntro, prefersReducedMotion, transitionImagesReady]);
+  }, [showIntro, prefersReducedMotion, introReady]);
 
   const handleTransitionComplete = () => {};
 
@@ -196,10 +210,10 @@ export default function IntroAnimation() {
       {showIntro && (
         <IntroDiv ref={introRef}>
           {/* Optionally, show a solid background or spinner until the first image is loaded */}
-          {!transitionImagesReady && (
+          {!introReady && (
             <div style={{position: 'absolute', inset: 0, background: introGreen, zIndex: 1}} />
           )}
-          {transitionImagesReady && (
+          {introCardsEnabled && transitionImagesReady && (
             <CaseStudyTransition
               images={introTransitionImages}
               isActive={showIntro}
@@ -208,8 +222,8 @@ export default function IntroAnimation() {
               loadingBackgroundColor={introGreen}
             />
           )}
-          {/* Only show the intro text once the card stack is ready to animate. */}
-          {transitionImagesReady && (
+          {/* On slower devices, show only the Zachary MacTavish intro animation. */}
+          {introReady && (
             <IntroNameWrap>
               <IntroText aria-label={text}>
                 {Array.from(text).map((char, index) => (

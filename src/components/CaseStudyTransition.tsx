@@ -4,6 +4,18 @@ import styled from "styled-components";
 
 type TransitionImage = { src: string; alt: string; objectPosition?: string };
 
+type NavigatorConnection = {
+  effectiveType?: string;
+  saveData?: boolean;
+};
+
+type PerformanceAwareNavigator = Navigator & {
+  connection?: NavigatorConnection;
+  mozConnection?: NavigatorConnection;
+  webkitConnection?: NavigatorConnection;
+  deviceMemory?: number;
+};
+
 interface CaseStudyTransitionProps {
   /** Array of exactly 5 images to animate */
   images: TransitionImage[];
@@ -29,6 +41,45 @@ interface CaseStudyTransitionProps {
 
 const decodedImageCache = new Set<string>();
 const imagePreloadPromises = new Map<string, Promise<void>>();
+
+export function shouldSkipCardTransitionForPerformance(): boolean {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  const perfNavigator = navigator as PerformanceAwareNavigator;
+  const connection =
+    perfNavigator.connection ||
+    perfNavigator.mozConnection ||
+    perfNavigator.webkitConnection;
+
+  if (connection?.saveData) {
+    return true;
+  }
+
+  if (
+    connection?.effectiveType &&
+    ["slow-2g", "2g", "3g"].includes(connection.effectiveType)
+  ) {
+    return true;
+  }
+
+  if (
+    typeof perfNavigator.deviceMemory === "number" &&
+    perfNavigator.deviceMemory <= 4
+  ) {
+    return true;
+  }
+
+  if (
+    typeof navigator.hardwareConcurrency === "number" &&
+    navigator.hardwareConcurrency <= 4
+  ) {
+    return true;
+  }
+
+  return false;
+}
 
 function loadAndDecodeImage(src: string): Promise<void> {
   if (decodedImageCache.has(src)) {
