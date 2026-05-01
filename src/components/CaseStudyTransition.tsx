@@ -31,6 +31,7 @@ const decodedImageCache = new Set<string>();
 const imagePreloadPromises = new Map<string, Promise<void>>();
 export const CARD_TRANSITION_DECODE_GATE_MS = 600;
 const cardEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
+let cardTransitionsLockedOffForSession = false;
 
 function loadAndDecodeImage(src: string): Promise<void> {
   if (decodedImageCache.has(src)) {
@@ -127,15 +128,25 @@ export async function shouldRunCardTransition(
     return true;
   }
 
+  if (cardTransitionsLockedOffForSession) {
+    return false;
+  }
+
   const decodeDurationPromise = measureTransitionDecodeDuration(images);
   const timeoutPromise = new Promise<boolean>((resolve) => {
     window.setTimeout(() => resolve(false), thresholdMs);
   });
 
-  return Promise.race([
+  const shouldAnimate = await Promise.race([
     decodeDurationPromise.then((duration) => duration <= thresholdMs),
     timeoutPromise,
   ]);
+
+  if (!shouldAnimate) {
+    cardTransitionsLockedOffForSession = true;
+  }
+
+  return shouldAnimate;
 }
 
 const StyledContainer = styled(motion.div)`

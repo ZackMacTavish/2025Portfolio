@@ -18,7 +18,7 @@ const IntroDiv = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: #3F4739; /* muted light olive */
+  background-color: ${({ $background }) => $background};
   position: absolute;
   top: 0;
   left: 0;
@@ -65,7 +65,7 @@ const IntroCounter = styled.div`
   right: clamp(18px, 2.8vw, 40px);
   bottom: clamp(18px, 2.8vw, 40px);
   z-index: 60;
-  color: rgba(255, 255, 255, 0.9);
+  color: ${({ $color }) => $color};
   font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(0.9rem, 1.35vw, 1.2rem);
   letter-spacing: 0.08em;
@@ -107,7 +107,7 @@ function shuffleImages(images) {
 
 export default function IntroAnimation() {
   const text = 'ZACHARY MACTAVISH.';
-  const introGreen = '#3F4739';
+  const introWhite = '#ffffff';
   const [counter, setCounter] = useState('000%');
   const [showIntro, setShowIntro] = useState(true);
   const [introTransitionImages] = useState(() => shuffleImages(baseIntroTransitionImages));
@@ -117,6 +117,8 @@ export default function IntroAnimation() {
   const letterRefs = useRef([]);
   const prefersReducedMotion = useReducedMotion();
   const introReady = introDecisionReady;
+  const introBackground = introWhite;
+  const introCounterColor = '#111111';
 
   // Decide whether the intro card stack is fast enough to animate smoothly.
   useEffect(() => {
@@ -203,18 +205,18 @@ export default function IntroAnimation() {
       {/* Pass introDone so the landing page chevron waits until the overlay wipes away */}
       <LandingPage introDone={!showIntro} />
       {showIntro && (
-        <IntroDiv ref={introRef}>
+        <IntroDiv ref={introRef} $background={introBackground}>
           {/* Optionally, show a solid background or spinner until the first image is loaded */}
           {!introReady && (
-            <div style={{position: 'absolute', inset: 0, background: introGreen, zIndex: 1}} />
+            <div style={{position: 'absolute', inset: 0, background: introBackground, zIndex: 1}} />
           )}
           {introCardsEnabled && introReady && (
             <CaseStudyTransition
               images={introTransitionImages}
               isActive={showIntro}
               onComplete={handleTransitionComplete}
-              overlayColor={introGreen}
-              loadingBackgroundColor={introGreen}
+              overlayColor={introWhite}
+              loadingBackgroundColor={introWhite}
             />
           )}
           {/* On slower devices, show only the Zachary MacTavish intro animation. */}
@@ -235,7 +237,7 @@ export default function IntroAnimation() {
               </IntroText>
             </IntroNameWrap>
           )}
-          <IntroCounter>{counter}</IntroCounter>
+          <IntroCounter $color={introCounterColor}>{counter}</IntroCounter>
         </IntroDiv>
       )}
     </>
