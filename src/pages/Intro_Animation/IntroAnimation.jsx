@@ -124,7 +124,9 @@ export default function IntroAnimation() {
   useEffect(() => {
     let isCancelled = false;
 
-    shouldRunCardTransition(introTransitionImages)
+    shouldRunCardTransition(introTransitionImages, undefined, {
+      lockSessionOnFailure: false,
+    })
       .then((shouldAnimate) => {
         if (!isCancelled) {
           setIntroCardsEnabled(shouldAnimate);

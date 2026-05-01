@@ -155,18 +155,21 @@ export async function measureTransitionDecodeDuration(
 
 export async function shouldRunCardTransition(
   images: TransitionImage[],
-  thresholdMs = CARD_TRANSITION_DECODE_GATE_MS
+  thresholdMs = CARD_TRANSITION_DECODE_GATE_MS,
+  options?: { lockSessionOnFailure?: boolean }
 ): Promise<boolean> {
   if (typeof window === "undefined") {
     return true;
   }
+
+  const lockSessionOnFailure = options?.lockSessionOnFailure ?? true;
 
   if (isLocalDevelopmentHost()) {
     const { allDecoded } = await measureTransitionDecodeDuration(images);
     return allDecoded;
   }
 
-  if (cardTransitionsLockedOffForSession) {
+  if (lockSessionOnFailure && cardTransitionsLockedOffForSession) {
     return false;
   }
 
@@ -182,7 +185,7 @@ export async function shouldRunCardTransition(
     timeoutPromise,
   ]);
 
-  if (!shouldAnimate) {
+  if (!shouldAnimate && lockSessionOnFailure) {
     cardTransitionsLockedOffForSession = true;
   }
 
