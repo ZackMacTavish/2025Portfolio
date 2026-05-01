@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState, useRef, useEffect } from 'react';
+import React, { useLayoutEffect, useState, useRef, useEffect, useMemo } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
@@ -138,8 +138,6 @@ const PasswordButton = styled.button`
   &:hover { background: #333; }
 `;
 
-const placeholderImg = ""; // Placeholder image removed
-
 const Microsoft = () => {
   const [input, setInput] = useState('');
   const [authenticated, setAuthenticated] = useState(() => {
@@ -148,7 +146,7 @@ const Microsoft = () => {
   const [error, setError] = useState('');
 
   // Refs for all videos
-  const videoRefs = [useRef(null), useRef(null), useRef(null)];
+  const videoRefs = useMemo(() => [React.createRef(), React.createRef(), React.createRef()], []);
 
   // Pause other videos when one plays
   useEffect(() => {
@@ -170,7 +168,7 @@ const Microsoft = () => {
         if (ref.current) ref.current.onplay = null;
       });
     };
-  }, [authenticated]);
+  }, [authenticated, videoRefs]);
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
@@ -373,6 +371,7 @@ const VideoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: none;
 
   @media (max-width: 1320px) {
     width: 90vw;
@@ -414,7 +413,7 @@ const VideoWithOverlay = React.forwardRef(({ src, poster }, ref) => {
   };
 
   return (
-    <VideoWrapper>
+    <VideoWrapper data-cursor="link">
       <video
         ref={videoRef}
         src={src}
@@ -422,10 +421,16 @@ const VideoWithOverlay = React.forwardRef(({ src, poster }, ref) => {
         playsInline
         preload="none"
         poster={poster}
+        data-cursor="link"
         style={{ width: '100%', height: '100%', borderRadius: 'inherit', background: '#000', display: 'block', objectFit: 'cover' }}
       />
       {!isPlaying && (
-        <PlayOverlay onClick={handleOverlayClick}>
+        <PlayOverlay
+          onClick={handleOverlayClick}
+          role="button"
+          aria-label="Play video"
+          data-cursor="link"
+        >
           <PlayIcon>
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.5)" />

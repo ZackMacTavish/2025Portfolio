@@ -4,8 +4,7 @@ import { gsap } from 'gsap';
 import { useReducedMotion } from 'framer-motion';
 import LandingPage from '../Landing_Page/LandingPage';
 import CaseStudyTransition, {
-  preloadTransitionImages,
-  shouldSkipCardTransitionForPerformance,
+  shouldRunCardTransition,
 } from '../../components/CaseStudyTransition';
 
 import leysiTile from '../../assets/LeysiApp—Screens copy.jpg';
@@ -112,39 +111,35 @@ export default function IntroAnimation() {
   const [counter, setCounter] = useState('000%');
   const [showIntro, setShowIntro] = useState(true);
   const [introTransitionImages] = useState(() => shuffleImages(baseIntroTransitionImages));
-  const [transitionImagesReady, setTransitionImagesReady] = useState(false);
-  const [skipHeavyCardTransition] = useState(() =>
-    shouldSkipCardTransitionForPerformance()
-  );
+  const [introDecisionReady, setIntroDecisionReady] = useState(false);
+  const [introCardsEnabled, setIntroCardsEnabled] = useState(false);
   const introRef = useRef(null);
   const letterRefs = useRef([]);
   const prefersReducedMotion = useReducedMotion();
-  const introCardsEnabled = !skipHeavyCardTransition;
-  const introReady = introCardsEnabled ? transitionImagesReady : true;
+  const introReady = introDecisionReady;
 
-  // Decode the full intro card stack before letting the transition start.
+  // Decide whether the intro card stack is fast enough to animate smoothly.
   useEffect(() => {
-    if (!introCardsEnabled) {
-      setTransitionImagesReady(true);
-      return;
-    }
-
     let isCancelled = false;
 
-    preloadTransitionImages(introTransitionImages)
-      .catch(() => {
-        // Fail gracefully and continue to the intro even if one image fails.
-      })
-      .finally(() => {
+    shouldRunCardTransition(introTransitionImages)
+      .then((shouldAnimate) => {
         if (!isCancelled) {
-          setTransitionImagesReady(true);
+          setIntroCardsEnabled(shouldAnimate);
+          setIntroDecisionReady(true);
+        }
+      })
+      .catch(() => {
+        if (!isCancelled) {
+          setIntroCardsEnabled(false);
+          setIntroDecisionReady(true);
         }
       });
 
     return () => {
       isCancelled = true;
     };
-  }, [introCardsEnabled, introTransitionImages]);
+  }, [introTransitionImages]);
 
   useLayoutEffect(() => {
     if (!showIntro || !introReady) return;
@@ -213,7 +208,7 @@ export default function IntroAnimation() {
           {!introReady && (
             <div style={{position: 'absolute', inset: 0, background: introGreen, zIndex: 1}} />
           )}
-          {introCardsEnabled && transitionImagesReady && (
+          {introCardsEnabled && introReady && (
             <CaseStudyTransition
               images={introTransitionImages}
               isActive={showIntro}

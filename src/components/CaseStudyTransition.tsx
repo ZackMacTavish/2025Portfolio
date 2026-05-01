@@ -4,18 +4,6 @@ import styled from "styled-components";
 
 type TransitionImage = { src: string; alt: string; objectPosition?: string };
 
-type NavigatorConnection = {
-  effectiveType?: string;
-  saveData?: boolean;
-};
-
-type PerformanceAwareNavigator = Navigator & {
-  connection?: NavigatorConnection;
-  mozConnection?: NavigatorConnection;
-  webkitConnection?: NavigatorConnection;
-  deviceMemory?: number;
-};
-
 interface CaseStudyTransitionProps {
   /** Array of exactly 5 images to animate */
   images: TransitionImage[];
@@ -41,45 +29,8 @@ interface CaseStudyTransitionProps {
 
 const decodedImageCache = new Set<string>();
 const imagePreloadPromises = new Map<string, Promise<void>>();
-
-export function shouldSkipCardTransitionForPerformance(): boolean {
-  if (typeof window === "undefined") {
-    return false;
-  }
-
-  const perfNavigator = navigator as PerformanceAwareNavigator;
-  const connection =
-    perfNavigator.connection ||
-    perfNavigator.mozConnection ||
-    perfNavigator.webkitConnection;
-
-  if (connection?.saveData) {
-    return true;
-  }
-
-  if (
-    connection?.effectiveType &&
-    ["slow-2g", "2g", "3g"].includes(connection.effectiveType)
-  ) {
-    return true;
-  }
-
-  if (
-    typeof perfNavigator.deviceMemory === "number" &&
-    perfNavigator.deviceMemory <= 4
-  ) {
-    return true;
-  }
-
-  if (
-    typeof navigator.hardwareConcurrency === "number" &&
-    navigator.hardwareConcurrency <= 4
-  ) {
-    return true;
-  }
-
-  return false;
-}
+export const CARD_TRANSITION_DECODE_GATE_MS = 600;
+const cardEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 function loadAndDecodeImage(src: string): Promise<void> {
   if (decodedImageCache.has(src)) {
@@ -158,6 +109,33 @@ export async function preloadTransitionImages(images: TransitionImage[]) {
   const imagePromises = images.map((image) => loadAndDecodeImage(image.src));
 
   await Promise.all(imagePromises);
+}
+
+export async function measureTransitionDecodeDuration(
+  images: TransitionImage[]
+): Promise<number> {
+  const startedAt = performance.now();
+  await preloadTransitionImages(images);
+  return performance.now() - startedAt;
+}
+
+export async function shouldRunCardTransition(
+  images: TransitionImage[],
+  thresholdMs = CARD_TRANSITION_DECODE_GATE_MS
+): Promise<boolean> {
+  if (typeof window === "undefined") {
+    return true;
+  }
+
+  const decodeDurationPromise = measureTransitionDecodeDuration(images);
+  const timeoutPromise = new Promise<boolean>((resolve) => {
+    window.setTimeout(() => resolve(false), thresholdMs);
+  });
+
+  return Promise.race([
+    decodeDurationPromise.then((duration) => duration <= thresholdMs),
+    timeoutPromise,
+  ]);
 }
 
 const StyledContainer = styled(motion.div)`
@@ -445,9 +423,8 @@ export default function CaseStudyTransition({
             exit={{ opacity: 0 }}
             transition={{
               opacity: {
-                times: [0, isReverse ? 0.4 : 0.64, 1],
-                values: isReverse ? [0, 0.85, 0] : [0.85, 0.85, 0],
                 duration: isReverse ? 1.5 : 2.5,
+                ease: "easeInOut",
               },
             }}
           />
@@ -479,54 +456,54 @@ export default function CaseStudyTransition({
                   opacity: {
                     times: [0, 0.4, 1],
                     duration: 1.5,
-                    ease: "easeInOut",
+                    ease: cardEase,
                   },
                   scale: {
                     times: [0, 0.4, 1],
                     duration: 1.5,
-                    ease: [0.22, 1, 0.36, 1],
+                    ease: cardEase,
                   },
                   y: {
                     times: [0, 0.4, 1],
                     duration: 1.5,
-                    ease: [0.22, 1, 0.36, 1],
+                    ease: cardEase,
                   },
                   rotate: {
                     times: [0, 0.4, 1],
                     duration: 1.5,
-                    ease: [0.22, 1, 0.36, 1],
+                    ease: cardEase,
                   },
                   x: {
                     times: [0, 0.4, 1],
                     duration: 1.5,
-                    ease: [0.22, 1, 0.36, 1],
+                    ease: cardEase,
                   },
                 }
               : {
                     opacity: {
                       times: [0, 0.17, 0.58, 1],
                       duration: 2.4,
-                      ease: "easeInOut",
+                      ease: cardEase,
                     },
                     scale: {
                       times: [0, 0.17, 0.58, 1],
                       duration: 2.4,
-                      ease: [0.22, 1, 0.36, 1],
+                      ease: cardEase,
                     },
                     y: {
                       times: [0, 0.17, 0.58, 1],
                       duration: 2.4,
-                      ease: [0.22, 1, 0.36, 1],
+                      ease: cardEase,
                     },
                     rotate: {
                       times: [0, 0.17, 0.58, 1],
                       duration: 2.4,
-                      ease: [0.22, 1, 0.36, 1],
+                      ease: cardEase,
                     },
                     x: {
                       times: [0, 0.17, 0.58, 1],
                       duration: 2.4,
-                      ease: [0.22, 1, 0.36, 1],
+                      ease: cardEase,
                     },
                   };
 

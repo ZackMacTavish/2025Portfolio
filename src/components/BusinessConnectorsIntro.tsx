@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CaseStudyTransition, {
-  shouldSkipCardTransitionForPerformance,
+  shouldRunCardTransition,
   warmPreloadTransitionImages,
 } from "./CaseStudyTransition";
 import { caseStudies } from "../data/caseStudies";
@@ -231,9 +231,6 @@ type Phase = "intro" | "transitioning";
  */
 export function BusinessConnectorsModule() {
   const navigate = useNavigate();
-  const [skipHeavyTransitions] = useState(() =>
-    shouldSkipCardTransitionForPerformance()
-  );
   const [transitioning, setTransitioning] = useState(false);
   const caseStudy = caseStudies[0];
 
@@ -245,8 +242,12 @@ export function BusinessConnectorsModule() {
     <>
       {/* Intro always stays mounted so it shows beneath the overlay */}
       <BusinessConnectorsIntro
-        onLaunch={() => {
-          if (skipHeavyTransitions) {
+        onLaunch={async () => {
+          const shouldAnimate = await shouldRunCardTransition(
+            caseStudy.transitionImages
+          );
+
+          if (!shouldAnimate) {
             navigate("/BusinessConnectors");
             return;
           }

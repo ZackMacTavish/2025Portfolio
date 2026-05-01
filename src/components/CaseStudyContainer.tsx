@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 import { CaseStudy } from "../../types/caseStudy";
 import CaseStudyCard from "./CaseStudyCard";
 import CaseStudyTransition, {
-  shouldSkipCardTransitionForPerformance,
+  shouldRunCardTransition,
   warmPreloadTransitionImages,
 } from "./CaseStudyTransition";
 import CaseStudyPage from "./CaseStudyPage";
@@ -104,11 +104,11 @@ export default function CaseStudyContainer({
   caseStudies,
   onNavigateNext,
 }: CaseStudyContainerProps) {
-  const [skipHeavyTransitions] = useState(() =>
-    shouldSkipCardTransitionForPerformance()
-  );
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [phase, setPhase] = useState<Phase>("browsing");
+  const [useCardTransitionForCurrentView, setUseCardTransitionForCurrentView] =
+    useState(false);
+  const selectionRequestRef = useRef(0);
 
   // Store/restore scroll position for back navigation
   const saveScrollPosition = () => {
@@ -142,26 +142,33 @@ export default function CaseStudyContainer({
       : null;
 
   // Handle card click: transition to TRANSITIONING phase
-  const handleCardSelect = (slug: string) => {
+  const handleCardSelect = async (slug: string) => {
+    const caseStudy = caseStudies.find((cs) => cs.slug === slug);
+    if (!caseStudy) return;
+
+    const requestId = selectionRequestRef.current + 1;
+    selectionRequestRef.current = requestId;
     saveScrollPosition();
     setActiveSlug(slug);
 
-    if (skipHeavyTransitions) {
-      setPhase("viewing");
-      return;
-    }
+    const shouldAnimate = await shouldRunCardTransition(
+      caseStudy.transitionImages
+    );
+    if (selectionRequestRef.current !== requestId) return;
 
-    setPhase("transitioning");
+    setUseCardTransitionForCurrentView(shouldAnimate);
+    setPhase(shouldAnimate ? "transitioning" : "viewing");
   };
 
   // Handle transition complete: move to VIEWING phase
   const handleTransitionComplete = () => {
+    setUseCardTransitionForCurrentView(true);
     setPhase("viewing");
   };
 
   // Handle back button: trigger reverse transition then return to BROWSING
   const handleBack = () => {
-    if (skipHeavyTransitions) {
+    if (!useCardTransitionForCurrentView) {
       handleReverseTransitionComplete();
       return;
     }
@@ -173,21 +180,27 @@ export default function CaseStudyContainer({
   const handleReverseTransitionComplete = () => {
     setPhase("browsing");
     setActiveSlug(null);
+    setUseCardTransitionForCurrentView(false);
     // Restore scroll position after phase change (next render)
     setTimeout(() => restoreScrollPosition(), 0);
   };
 
   // Handle next project navigation
-  const handleNextProject = (slug: string) => {
+  const handleNextProject = async (slug: string) => {
+    const caseStudy = caseStudies.find((cs) => cs.slug === slug);
+    if (!caseStudy) return;
+
+    const requestId = selectionRequestRef.current + 1;
+    selectionRequestRef.current = requestId;
     setActiveSlug(slug);
 
-    if (skipHeavyTransitions) {
-      setPhase("viewing");
-      onNavigateNext?.(slug);
-      return;
-    }
+    const shouldAnimate = await shouldRunCardTransition(
+      caseStudy.transitionImages
+    );
+    if (selectionRequestRef.current !== requestId) return;
 
-    setPhase("transitioning");
+    setUseCardTransitionForCurrentView(shouldAnimate);
+    setPhase(shouldAnimate ? "transitioning" : "viewing");
     onNavigateNext?.(slug);
   };
 
