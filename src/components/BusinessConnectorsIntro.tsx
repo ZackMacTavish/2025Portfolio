@@ -263,6 +263,7 @@ export function BusinessConnectorsModule() {
           isActive={true}
           onComplete={() => navigate("/BusinessConnectors")}
           layoutId={caseStudy.slug}
+          sharedSourceImageSrc={caseStudy.coverImage.src}
         />
       )}
     </>

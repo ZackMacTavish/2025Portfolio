@@ -8,6 +8,9 @@ interface CaseStudyTransitionProps {
   /** Array of exactly 5 images to animate */
   images: TransitionImage[];
 
+  /** Optional source image that should participate in shared-layout handoff */
+  sharedSourceImageSrc?: string;
+
   /** Controls mount/unmount of the transition overlay */
   isActive: boolean;
 
@@ -265,6 +268,7 @@ export default function CaseStudyTransition({
   isActive,
   onComplete,
   layoutId,
+  sharedSourceImageSrc,
   isReverse = false,
   overlayColor = "black",
   loadingBackgroundColor = "rgba(0, 0, 0, 0.85)",
@@ -327,6 +331,9 @@ export default function CaseStudyTransition({
     : ["-15%", "-7%", "0", "7%", "15%"];
   const cardWidth = isMobile ? "85vw" : "55vw";
   const cardMaxWidth = isMobile ? "400px" : "700px";
+  const sharedLayoutIndex = sharedSourceImageSrc
+    ? images.findIndex((image) => image.src === sharedSourceImageSrc)
+    : -1;
 
   // Block the transition until the active image set has been decoded.
   // This avoids cards shifting on slower machines while the shared layout
@@ -599,7 +606,7 @@ export default function CaseStudyTransition({
                   aspectRatio: "3 / 2",
                   zIndex: 10 + index,
                 }}
-                layoutId={index === 2 ? layoutId : undefined}
+                layoutId={index === sharedLayoutIndex ? layoutId : undefined}
                 loading="eager"
                 initial={{
                   opacity: isReverse ? 1 : 0,

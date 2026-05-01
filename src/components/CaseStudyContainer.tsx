@@ -242,6 +242,7 @@ export default function CaseStudyContainer({
             isActive={true}
             onComplete={handleTransitionComplete}
             layoutId={activeCaseStudy.slug}
+            sharedSourceImageSrc={activeCaseStudy.coverImage.src}
           />
         )}
 
@@ -287,6 +288,7 @@ export default function CaseStudyContainer({
             isActive={true}
             onComplete={handleReverseTransitionComplete}
             layoutId={activeCaseStudy.slug}
+            sharedSourceImageSrc={activeCaseStudy.coverImage.src}
             isReverse={true}
           />
         )}
