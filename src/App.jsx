@@ -294,7 +294,25 @@ function App() {
             </div>
           )}
 
-          <Suspense fallback={<div style={{ color: '#888', padding: '2rem', textAlign: 'center' }}>Loading…</div>}>
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  position: 'fixed',
+                  inset: 0,
+                  zIndex: 100,
+                  background: '#ffffff',
+                  color: '#111111',
+                  display: 'grid',
+                  placeItems: 'center',
+                  fontFamily: 'Space Grotesk, sans-serif',
+                  letterSpacing: '0.04em',
+                }}
+              >
+                Loading…
+              </div>
+            }
+          >
             <Routes>
             {/* Root shows IntroAnimation first */}
             <Route path="/" element={<IntroAnimation />} />

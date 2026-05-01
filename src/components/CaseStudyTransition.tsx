@@ -28,29 +28,40 @@ interface CaseStudyTransitionProps {
 }
 
 const decodedImageCache = new Set<string>();
-const imagePreloadPromises = new Map<string, Promise<void>>();
-export const CARD_TRANSITION_DECODE_GATE_MS = 600;
+const imagePreloadPromises = new Map<string, Promise<boolean>>();
+export const CARD_TRANSITION_DECODE_GATE_MS = 1400;
 const cardEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 let cardTransitionsLockedOffForSession = false;
+const MAX_TRANSITION_IMAGE_RETRIES = 1;
 
-function loadAndDecodeImage(src: string): Promise<void> {
+function loadAndDecodeImage(src: string, attempt = 0): Promise<boolean> {
   if (decodedImageCache.has(src)) {
-    return Promise.resolve();
+    return Promise.resolve(true);
   }
 
-  const existingPromise = imagePreloadPromises.get(src);
+  const existingPromise = attempt === 0 ? imagePreloadPromises.get(src) : undefined;
   if (existingPromise) {
     return existingPromise;
   }
 
-  const preloadPromise = new Promise<void>((resolve) => {
+  const preloadPromise = new Promise<boolean>((resolve) => {
     const img = new Image();
     img.decoding = "async";
+    let finalized = false;
 
-    const finalize = () => {
-      decodedImageCache.add(src);
-      imagePreloadPromises.delete(src);
-      resolve();
+    const finalize = (didDecode: boolean) => {
+      if (finalized) return;
+      finalized = true;
+
+      if (didDecode) {
+        decodedImageCache.add(src);
+      }
+
+      if (attempt === 0) {
+        imagePreloadPromises.delete(src);
+      }
+
+      resolve(didDecode);
     };
 
     img.onload = async () => {
@@ -58,14 +69,20 @@ function loadAndDecodeImage(src: string): Promise<void> {
         try {
           await img.decode();
         } catch {
-          // Ignore decode errors and continue with the loaded image.
+          finalize(false);
+          return;
         }
       }
-      finalize();
+      finalize(true);
     };
 
     img.onerror = () => {
-      finalize();
+      if (attempt < MAX_TRANSITION_IMAGE_RETRIES) {
+        void loadAndDecodeImage(src, attempt + 1).then(finalize);
+        return;
+      }
+
+      finalize(false);
     };
 
     img.src = src;
@@ -76,15 +93,19 @@ function loadAndDecodeImage(src: string): Promise<void> {
           try {
             await img.decode();
           } catch {
-            // Ignore decode errors and continue with the loaded image.
+            finalize(false);
+            return;
           }
         }
-        finalize();
+        finalize(true);
       });
     }
   });
 
-  imagePreloadPromises.set(src, preloadPromise);
+  if (attempt === 0) {
+    imagePreloadPromises.set(src, preloadPromise);
+  }
+
   return preloadPromise;
 }
 
@@ -109,15 +130,16 @@ export function warmPreloadTransitionImages(images: TransitionImage[]): Promise<
 export async function preloadTransitionImages(images: TransitionImage[]) {
   const imagePromises = images.map((image) => loadAndDecodeImage(image.src));
 
-  await Promise.all(imagePromises);
+  const preloadResults = await Promise.all(imagePromises);
+  return preloadResults.every(Boolean);
 }
 
 export async function measureTransitionDecodeDuration(
   images: TransitionImage[]
-): Promise<number> {
+): Promise<{ duration: number; allDecoded: boolean }> {
   const startedAt = performance.now();
-  await preloadTransitionImages(images);
-  return performance.now() - startedAt;
+  const allDecoded = await preloadTransitionImages(images);
+  return { duration: performance.now() - startedAt, allDecoded };
 }
 
 export async function shouldRunCardTransition(
@@ -138,7 +160,9 @@ export async function shouldRunCardTransition(
   });
 
   const shouldAnimate = await Promise.race([
-    decodeDurationPromise.then((duration) => duration <= thresholdMs),
+    decodeDurationPromise.then(
+      ({ duration, allDecoded }) => allDecoded && duration <= thresholdMs
+    ),
     timeoutPromise,
   ]);
 
@@ -311,10 +335,17 @@ export default function CaseStudyTransition({
       .catch(() => {
         // Errors are handled inside preloadTransitionImages and still resolve,
         // but keep a local catch so activation never rejects.
+        return false;
       })
-      .finally(() => {
+      .then((allDecoded) => {
         if (!isCancelled) {
-          setImagesLoaded(true);
+          if (allDecoded) {
+            setImagesLoaded(true);
+            return;
+          }
+
+          cardTransitionsLockedOffForSession = true;
+          completeTransition();
         }
       });
 

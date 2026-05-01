@@ -143,6 +143,26 @@ export default function IntroAnimation() {
     };
   }, [introTransitionImages]);
 
+  useEffect(() => {
+    if (!showIntro) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    const previousPaddingRight = document.body.style.paddingRight;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    document.body.style.overflow = 'hidden';
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.body.style.paddingRight = previousPaddingRight;
+    };
+  }, [showIntro]);
+
   useLayoutEffect(() => {
     if (!showIntro || !introReady) return;
 
@@ -205,7 +225,11 @@ export default function IntroAnimation() {
       {/* Pass introDone so the landing page chevron waits until the overlay wipes away */}
       <LandingPage introDone={!showIntro} />
       {showIntro && (
-        <IntroDiv ref={introRef} $background={introBackground}>
+        <IntroDiv
+          ref={introRef}
+          $background={introBackground}
+          style={{ backgroundColor: introBackground, position: 'fixed', inset: 0 }}
+        >
           {/* Optionally, show a solid background or spinner until the first image is loaded */}
           {!introReady && (
             <div style={{position: 'absolute', inset: 0, background: introBackground, zIndex: 1}} />
