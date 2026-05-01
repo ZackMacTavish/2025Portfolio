@@ -12,6 +12,7 @@
   "homepage": "https://mactavish.xyz",
   "scripts": {
     "dev": "vite",
+    "postinstall": "node scripts/patch-three-webgpu-types.cjs",
     "prebuild": "node scripts/copy-og-assets.js",
     "make-favicon": "node scripts/make-favicon.js",
     "build": "vite build",
