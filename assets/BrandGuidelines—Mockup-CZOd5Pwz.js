@@ -1,1 +1,0 @@
-const e=""+new URL("BrandGuidelines—Mockup-ChTa7oCn.jpg",import.meta.url).href,i=""+new URL("BrandGuidelines—Mockup-DB0KQvec.avif",import.meta.url).href,n=""+new URL("BrandGuidelines—Mockup-CdO6X1p5.webp",import.meta.url).href;export{i as a,n as g,e as o};
