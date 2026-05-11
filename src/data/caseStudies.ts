@@ -263,8 +263,270 @@ export const businessConnectorsCaseStudy: CaseStudy = {
   ],
 };
 
+export const copilotPayCaseStudy: CaseStudy = {
+  slug: "copilot-pay",
+  title: "Copilot Pay",
+  subtitle: "Designing Microsoft's first native checkout inside Copilot",
+  coverImage: {
+    src: "/assets/copilot-pay/Property 1=Default.jpg",
+    avif: "/assets/copilot-pay/Property 1=Default.avif",
+    webp: "/assets/copilot-pay/Property 1=Default.webp",
+    alt: "Copilot Pay checkout experience",
+    aspectRatio: "16/9",
+  },
+  heroImage: {
+    src: "/assets/copilot-pay/PDP.jpg",
+    avif: "/assets/copilot-pay/PDP.avif",
+    webp: "/assets/copilot-pay/PDP.webp",
+    alt: "Copilot Pay product detail page with native checkout",
+    aspectRatio: "16/9",
+    objectFit: "contain",
+    objectPosition: "center center",
+    backgroundColor: "#ffffff",
+  },
+  transitionImages: [
+    {
+      src: "/assets/copilot-pay/Property 1=Default.jpg",
+      alt: "Copilot Pay transition 1",
+    },
+    {
+      src: "/assets/copilot-pay/PDP.jpg",
+      alt: "Copilot Pay transition 2",
+    },
+    {
+      src: "/assets/copilot-pay/Copilot pay 1.jpg",
+      alt: "Copilot Pay transition 3",
+    },
+    {
+      src: "/assets/copilot-pay/Copilot pay 2.jpg",
+      alt: "Copilot Pay transition 4",
+    },
+    {
+      src: "/assets/copilot-pay/Copilot pay 3.jpg",
+      alt: "Copilot Pay transition 5",
+    },
+  ],
+  heroHeadline: "Bringing frictionless native checkout to Copilot shopping",
+  meta: {
+    client: "Copilot Pay | Microsoft Shopping",
+    role: "Designer (interaction, visual, prototyping, design system)",
+    timeline: "7 weeks",
+    platform: "Browser / Desktop / Mobile",
+  },
+  sections: [
+    {
+      id: "overview",
+      layout: "sticky-split",
+      stickyContent: {
+        image: {
+          src: "/assets/copilot-pay/Bang & Olufsen Dark.jpg",
+          avif: "/assets/copilot-pay/Bang & Olufsen Dark.avif",
+          webp: "/assets/copilot-pay/Bang & Olufsen Dark.webp",
+          alt: "Bang & Olufsen checkout flow in dark mode",
+          aspectRatio: "4/3",
+          backgroundColor: "#0f1220",
+          imagePaddingBlock: "clamp(0.5rem, 1.2vw, 0.875rem)",
+          objectFit: "contain",
+          objectPosition: "center center",
+        },
+        tags: [
+          "AI COMMERCE",
+          "PAYMENTS UX",
+          "CROSS-PLATFORM",
+          "DESIGN SYSTEM",
+        ],
+        collateralImages: [
+          {
+            src: "/assets/copilot-pay/Copilot pay 1.jpg",
+            avif: "/assets/copilot-pay/Copilot pay 1.avif",
+            webp: "/assets/copilot-pay/Copilot pay 1.webp",
+            alt: "Copilot Pay mobile express checkout flow",
+            aspectRatio: "16/9",
+            backgroundColor: "#E7E7E7",
+            imagePaddingBlock: "clamp(0.5rem, 1.2vw, 0.875rem)",
+            objectFit: "contain",
+            objectPosition: "center center",
+          },
+          {
+            src: "/assets/copilot-pay/Copilot pay 2.jpg",
+            avif: "/assets/copilot-pay/Copilot pay 2.avif",
+            webp: "/assets/copilot-pay/Copilot pay 2.webp",
+            alt: "Copilot Pay payment method setup flow",
+            aspectRatio: "16/9",
+            backgroundColor: "#E7E7E7",
+            imagePaddingBlock: "clamp(0.5rem, 1.2vw, 0.875rem)",
+            objectFit: "contain",
+            objectPosition: "center center",
+          },
+          {
+            src: "/assets/copilot-pay/Apple express.jpg",
+            avif: "/assets/copilot-pay/Apple express.avif",
+            webp: "/assets/copilot-pay/Apple express.webp",
+            alt: "Apple Pay express checkout flow",
+            aspectRatio: "16/9",
+            backgroundColor: "#E7E7E7",
+            imagePaddingBlock: "clamp(0.5rem, 1.2vw, 0.875rem)",
+            objectFit: "contain",
+            objectPosition: "center center",
+          },
+          {
+            src: "/assets/copilot-pay/Paypal express.jpg",
+            avif: "/assets/copilot-pay/Paypal express.avif",
+            webp: "/assets/copilot-pay/Paypal express.webp",
+            alt: "PayPal express checkout flow",
+            aspectRatio: "16/9",
+            backgroundColor: "#E7E7E7",
+            imagePaddingBlock: "clamp(0.5rem, 1.2vw, 0.875rem)",
+            objectFit: "contain",
+            objectPosition: "center center",
+          },
+        ],
+      },
+      scrollContent: {
+        blocks: [
+          {
+            type: "text",
+            heading: "Overview",
+            body: `Copilot Pay is Microsoft's first native checkout inside Copilot across browser, desktop, and mobile. It surfaces Buy buttons on product cards and PDPs, then enables express checkout through Apple Pay, PayPal, Venmo, Google Pay, Shop Pay, and Amazon Pay. Before this work, users were redirected to retailer sites, which introduced friction and broke continuity.`,
+          },
+          {
+            type: "text",
+            heading: "Team & Role",
+            body: `I worked with a principal designer, PM, and engineers over a 7 week sprint, leading interaction design, visual design, prototyping, and design system work. My focus was making native wallet checkout feel coherent inside Copilot while staying scalable across platforms and partner payment experiences.`,
+          },
+          {
+            type: "carousel",
+            images: [
+              {
+                    src: "/assets/copilot-pay/card1.jpg",
+                    avif: "/assets/copilot-pay/card1.avif",
+                    webp: "/assets/copilot-pay/card1.webp",
+                    alt: "Copilot Pay recommendation card surface",
+                aspectRatio: "16/9",
+                backgroundColor: "#ffffff",
+                imagePaddingBlock: "clamp(0.5rem, 1.2vw, 0.875rem)",
+                objectFit: "contain",
+                objectPosition: "center center",
+              },
+              {
+                    src: "/assets/copilot-pay/card2.jpg",
+                    avif: "/assets/copilot-pay/card2.avif",
+                    webp: "/assets/copilot-pay/card2.webp",
+                    alt: "Copilot Pay wallet selection modal",
+                aspectRatio: "16/9",
+                backgroundColor: "#ffffff",
+                imagePaddingBlock: "clamp(0.5rem, 1.2vw, 0.875rem)",
+                objectFit: "contain",
+                objectPosition: "center center",
+              },
+              {
+                    src: "/assets/copilot-pay/card3.jpg",
+                    avif: "/assets/copilot-pay/card3.avif",
+                    webp: "/assets/copilot-pay/card3.webp",
+                    alt: "Copilot Pay order details and payment setup flow",
+                aspectRatio: "16/9",
+                backgroundColor: "#ffffff",
+                imagePaddingBlock: "clamp(0.5rem, 1.2vw, 0.875rem)",
+                objectFit: "contain",
+                objectPosition: "center center",
+              },
+            ],
+          },
+          {
+            type: "quote",
+            body: "Enable frictionless checkout inside Copilot while standardizing visual and interaction patterns across native wallets.",
+          },
+        ],
+      },
+    },
+    {
+      id: "goals",
+      layout: "three-column-feature",
+      heading: "Goals",
+      labels: ["FRICTIONLESS", "CONSISTENT", "SCALABLE", "AI COMMERCE"],
+      body: `The project focused on keeping users inside Copilot through checkout, standardizing payment interactions across multiple wallet brands, and expanding Microsoft's AI commerce capabilities with a reusable foundation for future shopping flows.`,
+      images: [
+        {
+          src: "/assets/copilot-pay/Pay CMC Background + PDP.jpg",
+          avif: "/assets/copilot-pay/Pay CMC Background + PDP.avif",
+          webp: "/assets/copilot-pay/Pay CMC Background + PDP.webp",
+          alt: "Copilot Pay desktop commerce experience",
+          aspectRatio: "16/9",
+          backgroundColor: "#ffffff",
+        },
+      ],
+      accentColor: "#e6f1ff",
+    },
+    {
+      id: "responsibilities",
+      layout: "text-only",
+      heading: "Responsibilities",
+      body: `Designed express checkout flows for desktop and mobile.\n\nCreated an intermediate screen showing all payment options before opening native wallets.\n\nEvaluated button placement above and below product info for usability across devices.\n\nRebuilt and expanded the Copilot Pay component library across product cards, carousels, PDP side panels, checkout sheets, input fields, order summary, confirmation pages, and payment icons.\n\nStandardized design tokens, spacing, typography, light and dark modes, and color consolidation.\n\nBuilt prototypes and internal specs to align the work with cross-team design standards.`,
+    },
+    {
+      id: "wallet-systems",
+      layout: "image-on-color-block",
+      heading: "Designing Across Native Wallets",
+      body: `One of the core challenges was integrating multiple native wallet experiences, each with different branding, affordances, and interaction expectations, without making Copilot feel fragmented. The solution was an intermediate selection screen and a tighter component system that kept the transition into each wallet legible and predictable.`,
+      images: [
+        {
+          src: "/assets/copilot-pay/Bang & Olufsen.jpg",
+          avif: "/assets/copilot-pay/Bang & Olufsen.avif",
+          webp: "/assets/copilot-pay/Bang & Olufsen.webp",
+          alt: "Bang & Olufsen native checkout flow",
+          aspectRatio: "16/9",
+          backgroundColor: "#ffffff",
+          borderRadius: "12px",
+          containerBorder: "1px solid #d4d4d4",
+          containerBorderRadius: "12px",
+          containerShadow: "none",
+          imagePaddingBlock: "clamp(0.5rem, 1.2vw, 0.875rem)",
+          objectFit: "contain",
+          objectPosition: "center center",
+        },
+      ],
+      accentColor: "#f3efe7",
+    },
+    {
+      id: "cross-platform",
+      layout: "staggered-pair",
+      images: [
+        {
+          src: "/assets/copilot-pay/Property 1=Default.jpg",
+          avif: "/assets/copilot-pay/Property 1=Default.avif",
+          webp: "/assets/copilot-pay/Property 1=Default.webp",
+          alt: "Desktop Copilot Pay recommendation surface",
+        },
+        {
+          src: "/assets/copilot-pay/Copilot pay 3.jpg",
+          avif: "/assets/copilot-pay/Copilot pay 3.avif",
+          webp: "/assets/copilot-pay/Copilot pay 3.webp",
+          alt: "Mobile Copilot Pay multi-step checkout experience",
+          aspectRatio: "16/9",
+        },
+      ],
+    },
+    {
+      id: "challenges",
+      layout: "text-only",
+      heading: "Challenges",
+      body: `Multiple native wallet UIs introduced different branding and interaction patterns.\n\nDesktop and mobile needed to feel consistent without ignoring platform-specific constraints.\n\nThe component library needed to scale quickly while remaining reusable for future AI commerce scenarios.\n\nExpress checkout had to slot naturally into both product cards and PDPs without breaking the shopping flow.`,
+    },
+    {
+      id: "impact",
+      layout: "quote",
+      heading: "Impact",
+      body: `Copilot Pay establishes Microsoft's first frictionless native checkout inside Copilot, creates a robust design-system foundation for future AI-assisted commerce, and supports seamless shopping across Microsoft platforms with scalable, consistent components.`,
+      accentColor: "#222222",
+    },
+  ],
+};
+
 /**
  * Export array of case studies
  * Ready to be extended with additional studies
  */
-export const caseStudies: CaseStudy[] = [businessConnectorsCaseStudy];
+export const caseStudies: CaseStudy[] = [
+  businessConnectorsCaseStudy,
+  copilotPayCaseStudy,
+];

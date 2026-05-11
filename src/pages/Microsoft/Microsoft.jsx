@@ -33,6 +33,7 @@ import outlookWebp from '../../assets/Outlook.webp';
 import { ProjectDetailsContainer, ProjectDetails, ProjectBlock, ProjectHeader, ProjectSubtitle, ProjectImage, Cellphones, StyledDiv } from '../Giga/Giga';
 import ProjectTopSection from '../../components/ProjectTopSection';
 import { BusinessConnectorsModule } from '../../components/BusinessConnectorsIntro';
+import { CopilotPayModule } from '../../components/CopilotPayIntro';
 import { FiArrowUpRight } from 'react-icons/fi';
 
 const PASSWORD = 'yourpassword'; // Change this to your desired password
@@ -85,13 +86,54 @@ const SpotlightBackground = styled.div`
 `;
 
 const PasswordContainer = styled.div`
-  min-height: 80vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  padding: 6rem 1.5rem 2rem;
+  background: #ffffff;
   position: relative;
   z-index: 1;
+`;
+
+const PasswordIntro = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  text-align: center;
+  max-width: 40rem;
+  margin-bottom: 1.5rem;
+  color: #111;
+`;
+
+const PasswordEyebrow = styled.p`
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5f6b63;
+`;
+
+const PasswordTitle = styled.h1`
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1;
+`;
+
+const PasswordDescription = styled.p`
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #4b5563;
+`;
+
+const PasswordGate = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const PasswordForm = styled.form`
@@ -99,10 +141,16 @@ const PasswordForm = styled.form`
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  background: rgba(255,255,255,0.7); /* More translucent */
+  width: min(100%, 28rem);
+  background: rgba(255,255,255,0.9);
   padding: 2rem 3rem;
   border-radius: 12px;
   box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  border: 1px solid rgba(17, 24, 39, 0.08);
+
+  @media (max-width: 640px) {
+    padding: 1.5rem;
+  }
 `;
 
 // Rounded input following site font styles
@@ -174,6 +222,19 @@ const Microsoft = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    const previousBackgroundColor = document.body.style.backgroundColor;
+    const previousColor = document.body.style.color;
+
+    document.body.style.backgroundColor = '#ffffff';
+    document.body.style.color = '#111111';
+
+    return () => {
+      document.body.style.backgroundColor = previousBackgroundColor;
+      document.body.style.color = previousColor;
+    };
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (input === PASSWORD) {
@@ -190,18 +251,27 @@ const Microsoft = () => {
       <PasswordContainer>
         <Seo {...projects.microsoft} sameAs={site.sameAs} keywords={projects.microsoft.keywords} />
         <SpotlightBackground />
-        <PasswordForm onSubmit={handleSubmit}>
-          <h2 style={{ margin: 0 }}>Enter Password</h2>
-          <PasswordInput
-            type="password"
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            placeholder="Password"
-            autoFocus
-          />
-          <PasswordButton type="submit">Submit</PasswordButton>
-          {error && <div style={{ color: 'red', marginTop: '0.5rem' }}>{error}</div>}
-        </PasswordForm>
+        <PasswordGate>
+          <PasswordIntro>
+            <PasswordEyebrow>Microsoft Case Studies</PasswordEyebrow>
+            <PasswordTitle>Protected Microsoft work samples</PasswordTitle>
+            <PasswordDescription>
+              Enter the password to continue to the Microsoft project page and view the protected case study.
+            </PasswordDescription>
+          </PasswordIntro>
+          <PasswordForm onSubmit={handleSubmit}>
+            <h2 style={{ margin: 0 }}>Enter Password</h2>
+            <PasswordInput
+              type="password"
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              placeholder="Password"
+              autoFocus
+            />
+            <PasswordButton type="submit">Continue</PasswordButton>
+            {error && <div style={{ color: 'red', marginTop: '0.5rem' }}>{error}</div>}
+          </PasswordForm>
+        </PasswordGate>
       </PasswordContainer>
     );
   }
@@ -244,6 +314,8 @@ const Microsoft = () => {
       <RisoFlex>
         <VideoWithOverlay ref={videoRefs[0]} src="/assets/microsoft-demo2.mp4" poster="/assets/Preview1.png" />
       </RisoFlex>
+
+      <CopilotPayModule />
 
       <BusinessConnectorsModule />
       

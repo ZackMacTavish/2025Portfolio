@@ -136,10 +136,14 @@ const SkeletonLoader = styled(motion.div)`
   }
 `;
 
-const HeroPeekImageContainer = styled.div`
+const HeroPeekImageContainer = styled.div<{ $backgroundColor?: string }>`
   position: relative;
   width: 100%;
   height: 100%;
+  background: ${({ $backgroundColor }) => $backgroundColor || "transparent"};
+  padding-block: ${({ $backgroundColor }) => ($backgroundColor ? "clamp(1rem, 2vw, 1.5rem)" : "0")};
+  border-radius: ${({ $backgroundColor }) => ($backgroundColor ? "24px" : "0")};
+  overflow: hidden;
 `;
 
 const MetadataGrid = styled.div`
@@ -512,7 +516,7 @@ const StaggeredPairWrapper = styled.section`
   gap: 1.5rem;
   align-items: start;
   width: 100%;
-  max-width: none;
+  max-width: 64rem;
   margin: 0 auto;
   padding: 3rem 0;
 
@@ -539,10 +543,6 @@ const StaggeredRight = styled(motion.div)`
 
 const StaggeredImage = styled(ResponsiveImage)`
   width: 100%;
-
-  img {
-    object-fit: contain;
-  }
 `;
 
 const StaggeredCaption = styled.p`
@@ -791,7 +791,8 @@ const ColorBlockSection = styled.section`
 const ColorBlockInner = styled.div`
   position: relative;
   margin: 0 auto;
-  max-width: 1000px;
+  width: 100%;
+  max-width: 64rem;
 `;
 
 const ColorBlock = styled(motion.div)<{ $accentColor: string }>`
@@ -812,18 +813,20 @@ const ColorBlock = styled(motion.div)<{ $accentColor: string }>`
   }
 `;
 
-const ElevatedImageWrap = styled(motion.div)`
+const ElevatedImageWrap = styled(motion.div)<{ $containerShadow?: string; $containerBorder?: string }>`
   position: relative;
   z-index: 1;
-  max-width: 85%;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
   border-radius: 12px;
-  box-shadow:
-    0 24px 60px rgba(0, 0, 0, 0.15),
-    0 8px 20px rgba(0, 0, 0, 0.08);
+  border: ${(props) => props.$containerBorder || "none"};
+  box-shadow: ${(props) =>
+    props.$containerShadow ||
+    "0 24px 60px rgba(0, 0, 0, 0.15), 0 8px 20px rgba(0, 0, 0, 0.08)"};
 
   @media (max-width: 768px) {
-    max-width: 95%;
+    max-width: 100%;
   }
 `;
 
@@ -1053,6 +1056,7 @@ export default memo(function CaseStudyPage({
 }: CaseStudyPageProps) {
   const [heroImageLoaded, setHeroImageLoaded] = useState(false);
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "error">("idle");
+  const heroImage = caseStudy.heroImage || caseStudy.coverImage;
 
   // Split multi-paragraph text by \n\n
   const parseBody = (text?: string): string[] => {
@@ -1361,7 +1365,10 @@ export default memo(function CaseStudyPage({
                 webp={image.webp}
                 aspectRatio={image.aspectRatio || "4/5"}
                 borderRadius="12px"
-                objectFit="cover"
+                objectFit={image.objectFit || "cover"}
+                objectPosition={image.objectPosition}
+                backgroundColor={image.backgroundColor}
+                imagePaddingBlock={image.imagePaddingBlock}
               />
             </FeatureImageWrap>
           )}
@@ -1408,9 +1415,12 @@ export default memo(function CaseStudyPage({
               alt={leftImage.alt}
               avif={leftImage.avif}
               webp={leftImage.webp}
-              aspectRatio={leftImage.aspectRatio || "16/9"}
+              aspectRatio={leftImage.aspectRatio}
               borderRadius="12px"
-              objectFit="contain"
+              backgroundColor={leftImage.backgroundColor}
+              imagePaddingBlock={leftImage.imagePaddingBlock}
+              objectFit={leftImage.objectFit || "cover"}
+              objectPosition={leftImage.objectPosition}
             />
           </StaggeredLeft>
 
@@ -1425,10 +1435,12 @@ export default memo(function CaseStudyPage({
               alt={rightImage.alt}
               avif={rightImage.avif}
               webp={rightImage.webp}
-              aspectRatio={rightImage.aspectRatio || "16/9"}
+              aspectRatio={rightImage.aspectRatio}
               borderRadius="12px"
-              objectFit="contain"
-              objectPosition="top center"
+              backgroundColor={rightImage.backgroundColor}
+              imagePaddingBlock={rightImage.imagePaddingBlock}
+              objectFit={rightImage.objectFit || "cover"}
+              objectPosition={rightImage.objectPosition || "top center"}
             />
           </StaggeredRight>
         </StaggeredPairWrapper>
@@ -1603,7 +1615,10 @@ export default memo(function CaseStudyPage({
                   webp={stickyImage.webp}
                   aspectRatio={stickyImage.aspectRatio || "16/9"}
                   borderRadius="12px"
-                  objectFit="cover"
+                  backgroundColor={stickyImage.backgroundColor}
+                  imagePaddingBlock={stickyImage.imagePaddingBlock}
+                  objectFit={stickyImage.objectFit || "cover"}
+                  objectPosition={stickyImage.objectPosition || "center"}
                 />
               </StickyHeroFrame>
             )}
@@ -1670,6 +1685,8 @@ export default memo(function CaseStudyPage({
       <ColorBlockSection key={section.id}>
         <ColorBlockInner>
           <ElevatedImageWrap
+            $containerBorder={image.containerBorder}
+            $containerShadow={image.containerShadow}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={VIEWPORT_ONCE}
@@ -1680,9 +1697,14 @@ export default memo(function CaseStudyPage({
               alt={image.alt}
               avif={image.avif}
               webp={image.webp}
-              aspectRatio={image.aspectRatio || "3/2"}
-              borderRadius="12px"
-              objectFit="cover"
+              aspectRatio={image.aspectRatio}
+              borderRadius={image.borderRadius || "12px"}
+              containerBorderRadius={image.containerBorderRadius}
+              objectFit={image.objectFit || "cover"}
+              objectPosition={image.objectPosition}
+              imageScale={image.imageScale}
+              backgroundColor={image.backgroundColor}
+              imagePaddingBlock={image.imagePaddingBlock}
             />
           </ElevatedImageWrap>
 
@@ -1804,15 +1826,16 @@ export default memo(function CaseStudyPage({
         </HeroContent>
 
         <HeroPeekImageWrap>
-          <HeroPeekImageContainer>
+          <HeroPeekImageContainer $backgroundColor={heroImage.backgroundColor}>
             <HeroPeekImage
-              src={caseStudy.coverImage.src}
-              alt={caseStudy.coverImage.alt}
-              avif={caseStudy.coverImage.avif}
-              webp={caseStudy.coverImage.webp}
-              aspectRatio={caseStudy.coverImage.aspectRatio || "16/9"}
+              src={heroImage.src}
+              alt={heroImage.alt}
+              avif={heroImage.avif}
+              webp={heroImage.webp}
+              aspectRatio={heroImage.aspectRatio || "16/9"}
               borderRadius="8px"
-              objectFit="cover"
+              objectFit={heroImage.objectFit || "cover"}
+              objectPosition={heroImage.objectPosition || "center"}
               imageScale={1}
               onLoad={() => setHeroImageLoaded(true)}
             />

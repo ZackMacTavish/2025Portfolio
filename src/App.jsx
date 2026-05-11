@@ -10,22 +10,21 @@ import { lightTheme, darkTheme, GlobalStyles } from './components/Themes/Themes'
 // Components
 import Customcursor from "./components/CustomCursor/customcursor";
 import Nav from "./components/Nav/Nav";
+import LandingPage from "./pages/Landing_Page/LandingPage";
+import IntroAnimation from "./pages/Intro_Animation/IntroAnimation";
 
 // Pages (lazy-loaded to reduce initial bundle size)
 const Resume = lazy(() => import("./pages/Resume"));
 const AccessDirect = lazy(() => import("./pages/Access_Direct/AD"));
 const Giga = lazy(() => import("./pages/Giga/Giga"));
 const GraphicDesign = lazy(() => import("./pages/Graphic_Design/Graphicdesign"));
-const LandingPage = lazy(() => import("./pages/Landing_Page/LandingPage"));
 const Outsource = lazy(() => import("./pages/Outsource/Outsource"));
 const Ux = lazy(() => import("./pages/UX/UX"));
 const ThreePillars = lazy(() => import("./pages/ThreePillars/ThreePillars"));
 const Piton = lazy(() => import("./pages/Piton/Piton"));
 const Microsoft = lazy(() => import("./pages/Microsoft/Microsoft"));
 const BusinessConnectors = lazy(() => import("./pages/BusinessConnectors/BusinessConnectors"));
-
-// Intro Animation
-const IntroAnimation = lazy(() => import("./pages/Intro_Animation/IntroAnimation"));
+const CopilotPay = lazy(() => import("./pages/CopilotPay/CopilotPay"));
 
 // Assets
 import sun from './assets/Sun-DRKGREEN-01.svg';
@@ -179,24 +178,9 @@ function App() {
           {showShortcutsPill && (
             <button
               type="button"
+              className="shortcuts-pill"
               onClick={() => setShowShortcutsHelp(true)}
               aria-label="Open keyboard shortcuts help"
-              style={{
-                position: "fixed",
-                right: "1rem",
-                bottom: "1rem",
-                zIndex: 110,
-                border: "1px solid #d1d5db",
-                background: "#ffffff",
-                color: "#111827",
-                borderRadius: "999px",
-                padding: "0.5rem 0.85rem",
-                fontSize: "0.8rem",
-                fontWeight: 600,
-                letterSpacing: "0.04em",
-                cursor: "pointer",
-                boxShadow: "0 6px 18px rgba(0, 0, 0, 0.12)",
-              }}
             >
               ? Shortcuts
             </button>
@@ -301,8 +285,14 @@ function App() {
                   position: 'fixed',
                   inset: 0,
                   zIndex: 100,
-                  background: '#ffffff',
-                  color: '#111111',
+                  background:
+                    theme === 'light'
+                      ? lightTheme.backgroundColor
+                      : darkTheme.backgroundColor,
+                  color:
+                    theme === 'light'
+                      ? lightTheme.fontColor
+                      : darkTheme.fontColor,
                   display: 'grid',
                   placeItems: 'center',
                   fontFamily: 'Space Grotesk, sans-serif',
@@ -331,6 +321,7 @@ function App() {
             <Route path="/Piton" element={<Piton />} />
             <Route path="/Microsoft" element={<Microsoft />} />
             <Route path="/BusinessConnectors" element={<BusinessConnectors />} />
+            <Route path="/CopilotPay" element={<CopilotPay />} />
             <Route path="/Resume" element={<Resume />} />
 
             {/* Fallback for unknown routes */}

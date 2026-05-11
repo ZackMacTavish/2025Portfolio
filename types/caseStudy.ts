@@ -23,6 +23,33 @@ interface CaseStudyImage {
 
   /** Optional intrinsic height in pixels */
   height?: number;
+
+  /** Optional object-fit override when rendered responsively */
+  objectFit?: "cover" | "contain";
+
+  /** Optional object-position override when rendered responsively */
+  objectPosition?: string;
+
+  /** Optional background color behind the image */
+  backgroundColor?: string;
+
+  /** Optional vertical inset so the image sits within the frame */
+  imagePaddingBlock?: string;
+
+  /** Optional border radius override for the rendered image frame */
+  borderRadius?: string;
+
+  /** Optional border radius override for the outer image container */
+  containerBorderRadius?: string;
+
+  /** Optional shadow override for the outer image container */
+  containerShadow?: string;
+
+  /** Optional border override for the outer image container */
+  containerBorder?: string;
+
+  /** Optional visual scale override for images with extra built-in whitespace */
+  imageScale?: number;
 }
 
 /**
@@ -163,9 +190,15 @@ interface CaseStudy {
 
   /**
    * Cover image displayed at the top of the case study
-   * Used as hero visual and in listing previews
+    * Used in listing previews and transition handoffs
    */
   coverImage: CaseStudyImage;
+
+    /**
+    * Optional hero image displayed at the top of the case study page
+    * Falls back to coverImage when not provided
+    */
+    heroImage?: CaseStudyImage;
 
   /**
    * Array of exactly 5 transition images

@@ -11,6 +11,9 @@ interface ResponsiveImageProps {
   parallaxSpeed?: number;
   className?: string;
   borderRadius?: string;
+  containerBorderRadius?: string;
+  backgroundColor?: string;
+  imagePaddingBlock?: string;
   objectFit?: "cover" | "contain";
   objectPosition?: string;
   imageScale?: number;
@@ -32,11 +35,12 @@ function normalizeAssetUrl(url?: string) {
   }
 }
 
-const Container = styled(motion.div)<{ $aspectRatio?: string; $borderRadius: string }>`
+const Container = styled(motion.div)<{ $aspectRatio?: string; $borderRadius: string; $backgroundColor?: string }>`
   position: relative;
   width: 100%;
   overflow: hidden;
   border-radius: ${(props) => props.$borderRadius};
+  background: ${(props) => props.$backgroundColor || "transparent"};
 
   ${(props) =>
     props.$aspectRatio
@@ -46,22 +50,45 @@ const Container = styled(motion.div)<{ $aspectRatio?: string; $borderRadius: str
       : ""}
 `;
 
-const Picture = styled.picture`
+const Picture = styled.picture<{ $fillContainer: boolean; $borderRadius: string }>`
   display: block;
   width: 100%;
-  height: 100%;
+  height: ${(props) => (props.$fillContainer ? "100%" : "auto")};
+  overflow: hidden;
+  border-radius: ${(props) => props.$borderRadius};
+`;
+
+const ImageFrame = styled.div<{
+  $imagePaddingBlock?: string;
+  $fillContainer: boolean;
+  $borderRadius: string;
+}>`
+  position: ${(props) => (props.$fillContainer ? "absolute" : "relative")};
+  inset: ${(props) => (props.$fillContainer ? `${props.$imagePaddingBlock || "0"} 0` : "auto")};
+  padding-block: ${(props) => (props.$fillContainer ? "0" : props.$imagePaddingBlock || "0")};
+  overflow: hidden;
+  border-radius: ${(props) => props.$borderRadius};
 `;
 
 const StyledImg = styled(motion.img)<{
   $objectFit: "cover" | "contain";
   $objectPosition: string;
   $hasParallax: boolean;
+  $fillContainer: boolean;
+  $borderRadius: string;
 }>`
   display: block;
   width: 100%;
-  height: ${(props) => (props.$hasParallax ? "110%" : "100%")};
+  height: ${(props) => {
+    if (!props.$fillContainer) {
+      return "auto";
+    }
+
+    return props.$hasParallax ? "110%" : "100%";
+  }};
   object-fit: ${(props) => props.$objectFit};
   object-position: ${(props) => props.$objectPosition};
+  border-radius: ${(props) => props.$borderRadius};
 `;
 
 export default function ResponsiveImage({
@@ -73,6 +100,9 @@ export default function ResponsiveImage({
   parallaxSpeed = 0,
   className,
   borderRadius = "12px",
+  containerBorderRadius,
+  backgroundColor,
+  imagePaddingBlock,
   objectFit = "cover",
   objectPosition = "center",
   imageScale = 1,
@@ -97,6 +127,8 @@ export default function ResponsiveImage({
 
   const parallaxAmount = Math.max(0, parallaxSpeed) * 60;
   const shouldParallax = parallaxSpeed > 0 && !prefersReducedMotion && !isMobile;
+  const fillContainer = Boolean(aspectRatio);
+  const resolvedContainerBorderRadius = containerBorderRadius ?? borderRadius;
   const normalizedSrc = normalizeAssetUrl(src);
   const normalizedAvif = normalizeAssetUrl(avif);
   const normalizedWebp = normalizeAssetUrl(webp);
@@ -137,7 +169,8 @@ export default function ResponsiveImage({
       ref={containerRef}
       className={className}
       $aspectRatio={aspectRatio}
-      $borderRadius={borderRadius}
+      $borderRadius={resolvedContainerBorderRadius}
+      $backgroundColor={backgroundColor}
       {...(disableRevealAnimation
         ? {}
         : {
@@ -147,21 +180,29 @@ export default function ResponsiveImage({
             transition: { duration: 0.9, ease: [0.25, 0.1, 0.25, 1] },
           })}
     >
-      <Picture>
-        {normalizedAvif && <source srcSet={normalizedAvif} type="image/avif" />}
-        {normalizedWebp && <source srcSet={normalizedWebp} type="image/webp" />}
-        <StyledImg
-          src={normalizedSrc}
-          alt={alt}
-          loading={loading}
-          decoding={decoding}
-          onLoad={onLoad}
-          style={{ y: shouldParallax ? parallaxY : 0, scale: imageScale }}
-          $objectFit={objectFit}
-          $objectPosition={objectPosition}
-          $hasParallax={shouldParallax}
-        />
-      </Picture>
+      <ImageFrame
+        $imagePaddingBlock={imagePaddingBlock}
+        $fillContainer={fillContainer}
+        $borderRadius={borderRadius}
+      >
+        <Picture $fillContainer={fillContainer} $borderRadius={borderRadius}>
+          {normalizedAvif && <source srcSet={normalizedAvif} type="image/avif" />}
+          {normalizedWebp && <source srcSet={normalizedWebp} type="image/webp" />}
+          <StyledImg
+            src={normalizedSrc}
+            alt={alt}
+            loading={loading}
+            decoding={decoding}
+            onLoad={onLoad}
+            style={{ y: shouldParallax ? parallaxY : 0, scale: imageScale }}
+            $objectFit={objectFit}
+            $objectPosition={objectPosition}
+            $hasParallax={shouldParallax}
+            $fillContainer={fillContainer}
+            $borderRadius={borderRadius}
+          />
+        </Picture>
+      </ImageFrame>
     </Container>
   );
 }

@@ -258,7 +258,10 @@ export default function ImageCarousel({
               webp={prevImage.webp}
               aspectRatio={prevImage.aspectRatio || "3/2"}
               borderRadius="0"
-              objectFit="cover"
+              backgroundColor={prevImage.backgroundColor}
+              imagePaddingBlock={prevImage.imagePaddingBlock}
+              objectFit={prevImage.objectFit || "cover"}
+              objectPosition={prevImage.objectPosition || "center"}
               disableRevealAnimation
               loading="eager"
               decoding="auto"
@@ -275,7 +278,10 @@ export default function ImageCarousel({
             webp={activeImage.webp}
             aspectRatio={activeImage.aspectRatio || "3/2"}
             borderRadius="0"
-            objectFit="cover"
+            backgroundColor={activeImage.backgroundColor}
+            imagePaddingBlock={activeImage.imagePaddingBlock}
+            objectFit={activeImage.objectFit || "cover"}
+            objectPosition={activeImage.objectPosition || "center"}
             disableRevealAnimation
             loading="eager"
             decoding="auto"
