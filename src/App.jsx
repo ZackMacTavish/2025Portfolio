@@ -25,6 +25,7 @@ const Piton = lazy(() => import("./pages/Piton/Piton"));
 const Microsoft = lazy(() => import("./pages/Microsoft/Microsoft"));
 const BusinessConnectors = lazy(() => import("./pages/BusinessConnectors/BusinessConnectors"));
 const CopilotPay = lazy(() => import("./pages/CopilotPay/CopilotPay"));
+const Journeys = lazy(() => import("./pages/Journeys/Journeys"));
 
 // Assets
 import sun from './assets/Sun-DRKGREEN-01.svg';
@@ -322,6 +323,7 @@ function App() {
             <Route path="/Microsoft" element={<Microsoft />} />
             <Route path="/BusinessConnectors" element={<BusinessConnectors />} />
             <Route path="/CopilotPay" element={<CopilotPay />} />
+            <Route path="/Journeys" element={<Journeys />} />
             <Route path="/Resume" element={<Resume />} />
 
             {/* Fallback for unknown routes */}

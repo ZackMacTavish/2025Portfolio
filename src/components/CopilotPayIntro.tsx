@@ -7,6 +7,7 @@ import CaseStudyTransition, {
   warmPreloadTransitionImages,
 } from "./CaseStudyTransition";
 import { caseStudies } from "../data/caseStudies";
+import { CaseStudyIntroCTA, CaseStudyIntroCTAArrow } from "./CaseStudyIntroCTA";
 
 function normalizeAssetUrl(url: string) {
   try {
@@ -123,33 +124,6 @@ const StyledImage = styled.picture`
   }
 `;
 
-const StyledCTA = styled(motion.button)`
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0;
-  border: none;
-  background: none;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #111827;
-  text-decoration: none;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-  cursor: pointer;
-  margin-top: 0;
-
-  &:hover {
-    transform: translateX(4px);
-    opacity: 0.8;
-  }
-`;
-
-const Arrow = styled.span`
-  display: inline-block;
-  font-size: 1.2em;
-  line-height: 1;
-`;
-
 interface CopilotPayIntroProps {
   onLaunch: () => void;
 }
@@ -193,7 +167,7 @@ export function CopilotPayIntro({ onLaunch }: CopilotPayIntroProps) {
           >
             This case study focuses on express checkout flows, multi-wallet interaction design, and the design-system work required to make AI commerce feel scalable and trustworthy across Microsoft surfaces.
           </IntroSubtitle>
-          <StyledCTA
+          <CaseStudyIntroCTA
             type="button"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -201,8 +175,8 @@ export function CopilotPayIntro({ onLaunch }: CopilotPayIntroProps) {
             transition={{ duration: 0.7, delay: 0.3 }}
             onClick={onLaunch}
           >
-            See Case Study <Arrow>→</Arrow>
-          </StyledCTA>
+            See Case Study <CaseStudyIntroCTAArrow>→</CaseStudyIntroCTAArrow>
+          </CaseStudyIntroCTA>
         </TextColumn>
         <ImageColumn
           initial={{ opacity: 0, scale: 0.95 }}

@@ -9,9 +9,6 @@ import copilotGrpWebp from '../../assets/Copilot style GRP.webp';
 import hp from '../../assets/HP.png';
 import hpAvif from '../../assets/HP.avif';
 import hpWebp from '../../assets/HP.webp';
-import journeys from '../../assets/Journeys.png';
-import journeysAvif from '../../assets/Journeys.avif';
-import journeysWebp from '../../assets/Journeys.webp';
 import wallet from '../../assets/Wallet.png';
 import walletAvif from '../../assets/Wallet.avif';
 import walletWebp from '../../assets/Wallet.webp';
@@ -34,6 +31,7 @@ import { ProjectDetailsContainer, ProjectDetails, ProjectBlock, ProjectHeader, P
 import ProjectTopSection from '../../components/ProjectTopSection';
 import { BusinessConnectorsModule } from '../../components/BusinessConnectorsIntro';
 import { CopilotPayModule } from '../../components/CopilotPayIntro';
+import { JourneysModule } from '../../components/JourneysIntro';
 import { FiArrowUpRight } from 'react-icons/fi';
 
 const PASSWORD = 'yourpassword'; // Change this to your desired password
@@ -318,6 +316,16 @@ const Microsoft = () => {
       <CopilotPayModule />
 
       <BusinessConnectorsModule />
+
+      <FullHeightTextSection style={{ backgroundColor: '#eaf6ff', minHeight: '100vh' }}>
+        <TextContainer>
+          <TextContent style={{ color: '#1a3a5d', fontSize: '2.3rem', maxWidth: '50ch', lineHeight: '1.4', margin: '0' }}>
+            Journeys reframed shopping as a progression rather than a single destination. The concept created a central hub for discovery, comparison, and post-purchase support so users could keep track of activity, price changes, deals, and recommendations without carrying that mental load across multiple products and retailers.
+          </TextContent>
+        </TextContainer>
+      </FullHeightTextSection>
+
+      <JourneysModule />
       
       <FullHeightTextSection style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
         <TextContainer>
@@ -336,25 +344,10 @@ const Microsoft = () => {
         <RisoFlex>
         <VideoWithOverlay ref={videoRefs[2]} src="/assets/microsoft-demo3.mp4" poster="/assets/Preview3.png" />
       </RisoFlex>
-      <FullHeightTextSection style={{ backgroundColor: '#eaf6ff', minHeight: '100vh' }}>
-        <TextContainer>
-          <TextContent style={{ color: '#1a3a5d', fontSize: '2.3rem', maxWidth: '50ch', lineHeight: '1.4', margin: '0' }}>
-            I explored personalization systems that adapt to a user’s shopping history without feeling invasive or ad-driven. Projects like Journeys surfaced best-in-class products, expert tips, and modern curations tailored to intent. Alongside this, I ran user research and experiments to understand when shopping content felt helpful versus promotional.
-          </TextContent>
-        </TextContainer>
-      </FullHeightTextSection>
-    
-      <div style={{ paddingTop: '64px' }} />
-
-      <RisoFlex>
-        <SingleImage src={journeys} avif={journeysAvif} webp={journeysWebp} />
-      </RisoFlex>
       
       <RisoFlex>
         <VideoWithOverlay ref={videoRefs[1]} src="/assets/microsoft-demo.mp4" poster="/assets/Preview2.png" />
       </RisoFlex>
-    
-      <div style={{ paddingBottom: '64px' }} />
    
       <FullHeightTextSection style={{ backgroundColor: '#f7eaff', minHeight: '100vh' }}>
         <TextContainer>

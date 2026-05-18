@@ -623,11 +623,11 @@ const StickyColumn = styled.div`
   background: white;
 `;
 
-const StickyMediaPin = styled.div`
+const StickyMediaPin = styled.div<{ $fullBleed?: boolean }>`
   position: relative;
   width: min(65vw, 1080px);
   margin: 0 auto;
-  padding-top: 1.5rem;
+  padding-top: ${(props) => (props.$fullBleed ? "0" : "1.5rem")};
 
   @media (max-width: 1024px) {
     width: min(72vw, 980px);
@@ -635,14 +635,22 @@ const StickyMediaPin = styled.div`
 
   @media (max-width: 768px) {
     width: calc(100vw - 2.5rem);
-    padding-top: 1rem;
+    padding-top: ${(props) => (props.$fullBleed ? "0" : "1rem")};
   }
 `;
 
-const StickyHeroFrame = styled.div`
+const StickyHeroFrame = styled.div<{ $fullBleed?: boolean }>`
   position: relative;
   min-height: 0;
   height: clamp(340px, 46vw, 680px);
+
+  ${(props) =>
+    props.$fullBleed
+      ? `
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  `
+      : ""}
 
   @media (max-width: 768px) {
     height: clamp(260px, 58vw, 460px);
@@ -1514,6 +1522,7 @@ export default memo(function CaseStudyPage({
 
   const renderStickySplit = (section: CaseStudySection) => {
     const stickyImage = section.stickyContent?.image || section.images?.[0];
+    const stickyImageIsFullBleed = section.stickyContent?.fullBleedImage || false;
     const tags = section.stickyContent?.tags || [];
     const collateralImages = section.stickyContent?.collateralImages || [];
     const blocks = section.scrollContent?.blocks || [];
@@ -1605,9 +1614,9 @@ export default memo(function CaseStudyPage({
         </ScrollColumn>
 
         <StickyColumn>
-          <StickyMediaPin>
+          <StickyMediaPin $fullBleed={stickyImageIsFullBleed}>
             {stickyImage && (
-              <StickyHeroFrame>
+              <StickyHeroFrame $fullBleed={stickyImageIsFullBleed}>
                 <StickyHeroImage
                   src={stickyImage.src}
                   alt={stickyImage.alt}
@@ -1860,7 +1869,10 @@ export default memo(function CaseStudyPage({
           const currentIsImageHeavy = IMAGE_HEAVY_LAYOUTS.has(section.layout);
           const prevIsImageHeavy = prev ? IMAGE_HEAVY_LAYOUTS.has(prev.layout) : false;
           const nextIsImageHeavy = next ? IMAGE_HEAVY_LAYOUTS.has(next.layout) : false;
-          const isCompact = currentIsImageHeavy && (prevIsImageHeavy || nextIsImageHeavy);
+          const isCompact =
+            !section.disableCompactPadding &&
+            currentIsImageHeavy &&
+            (prevIsImageHeavy || nextIsImageHeavy);
 
           if (isSelfManaged) {
             return <div key={section.id}>{renderSection(section)}</div>;

@@ -111,6 +111,9 @@ interface CaseStudySection {
   /** Optional accent color for sections such as image-on-color-block or quote */
   accentColor?: string;
 
+  /** Optional flag to preserve standard vertical section padding even in compact image-heavy runs */
+  disableCompactPadding?: boolean;
+
   /**
    * Optional sticky media/content payload for sticky-split layouts
    * Includes primary image, optional tags, and optional supporting thumbnails
@@ -118,6 +121,9 @@ interface CaseStudySection {
   stickyContent?: {
     /** Primary sticky image shown in the left column */
     image: CaseStudyImage;
+
+    /** Optional flag to let the primary sticky image span the full viewport width */
+    fullBleedImage?: boolean;
 
     /** Optional service/skill tags rendered below sticky media */
     tags?: string[];
