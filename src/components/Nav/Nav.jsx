@@ -194,6 +194,9 @@ const NavLinks = styled.ul`
 
   @media (max-width: 1200px) { gap: 1.5rem; }
   @media (max-width: 800px) { gap: 1rem; font-size: 1rem; }
+  /* Remove mobile column layout so header nav stays in header */
+  /* The dropdown menu handles mobile project links */
+  
 `;
 
 const NavLabel = styled.span`
@@ -240,6 +243,28 @@ const NavLink = styled(Link)`
   }
 `;
 
+const CloseButton = styled.button`
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  z-index: 1300;
+  cursor: pointer;
+  opacity: 0.85;
+  display: none;
+  transition: opacity 0.2s;
+  &:hover { opacity: 1; }
+  @media (max-width: 700px) {
+    display: block;
+  }
+`;
+
 const Dropdown = styled.div`
   position: absolute;
   top: 100%;
@@ -250,8 +275,27 @@ const Dropdown = styled.div`
   border-radius: 0 0 0.25rem 0.25rem;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   display: ${(props) => (props.$open ? 'block' : 'none')};
-  min-width: 10rem; /* Increased from 8rem */
+  min-width: 10rem;
   z-index: 1200;
+
+  @media (max-width: 700px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100vw;
+    height: 100vh;
+    min-width: unset;
+    border-radius: 0;
+    display: ${(props) => (props.$open ? 'flex' : 'none')};
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.95);
+    box-shadow: none;
+    padding: 0;
+    gap: 2.5rem;
+  }
 `;
 
 const DropdownMenu = styled(Link)`
@@ -351,6 +395,14 @@ export default function Nav() {
               }}
             />
             <Dropdown $open={open} ref={dropdownRef}>
+              {/* Mobile close button */}
+              <CloseButton
+                aria-label="Close menu"
+                onClick={handleClose}
+                style={{ display: open ? undefined : 'none' }}
+              >
+                ×
+              </CloseButton>
               <DropdownMenu to="/Microsoft" onClick={handleClose}>Microsoft</DropdownMenu>
               <DropdownMenu to="/Outsource" onClick={handleClose}>Outsource</DropdownMenu>
               <DropdownMenu to="/Ux" onClick={handleClose}>Leysi</DropdownMenu>

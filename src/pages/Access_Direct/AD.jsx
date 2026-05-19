@@ -186,8 +186,8 @@ export const FullHeightTextSection = styled.section`
   @media (max-width: 850px) {
     flex-direction: column;
     justify-content: center;
-    min-height: 70vh; /* similar perceived size on mobile */
-    padding: 8vh 4vw; /* maintain visual balance on small screens */
+    min-height: 70vh;
+    padding: 2.5vh 4vw;
   }
 `;
 

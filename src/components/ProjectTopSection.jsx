@@ -25,18 +25,22 @@ const TopSectionContainer = styled.div`
   justify-content: space-between;
   gap: 1vw;
   margin: 0 auto 4vh auto;
-  padding-top: 6.5rem;
+  padding-top: 0;
   @media (max-width: 1320px) {
     width: 90vw;
     max-width: 90vw;
   }
-  @media (max-width: 850px) {
-    flex-direction: column-reverse;
-    width: 100vw;
-    max-width: 100vw;
-    gap: 2vh;
-    padding: 5.5rem 2vw 0 2vw;
-  }
+    @media (max-width: 850px) {
+      flex-direction: column-reverse;
+      align-items: stretch;
+      width: 100vw;
+      max-width: 100vw;
+      gap: 2vh;
+      margin: 0 auto 4vh auto;
+      padding-left: 2vw;
+      padding-right: 2vw;
+      padding-top: 0;
+    }
 `;
 
 const TopSectionText = styled.div`
@@ -54,22 +58,34 @@ const TopSectionText = styled.div`
     align-items: center;
     text-align: center;
     gap: 0.75rem;
-  }
+    }
+      background: white;
+      padding: 0;
 `;
 
 const TopSectionImage = styled.div`
   flex: 2 1 0;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   width: 100%;
   max-width: none;
   min-width: 0;
   min-height: 0;
+  background: white;
+  padding: 0;
   @media (max-width: 1000px) {
     justify-content: center;
     width: 100%;
     margin-bottom: 2rem;
+  }
+  @media (max-width: 850px) {
+    margin-top: 0;
+    flex-basis: auto;
+    min-height: 0;
+    min-width: 0;
+    width: 100%;
+    padding: 0;
   }
 `;
 
@@ -77,17 +93,26 @@ const TopSectionImage = styled.div`
 const TopSectionImageStyled = styled.img`
   width: 100%;
   max-width: 700px;
-  min-width: 220px;
+  min-width: 0;
   height: auto;
   border-radius: 18px;
-  /* Removed box-shadow and background for a flat look */
-  object-fit: cover;
+  object-fit: contain;
   display: block;
+  margin: 0 auto;
   @media (max-width: 1000px) {
-    width: 90vw;
+    width: 98vw;
     max-width: 98vw;
     min-width: 0;
     margin: 0 auto;
+  }
+  @media (max-width: 850px) {
+    width: 100%;
+    max-width: 100vw;
+    min-width: 0;
+    height: auto;
+    margin-bottom: 0;
+    object-fit: contain;
+    border-radius: 18px;
   }
 `;
 
@@ -116,25 +141,32 @@ const Divider = styled.div`
   }
 `;
 
+// ...existing code...
+
 export default function ProjectTopSection({
-  title,
-  imageBaseName, // e.g. 'ThreePillars—Macbook' (new API)
-  imageSrc, // existing API (string or imported module)
-  imageExt = 'png',
+  imageBaseName = null,
+  imageSrc = '',
+  imageAvif = null,
+  imageWebp = null,
   imageAlt = '',
-    $imageWidth = '38vw',
+  $imageWidth = '38vw',
   buttons = [],
   divider = true,
+  imageExt = 'jpg',
+  title = '',
 }) {
   const imageBasePath = imageBaseName
     ? `${imageBaseName.startsWith('assets/') ? '/' : '/src/'}${imageBaseName}`
     : null;
   const normalizedImageAvif = imageBasePath ? normalizeAssetUrl(`${imageBasePath}.avif`) : null;
   const normalizedImageWebp = imageBasePath ? normalizeAssetUrl(`${imageBasePath}.webp`) : null;
-  const normalizedImageSrc = imageBasePath ? normalizeAssetUrl(`${imageBasePath}.${imageExt}`) : null;
+  const normalizedImageSrc = imageBasePath ? normalizeAssetUrl(`${imageBasePath}.${imageExt || 'jpg'}`) : null;
 
   return (
-    <TopSectionContainer>
+    <>
+      {/* Mobile nav spacer to push content below header */}
+      <div className="mobile-nav-spacer" style={{ display: 'block', width: '100%', height: '12vh', minHeight: 0, padding: 0, margin: 0, background: 'transparent', zIndex: 0, pointerEvents: 'none', position: 'relative' }} />
+      <TopSectionContainer className="first">
       <TopSectionText>
         <TopSectionTitle>{title}</TopSectionTitle>
         {divider && (
@@ -165,6 +197,7 @@ export default function ProjectTopSection({
         )}
       </TopSectionImage>
     </TopSectionContainer>
+    </>
   );
 }
 

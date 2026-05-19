@@ -11,6 +11,7 @@ import { lightTheme, darkTheme, GlobalStyles } from './components/Themes/Themes'
 import Customcursor from "./components/CustomCursor/customcursor";
 import Nav from "./components/Nav/Nav";
 import LandingPage from "./pages/Landing_Page/LandingPage";
+import ErrorBoundary from "./components/ErrorBoundary";
 import IntroAnimation from "./pages/Intro_Animation/IntroAnimation";
 
 // Pages (lazy-loaded to reduce initial bundle size)
@@ -293,8 +294,15 @@ function App() {
             {/* Root shows IntroAnimation first */}
             <Route path="/" element={<IntroAnimation />} />
 
-            {/* Landing page */}
-            <Route path="/MacTavish" element={<LandingPage />} />
+            {/* Landing page with robust error boundary */}
+            <Route
+              path="/MacTavish"
+              element={
+                <ErrorBoundary fallback={<div style={{ color: 'red', padding: '2rem', textAlign: 'center' }}>Sorry, something went wrong loading the landing page.</div>}>
+                  <LandingPage />
+                </ErrorBoundary>
+              }
+            />
 
             {/* Design pages */}
 

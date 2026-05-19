@@ -16,6 +16,9 @@ const Section = styled.div`
   gap: 2.2vw;
   align-items: center; /* Vertically center both image and text */
   padding: ${(p) => (p.theme?.spacing?.['3xl'] || '3rem')} 0;
+  @media (max-width: 1000px) {
+    padding: 1.2rem 0;
+  }
   height: auto;
 
   @media (max-width: 1320px) {
@@ -26,7 +29,7 @@ const Section = styled.div`
     width: 100vw;
     max-width: 100vw;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 0.5rem;
     align-items: center;
     height: auto;
   }
@@ -112,29 +115,68 @@ function normalizeAssetUrl(url) {
   }
 }
 
-export default function ImageTextSection({
-  imageSrc,
-  imageAvif,
-  imageWebp,
-  imageAlt,
-  children,
-  imageWidth,
-  columns,
-  width,
-  textSize,
-  textColor,
-  className,
-  ...rest
-}) {
+export function ImageTextSection(props) {
+  // Destructure all known props so only valid DOM props are left in ...rest
+  const {
+    imageSrc,
+    imageAvif,
+    imageWebp,
+    imageAlt,
+    mobileSrc,
+    mobileAvif,
+    mobileWebp,
+    width,
+    className,
+    textSize,
+    textColor,
+    children,
+    ...rest
+  } = props;
+
+
+  // Deeply remove mobile* props from any object/array
+  function filterMobileProps(obj) {
+    if (!obj || typeof obj !== 'object') return obj;
+    if (Array.isArray(obj)) {
+      return obj.map(filterMobileProps);
+    }
+    const filtered = {};
+    for (const key in obj) {
+      if (key === 'mobileSrc' || key === 'mobileAvif' || key === 'mobileWebp') continue;
+      const value = obj[key];
+      if (typeof value === 'object' && value !== null) {
+        filtered[key] = filterMobileProps(value);
+      } else {
+        filtered[key] = value;
+      }
+    }
+    return filtered;
+  }
+
+  const safeRest = filterMobileProps(rest);
+
   const normalizedImageSrc = normalizeAssetUrl(imageSrc);
   const normalizedImageAvif = normalizeAssetUrl(imageAvif);
   const normalizedImageWebp = normalizeAssetUrl(imageWebp);
+  const normalizedMobileSrc = normalizeAssetUrl(mobileSrc);
+  const normalizedMobileAvif = normalizeAssetUrl(mobileAvif);
+  const normalizedMobileWebp = normalizeAssetUrl(mobileWebp);
 
-  // Flexbox: image and text both flex to fill container
   return (
-    <Section $width={width} className={className} {...rest}>
+    <Section $width={width} className={className} {...safeRest}>
       <ImgWrapper>
         <picture>
+          {/* Mobile sources first (max-width: 700px) */}
+          {normalizedMobileAvif && (
+            <source srcSet={normalizedMobileAvif} type="image/avif" media="(max-width: 700px)" />
+          )}
+          {normalizedMobileWebp && (
+            <source srcSet={normalizedMobileWebp} type="image/webp" media="(max-width: 700px)" />
+          )}
+          {normalizedMobileSrc && (
+            <source srcSet={normalizedMobileSrc} media="(max-width: 700px)" />
+          )}
+          {/* Desktop sources */}
           {normalizedImageAvif && <source srcSet={normalizedImageAvif} type="image/avif" />}
           {normalizedImageWebp && <source srcSet={normalizedImageWebp} type="image/webp" />}
           <Img src={normalizedImageSrc} alt={imageAlt} />
@@ -144,3 +186,6 @@ export default function ImageTextSection({
     </Section>
   );
 }
+
+export default ImageTextSection;
+export const ImageTextSplit = ImageTextSection;

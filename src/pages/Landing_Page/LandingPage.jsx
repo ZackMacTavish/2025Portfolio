@@ -1,35 +1,94 @@
 import React, { useLayoutEffect, useEffect, useState, useRef } from 'react';
+
 import styled, { keyframes } from 'styled-components';
 import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
 import { Suspense, lazy } from 'react';
+import ErrorBoundary from '../../components/ErrorBoundary';
 const Scene = lazy(() => import('../../components/Three/three'));
 import Grid60 from '../../components/Layout/Grid60';
 import me from '../../assets/Me.jpeg';
 import meAvif from '../../assets/Me.avif';
 import meWebp from '../../assets/Me.webp';
+import meMobile600 from '../../assets/Me-mobile-600.jpg';
+import meMobile900 from '../../assets/Me-mobile-900.jpg';
+import meMobile600Avif from '../../assets/Me-mobile-600.avif';
+import meMobile900Avif from '../../assets/Me-mobile-900.avif';
+import meMobile600Webp from '../../assets/Me-mobile-600.webp';
+import meMobile900Webp from '../../assets/Me-mobile-900.webp';
 
 import quilthanging from '../../assets/hangingquilts.jpg';
 import quilthangingAvif from '../../assets/hangingquilts.avif';
 import quilthangingWebp from '../../assets/hangingquilts.webp';
+import quilthangingMobile600 from '../../assets/hangingquilts-mobile-600.jpg';
+import quilthangingMobile900 from '../../assets/hangingquilts-mobile-900.jpg';
+import quilthangingMobile600Avif from '../../assets/hangingquilts-mobile-600.avif';
+import quilthangingMobile900Avif from '../../assets/hangingquilts-mobile-900.avif';
+import quilthangingMobile600Webp from '../../assets/hangingquilts-mobile-600.webp';
+import quilthangingMobile900Webp from '../../assets/hangingquilts-mobile-900.webp';
+import ResponsivePicture from '../../components/ResponsivePicture';
 import { SingleImage } from '../Access_Direct/AD';
 import { ImageTextSplit } from '@zackmactavish/foundation';
 // Project tile images (served via bundler from src/assets)
 import leysiTile from '../../assets/LeysiApp—Screens copy.jpg';
 import leysiTileAvif from '../../assets/LeysiApp—Screens copy.avif';
 import leysiTileWebp from '../../assets/LeysiApp—Screens copy.webp';
+import leysiTileMobile600 from '../../assets/LeysiApp—Screens copy-mobile-600.jpg';
+import leysiTileMobile900 from '../../assets/LeysiApp—Screens copy-mobile-900.jpg';
+import leysiTileMobile600Avif from '../../assets/LeysiApp—Screens copy-mobile-600.avif';
+import leysiTileMobile900Avif from '../../assets/LeysiApp—Screens copy-mobile-900.avif';
+import leysiTileMobile600Webp from '../../assets/LeysiApp—Screens copy-mobile-600.webp';
+import leysiTileMobile900Webp from '../../assets/LeysiApp—Screens copy-mobile-900.webp';
 import threePillarsTile from '../../assets/ThreePillars—pages.jpg';
 import threePillarsTileAvif from '../../assets/ThreePillars—pages.avif';
 import threePillarsTileWebp from '../../assets/ThreePillars—pages.webp';
+import threePillarsTileMobile600 from '../../assets/ThreePillars—pages-mobile-600.jpg';
+import threePillarsTileMobile900 from '../../assets/ThreePillars—pages-mobile-900.jpg';
+import threePillarsTileMobile600Avif from '../../assets/ThreePillars—pages-mobile-600.avif';
+import threePillarsTileMobile900Avif from '../../assets/ThreePillars—pages-mobile-900.avif';
+import threePillarsTileMobile600Webp from '../../assets/ThreePillars—pages-mobile-600.webp';
+import threePillarsTileMobile900Webp from '../../assets/ThreePillars—pages-mobile-900.webp';
 import pitonTile from '../../assets/Group 55618@2x.png';
 import pitonTileAvif from '../../assets/Group 55618@2x.avif';
 import pitonTileWebp from '../../assets/Group 55618@2x.webp';
+import pitonTileMobile600 from '../../assets/Group 55618@2x-mobile-600.jpg';
+import pitonTileMobile900 from '../../assets/Group 55618@2x-mobile-900.jpg';
+import pitonTileMobile600Avif from '../../assets/Group 55618@2x-mobile-600.avif';
+import pitonTileMobile900Avif from '../../assets/Group 55618@2x-mobile-900.avif';
+import pitonTileMobile600Webp from '../../assets/Group 55618@2x-mobile-600.webp';
+import pitonTileMobile900Webp from '../../assets/Group 55618@2x-mobile-900.webp';
 import outsourceTile from '../../assets/BrandGuidelines—Mockup.jpg';
 import outsourceTileAvif from '../../assets/BrandGuidelines—Mockup.avif';
 import outsourceTileWebp from '../../assets/BrandGuidelines—Mockup.webp';
+import outsourceTileMobile600 from '../../assets/BrandGuidelines—Mockup-mobile-600.jpg';
+import outsourceTileMobile900 from '../../assets/BrandGuidelines—Mockup-mobile-900.jpg';
+import outsourceTileMobile600Avif from '../../assets/BrandGuidelines—Mockup-mobile-600.avif';
+import outsourceTileMobile900Avif from '../../assets/BrandGuidelines—Mockup-mobile-900.avif';
+import outsourceTileMobile600Webp from '../../assets/BrandGuidelines—Mockup-mobile-600.webp';
+import outsourceTileMobile900Webp from '../../assets/BrandGuidelines—Mockup-mobile-900.webp';
 import gigaTile from '../../assets/iphones—Mockup copy.png';
 import gigaTileAvif from '../../assets/iphones—Mockup copy.avif';
 import gigaTileWebp from '../../assets/iphones—Mockup copy.webp';
+import gigaTileMobile600 from '../../assets/iphones—Mockup copy-mobile-600.jpg';
+import gigaTileMobile900 from '../../assets/iphones—Mockup copy-mobile-900.jpg';
+import gigaTileMobile600Avif from '../../assets/iphones—Mockup copy-mobile-600.avif';
+import gigaTileMobile900Avif from '../../assets/iphones—Mockup copy-mobile-900.avif';
+import gigaTileMobile600Webp from '../../assets/iphones—Mockup copy-mobile-600.webp';
+import gigaTileMobile900Webp from '../../assets/iphones—Mockup copy-mobile-900.webp';
+// Responsive <picture> for project tiles
+const ResponsiveProjectImage = ({ desktop, desktopAvif, desktopWebp, mobile600, mobile900, mobile600Avif, mobile900Avif, mobile600Webp, mobile900Webp, alt }) => (
+  <picture>
+    <source srcSet={mobile600Avif} type="image/avif" media="(max-width: 650px)" />
+    <source srcSet={mobile900Avif} type="image/avif" media="(max-width: 900px)" />
+    <source srcSet={desktopAvif} type="image/avif" />
+    <source srcSet={mobile600Webp} type="image/webp" media="(max-width: 650px)" />
+    <source srcSet={mobile900Webp} type="image/webp" media="(max-width: 900px)" />
+    <source srcSet={desktopWebp} type="image/webp" />
+    <source srcSet={mobile600} type="image/jpeg" media="(max-width: 650px)" />
+    <source srcSet={mobile900} type="image/jpeg" media="(max-width: 900px)" />
+    <img src={desktop} alt={alt} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+  </picture>
+);
 import mediumLogo from '../../assets/medium.svg';
 import card1 from '../../assets/Card1.webp';
 import card1Avif from '../../assets/Card1.avif';
@@ -40,6 +99,7 @@ import card3Avif from '../../assets/Card3.avif';
 import card4 from '../../assets/Card4.webp';
 import card4Avif from '../../assets/Card4.avif';
 import card5 from '../../assets/Card5.webp';
+import card5Webp from '../../assets/Card5.webp';
 import card5Avif from '../../assets/Card5.avif';
 import card6 from '../../assets/Card6.png';
 import card6Avif from '../../assets/Card6.avif';
@@ -143,49 +203,39 @@ const normalizeAssetUrl = (url) => {
 
 
 
-// AboutPicture as <picture>
+// AboutPicture as ResponsivePicture
 const AboutPicture = (props) => (
-  <picture>
-    <source srcSet={normalizeAssetUrl(meAvif)} type="image/avif" />
-    <source srcSet={normalizeAssetUrl(meWebp)} type="image/webp" />
-    <img
-      src={normalizeAssetUrl(me)}
-      alt="Zack MacTavish portrait"
-      loading="eager"
-      decoding="async"
-      fetchPriority="high"
-      className="about-picture-img"
-      style={{
-  width: '21vw',
-  height: '21vw',
-        objectFit: 'cover',
-        borderRadius: '50%',
-        flexShrink: 0,
-        position: 'relative',
-        zIndex: 1,
-        display: 'block',
-        ...props.style
-      }}
-    />
-    <style>{`
-      @media (max-width: 1000px) {
-        .about-picture-img {
-          width: 38vw !important;
-          height: 38vw !important;
-          min-width: 160px !important;
-          min-height: 160px !important;
-        }
-      }
-      @media (max-width: 700px) {
-        .about-picture-img {
-          width: 44vw !important;
-          height: 44vw !important;
-          min-width: 120px !important;
-          min-height: 120px !important;
-        }
-      }
-    `}</style>
-  </picture>
+  <ResponsivePicture
+    desktop={me}
+    desktopAvif={meAvif}
+    desktopWebp={meWebp}
+    mobile600={meMobile600}
+    mobile900={meMobile900}
+    mobile600Avif={meMobile600Avif}
+    mobile900Avif={meMobile900Avif}
+    mobile600Webp={meMobile600Webp}
+    mobile900Webp={meMobile900Webp}
+    alt="Zack MacTavish portrait"
+    loading="eager"
+    decoding="async"
+    fetchPriority="high"
+    className="about-picture-img"
+    style={{
+      width: '21vw',
+      height: '21vw',
+      objectFit: 'cover',
+      borderRadius: '50%',
+      flexShrink: 0,
+      position: 'relative',
+      zIndex: 1,
+      display: 'block',
+      ...props.style,
+      // Responsive override for mobile
+      ...(typeof window !== 'undefined' && window.innerWidth <= 700
+        ? { width: '44vw', height: '44vw' }
+        : {}),
+    }}
+  />
 );
 
 const PortraitContainer = styled.div`
@@ -829,56 +879,21 @@ const LandingPage = ({ introDone = true }) => {
                 : isFifth
                 ? 'A beginner\'s guide to CSS for designers'
                 : 'A beginner\'s guide to HTML for designers';
-              const bgStyle = isFirst
-                ? {
-                    backgroundImage: `url(${card1})`,
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                  }
-                : isSecond
-                ? {
-                    backgroundImage: `url(${card2})`,
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                  }
-                : isThird
-                ? {
-                    backgroundImage: `url(${card3})`,
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                  }
-                : isFourth
-                ? {
-                    backgroundImage: `url(${card4})`,
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                  }
-                : isFifth
-                ? {
-                    backgroundImage: `url(${card6})`,
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                  }
-                : isSixth
-                ? {
-                    backgroundImage: `url(${card5})`,
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                  }
-                : {
-                    backgroundImage: `url(${mediumLogo})`,
-                    backgroundColor: '#fafafa',
-                    backgroundSize: '40%',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                    filter: 'none',
-                  };
+              // For main project tiles, use ResponsiveProjectImage for the largest images
+              let tileImage = null;
+              if (isFirst) {
+                tileImage = <ResponsiveProjectImage desktop={leysiTile} desktopAvif={leysiTileAvif} desktopWebp={leysiTileWebp} mobile600={leysiTileMobile600} mobile900={leysiTileMobile900} mobile600Avif={leysiTileMobile600Avif} mobile900Avif={leysiTileMobile900Avif} mobile600Webp={leysiTileMobile600Webp} mobile900Webp={leysiTileMobile900Webp} alt="Leysi App project tile" />;
+              } else if (isSecond) {
+                tileImage = <ResponsiveProjectImage desktop={gigaTile} desktopAvif={gigaTileAvif} desktopWebp={gigaTileWebp} mobile600={gigaTileMobile600} mobile900={gigaTileMobile900} mobile600Avif={gigaTileMobile600Avif} mobile900Avif={gigaTileMobile900Avif} mobile600Webp={gigaTileMobile600Webp} mobile900Webp={gigaTileMobile900Webp} alt="Giga project tile" />;
+              } else if (isThird) {
+                tileImage = <ResponsiveProjectImage desktop={threePillarsTile} desktopAvif={threePillarsTileAvif} desktopWebp={threePillarsTileWebp} mobile600={threePillarsTileMobile600} mobile900={threePillarsTileMobile900} mobile600Avif={threePillarsTileMobile600Avif} mobile900Avif={threePillarsTileMobile900Avif} mobile600Webp={threePillarsTileMobile600Webp} mobile900Webp={threePillarsTileMobile900Webp} alt="Three Pillars project tile" />;
+              } else if (isFourth) {
+                tileImage = <ResponsiveProjectImage desktop={outsourceTile} desktopAvif={outsourceTileAvif} desktopWebp={outsourceTileWebp} mobile600={outsourceTileMobile600} mobile900={outsourceTileMobile900} mobile600Avif={outsourceTileMobile600Avif} mobile900Avif={outsourceTileMobile900Avif} mobile600Webp={outsourceTileMobile600Webp} mobile900Webp={outsourceTileMobile900Webp} alt="Outsource project tile" />;
+              } else if (isFifth) {
+                tileImage = <ResponsiveProjectImage desktop={card6} desktopAvif={card6Avif} desktopWebp={card6Webp} mobile600={card6} mobile900={card6} mobile600Avif={card6Avif} mobile900Avif={card6Avif} mobile600Webp={card6Webp} mobile900Webp={card6Webp} alt="Card 6" />;
+              } else if (isSixth) {
+                tileImage = <ResponsiveProjectImage desktop={card5} desktopAvif={card5Avif} desktopWebp={card5Webp} mobile600={card5} mobile900={card5} mobile600Avif={card5Avif} mobile900Avif={card5Avif} mobile600Webp={card5Webp} mobile900Webp={card5Webp} alt="Card 5" />;
+              }
               return (
                 <ProjectCard key={`medium-card-${i}`}>
                   <Tile
@@ -901,7 +916,9 @@ const LandingPage = ({ introDone = true }) => {
                         : `Medium writing card ${i + 1}`
                     }
                   >
-                    <TileBg style={bgStyle} />
+                    <TileBg as="div" style={{ background: 'none', padding: 0 }}>
+                      {tileImage}
+                    </TileBg>
                     <TileOverlay />
                   </Tile>
                   <TileCaption>
@@ -921,9 +938,12 @@ const LandingPage = ({ introDone = true }) => {
         imageAvif={quilthangingAvif}
         imageWebp={quilthangingWebp}
         imageAlt="Quilt hanging"
+        mobileSrc={quilthangingMobile600}
+        mobileAvif={quilthangingMobile600Avif}
+        mobileWebp={quilthangingMobile600Webp}
+        style={{ color: '#fff' }}
         textSize="1.4rem"
         textColor="#fff"
-        style={{ color: '#fff' }}
       >
         <div style={{ lineHeight: '1.6' }}>
           Outside of work, I live with my partner <a href="https://oliviazitasmith.com" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>Olivia Smith</a>, who is also an artist. In my own creative time, I focus on making quilts that combine photography, textile techniques, and mixed media, exploring the intersection of art, design, and storytelling.
@@ -939,9 +959,11 @@ const LandingPage = ({ introDone = true }) => {
             <GridCTA href="https://zackmactavish.com" target="_blank" rel="noopener noreferrer">View Portfolio</GridCTA>
           </GridHeaderContainer>
           <GridImage>
-            <Suspense fallback={<div style={{ height: '50vh' }} />}> 
-              <Scene />
-            </Suspense>
+            <ErrorBoundary fallback={null}>
+              <Suspense fallback={<div style={{ height: '50vh' }} />}> 
+                <Scene />
+              </Suspense>
+            </ErrorBoundary>
           </GridImage>
         </GridThemes>
       </ArtDiv>
