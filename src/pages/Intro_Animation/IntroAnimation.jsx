@@ -16,8 +16,11 @@ const IntroDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
+    width: 100vw;
+    height: 100vh;
+    @media (max-width: 900px) {
+      height: 100dvh;
+    }
   background-color: ${({ $background }) => $background};
   position: absolute;
   top: 0;

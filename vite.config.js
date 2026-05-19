@@ -11,7 +11,6 @@ export default defineConfig({
   ],
   base: "./", // relative path so assets load correctly on any domain
   build: {
-    target: "es2019",
     rollupOptions: {
       output: {
         manualChunks: {
