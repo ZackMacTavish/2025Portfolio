@@ -1,10 +1,17 @@
 import { defineConfig } from "vite";
+import legacy from "@vitejs/plugin-legacy";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    legacy({
+      targets: ["Safari >= 13", "iOS >= 13"],
+    }),
+  ],
   base: "./", // relative path so assets load correctly on any domain
   build: {
+    target: "es2019",
     rollupOptions: {
       output: {
         manualChunks: {

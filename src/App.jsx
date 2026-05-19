@@ -30,11 +30,6 @@ const Journeys = lazy(() => import("./pages/Journeys/Journeys"));
 // Assets
 import sun from './assets/Sun-DRKGREEN-01.svg';
 
-// Data & preloading
-import { caseStudies } from './data/caseStudies';
-import { warmPreloadTransitionImages } from './components/CaseStudyTransition';
-
-
 function App() {
   const [theme, setTheme] = useState("light");
   const [showShortcutsHelp, setShowShortcutsHelp] = useState(false);
@@ -45,16 +40,6 @@ function App() {
   const themeToggler = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
-
-  // Preload all case study transition images on app mount (non-blocking)
-  useEffect(() => {
-    const allTransitionImages = caseStudies.flatMap(
-      (caseStudy) => caseStudy.transitionImages
-    );
-    if (allTransitionImages.length > 0) {
-      warmPreloadTransitionImages(allTransitionImages);
-    }
-  }, []);
 
   // Global shortcut: press ? to open shortcuts help, Escape to close it.
   useEffect(() => {

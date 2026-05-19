@@ -1,0 +1,9 @@
+/assets/business-connectors/Connector Settings 1.jpg
+/assets/business-connectors/PDP + Connector Upsell.jpg
+/assets/business-connectors/Settings Overlay 3.jpg
+/assets/copilot-pay/Copilot pay 1.jpg
+/assets/copilot-pay/PDP.jpg
+/assets/copilot-pay/Property 1=Default.jpg
+/assets/journeys/102.jpg
+/assets/journeys/Browser wrapper.jpg
+/assets/journeys/Shopping toast notification4.jpg

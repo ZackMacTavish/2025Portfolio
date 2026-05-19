@@ -1,0 +1,138 @@
+                    avif: "/assets/copilot-pay/card1.avif",
+                    avif: "/assets/copilot-pay/card2.avif",
+                    avif: "/assets/copilot-pay/card3.avif",
+                    webp: "/assets/copilot-pay/card1.webp",
+                    webp: "/assets/copilot-pay/card2.webp",
+                    webp: "/assets/copilot-pay/card3.webp",
+                avif: "/assets/business-connectors/Carousel Cards + Connector UpsellDrk.avif",
+                avif: "/assets/business-connectors/Connect Account.avif",
+                avif: "/assets/business-connectors/Connection Successful.avif",
+                avif: "/assets/business-connectors/Connection SuccessfulDrk.avif",
+                avif: "/assets/business-connectors/PDP + Connector UpsellDrk.avif",
+                avif: "/assets/business-connectors/Password form.avif",
+                webp: "/assets/business-connectors/Carousel Cards + Connector UpsellDrk.webp",
+                webp: "/assets/business-connectors/Connect Account.webp",
+                webp: "/assets/business-connectors/Connection Successful.webp",
+                webp: "/assets/business-connectors/Connection SuccessfulDrk.webp",
+                webp: "/assets/business-connectors/PDP + Connector UpsellDrk.webp",
+                webp: "/assets/business-connectors/Password form.webp",
+            avif: "/assets/business-connectors/Connect AccountDrk.avif",
+            avif: "/assets/business-connectors/Connection successful + Requery.avif",
+            avif: "/assets/business-connectors/Password formDrk.avif",
+            avif: "/assets/business-connectors/Perks Hover State.avif",
+            avif: "/assets/business-connectors/Settings Overlay 1.avif",
+            avif: "/assets/business-connectors/Settings Overlay 2.avif",
+            avif: "/assets/copilot-pay/Apple express.avif",
+            avif: "/assets/copilot-pay/Copilot pay 1.avif",
+            avif: "/assets/copilot-pay/Copilot pay 2.avif",
+            avif: "/assets/copilot-pay/Paypal express.avif",
+            avif: "/assets/journeys/Cold start.avif",
+            avif: "/assets/journeys/Connecting.avif",
+            avif: "/assets/journeys/My profile.avif",
+            webp: "/assets/business-connectors/Connect AccountDrk.webp",
+            webp: "/assets/business-connectors/Connection successful + Requery.webp",
+            webp: "/assets/business-connectors/Password formDrk.webp",
+            webp: "/assets/business-connectors/Perks Hover State.webp",
+            webp: "/assets/business-connectors/Settings Overlay 1.webp",
+            webp: "/assets/business-connectors/Settings Overlay 2.webp",
+            webp: "/assets/copilot-pay/Apple express.webp",
+            webp: "/assets/copilot-pay/Copilot pay 1.webp",
+            webp: "/assets/copilot-pay/Copilot pay 2.webp",
+            webp: "/assets/copilot-pay/Paypal express.webp",
+            webp: "/assets/journeys/Cold start.webp",
+            webp: "/assets/journeys/Connecting.webp",
+            webp: "/assets/journeys/My profile.webp",
+          avif: "/assets/business-connectors/Connector Settings 2.avif",
+          avif: "/assets/business-connectors/Connectors2.avif",
+          avif: "/assets/business-connectors/Connectors3.avif",
+          avif: "/assets/business-connectors/Inline Cards + Connector Upsell-1.avif",
+          avif: "/assets/business-connectors/Inline Cards + Connector Upsell.avif",
+          avif: "/assets/business-connectors/Perks.avif",
+          avif: "/assets/copilot-pay/Bang & Olufsen Dark.avif",
+          avif: "/assets/copilot-pay/Bang & Olufsen.avif",
+          avif: "/assets/copilot-pay/Copilot pay 3.avif",
+          avif: "/assets/copilot-pay/Pay CMC Background + PDP.avif",
+          avif: "/assets/copilot-pay/Property 1=Default.avif",
+          avif: "/assets/journeys/Browser wrapper.avif",
+          avif: "/assets/journeys/Exploration 5.avif",
+          avif: "/assets/journeys/High information layout6.avif",
+          avif: "/assets/journeys/Journeys L22.avif",
+          avif: "/assets/journeys/Journeys L23.avif",
+          avif: "/assets/journeys/Journeys L26.avif",
+          webp: "/assets/business-connectors/Connector Settings 2.webp",
+          webp: "/assets/business-connectors/Connectors2.webp",
+          webp: "/assets/business-connectors/Connectors3.webp",
+          webp: "/assets/business-connectors/Inline Cards + Connector Upsell-1.webp",
+          webp: "/assets/business-connectors/Inline Cards + Connector Upsell.webp",
+          webp: "/assets/business-connectors/Perks.webp",
+          webp: "/assets/copilot-pay/Bang & Olufsen Dark.webp",
+          webp: "/assets/copilot-pay/Bang & Olufsen.webp",
+          webp: "/assets/copilot-pay/Copilot pay 3.webp",
+          webp: "/assets/copilot-pay/Pay CMC Background + PDP.webp",
+          webp: "/assets/copilot-pay/Property 1=Default.webp",
+          webp: "/assets/journeys/Browser wrapper.webp",
+          webp: "/assets/journeys/Exploration 5.webp",
+          webp: "/assets/journeys/High information layout6.webp",
+          webp: "/assets/journeys/Journeys L22.webp",
+          webp: "/assets/journeys/Journeys L23.webp",
+          webp: "/assets/journeys/Journeys L26.webp",
+    avif: "/assets/business-connectors/Connectors1.avif",
+    avif: "/assets/copilot-pay/PDP.avif",
+    avif: "/assets/copilot-pay/Property 1=Default.avif",
+    avif: "/assets/journeys/Journeys L2.avif",
+    webp: "/assets/business-connectors/Connectors1.webp",
+    webp: "/assets/copilot-pay/PDP.webp",
+    webp: "/assets/copilot-pay/Property 1=Default.webp",
+    webp: "/assets/journeys/Journeys L2.webp",
+/assets/business-connectors/Carousel Cards + Connector UpsellDrk.jpg
+/assets/business-connectors/Connect Account.jpg
+/assets/business-connectors/Connect AccountDrk.jpg
+/assets/business-connectors/Connection Successful.jpg
+/assets/business-connectors/Connection SuccessfulDrk.jpg
+/assets/business-connectors/Connection successful + Requery.jpg
+/assets/business-connectors/Connector Settings 1.jpg
+/assets/business-connectors/Connector Settings 2.jpg
+/assets/business-connectors/Connectors.jpg
+/assets/business-connectors/Connectors1.jpg
+/assets/business-connectors/Connectors2.jpg
+/assets/business-connectors/Connectors3.jpg
+/assets/business-connectors/Inline Cards + Connector Upsell-1.jpg
+/assets/business-connectors/Inline Cards + Connector Upsell.jpg
+/assets/business-connectors/PDP + Connector Upsell.jpg
+/assets/business-connectors/PDP + Connector UpsellDrk.jpg
+/assets/business-connectors/Password form.jpg
+/assets/business-connectors/Password formDrk.jpg
+/assets/business-connectors/Perks Hover State.jpg
+/assets/business-connectors/Perks.jpg
+/assets/business-connectors/Settings Overlay 1.jpg
+/assets/business-connectors/Settings Overlay 2.jpg
+/assets/business-connectors/Settings Overlay 3.jpg
+/assets/copilot-pay/Apple express.jpg
+/assets/copilot-pay/Bang & Olufsen Dark.jpg
+/assets/copilot-pay/Bang & Olufsen.jpg
+/assets/copilot-pay/Copilot pay 1.jpg
+/assets/copilot-pay/Copilot pay 2.jpg
+/assets/copilot-pay/Copilot pay 3.jpg
+/assets/copilot-pay/PDP.jpg
+/assets/copilot-pay/Pay CMC Background + PDP.jpg
+/assets/copilot-pay/Paypal express.jpg
+/assets/copilot-pay/Property 1=Default.jpg
+/assets/copilot-pay/card1.jpg
+/assets/copilot-pay/card2.jpg
+/assets/copilot-pay/card3.jpg
+/assets/journeys/102.jpg
+/assets/journeys/202.jpg
+/assets/journeys/Browser wrapper.jpg
+/assets/journeys/Cold start.jpg
+/assets/journeys/Connecting.jpg
+/assets/journeys/Exploration 5.jpg
+/assets/journeys/High information layout6.jpg
+/assets/journeys/Journeys L2.jpg
+/assets/journeys/Journeys L22.jpg
+/assets/journeys/Journeys L23.jpg
+/assets/journeys/Journeys L26.jpg
+/assets/journeys/My profile.jpg
+/assets/journeys/Returning user5.jpg
+/assets/journeys/Saved products high information layout.jpg
+/assets/journeys/Shopping toast notification4.jpg
+/assets/journeys/User launches Edge browser to see recommended product3.jpg

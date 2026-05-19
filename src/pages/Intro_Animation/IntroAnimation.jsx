@@ -104,6 +104,21 @@ function shuffleImages(images) {
   return shuffled;
 }
 
+function shouldSkipIntroCardTransitionOnDevice() {
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+    return false;
+  }
+
+  const touchOnlyDevice = window.matchMedia?.('(hover: none) and (pointer: coarse)').matches ?? false;
+  const userAgent = navigator.userAgent;
+  const isIosDevice = /iPhone|iPad|iPod/i.test(userAgent);
+  const isMobileSafari = /Safari/i.test(userAgent) &&
+    /Mobile/i.test(userAgent) &&
+    !/CriOS|Chrome|FxiOS|EdgiOS/i.test(userAgent);
+
+  return touchOnlyDevice && (isIosDevice || isMobileSafari);
+}
+
 
 export default function IntroAnimation() {
   const text = 'ZACHARY MACTAVISH.';
@@ -123,6 +138,14 @@ export default function IntroAnimation() {
   // Decide whether the intro card stack is fast enough to animate smoothly.
   useEffect(() => {
     let isCancelled = false;
+
+    if (shouldSkipIntroCardTransitionOnDevice()) {
+      setIntroCardsEnabled(false);
+      setIntroDecisionReady(true);
+      return () => {
+        isCancelled = true;
+      };
+    }
 
     shouldRunCardTransition(introTransitionImages, undefined, {
       lockSessionOnFailure: false,
