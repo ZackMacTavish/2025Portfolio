@@ -1622,8 +1622,11 @@ height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
+    width: 100vw;
+    height: 100vh;
+    @media (max-width: 900px) {
+      height: 100dvh;
+    }
   background-color: ${({$background:t})=>t};
   position: absolute;
   top: 0;
@@ -1665,4 +1668,4 @@ height: auto;
   font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(0.9rem, 1.35vw, 1.2rem);
   letter-spacing: 0.08em;
-`,hg=[{src:"/assets/HP.png",alt:"Microsoft shopping ecosystem preview",objectPosition:"top center"},{src:Hn,alt:"Leysi project preview"},{src:Yn,alt:"ThreePillars project preview"},{src:sg,alt:"Piton project preview"},{src:$n,alt:"Outsource project preview"}],fg=k.lazy(()=>Se(()=>S.import("./Resume-legacy-DGQnswjI.js"),void 0,S.meta.url)),pg=k.lazy(()=>Se(()=>Promise.resolve().then(()=>fh),void 0,S.meta.url)),mg=k.lazy(()=>Se(()=>Promise.resolve().then(()=>Vd),void 0,S.meta.url)),gg=k.lazy(()=>Se(()=>S.import("./Graphicdesign-legacy-BeMkCK7Q.js"),void 0,S.meta.url)),yg=k.lazy(()=>Se(()=>S.import("./Outsource-legacy-CbxP7mtV.js"),void 0,S.meta.url)),vg=k.lazy(()=>Se(()=>S.import("./UX-legacy-Ba51rvWX.js"),void 0,S.meta.url)),xg=k.lazy(()=>Se(()=>S.import("./ThreePillars-legacy-DOYZ9mOb.js"),void 0,S.meta.url)),wg=k.lazy(()=>Se(()=>S.import("./Piton-legacy-CjVbnvE5.js"),void 0,S.meta.url)),bg=k.lazy(()=>Se(()=>S.import("./Microsoft-legacy-DXKOEO7i.js"),void 0,S.meta.url)),Ag=k.lazy(()=>Se(()=>S.import("./BusinessConnectors-legacy-BSZr_NTN.js"),void 0,S.meta.url)),_g=k.lazy(()=>Se(()=>S.import("./CopilotPay-legacy-Ce-n94c2.js"),void 0,S.meta.url)),Tg=k.lazy(()=>Se(()=>S.import("./Journeys-legacy-BNlQSMRT.js"),void 0,S.meta.url)),Sc.createRoot(document.getElementById("root")).render(f.jsx(k.StrictMode,{children:f.jsx(hw,{})}))}}})})();
+`,hg=[{src:"/assets/HP.png",alt:"Microsoft shopping ecosystem preview",objectPosition:"top center"},{src:Hn,alt:"Leysi project preview"},{src:Yn,alt:"ThreePillars project preview"},{src:sg,alt:"Piton project preview"},{src:$n,alt:"Outsource project preview"}],fg=k.lazy(()=>Se(()=>S.import("./Resume-legacy-S678CGED.js"),void 0,S.meta.url)),pg=k.lazy(()=>Se(()=>Promise.resolve().then(()=>fh),void 0,S.meta.url)),mg=k.lazy(()=>Se(()=>Promise.resolve().then(()=>Vd),void 0,S.meta.url)),gg=k.lazy(()=>Se(()=>S.import("./Graphicdesign-legacy-CaB-nUyy.js"),void 0,S.meta.url)),yg=k.lazy(()=>Se(()=>S.import("./Outsource-legacy-d2dKjbRA.js"),void 0,S.meta.url)),vg=k.lazy(()=>Se(()=>S.import("./UX-legacy-Cq3XdYQd.js"),void 0,S.meta.url)),xg=k.lazy(()=>Se(()=>S.import("./ThreePillars-legacy-ItqS-lpm.js"),void 0,S.meta.url)),wg=k.lazy(()=>Se(()=>S.import("./Piton-legacy-DLwPj-dw.js"),void 0,S.meta.url)),bg=k.lazy(()=>Se(()=>S.import("./Microsoft-legacy-BC4UXDcz.js"),void 0,S.meta.url)),Ag=k.lazy(()=>Se(()=>S.import("./BusinessConnectors-legacy-CEAquX_d.js"),void 0,S.meta.url)),_g=k.lazy(()=>Se(()=>S.import("./CopilotPay-legacy-C696XTOA.js"),void 0,S.meta.url)),Tg=k.lazy(()=>Se(()=>S.import("./Journeys-legacy-CnlwYS7B.js"),void 0,S.meta.url)),Sc.createRoot(document.getElementById("root")).render(f.jsx(k.StrictMode,{children:f.jsx(hw,{})}))}}})})();
