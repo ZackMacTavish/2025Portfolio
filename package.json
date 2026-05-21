@@ -19,7 +19,7 @@
     "postbuild": "node scripts/prerender.js && node scripts/generate-sitemap.js",
     "preview": "vite preview",
     "lint": "eslint .",
-    "predeploy": "vite build && echo \"mactavish.xyz\" > dist/CNAME",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
@@ -39,7 +39,7 @@
     "@eslint/js": "^9.33.0",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
-    "@vitejs/plugin-legacy": "^8.0.2",
+    "@vitejs/plugin-legacy": "^7.2.1",
     "@vitejs/plugin-react": "^5.0.0",
     "agentation": "^3.0.2",
     "babel-plugin-glsl": "^1.0.0",

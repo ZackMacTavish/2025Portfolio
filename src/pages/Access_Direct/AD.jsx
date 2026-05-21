@@ -61,13 +61,13 @@ export default function AccessDirect() {
 
   return (
     <StyledDiv>
-    <Seo {...projects['access-direct']} sameAs={site.sameAs} keywords={projects['access-direct'].keywords} jsonLd={{
+    <Seo {...projects['access-direct']} sameAs={site.sameAs} keywords={projects['access-direct'].keywords} siteDefaults={site} jsonLd={{
       '@context': 'https://schema.org',
       '@type': 'CreativeWork',
       headline: projects['access-direct'].title,
       description: projects['access-direct'].description,
       image: projects['access-direct'].image,
-      author: { '@type': 'Person', name: site.name, url: `${site.url}/about` },
+      author: { '@type': 'Person', name: site.name, url: site.url },
       url: projects['access-direct'].url,
       datePublished: projects['access-direct'].datePublished,
       keywords: projects['access-direct'].keywords,

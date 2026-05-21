@@ -263,7 +263,7 @@ const Microsoft = () => {
   if (!authenticated) {
     return (
       <PasswordContainer>
-        <Seo {...projects.microsoft} sameAs={site.sameAs} keywords={projects.microsoft.keywords} />
+        <Seo {...projects.microsoft} sameAs={site.sameAs} keywords={projects.microsoft.keywords} siteDefaults={site} />
         <SpotlightBackground />
         <PasswordGate>
           <PasswordIntro>
@@ -292,7 +292,7 @@ const Microsoft = () => {
 
   return (
     <StyledDiv>
-      <Seo {...projects.microsoft} sameAs={site.sameAs} keywords={projects.microsoft.keywords} />
+      <Seo {...projects.microsoft} sameAs={site.sameAs} keywords={projects.microsoft.keywords} siteDefaults={site} />
       <ProjectTopSection
         title="Microsoft"
         imageBaseName="assets/MSFTlogo"

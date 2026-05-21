@@ -1,6 +1,8 @@
 import React, { useLayoutEffect } from 'react';
+import { Seo } from '@zackmactavish/foundation';
 import resumeImage from '../assets/ResumeJPEG.jpg';
 import { FiDownload } from 'react-icons/fi';
+import { site, projects } from '../data/metadata';
 
 const Resume = () => {
   useLayoutEffect(() => {
@@ -20,6 +22,12 @@ const Resume = () => {
       position: 'relative',
     }}
   >
+    <Seo
+      {...projects.resume}
+      sameAs={site.sameAs}
+      keywords={projects.resume.keywords}
+      siteDefaults={site}
+    />
     {/* Button for desktop/tablet */}
     <div className="resume-download-desktop" style={{ display: 'flex', justifyContent: 'flex-end' }}>
       <a

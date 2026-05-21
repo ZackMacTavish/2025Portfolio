@@ -27,8 +27,7 @@ function buildUrlSet(site, projects) {
     });
   }
 
-  // Add common pages if not present
-  urls.add(`${site.url.replace(/\/$/, '')}/about`);
+  // No /about route in this app—only sitemap what metadata declares.
 
   return Array.from(urls).map((u) => `${u}/`); // ensure trailing slash
 }

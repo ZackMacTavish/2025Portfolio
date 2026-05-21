@@ -84,13 +84,13 @@ export default function Piton() {
   <TextContainer>
     <TextContent style={{ color: '#5d5d5d'}}>
       Piton is a startup focused on athleisure clothing with an accompanying workout app. The brand emphasizes social change and environmentalism. When exploring the initial designs, the idea was to use hands-free technology, something that wasn’t feasible at the time but is now possible with the integration of AI features. The app’s leading innovation is a voice-enabled feature that pairs with your headphones, allowing you to log workouts hands-free and receive real-time tips while exercising.
-        <Seo {...projects.piton} sameAs={site.sameAs} keywords={projects.piton.keywords} jsonLd={{
+        <Seo {...projects.piton} sameAs={site.sameAs} keywords={projects.piton.keywords} siteDefaults={site} jsonLd={{
           '@context': 'https://schema.org',
           '@type': 'CreativeWork',
           headline: projects.piton.title,
           description: projects.piton.description,
           image: projects.piton.image,
-          author: { '@type': 'Person', name: site.name, url: `${site.url}/about` },
+          author: { '@type': 'Person', name: site.name, url: site.url },
           url: projects.piton.url,
           datePublished: projects.piton.datePublished,
           keywords: projects.piton.keywords,

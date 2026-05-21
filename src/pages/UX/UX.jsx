@@ -64,7 +64,7 @@ export default function Ux() {
 
   return (
     <StyledDiv>
-      <Seo {...projects.ux} sameAs={site.sameAs} keywords={projects.ux.keywords} jsonLd={{
+      <Seo {...projects.ux} sameAs={site.sameAs} keywords={projects.ux.keywords} siteDefaults={site} jsonLd={{
         '@context': 'https://schema.org',
         '@type': 'CreativeWork',
         headline: projects.ux.title,

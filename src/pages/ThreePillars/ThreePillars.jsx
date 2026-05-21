@@ -30,7 +30,7 @@ export default function ThreePillars() {
 
     return (
         <StyledDiv>
-          <Seo {...projects.threepillars} sameAs={site.sameAs} keywords={projects.threepillars.keywords} />
+          <Seo {...projects.threepillars} sameAs={site.sameAs} keywords={projects.threepillars.keywords} siteDefaults={site} />
 
           <ProjectTopSection
             title="ThreePillars"

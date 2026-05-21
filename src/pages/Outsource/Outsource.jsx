@@ -75,13 +75,13 @@ export default function Outsource() {
   return (
 
     <StyledDiv>
-      <Seo {...projects.outsource} sameAs={site.sameAs} keywords={projects.outsource.keywords} jsonLd={{
+      <Seo {...projects.outsource} sameAs={site.sameAs} keywords={projects.outsource.keywords} siteDefaults={site} jsonLd={{
         '@context': 'https://schema.org',
         '@type': 'CreativeWork',
         headline: projects.outsource.title,
         description: projects.outsource.description,
         image: projects.outsource.image,
-        author: { '@type': 'Person', name: site.name, url: `${site.url}/about` },
+        author: { '@type': 'Person', name: site.name, url: site.url },
         url: projects.outsource.url,
         datePublished: projects.outsource.datePublished,
         keywords: projects.outsource.keywords,

@@ -4,6 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!--
+      GitHub Pages SPA path restore: 404.html bounces deep links to "/?/<path>".
+      This script rewrites the URL back into the real path BEFORE React boots,
+      so react-router and any preload hints see the intended route.
+    -->
+    <script type="text/javascript">
+      (function (l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function (s) {
+            return s.replace(/~and~/g, '&');
+          }).join('?');
+          window.history.replaceState(
+            null,
+            null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location));
+    </script>
+
     <!-- Preload the primary font subset so text paints without waiting on CSS parse -->
     <link rel="preload" as="font" type="font/woff2" href="/fonts/SpaceGrotesk-latin.woff2" crossorigin />
 
@@ -18,13 +38,31 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/og/favicon-16.png" />
 
   <!-- Static OG image for social bots (guaranteed fallback) -->
+  <meta property="og:site_name" content="Zack MacTavish — Portfolio" />
+  <meta property="og:locale" content="en_US" />
   <meta property="og:image" content="https://mactavish.xyz/assets/og/website-logoresolutions-1200x630.png" />
+  <meta property="og:image:secure_url" content="https://mactavish.xyz/assets/og/website-logoresolutions-1200x630.png" />
+  <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Zack MacTavish — Portfolio" />
   <meta property="og:url" content="https://mactavish.xyz/" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Zack MacTavish – Portfolio | Art Direction, Branding, UX & Visual Design" />
   <meta property="og:description" content="Explore the portfolio of Zack MacTavish, a multidisciplinary designer specializing in art direction, branding, UX/UI, and visual storytelling for digital and print. View selected projects, case studies, and creative work." />
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@zmactavish" />
+  <meta name="twitter:creator" content="@zmactavish" />
+  <meta name="twitter:title" content="Zack MacTavish – Portfolio | Art Direction, Branding, UX & Visual Design" />
+  <meta name="twitter:description" content="Explore the portfolio of Zack MacTavish, a multidisciplinary designer specializing in art direction, branding, UX/UI, and visual storytelling for digital and print." />
+  <meta name="twitter:image" content="https://mactavish.xyz/assets/og/website-logoresolutions-1200x630.png" />
+  <meta name="twitter:image:alt" content="Zack MacTavish — Portfolio" />
+
+  <!-- Theme color for Android Chrome / in-app browsers -->
+  <meta name="theme-color" content="#000000" />
+  <meta name="author" content="Zack MacTavish" />
   <link rel="icon" type="image/png" sizes="64x64" href="/assets/og/favicon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/og/website-logoresolutions-180px.png" />
   <!-- legacy ICO fallback -->

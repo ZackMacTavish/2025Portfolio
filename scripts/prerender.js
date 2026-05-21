@@ -34,8 +34,7 @@ function buildRoutes(site, projects) {
       }
     });
   }
-  // ensure about exists
-  routes.add('/about');
+  // (no /about route in this app — prerender only routes declared in metadata)
   // normalize: ensure leading slash and no query
   return Array.from(routes).map((r) => (r.endsWith('/') ? r : r + '/'));
 }

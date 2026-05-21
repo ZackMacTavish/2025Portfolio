@@ -134,7 +134,7 @@ export default function GraphicDesign() {
 
     return (
         <StyledDiv>
-       <Seo {...projects['graphic-design']} sameAs={site.sameAs} keywords={projects['graphic-design'].keywords} />
+       <Seo {...projects['graphic-design']} sameAs={site.sameAs} keywords={projects['graphic-design'].keywords} siteDefaults={site} />
 
       <GDTopSection>
         <GDTopSectionText>

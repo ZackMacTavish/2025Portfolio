@@ -1,6 +1,6 @@
 import React, { useState, Suspense, lazy, useEffect, useRef } from "react";
 import { ThemeProvider } from "styled-components";
-import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import './App.css';
 
 // Themes

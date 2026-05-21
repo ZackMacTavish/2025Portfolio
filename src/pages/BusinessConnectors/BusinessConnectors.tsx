@@ -1,11 +1,13 @@
 import { useLayoutEffect } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
+import { Seo } from "@zackmactavish/foundation";
 import CaseStudyPage from "../../components/CaseStudyPage";
 import PortfolioCardsSection from "../../components/PortfolioCardsSection";
 import Socials from "../../components/Social Bar/Socials";
 import Grid60 from "../../components/Layout/Grid60";
 import { caseStudies } from "../../data/caseStudies";
+import { site, projects } from "../../data/metadata";
 
 const ViewingContainer = styled(motion.div)`
   position: relative;
@@ -24,6 +26,12 @@ export default function BusinessConnectors() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
+      <Seo
+        {...projects['business-connectors']}
+        sameAs={site.sameAs}
+        keywords={projects['business-connectors'].keywords}
+        siteDefaults={site}
+      />
       <CaseStudyPage caseStudy={caseStudy} />
       {/* Divider stroke flush on white page above portfolio cards */}
       <div

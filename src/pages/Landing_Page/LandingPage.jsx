@@ -781,7 +781,7 @@ const LandingPage = ({ introDone = true }) => {
 
   return (
     <div>
-      <Seo {...projects.landing} sameAs={site.sameAs} keywords={projects.landing.keywords || site.keywords} />
+      <Seo {...projects.landing} sameAs={site.sameAs} keywords={projects.landing.keywords || site.keywords} siteDefaults={site} />
       {/* Landing Section with About Picture + First Paragraph */}
       <LandingDiv>
         <PortraitContainer>

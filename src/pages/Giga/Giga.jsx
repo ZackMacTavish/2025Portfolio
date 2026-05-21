@@ -64,13 +64,14 @@ export default function Giga() {
             {...projects.giga}
             sameAs={site.sameAs}
             keywords={projects.giga.keywords}
+            siteDefaults={site}
             jsonLd={{
               '@context': 'https://schema.org',
               '@type': 'CreativeWork',
               headline: projects.giga.title,
               description: projects.giga.description,
               image: projects.giga.image,
-              author: { '@type': 'Person', name: site.name, url: `${site.url}/about` },
+              author: { '@type': 'Person', name: site.name, url: site.url },
               url: projects.giga.url,
               datePublished: projects.giga.datePublished,
               keywords: projects.giga.keywords,
