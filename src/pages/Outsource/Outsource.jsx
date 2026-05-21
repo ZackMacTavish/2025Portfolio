@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
-import { 
-  Cellphones, ProjectDetails, ProjectHeader, ProjectSubtitle, ProjectDetailsContainer, ProjectBlock, StyledDiv,
-} from '../Giga/Giga';
-import { FullBg } from '../Access_Direct/AD';
-import { RisoFlex, SingleImage, DoubleImage } from '../Access_Direct/AD';
-import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
+import {
+  Cellphones, ProjectDetails, ProjectHeader, ProjectSubtitle,
+  ProjectDetailsContainer, ProjectBlock, StyledDiv, ProjectImage,
+} from '../../components/GigaPrimitives';
+import {
+  FullBg, RisoFlex, SingleImage, DoubleImage,
+  FullHeightTextSection, TextContainer, TextContent,
+} from '../../components/CaseStudyPrimitives';
 import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
-import { ProjectImage } from '../Giga/Giga';
 import ProjectTopSection from '../../components/ProjectTopSection';
 import { FiArrowUpRight } from 'react-icons/fi';
 
@@ -22,7 +23,11 @@ import ipadtwo from '../../assets/Outsource-ipad.jpg';
 import ipadtwoAvif from '../../assets/Outsource-ipad.avif';
 import ipadtwoWebp from '../../assets/Outsource-ipad.webp';
 import dark from '../../assets/Outsource—iPhone_2—Darksq.jpg';
+import darkAvif from '../../assets/Outsource—iPhone_2—Darksq.avif';
+import darkWebp from '../../assets/Outsource—iPhone_2—Darksq.webp';
 import light from '../../assets/OutsourceLightPhone2.jpg';
+import lightAvif from '../../assets/OutsourceLightPhone2.avif';
+import lightWebp from '../../assets/OutsourceLightPhone2.webp';
 import imactwo from '../../assets/Outsource—iMac2.jpg';
 import about from '../../assets/Leadership.jpg';
 import aboutAvif from '../../assets/Leadership.avif';
@@ -151,7 +156,7 @@ export default function Outsource() {
         <SingleImage src={ipadtwo} avif={ipadtwoAvif} webp={ipadtwoWebp} />
       </RisoFlex>
 
-    <DoubleImage srcLeft={dark} srcRight={light} />
+    <DoubleImage srcLeft={dark} avifLeft={darkAvif} webpLeft={darkWebp} srcRight={light} avifRight={lightAvif} webpRight={lightWebp} />
 
   <FullBg src={imactwo} style={{ marginTop: 0, paddingTop: 0 }} />
 

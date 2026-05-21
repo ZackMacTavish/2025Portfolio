@@ -2,11 +2,11 @@ import { site, projects } from '../../data/metadata';
 import React, { useLayoutEffect } from 'react';
 
 // Components
-import { FullBg, SingleImage } from '../Access_Direct/AD';
-import { ProjectDetails, ProjectHeader, ProjectSubtitle, RisoItemtwo, StyledDiv, ProjectDetailsContainer, ProjectBlock, ProjectImage } from '../Giga/Giga';
+import { FullBg, SingleImage } from '../../components/CaseStudyPrimitives';
+import { ProjectDetails, ProjectHeader, ProjectSubtitle, RisoItemtwo, StyledDiv, ProjectDetailsContainer, ProjectBlock, ProjectImage } from '../../components/GigaPrimitives';
 import ProjectTopSection from '../../components/ProjectTopSection';
 import { FiArrowUpRight } from 'react-icons/fi';
-import { RisoFlex } from '../Access_Direct/AD';
+import { RisoFlex } from '../../components/CaseStudyPrimitives';
 
 // Images (updated to assets folder)
 import ThreePillarsMac from '../../assets/ThreePillars—Macbook.png';
@@ -17,7 +17,7 @@ import ThreePillarsPagesJpg from '../../assets/ThreePillars—pages.jpg';
 import recruitingpage from '../../assets/Artboard – 11@2x.png';
 import ThreePillarsImac from '../../assets/ThreePillars_Imac_.jpg';
 import ThreePillarsMockup from '../../assets/Mockup.jpg';
-import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
+import { FullHeightTextSection, TextContainer, TextContent } from '../../components/CaseStudyPrimitives';
 import { Seo } from '@zackmactavish/foundation';
 
 export default function ThreePillars() {

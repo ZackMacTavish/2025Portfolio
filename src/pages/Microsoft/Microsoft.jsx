@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState, useRef, useEffect, useMemo } from 're
 import styled, { keyframes } from 'styled-components';
 import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
-import { FullBg, RisoFlex, SingleImage, SingleGrid, FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
+import { FullBg, RisoFlex, SingleImage, SingleGrid, FullHeightTextSection, TextContainer, TextContent } from '../../components/CaseStudyPrimitives';
 import copilotGrp from '../../assets/Copilot style GRP.png';
 import copilotGrpAvif from '../../assets/Copilot style GRP.avif';
 import copilotGrpWebp from '../../assets/Copilot style GRP.webp';
@@ -27,7 +27,7 @@ import shoppingCopilotWebp from '../../assets/ShoppingCopilot.webp';
 import outlook from '../../assets/Outlook.png';
 import outlookAvif from '../../assets/Outlook.avif';
 import outlookWebp from '../../assets/Outlook.webp';
-import { ProjectDetailsContainer, ProjectDetails, ProjectBlock, ProjectHeader, ProjectSubtitle, ProjectImage, Cellphones, StyledDiv } from '../Giga/Giga';
+import { ProjectDetailsContainer, ProjectDetails, ProjectBlock, ProjectHeader, ProjectSubtitle, ProjectImage, Cellphones, StyledDiv } from '../../components/GigaPrimitives';
 import ProjectTopSection from '../../components/ProjectTopSection';
 import { BusinessConnectorsModule } from '../../components/BusinessConnectorsIntro';
 import { CopilotPayModule } from '../../components/CopilotPayIntro';

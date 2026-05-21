@@ -1,8 +1,7 @@
 import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
-import {  ProjectDetails, ProjectHeader, ProjectSubtitle, ProjectDetailsContainer, ProjectBlock, RisoItemtwo, StyledDiv } from '../Giga/Giga';
-import { FullBg } from '../Access_Direct/AD';
-import { RisoFlex, SingleImage, DoubleImage } from '../Access_Direct/AD';
+import {  ProjectDetails, ProjectHeader, ProjectSubtitle, ProjectDetailsContainer, ProjectBlock, RisoItemtwo, StyledDiv } from '../../components/GigaPrimitives';
+import { FullBg, RisoFlex, SingleImage, DoubleImage } from '../../components/CaseStudyPrimitives';
 
 // Assets
 import LeysiLogo from '../../assets/Leysi-White-01.jpg';
@@ -22,7 +21,7 @@ import leysiscreens from '../../assets/LeysiApp—Screens copy.jpg';
 import leysiphones2 from '../../assets/Untitled-1800-x-1024-px-1500-x-1024-px.png';
 import leysiphones2Avif from '../../assets/Untitled-1800-x-1024-px-1500-x-1024-px.avif';
 import leysiphones2Webp from '../../assets/Untitled-1800-x-1024-px-1500-x-1024-px.webp';
-import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
+import { FullHeightTextSection, TextContainer, TextContent } from '../../components/CaseStudyPrimitives';
 import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
 

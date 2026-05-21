@@ -2,14 +2,13 @@ import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
 
 // Composition components
-import { FullBg, ParagraphFour, RisoFlex } from '../Access_Direct/AD';
-import { StyledDiv } from '../Giga/Giga';
-import { SingleImage } from '../Access_Direct/AD';
+import { FullBg, ParagraphFour, RisoFlex, SingleImage } from '../../components/CaseStudyPrimitives';
+import { StyledDiv } from '../../components/GigaPrimitives';
 // import { NewSection } from '../About/About';
-import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
+import { FullHeightTextSection, TextContainer, TextContent } from '../../components/CaseStudyPrimitives';
 import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
-import { ProjectTitle } from '../Giga/Giga';
+import { ProjectTitle } from '../../components/GigaPrimitives';
 // (Local top section used here to control image styling directly)
 
 // Assets

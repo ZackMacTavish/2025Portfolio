@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FiLock } from "react-icons/fi";
 import Grid60 from "./Layout/Grid60";
-import { SingleImage } from "../pages/Access_Direct/AD";
+import { SingleImage } from "./CaseStudyPrimitives";
 
 import leysiTile from "../assets/LeysiApp—Screens copy.jpg";
 import leysiTileAvif from "../assets/LeysiApp—Screens copy.avif";

@@ -24,7 +24,7 @@ import quilthangingMobile600 from '../../assets/hangingquilts-mobile-600.jpg';
 import quilthangingMobile600Avif from '../../assets/hangingquilts-mobile-600.avif';
 import quilthangingMobile600Webp from '../../assets/hangingquilts-mobile-600.webp';
 import ResponsivePicture from '../../components/ResponsivePicture';
-import { SingleImage } from '../Access_Direct/AD';
+import { SingleImage } from '../../components/CaseStudyPrimitives';
 import { ImageTextSplit } from '@zackmactavish/foundation';
 // Project tile images (served via bundler from src/assets)
 import leysiTile from '../../assets/LeysiApp—Screens copy.jpg';
@@ -89,7 +89,7 @@ import waveStillAvif from '../../assets/BlackTurtleneck-popart-01.avif';
 import waveStillWebp from '../../assets/BlackTurtleneck-popart-01.webp';
 import Socials from '../../components/Social Bar/Socials';
 import PortfolioCardsSection from '../../components/PortfolioCardsSection';
-import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
+import { FullHeightTextSection, TextContainer, TextContent } from '../../components/CaseStudyPrimitives';
 import { Link } from 'react-router-dom';
 import { FiLock } from 'react-icons/fi';
 

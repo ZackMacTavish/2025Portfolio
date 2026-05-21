@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ProjectGrid, ProjectContent, ProjectTitle, ProjectImage, ProjectButton } from '../pages/Giga/Giga';
+import { ProjectGrid, ProjectContent, ProjectTitle, ProjectImage, ProjectButton } from './GigaPrimitives';
 import { ButtonsGrid } from './ButtonsGrid';
 import { FiArrowUpRight } from 'react-icons/fi';
 
@@ -190,10 +190,24 @@ export default function ProjectTopSection({
           <picture>
             <source srcSet={normalizedImageAvif} type="image/avif" />
             <source srcSet={normalizedImageWebp} type="image/webp" />
-              <TopSectionImageStyled src={normalizedImageSrc} alt={imageAlt} $imageWidth={$imageWidth} />
+              <TopSectionImageStyled
+                src={normalizedImageSrc}
+                alt={imageAlt}
+                $imageWidth={$imageWidth}
+                fetchpriority="high"
+                loading="eager"
+                decoding="async"
+              />
           </picture>
         ) : (
-            <TopSectionImageStyled src={normalizeAssetUrl(imageSrc)} alt={imageAlt} $imageWidth={$imageWidth} />
+            <TopSectionImageStyled
+              src={normalizeAssetUrl(imageSrc)}
+              alt={imageAlt}
+              $imageWidth={$imageWidth}
+              fetchpriority="high"
+              loading="eager"
+              decoding="async"
+            />
         )}
       </TopSectionImage>
     </TopSectionContainer>

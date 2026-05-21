@@ -25,19 +25,18 @@ import darkWebp from '../../assets/iPhone_2—Dark.webp';
 import pitonlogos from '../../assets/Group 55620@2x.png';
 import pitonlogosAvif from '../../assets/Group 55620@2x.avif';
 import pitonlogosWebp from '../../assets/Group 55620@2x.webp';
-import { FullHeightTextSection, TextContent, TextContainer } from '../Access_Direct/AD';
+import { FullHeightTextSection, TextContent, TextContainer } from '../../components/CaseStudyPrimitives';
 import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
 
 // Components
-import { 
-  BackgroundColor, Cellphones, GigaRocket, StyledDiv, 
-  ProjectDetails, ProjectHeader, 
-  ProjectSubtitle, ProjectDetailsContainer, ProjectBlock
-} from '../Giga/Giga';
+import {
+  BackgroundColor, Cellphones, GigaRocket, StyledDiv,
+  ProjectDetails, ProjectHeader,
+  ProjectSubtitle, ProjectDetailsContainer, ProjectBlock,
+} from '../../components/GigaPrimitives';
 
-import { RisoFlex, SingleImage, DoubleImage } from '../Access_Direct/AD';
-import { FullBg } from '../Access_Direct/AD';
+import { RisoFlex, SingleImage, DoubleImage, FullBg } from '../../components/CaseStudyPrimitives';
 import { PitonScreens } from '../UX/UX';
 
 export default function Piton() {
