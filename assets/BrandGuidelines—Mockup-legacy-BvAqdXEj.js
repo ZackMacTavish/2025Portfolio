@@ -1,0 +1,1 @@
+System.register([],function(e,n){"use strict";return{execute:function(){e("a",""+new URL("BrandGuidelines—Mockup-BPSLRh27.avif",n.meta.url).href),e("g",""+new URL("BrandGuidelines—Mockup-lWWgSoLH.webp",n.meta.url).href)}}});
