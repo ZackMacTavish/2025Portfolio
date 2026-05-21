@@ -129,6 +129,23 @@ async function prerender() {
   await page.waitForSelector("meta[property='og:image']", { timeout: 5000 });
   // Wait a bit more for any late DOM changes
   await new Promise(res => setTimeout(res, 300));
+  // Clear any transient scroll-lock styles applied by IntroAnimation / modal
+  // overlays so we don't bake `overflow: hidden` onto <body> in the static
+  // HTML — that would make the page un-scrollable on touch devices until JS
+  // hydrates and clears it (and even then, only if "previousOverflow" wasn't
+  // captured as the locked value first).
+  await page.evaluate(() => {
+    if (document.body) {
+      document.body.style.removeProperty('overflow');
+      document.body.style.removeProperty('padding-right');
+      if (document.body.getAttribute('style') === '') {
+        document.body.removeAttribute('style');
+      }
+    }
+    if (document.documentElement) {
+      document.documentElement.style.removeProperty('overflow');
+    }
+  });
         const html = await page.content();
 
         // Determine output path

@@ -210,8 +210,15 @@ export default function IntroAnimation() {
     }
 
     return () => {
-      document.body.style.overflow = previousOverflow;
-      document.body.style.paddingRight = previousPaddingRight;
+      // Defensive: if the inline style was already 'hidden' at mount (e.g.
+      // baked into prerendered HTML from a prior intro mount), don't restore
+      // it — always clear so the page is scrollable once the intro finishes.
+      document.body.style.overflow =
+        previousOverflow === 'hidden' ? '' : previousOverflow;
+      document.body.style.paddingRight =
+        previousPaddingRight && previousPaddingRight !== '0px'
+          ? previousPaddingRight
+          : '';
     };
   }, [showIntro]);
 
