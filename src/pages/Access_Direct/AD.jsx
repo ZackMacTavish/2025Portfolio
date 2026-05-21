@@ -186,8 +186,8 @@ export const FullHeightTextSection = styled.section`
   @media (max-width: 850px) {
     flex-direction: column;
     justify-content: center;
-    min-height: 70vh;
-    padding: 2.5vh 4vw;
+    min-height: 0;            /* hug the text instead of filling viewport */
+    padding: 6vh 5vw;         /* comfortable breathing room around the copy */
   }
 `;
 
@@ -264,6 +264,7 @@ export const SingleGrid = styled.div`
   grid-template-rows: ${(props) => props.RowsSet};
   background-color: ${props => props.theme.backgroundTwo};
   height: 100vh;
+  height: 100dvh;
   width: 100vw;
 
   @media (max-width: 500px) {

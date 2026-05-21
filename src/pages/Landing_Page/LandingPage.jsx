@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState, useRef } from 'react';
+import React, { useLayoutEffect, useEffect, useState } from 'react';
 
 import styled, { keyframes } from 'styled-components';
 import { Seo } from '@zackmactavish/foundation';
@@ -21,11 +21,8 @@ import quilthanging from '../../assets/hangingquilts.jpg';
 import quilthangingAvif from '../../assets/hangingquilts.avif';
 import quilthangingWebp from '../../assets/hangingquilts.webp';
 import quilthangingMobile600 from '../../assets/hangingquilts-mobile-600.jpg';
-import quilthangingMobile900 from '../../assets/hangingquilts-mobile-900.jpg';
 import quilthangingMobile600Avif from '../../assets/hangingquilts-mobile-600.avif';
-import quilthangingMobile900Avif from '../../assets/hangingquilts-mobile-900.avif';
 import quilthangingMobile600Webp from '../../assets/hangingquilts-mobile-600.webp';
-import quilthangingMobile900Webp from '../../assets/hangingquilts-mobile-900.webp';
 import ResponsivePicture from '../../components/ResponsivePicture';
 import { SingleImage } from '../Access_Direct/AD';
 import { ImageTextSplit } from '@zackmactavish/foundation';
@@ -48,15 +45,6 @@ import threePillarsTileMobile600Avif from '../../assets/ThreePillars—pages-mob
 import threePillarsTileMobile900Avif from '../../assets/ThreePillars—pages-mobile-900.avif';
 import threePillarsTileMobile600Webp from '../../assets/ThreePillars—pages-mobile-600.webp';
 import threePillarsTileMobile900Webp from '../../assets/ThreePillars—pages-mobile-900.webp';
-import pitonTile from '../../assets/Group 55618@2x.png';
-import pitonTileAvif from '../../assets/Group 55618@2x.avif';
-import pitonTileWebp from '../../assets/Group 55618@2x.webp';
-import pitonTileMobile600 from '../../assets/Group 55618@2x-mobile-600.jpg';
-import pitonTileMobile900 from '../../assets/Group 55618@2x-mobile-900.jpg';
-import pitonTileMobile600Avif from '../../assets/Group 55618@2x-mobile-600.avif';
-import pitonTileMobile900Avif from '../../assets/Group 55618@2x-mobile-900.avif';
-import pitonTileMobile600Webp from '../../assets/Group 55618@2x-mobile-600.webp';
-import pitonTileMobile900Webp from '../../assets/Group 55618@2x-mobile-900.webp';
 import outsourceTile from '../../assets/BrandGuidelines—Mockup.jpg';
 import outsourceTileAvif from '../../assets/BrandGuidelines—Mockup.avif';
 import outsourceTileWebp from '../../assets/BrandGuidelines—Mockup.webp';
@@ -89,21 +77,16 @@ const ResponsiveProjectImage = ({ desktop, desktopAvif, desktopWebp, mobile600, 
     <img src={desktop} alt={alt} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
   </picture>
 );
-import mediumLogo from '../../assets/medium.svg';
-import card1 from '../../assets/Card1.webp';
-import card1Avif from '../../assets/Card1.avif';
-import card2 from '../../assets/Card2.webp';
-import card2Avif from '../../assets/Card2.avif';
-import card3 from '../../assets/Card3.webp';
-import card3Avif from '../../assets/Card3.avif';
-import card4 from '../../assets/Card4.webp';
-import card4Avif from '../../assets/Card4.avif';
 import card5 from '../../assets/Card5.webp';
 import card5Webp from '../../assets/Card5.webp';
 import card5Avif from '../../assets/Card5.avif';
 import card6 from '../../assets/Card6.png';
 import card6Avif from '../../assets/Card6.avif';
 import card6Webp from '../../assets/Card6.webp';
+// Static fallback for the Three.js wave on mobile / reduced-motion users
+import waveStillJpg from '../../assets/BlackTurtleneck-popart-01.jpg';
+import waveStillAvif from '../../assets/BlackTurtleneck-popart-01.avif';
+import waveStillWebp from '../../assets/BlackTurtleneck-popart-01.webp';
 import Socials from '../../components/Social Bar/Socials';
 import PortfolioCardsSection from '../../components/PortfolioCardsSection';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Access_Direct/AD';
@@ -142,6 +125,7 @@ const LandingDiv = styled.div`
   gap: 4vw;
   width: 100vw;
   height: 100vh;
+  height: 100dvh; /* avoid Safari URL bar jumping the hero height */
   background-color: ${(props) => props.theme.backgroundColor};
   position: relative;
   overflow: hidden;
@@ -171,6 +155,21 @@ const LandingDiv = styled.div`
     animation: ${spotlightRightMove} 40s ease-in-out infinite;
   }
 
+  /* Mobile: blur(200px) + large keyframe animations destroy GPU on phones.
+     Drop blur radius dramatically and stop the animation. */
+  @media (max-width: 1000px) {
+    &::before, &::after {
+      filter: blur(80px);
+      animation: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::before, &::after {
+      animation: none;
+    }
+  }
+
   @media (max-width: 1000px) {
     flex-direction: column;
     height: auto;
@@ -190,20 +189,8 @@ const LandingDiv = styled.div`
 `;
 
 
-const normalizeAssetUrl = (url) => {
-  if (!url) return url;
-
-  try {
-    return encodeURI(decodeURI(url));
-  } catch {
-    return encodeURI(url);
-  }
-};
-
-
-
-
-// AboutPicture as ResponsivePicture
+// AboutPicture as ResponsivePicture — sizing handled via CSS class so it stays
+// responsive on resize/rotation and works during prerender.
 const AboutPicture = (props) => (
   <ResponsivePicture
     desktop={me}
@@ -220,21 +207,7 @@ const AboutPicture = (props) => (
     decoding="async"
     fetchPriority="high"
     className="about-picture-img"
-    style={{
-      width: '21vw',
-      height: '21vw',
-      objectFit: 'cover',
-      borderRadius: '50%',
-      flexShrink: 0,
-      position: 'relative',
-      zIndex: 1,
-      display: 'block',
-      ...props.style,
-      // Responsive override for mobile
-      ...(typeof window !== 'undefined' && window.innerWidth <= 700
-        ? { width: '44vw', height: '44vw' }
-        : {}),
-    }}
+    style={props.style}
   />
 );
 
@@ -242,6 +215,18 @@ const PortraitContainer = styled.div`
   display: flex;
   position: relative;
   z-index: 1;
+
+  .about-picture-img {
+    width: 21vw;
+    height: 21vw;
+    object-fit: cover;
+    border-radius: 50%;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    display: block;
+  }
+
   @media (max-width: 1000px) {
     width: 100%;
     display: grid;           /* grid centers perfectly even with subpixel widths */
@@ -249,6 +234,11 @@ const PortraitContainer = styled.div`
   }
   @media (max-width: 700px) {
     margin-bottom: 3.5vh;
+
+    .about-picture-img {
+      width: 44vw;
+      height: 44vw;
+    }
   }
 `;
 
@@ -360,6 +350,14 @@ const ProjectsSection = styled.section`
   background: white;
   padding: 14vh 5vw; /* slightly increased spacing above/below */
   box-sizing: border-box;
+
+  @media (max-width: 850px) {
+    padding: 7vh 5vw; /* tighter vertical breathing room on mobile */
+  }
+
+  @media (max-width: 600px) {
+    padding: 5vh 5vw;
+  }
 `;
 
 // Use shared Grid60 container to standardize the 60vw grid across sections
@@ -611,8 +609,12 @@ const GridHeaderContainer = styled.div`
   border-radius: 8px;
   backdrop-filter: blur(4px);
 
+  /* Mobile: backdrop-filter over a WebGL canvas is very expensive on iOS.
+     Use a solid translucent background instead. */
   @media (max-width: 1000px) {
     padding: 1.2rem 1.5rem;
+    backdrop-filter: none;
+    background: rgba(0, 0, 0, 0.55);
   }
   @media (max-width: 800px) {
     grid-column: 1;
@@ -735,8 +737,24 @@ const GridImage = styled.div`
 const LandingPage = ({ introDone = true }) => {
   const [showArrow, setShowArrow] = useState(false); // start hidden; reveal after intro animation
   const [hiddenForever, setHiddenForever] = useState(false);
+  // Only run the WebGL wave on devices that can comfortably handle it:
+  // a fine pointer (desktop/trackpad), at least 1001px wide, and the user
+  // hasn't asked for reduced motion. Defaults to false so prerender / mobile
+  // get the lightweight still image instead of a 1MB three.js chunk.
+  const [canRunWave, setCanRunWave] = useState(false);
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mq = window.matchMedia(
+      '(min-width: 1001px) and (pointer: fine) and (not (prefers-reduced-motion: reduce))'
+    );
+    const update = () => setCanRunWave(mq.matches);
+    update();
+    mq.addEventListener?.('change', update);
+    return () => mq.removeEventListener?.('change', update);
   }, []);
 
   useEffect(() => {
@@ -746,7 +764,7 @@ const LandingPage = ({ introDone = true }) => {
         setHiddenForever(true);
       }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [hiddenForever]);
 
@@ -788,7 +806,7 @@ const LandingPage = ({ introDone = true }) => {
       <PortfolioCardsSection />
 
       {/* Module 2: Second Paragraph */}
-      <FullHeightTextSection style={{ backgroundColor: '#f7f7f7', padding: '10vh 5vw', minHeight: '70vh' }}>
+      <FullHeightTextSection style={{ backgroundColor: '#f7f7f7' }}>
         <TextContainer>
           <TextContent style={{ color: '#5d5d5d' }}>
             I’ve partnered with agencies including{' '}
@@ -960,9 +978,24 @@ const LandingPage = ({ introDone = true }) => {
           </GridHeaderContainer>
           <GridImage>
             <ErrorBoundary fallback={null}>
-              <Suspense fallback={<div style={{ height: '50vh' }} />}> 
-                <Scene />
-              </Suspense>
+              {canRunWave ? (
+                <Suspense fallback={<div style={{ height: '50vh' }} />}> 
+                  <Scene />
+                </Suspense>
+              ) : (
+                <picture>
+                  <source srcSet={waveStillAvif} type="image/avif" />
+                  <source srcSet={waveStillWebp} type="image/webp" />
+                  <img
+                    src={waveStillJpg}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    decoding="async"
+                    style={{ width: '100vw', height: '100%', objectFit: 'cover', display: 'block' }}
+                  />
+                </picture>
+              )}
             </ErrorBoundary>
           </GridImage>
         </GridThemes>

@@ -3,44 +3,49 @@ import React, { useRef, Suspense } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import styled from "styled-components";
+import waveTextureUrl from "../../assets/BlackTurtleneck-popart-01.jpg";
 
 // Container
 const ThreeWrapper = styled.div`
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   background-color: black;
 `;
+
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // Wave mesh component
 const Wave = () => {
   const ref = useRef();
+  const reduceMotion = useRef(prefersReducedMotion());
 
   // Animate wave
   useFrame(({ clock }) => {
-    if (ref.current) {
-      const time = clock.getElapsedTime();
-      const positions = ref.current.geometry.attributes.position;
-      for (let i = 0; i < positions.count; i++) {
-        const x = positions.getX(i);
-        const y = positions.getY(i);
-        const waveZ = Math.sin(x * 3 + time) * 0.15 + Math.cos(y * 3 + time) * 0.15;
-        positions.setZ(i, waveZ);
-      }
-      positions.needsUpdate = true;
+    if (!ref.current || reduceMotion.current) return;
+    const time = clock.getElapsedTime();
+    const positions = ref.current.geometry.attributes.position;
+    for (let i = 0; i < positions.count; i++) {
+      const x = positions.getX(i);
+      const y = positions.getY(i);
+      const waveZ = Math.sin(x * 3 + time) * 0.15 + Math.cos(y * 3 + time) * 0.15;
+      positions.setZ(i, waveZ);
     }
+    positions.needsUpdate = true;
   });
 
-  // Load texture
-  const [texture] = useLoader(THREE.TextureLoader, [
-    "https://i.postimg.cc/CL8DLVQP/Black-Turtleneck-popart-01.jpg",
-  ]);
+  // Load texture from local bundle (avoids external CDN hop)
+  const [texture] = useLoader(THREE.TextureLoader, [waveTextureUrl]);
 
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
   texture.repeat.set(1, 1);
 
   return (
     <mesh ref={ref}>
-      <planeGeometry args={[3, 3, 64, 64]} />
+      <planeGeometry args={[3, 3, 32, 32]} />
       <meshBasicMaterial map={texture} />
     </mesh>
   );
@@ -49,7 +54,11 @@ const Wave = () => {
 const Scene = () => {
   return (
     <ThreeWrapper>
-      <Canvas camera={{ fov: 50, position: [0, 0, 4] }}> {/* Zoomed out 10x */}
+      <Canvas
+        camera={{ fov: 50, position: [0, 0, 4] }}
+        dpr={[1, 1.5]}
+        gl={{ antialias: false, powerPreference: "low-power" }}
+      >
         <Suspense fallback={null}>
           <Wave />
         </Suspense>

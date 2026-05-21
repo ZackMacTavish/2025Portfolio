@@ -11,7 +11,8 @@ export const ButtonsGrid = styled.div`
   align-items: center;
   justify-items: start;
   @media (max-width: 850px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     max-width: 100%;
+    justify-items: stretch;
   }
 `;

@@ -247,12 +247,12 @@ const CloseButton = styled.button`
   position: absolute;
   top: 18px;
   right: 18px;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   background: none;
   border: none;
   color: #fff;
-  font-size: 2rem;
+  font-size: 2.25rem;
   font-weight: 700;
   z-index: 1300;
   cursor: pointer;
@@ -260,7 +260,7 @@ const CloseButton = styled.button`
   display: none;
   transition: opacity 0.2s;
   &:hover { opacity: 1; }
-  @media (max-width: 700px) {
+  @media (max-width: 850px) {
     display: block;
   }
 `;
@@ -278,23 +278,27 @@ const Dropdown = styled.div`
   min-width: 10rem;
   z-index: 1200;
 
-  @media (max-width: 700px) {
+  @media (max-width: 850px) {
     position: fixed;
     top: 0;
     left: 0;
     transform: none;
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
     min-width: unset;
     border-radius: 0;
     display: ${(props) => (props.$open ? 'flex' : 'none')};
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0,0,0,0.95);
+    background-color: rgba(0,0,0,0.97);
+    backdrop-filter: none;
     box-shadow: none;
     padding: 0;
-    gap: 2.5rem;
+    gap: 0.5rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 `;
 
@@ -308,6 +312,16 @@ const DropdownMenu = styled(Link)`
   &:hover {
     background-color: rgba(166, 209, 202, 0.4);
     color: white;
+  }
+
+  @media (max-width: 850px) {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    font-weight: 600;
+    padding: 0.6rem 1.5rem;
+    text-align: center;
+    min-height: 44px;
+    width: auto;
   }
 `;
 
@@ -327,23 +341,35 @@ export default function Nav() {
     setOpen(false);
   }, [location.pathname]);
 
-  // Mobile: close dropdown on scroll or outside click
+  // Lock body scroll while the fullscreen mobile menu is open
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const isMobile =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(max-width: 850px)').matches;
+    if (!open || !isMobile) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
+  // Mobile: close dropdown on outside click (no longer on scroll — menu is fullscreen)
   useEffect(() => {
     if (!open) return;
+    if (typeof window === 'undefined') return;
     // Only activate on mobile
     if (!window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
 
-    const handleScroll = () => setOpen(false);
     const handleClick = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setOpen(false);
       }
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
     document.addEventListener('mousedown', handleClick);
     document.addEventListener('touchstart', handleClick);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('mousedown', handleClick);
       document.removeEventListener('touchstart', handleClick);
     };
@@ -368,7 +394,7 @@ export default function Nav() {
               style={{ cursor: 'default' }}
               onClick={(e) => {
                 // Only allow click on mobile
-                if (window.matchMedia('(hover: none)').matches) {
+                if (typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches) {
                   handleToggle();
                 } else {
                   e.preventDefault();
@@ -377,7 +403,7 @@ export default function Nav() {
             >
               Projects
             </NavLabel>
-            {/* Bridge div to keep hover active between nav label and dropdown */}
+            {/* Bridge div to keep hover active between nav label and dropdown (desktop only) */}
             <div
               style={{
                 position: 'absolute',
@@ -387,12 +413,10 @@ export default function Nav() {
                 height: '100%',
                 background: 'transparent',
                 border: 'none',
-                pointerEvents:
-                  window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches
-                    ? 'none'
-                    : 'auto',
+                pointerEvents: 'auto',
                 zIndex: 1100,
               }}
+              className="nav-hover-bridge"
             />
             <Dropdown $open={open} ref={dropdownRef}>
               {/* Mobile close button */}

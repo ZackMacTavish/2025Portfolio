@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Disable Nav hover-bridge on touch devices so it can't intercept taps */
+@media (hover: none) and (pointer: coarse) {
+  .nav-hover-bridge {
+    pointer-events: none !important;
+  }
+}

@@ -113,14 +113,19 @@ export default function ResponsiveImage({
 }: ResponsiveImageProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  // Guard against prerender / SSR where `window` is undefined.
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== "undefined" && window.innerWidth < 768
+  );
   const parallaxY = useMotionValue(0);
 
   // Detect mobile breakpoint on mount and resize
   useEffect(() => {
+    if (typeof window === "undefined") return;
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);

@@ -59,6 +59,7 @@ const SpotlightBackground = styled.div`
   inset: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   z-index: 0;
   pointer-events: none;
   &::before, &::after {
@@ -80,6 +81,21 @@ const SpotlightBackground = styled.div`
     top: 40%;
     left: 65%;
     animation: ${spotlightRightMove} 40s ease-in-out infinite;
+  }
+
+  /* Mobile: blur(200px) + rotating fullscreen pseudo-elements are very expensive
+     on phones. Reduce blur radius and stop the animation. */
+  @media (max-width: 1000px) {
+    &::before, &::after {
+      filter: blur(80px);
+      animation: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::before, &::after {
+      animation: none;
+    }
   }
 `;
 
@@ -317,7 +333,7 @@ const Microsoft = () => {
 
       <BusinessConnectorsModule />
 
-      <FullHeightTextSection style={{ backgroundColor: '#eaf6ff', minHeight: '100vh' }}>
+      <FullHeightTextSection style={{ backgroundColor: '#eaf6ff' }}>
         <TextContainer>
           <TextContent style={{ color: '#1a3a5d', fontSize: '2.3rem', maxWidth: '50ch', lineHeight: '1.4', margin: '0' }}>
             Journeys reframed shopping as a progression rather than a single destination. The concept created a central hub for discovery, comparison, and post-purchase support so users could keep track of activity, price changes, deals, and recommendations without carrying that mental load across multiple products and retailers.
@@ -327,7 +343,7 @@ const Microsoft = () => {
 
       <JourneysModule />
       
-      <FullHeightTextSection style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
+      <FullHeightTextSection style={{ backgroundColor: '#f5f5f5' }}>
         <TextContainer>
           <TextContent style={{ color: '#222', fontSize: '2.3rem', maxWidth: '50ch', lineHeight: '1.4', margin: '0' }}>
             This work focused on reimagining shopping as an educational experience rather than a transactional one. I designed early concepts for Copilot Shopping and a Generative Results Page (GRP) that helped users understand product categories, compare specs, and evaluate pricing. These experiences aimed to reduce decision fatigue while increasing trust and confidence for high-consideration purchases.
@@ -349,7 +365,7 @@ const Microsoft = () => {
         <VideoWithOverlay ref={videoRefs[1]} src="/assets/microsoft-demo.mp4" poster="/assets/Preview2.png" />
       </RisoFlex>
    
-      <FullHeightTextSection style={{ backgroundColor: '#f7eaff', minHeight: '100vh' }}>
+      <FullHeightTextSection style={{ backgroundColor: '#f7eaff' }}>
         <TextContainer>
           <TextContent style={{ color: '#5d2d5d', fontSize: '2.3rem', maxWidth: '50ch', lineHeight: '1.4', margin: '0' }}>
             This work focused on reducing friction at the moment of purchase through Microsoft Wallet and the Cashback Hub. I contributed to experiences that let users securely save payment methods, passwords, and rewards for faster checkout across Microsoft surfaces. More recently, this work has extended into Copilot, exploring how AI can surface cashback, apply rewards, and streamline checkout without disrupting user trust.
@@ -365,7 +381,7 @@ const Microsoft = () => {
       </RisoFlex>
      
 
-   <FullHeightTextSection style={{ backgroundColor: '#fffbe6', minHeight: '100vh' }}>
+   <FullHeightTextSection style={{ backgroundColor: '#fffbe6' }}>
         <TextContainer>
           <TextContent style={{ color: '#5d5d5d', fontSize: '2.3rem', maxWidth: '50ch', lineHeight: '1.4', margin: '0' }}>
             I worked across Bing Shopping, Microsoft Start, Windows, Outlook, and Copilot to create consistent commerce experiences at scale. This included Outlook shopping concepts for managing promotions, feed-based browsing, and unsubscribe flows. The goal was to unify shopping behavior across Microsoft’s surfaces while respecting context and user intent.
