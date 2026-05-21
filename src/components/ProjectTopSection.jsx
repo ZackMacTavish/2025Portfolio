@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ProjectGrid, ProjectContent, ProjectTitle, ProjectImage, ProjectButton } from './GigaPrimitives';
 import { ButtonsGrid } from './ButtonsGrid';
 import { FiArrowUpRight } from 'react-icons/fi';
+import { findMobileVariant } from './mobileVariants';
 
 function normalizeAssetUrl(url) {
   if (!url) return url;
@@ -161,6 +162,9 @@ export default function ProjectTopSection({
   const normalizedImageAvif = imageBasePath ? normalizeAssetUrl(`${imageBasePath}.avif`) : null;
   const normalizedImageWebp = imageBasePath ? normalizeAssetUrl(`${imageBasePath}.webp`) : null;
   const normalizedImageSrc = imageBasePath ? normalizeAssetUrl(`${imageBasePath}.${imageExt || 'jpg'}`) : null;
+  const mobileAvif = findMobileVariant(normalizedImageAvif);
+  const mobileWebp = findMobileVariant(normalizedImageWebp);
+  const mobileSrc = findMobileVariant(normalizedImageSrc);
 
   return (
     <>
@@ -188,8 +192,11 @@ export default function ProjectTopSection({
       <TopSectionImage>
         {imageBaseName ? (
           <picture>
+            {mobileAvif && <source srcSet={mobileAvif} type="image/avif" media="(max-width: 900px)" />}
             <source srcSet={normalizedImageAvif} type="image/avif" />
+            {mobileWebp && <source srcSet={mobileWebp} type="image/webp" media="(max-width: 900px)" />}
             <source srcSet={normalizedImageWebp} type="image/webp" />
+            {mobileSrc && <source srcSet={mobileSrc} media="(max-width: 900px)" />}
               <TopSectionImageStyled
                 src={normalizedImageSrc}
                 alt={imageAlt}

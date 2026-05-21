@@ -4,6 +4,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { findMobileVariant } from './mobileVariants';
 
 const normalizeAssetUrl = (url) => {
   if (!url) return url;
@@ -156,6 +157,9 @@ export const SingleImage = ({
   const normalizedSrc = normalizeAssetUrl(src);
   const normalizedAvif = normalizeAssetUrl(avif);
   const normalizedWebp = normalizeAssetUrl(webp);
+  const mobileAvif = findMobileVariant(normalizedAvif);
+  const mobileWebp = findMobileVariant(normalizedWebp);
+  const mobileSrc = findMobileVariant(normalizedSrc);
 
   const responsiveStyle = {
     width,
@@ -171,8 +175,11 @@ export const SingleImage = ({
 
   return (
     <picture>
+      {mobileAvif && <source srcSet={mobileAvif} type="image/avif" media="(max-width: 900px)" />}
       {normalizedAvif && <source srcSet={normalizedAvif} type="image/avif" />}
+      {mobileWebp && <source srcSet={mobileWebp} type="image/webp" media="(max-width: 900px)" />}
       {normalizedWebp && <source srcSet={normalizedWebp} type="image/webp" />}
+      {mobileSrc && <source srcSet={mobileSrc} media="(max-width: 900px)" />}
       {responsive && <style>{`.single-image-responsive { ${mediaQuery} }`}</style>}
       <img
         src={normalizedSrc}
@@ -246,11 +253,20 @@ export const DoubleImage = ({
     padding: 0,
     ...styleRight,
   };
+  const mobileAvifLeft = findMobileVariant(avifLeft);
+  const mobileWebpLeft = findMobileVariant(webpLeft);
+  const mobileSrcLeft = findMobileVariant(srcLeft);
+  const mobileAvifRight = findMobileVariant(avifRight);
+  const mobileWebpRight = findMobileVariant(webpRight);
+  const mobileSrcRight = findMobileVariant(srcRight);
   return (
     <div style={{ display: 'flex', width: '100vw', height: 'auto', flexWrap: 'wrap', margin: 0, padding: 0 }}>
       <picture>
+        {mobileAvifLeft && <source srcSet={mobileAvifLeft} type="image/avif" media="(max-width: 900px)" />}
         {avifLeft && <source srcSet={avifLeft} type="image/avif" />}
+        {mobileWebpLeft && <source srcSet={mobileWebpLeft} type="image/webp" media="(max-width: 900px)" />}
         {webpLeft && <source srcSet={webpLeft} type="image/webp" />}
+        {mobileSrcLeft && <source srcSet={mobileSrcLeft} media="(max-width: 900px)" />}
         <img
           src={srcLeft}
           alt={altLeft}
@@ -260,8 +276,11 @@ export const DoubleImage = ({
         />
       </picture>
       <picture>
+        {mobileAvifRight && <source srcSet={mobileAvifRight} type="image/avif" media="(max-width: 900px)" />}
         {avifRight && <source srcSet={avifRight} type="image/avif" />}
+        {mobileWebpRight && <source srcSet={mobileWebpRight} type="image/webp" media="(max-width: 900px)" />}
         {webpRight && <source srcSet={webpRight} type="image/webp" />}
+        {mobileSrcRight && <source srcSet={mobileSrcRight} media="(max-width: 900px)" />}
         <img
           src={srcRight}
           alt={altRight}

@@ -1,11 +1,35 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState, Suspense, lazy } from 'react';
 import styled from 'styled-components';
-import { gsap } from 'gsap';
-import { useReducedMotion } from 'framer-motion';
-import LandingPage from '../Landing_Page/LandingPage';
-import CaseStudyTransition, {
-  shouldRunCardTransition,
-} from '../../components/CaseStudyTransition';
+import { shouldRunCardTransition } from '../../components/transitionGate';
+
+// LandingPage is rendered immediately but covered by the intro overlay until
+// the wipe animation completes. Lazy-loading it keeps ~130KB of image URL
+// imports and below-the-fold components out of the root-route critical path;
+// the chunk loads in parallel with the intro animation.
+const LandingPage = lazy(() => import('../Landing_Page/LandingPage'));
+
+// The card-fan transition pulls in framer-motion; lazy-load it so the root
+// route paints without paying that cost. It only mounts after the
+// `shouldRunCardTransition` gate decides to run the animation.
+const CaseStudyTransition = lazy(() => import('../../components/CaseStudyTransition'));
+
+// Lightweight inline replacement for framer-motion's `useReducedMotion`.
+// Keeping this local removes the entire framer-motion package from the
+// root-route bundle (the only consumer was this one hook call).
+function useReducedMotion() {
+  const [reduced, setReduced] = useState(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return false;
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  });
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const apply = () => setReduced(mq.matches);
+    mq.addEventListener?.('change', apply);
+    return () => mq.removeEventListener?.('change', apply);
+  }, []);
+  return reduced;
+}
 
 import leysiTile from '../../assets/LeysiApp—Screens copy.jpg';
 import threePillarsTile from '../../assets/ThreePillars—pages.jpg';
@@ -201,48 +225,62 @@ export default function IntroAnimation() {
       return;
     }
 
-    const letters = letterRefs.current.filter(Boolean);
-    const progress = { value: 0 };
+    let cancelled = false;
+    let timeline = null;
 
-    gsap.set(letters, { yPercent: 110, autoAlpha: 0 });
-    gsap.set(introRef.current, { clipPath: 'inset(0% 0% 0% 0%)' });
+    // Dynamic-import gsap so it stays out of the critical-path bundle. The
+    // letters start invisible via CSS (`LetterInner { opacity: 0 }`), so a
+    // brief delay before gsap loads is visually identical to the previous
+    // synchronous setup.
+    import('gsap').then(({ gsap }) => {
+      if (cancelled) return;
 
-    const tl = gsap.timeline({
-      onComplete: () => {
-        setShowIntro(false);
-        window.dispatchEvent(new Event("intro-animation-done"));
-      },
-    });
+      const letters = letterRefs.current.filter(Boolean);
+      const progress = { value: 0 };
 
-    tl.to(progress, {
-      value: 100,
-      duration: 2.5,
-      ease: 'power2.inOut',
-      onUpdate: () => {
-        setCounter(`${String(Math.round(progress.value)).padStart(3, '0')}%`);
-      },
-    });
+      gsap.set(letters, { yPercent: 110, autoAlpha: 0 });
+      gsap.set(introRef.current, { clipPath: 'inset(0% 0% 0% 0%)' });
 
-    tl.to(
-      letters,
-      {
-        yPercent: 0,
-        autoAlpha: 1,
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setShowIntro(false);
+          window.dispatchEvent(new Event('intro-animation-done'));
+        },
+      });
+
+      tl.to(progress, {
+        value: 100,
+        duration: 2.5,
+        ease: 'power2.inOut',
+        onUpdate: () => {
+          setCounter(`${String(Math.round(progress.value)).padStart(3, '0')}%`);
+        },
+      });
+
+      tl.to(
+        letters,
+        {
+          yPercent: 0,
+          autoAlpha: 1,
+          duration: 0.8,
+          stagger: 0.04,
+          ease: 'power3.out',
+        },
+        '-=2'
+      );
+
+      tl.to(introRef.current, {
+        clipPath: 'inset(0% 0% 100% 0%)',
         duration: 0.8,
-        stagger: 0.04,
-        ease: 'power3.out',
-      },
-      '-=2'
-    );
+        ease: 'power4.inOut',
+      });
 
-    tl.to(introRef.current, {
-      clipPath: 'inset(0% 0% 100% 0%)',
-      duration: 0.8,
-      ease: 'power4.inOut',
+      timeline = tl;
     });
 
     return () => {
-      tl.kill();
+      cancelled = true;
+      if (timeline) timeline.kill();
     };
   }, [showIntro, prefersReducedMotion, introReady]);
 
@@ -250,8 +288,12 @@ export default function IntroAnimation() {
 
   return (
     <>
-      {/* Pass introDone so the landing page chevron waits until the overlay wipes away */}
-      <LandingPage introDone={!showIntro} />
+      {/* Pass introDone so the landing page chevron waits until the overlay wipes away.
+          Suspense fallback is null because the intro overlay covers the viewport
+          until the wipe animation completes; by then LandingPage is loaded. */}
+      <Suspense fallback={null}>
+        <LandingPage introDone={!showIntro} />
+      </Suspense>
       {showIntro && (
         <IntroDiv
           ref={introRef}
@@ -263,13 +305,15 @@ export default function IntroAnimation() {
             <div style={{position: 'absolute', inset: 0, background: introBackground, zIndex: 1}} />
           )}
           {introCardsEnabled && introReady && (
-            <CaseStudyTransition
-              images={introTransitionImages}
-              isActive={showIntro}
-              onComplete={handleTransitionComplete}
-              overlayColor={introWhite}
-              loadingBackgroundColor={introWhite}
-            />
+            <Suspense fallback={null}>
+              <CaseStudyTransition
+                images={introTransitionImages}
+                isActive={showIntro}
+                onComplete={handleTransitionComplete}
+                overlayColor={introWhite}
+                loadingBackgroundColor={introWhite}
+              />
+            </Suspense>
           )}
           {/* On slower devices, show only the Zachary MacTavish intro animation. */}
           {introReady && (

@@ -1,18 +1,27 @@
 import React, { useState, Suspense, lazy, useEffect, useRef } from "react";
 import { ThemeProvider } from "styled-components";
 import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { Agentation } from "agentation";
 import './App.css';
 
 // Themes
 import { lightTheme, darkTheme, GlobalStyles } from './components/Themes/Themes';
 
 // Components
-import Customcursor from "./components/CustomCursor/customcursor";
 import Nav from "./components/Nav/Nav";
-import LandingPage from "./pages/Landing_Page/LandingPage";
 import ErrorBoundary from "./components/ErrorBoundary";
 import IntroAnimation from "./pages/Intro_Animation/IntroAnimation";
+
+// LandingPage is lazy-loaded so it stays out of the root-route critical
+// path; IntroAnimation triggers the same dynamic import on mount, so by the
+// time the intro wipe finishes the chunk is already cached.
+const LandingPage = lazy(() => import("./pages/Landing_Page/LandingPage"));
+
+// CustomCursor is desktop-only — skip the JS entirely on touch devices.
+// Agentation is dev-only — dynamic import keeps it out of prod bundles.
+const Customcursor = lazy(() => import("./components/CustomCursor/customcursor"));
+const Agentation = lazy(() =>
+  import("agentation").then((mod) => ({ default: mod.Agentation }))
+);
 
 // Pages (lazy-loaded to reduce initial bundle size)
 const Resume = lazy(() => import("./pages/Resume"));
@@ -35,8 +44,20 @@ function App() {
   const [theme, setTheme] = useState("light");
   const [showShortcutsHelp, setShowShortcutsHelp] = useState(false);
   const [showShortcutsPill, setShowShortcutsPill] = useState(false);
+  const [enableCustomCursor, setEnableCustomCursor] = useState(false);
   const helpDialogRef = useRef(null);
   const lastFocusedElementRef = useRef(null);
+
+  // Only load the custom cursor on devices with a real pointer. Touch devices
+  // gain nothing from it and shouldn't pay the JS/render cost.
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const apply = () => setEnableCustomCursor(mq.matches);
+    apply();
+    mq.addEventListener?.("change", apply);
+    return () => mq.removeEventListener?.("change", apply);
+  }, []);
 
   const themeToggler = () => {
     setTheme(theme === "light" ? "dark" : "light");
@@ -160,7 +181,11 @@ function App() {
       <GlobalStyles />
       <div className="App">
         <Router>
-          <Customcursor />
+          {enableCustomCursor && (
+            <Suspense fallback={null}>
+              <Customcursor />
+            </Suspense>
+          )}
           <Nav />
           {showShortcutsPill && (
             <button
@@ -324,7 +349,11 @@ function App() {
             </Routes>
           </Suspense>
         </Router>
-        {process.env.NODE_ENV === "development" && <Agentation />}
+        {process.env.NODE_ENV === "development" && (
+          <Suspense fallback={null}>
+            <Agentation />
+          </Suspense>
+        )}
       </div>
     </ThemeProvider>
   );

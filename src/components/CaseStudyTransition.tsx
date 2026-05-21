@@ -1,8 +1,25 @@
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
+import {
+  type TransitionImage,
+  CARD_TRANSITION_DECODE_GATE_MS,
+  warmPreloadTransitionImages,
+  preloadTransitionImages,
+  measureTransitionDecodeDuration,
+  shouldRunCardTransition,
+  areTransitionImagesDecoded,
+} from "./transitionGate";
 
-type TransitionImage = { src: string; alt: string; objectPosition?: string };
+// Re-export the gate helpers so existing imports keep working.
+export {
+  CARD_TRANSITION_DECODE_GATE_MS,
+  warmPreloadTransitionImages,
+  preloadTransitionImages,
+  measureTransitionDecodeDuration,
+  shouldRunCardTransition,
+};
+export type { TransitionImage };
 
 interface CaseStudyTransitionProps {
   /** Array of exactly 5 images to animate */
@@ -30,167 +47,7 @@ interface CaseStudyTransitionProps {
   loadingBackgroundColor?: string;
 }
 
-const decodedImageCache = new Set<string>();
-const imagePreloadPromises = new Map<string, Promise<boolean>>();
-export const CARD_TRANSITION_DECODE_GATE_MS = 1400;
 const cardEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
-let cardTransitionsLockedOffForSession = false;
-const MAX_TRANSITION_IMAGE_RETRIES = 1;
-
-function isLocalDevelopmentHost() {
-  if (typeof window === "undefined") {
-    return false;
-  }
-
-  return ["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
-}
-
-function loadAndDecodeImage(src: string, attempt = 0): Promise<boolean> {
-  if (decodedImageCache.has(src)) {
-    return Promise.resolve(true);
-  }
-
-  const existingPromise = attempt === 0 ? imagePreloadPromises.get(src) : undefined;
-  if (existingPromise) {
-    return existingPromise;
-  }
-
-  const preloadPromise = new Promise<boolean>((resolve) => {
-    const img = new Image();
-    img.decoding = "async";
-    let finalized = false;
-
-    const finalize = (didDecode: boolean) => {
-      if (finalized) return;
-      finalized = true;
-
-      if (didDecode) {
-        decodedImageCache.add(src);
-      }
-
-      if (attempt === 0) {
-        imagePreloadPromises.delete(src);
-      }
-
-      resolve(didDecode);
-    };
-
-    img.onload = async () => {
-      if (typeof img.decode === "function") {
-        try {
-          await img.decode();
-        } catch {
-          finalize(false);
-          return;
-        }
-      }
-      finalize(true);
-    };
-
-    img.onerror = () => {
-      if (attempt < MAX_TRANSITION_IMAGE_RETRIES) {
-        void loadAndDecodeImage(src, attempt + 1).then(finalize);
-        return;
-      }
-
-      finalize(false);
-    };
-
-    img.src = src;
-
-    if (img.complete) {
-      void Promise.resolve().then(async () => {
-        if (typeof img.decode === "function") {
-          try {
-            await img.decode();
-          } catch {
-            finalize(false);
-            return;
-          }
-        }
-        finalize(true);
-      });
-    }
-  });
-
-  if (attempt === 0) {
-    imagePreloadPromises.set(src, preloadPromise);
-  }
-
-  return preloadPromise;
-}
-
-/**
- * Non-blocking warm preload: start loading images in the background.
- * Used for hover/app-start warmup so the transition is already decoded by the
- * time the user clicks, without blocking the current UI.
- */
-export function warmPreloadTransitionImages(images: TransitionImage[]): Promise<void> {
-  const imagePromises = images.map((image) => loadAndDecodeImage(image.src));
-
-  // Fire off preloads but DON'T await them before returning.
-  // This lets the transition animate while images load in the background.
-  Promise.all(imagePromises).catch(() => {});
-  return Promise.resolve();
-}
-
-/**
- * Blocking preload: wait for all images to be ready.
- * Only used when you need guaranteed ready state (rare).
- */
-export async function preloadTransitionImages(images: TransitionImage[]) {
-  const imagePromises = images.map((image) => loadAndDecodeImage(image.src));
-
-  const preloadResults = await Promise.all(imagePromises);
-  return preloadResults.every(Boolean);
-}
-
-export async function measureTransitionDecodeDuration(
-  images: TransitionImage[]
-): Promise<{ duration: number; allDecoded: boolean }> {
-  const startedAt = performance.now();
-  const allDecoded = await preloadTransitionImages(images);
-  return { duration: performance.now() - startedAt, allDecoded };
-}
-
-export async function shouldRunCardTransition(
-  images: TransitionImage[],
-  thresholdMs = CARD_TRANSITION_DECODE_GATE_MS,
-  options?: { lockSessionOnFailure?: boolean }
-): Promise<boolean> {
-  if (typeof window === "undefined") {
-    return true;
-  }
-
-  const lockSessionOnFailure = options?.lockSessionOnFailure ?? true;
-
-  if (isLocalDevelopmentHost()) {
-    const { allDecoded } = await measureTransitionDecodeDuration(images);
-    return allDecoded;
-  }
-
-  if (lockSessionOnFailure && cardTransitionsLockedOffForSession) {
-    return false;
-  }
-
-  const decodeDurationPromise = measureTransitionDecodeDuration(images);
-  const timeoutPromise = new Promise<boolean>((resolve) => {
-    window.setTimeout(() => resolve(false), thresholdMs);
-  });
-
-  const shouldAnimate = await Promise.race([
-    decodeDurationPromise.then(
-      ({ duration, allDecoded }) => allDecoded && duration <= thresholdMs
-    ),
-    timeoutPromise,
-  ]);
-
-  if (!shouldAnimate && lockSessionOnFailure) {
-    cardTransitionsLockedOffForSession = true;
-  }
-
-  return shouldAnimate;
-}
 
 const StyledContainer = styled(motion.div)`
   position: fixed;
@@ -352,7 +209,7 @@ export default function CaseStudyTransition({
       return;
     }
 
-    if (images.every((image) => decodedImageCache.has(image.src))) {
+    if (areTransitionImagesDecoded(images)) {
       setImagesLoaded(true);
       return;
     }

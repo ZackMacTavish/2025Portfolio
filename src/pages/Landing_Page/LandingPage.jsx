@@ -87,6 +87,9 @@ import card6Webp from '../../assets/Card6.webp';
 import waveStillJpg from '../../assets/BlackTurtleneck-popart-01.jpg';
 import waveStillAvif from '../../assets/BlackTurtleneck-popart-01.avif';
 import waveStillWebp from '../../assets/BlackTurtleneck-popart-01.webp';
+import waveStillJpgMobile from '../../assets/BlackTurtleneck-popart-01-mobile-900.jpg';
+import waveStillAvifMobile from '../../assets/BlackTurtleneck-popart-01-mobile-900.avif';
+import waveStillWebpMobile from '../../assets/BlackTurtleneck-popart-01-mobile-900.webp';
 import Socials from '../../components/Social Bar/Socials';
 import PortfolioCardsSection from '../../components/PortfolioCardsSection';
 import { FullHeightTextSection, TextContainer, TextContent } from '../../components/CaseStudyPrimitives';
@@ -984,8 +987,11 @@ const LandingPage = ({ introDone = true }) => {
                 </Suspense>
               ) : (
                 <picture>
+                  <source srcSet={waveStillAvifMobile} type="image/avif" media="(max-width: 900px)" />
                   <source srcSet={waveStillAvif} type="image/avif" />
+                  <source srcSet={waveStillWebpMobile} type="image/webp" media="(max-width: 900px)" />
                   <source srcSet={waveStillWebp} type="image/webp" />
+                  <source srcSet={waveStillJpgMobile} media="(max-width: 900px)" />
                   <img
                     src={waveStillJpg}
                     alt=""

@@ -150,9 +150,27 @@ export default function PortfolioCardsSection() {
         <Grid>
           <ProjectCard>
             <Tile to="/Microsoft" aria-label="Microsoft project">
-              <TileBg
+              {/* Use <SingleImage> (with AVIF/WebP + mobile-900 variants) instead of a
+                  CSS background-image. The raw HP.png is 2.6 MB and was being downloaded
+                  in full on every device — even though it's blurred + covered by a 70%
+                  white overlay. SingleImage automatically picks the smallest format the
+                  browser can decode. */}
+              <SingleImage
+                src="/assets/HP.png"
+                avif="/assets/HP.avif"
+                webp="/assets/HP.webp"
+                alt=""
+                width="100%"
+                responsive={false}
                 style={{
-                  backgroundImage: "url('/assets/HP.png')",
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  zIndex: 0,
+                  borderRadius: 0,
+                  boxShadow: "none",
                   filter: "saturate(0.9) blur(2px)",
                   transform: "scale(1.03)",
                 }}

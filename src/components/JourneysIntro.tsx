@@ -114,6 +114,9 @@ export function JourneysIntro({ onLaunch }: JourneysIntroProps) {
   const previewAvif = normalizeAssetUrl("/assets/journeys/Journeys L2.avif");
   const previewWebp = normalizeAssetUrl("/assets/journeys/Journeys L2.webp");
   const previewPng = normalizeAssetUrl("/assets/journeys/Journeys L2.jpg");
+  const previewAvifMobile = normalizeAssetUrl("/assets/journeys/Journeys L2-mobile-900.avif");
+  const previewWebpMobile = normalizeAssetUrl("/assets/journeys/Journeys L2-mobile-900.webp");
+  const previewJpgMobile = normalizeAssetUrl("/assets/journeys/Journeys L2-mobile-900.jpg");
 
   return (
     <IntroSection>
@@ -169,9 +172,17 @@ export function JourneysIntro({ onLaunch }: JourneysIntroProps) {
           transition={{ duration: 0.7, delay: 0.1 }}
         >
           <StyledImage>
+            <source srcSet={previewAvifMobile} type="image/avif" media="(max-width: 900px)" />
             <source srcSet={previewAvif} type="image/avif" />
+            <source srcSet={previewWebpMobile} type="image/webp" media="(max-width: 900px)" />
             <source srcSet={previewWebp} type="image/webp" />
-            <img src={previewPng} alt="Journeys dashboard with personalized shopping modules" />
+            <source srcSet={previewJpgMobile} media="(max-width: 900px)" />
+            <img
+              src={previewPng}
+              alt="Journeys dashboard with personalized shopping modules"
+              loading="lazy"
+              decoding="async"
+            />
           </StyledImage>
         </ImageColumn>
       </IntroContent>

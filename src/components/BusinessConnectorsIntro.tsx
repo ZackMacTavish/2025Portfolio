@@ -138,6 +138,9 @@ export function BusinessConnectorsIntro({ onLaunch }: BusinessConnectorsIntroPro
   const connectorPreviewAvif = normalizeAssetUrl("/assets/business-connectors/Connectors1.avif");
   const connectorPreviewWebp = normalizeAssetUrl("/assets/business-connectors/Connectors1.webp");
   const connectorPreviewJpg = normalizeAssetUrl("/assets/business-connectors/Connectors1.jpg");
+  const connectorPreviewAvifMobile = normalizeAssetUrl("/assets/business-connectors/Connectors1-mobile-900.avif");
+  const connectorPreviewWebpMobile = normalizeAssetUrl("/assets/business-connectors/Connectors1-mobile-900.webp");
+  const connectorPreviewJpgMobile = normalizeAssetUrl("/assets/business-connectors/Connectors1-mobile-900.jpg");
 
   return (
     <IntroSection>
@@ -185,9 +188,17 @@ export function BusinessConnectorsIntro({ onLaunch }: BusinessConnectorsIntroPro
           transition={{ duration: 0.7, delay: 0.1 }}
         >
           <StyledImage>
+            <source srcSet={connectorPreviewAvifMobile} type="image/avif" media="(max-width: 900px)" />
             <source srcSet={connectorPreviewAvif} type="image/avif" />
+            <source srcSet={connectorPreviewWebpMobile} type="image/webp" media="(max-width: 900px)" />
             <source srcSet={connectorPreviewWebp} type="image/webp" />
-            <img src={connectorPreviewJpg} alt="Business Connectors interface design" />
+            <source srcSet={connectorPreviewJpgMobile} media="(max-width: 900px)" />
+            <img
+              src={connectorPreviewJpg}
+              alt="Business Connectors interface design"
+              loading="lazy"
+              decoding="async"
+            />
           </StyledImage>
         </ImageColumn>
       </IntroContent>

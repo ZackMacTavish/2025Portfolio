@@ -138,6 +138,15 @@ export function CopilotPayIntro({ onLaunch }: CopilotPayIntroProps) {
   const previewPng = normalizeAssetUrl(
     "/assets/copilot-pay/Property 1=Default.jpg"
   );
+  const previewAvifMobile = normalizeAssetUrl(
+    "/assets/copilot-pay/Property 1=Default-mobile-900.avif"
+  );
+  const previewWebpMobile = normalizeAssetUrl(
+    "/assets/copilot-pay/Property 1=Default-mobile-900.webp"
+  );
+  const previewJpgMobile = normalizeAssetUrl(
+    "/assets/copilot-pay/Property 1=Default-mobile-900.jpg"
+  );
 
   return (
     <IntroSection>
@@ -185,9 +194,17 @@ export function CopilotPayIntro({ onLaunch }: CopilotPayIntroProps) {
           transition={{ duration: 0.7, delay: 0.1 }}
         >
           <StyledImage>
+            <source srcSet={previewAvifMobile} type="image/avif" media="(max-width: 900px)" />
             <source srcSet={previewAvif} type="image/avif" />
+            <source srcSet={previewWebpMobile} type="image/webp" media="(max-width: 900px)" />
             <source srcSet={previewWebp} type="image/webp" />
-            <img src={previewPng} alt="Copilot Pay interface design" />
+            <source srcSet={previewJpgMobile} media="(max-width: 900px)" />
+            <img
+              src={previewPng}
+              alt="Copilot Pay interface design"
+              loading="lazy"
+              decoding="async"
+            />
           </StyledImage>
         </ImageColumn>
       </IntroContent>
