@@ -121,7 +121,14 @@ async function prerender() {
     await page.setViewport({ width: 1200, height: 800 });
 
     for (const route of routes) {
-      const url = `http://localhost:${PORT}${route}`;
+      // React Router v7 is trailing-slash strict: `<Route path="/Microsoft">`
+      // does NOT match URL `/Microsoft/`, which causes the catch-all to
+      // redirect to `/` and bake landing-page HTML into every route file.
+      // Visit the URL WITHOUT the trailing slash (except for the root) so
+      // routes match correctly. Output path still uses the slashed route to
+      // produce `dist/<Route>/index.html`.
+      const visitPath = route === '/' ? '/' : route.replace(/\/$/, '');
+      const url = `http://localhost:${PORT}${visitPath}`;
       try {
         console.log('Rendering', url);
         await page.goto(url, { waitUntil: 'networkidle0', timeout: 60000 });

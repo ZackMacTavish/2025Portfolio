@@ -554,7 +554,7 @@ const StaggeredCaption = styled.p`
 `;
 
 const CenterTextBlock = styled.div`
-  margin: 0 auto;
+  margin: 0;
   max-width: 45rem;
 `;
 
@@ -793,7 +793,7 @@ const ParallaxBody = styled(motion.p)`
 
 const ColorBlockSection = styled.section`
   position: relative;
-  padding: 3.5rem 6%;
+  padding: 3.5rem 0;
 `;
 
 const ColorBlockInner = styled.div`
@@ -845,8 +845,8 @@ const ColorBlockImage = styled(ResponsiveImage)`
 const ColorBlockText = styled.div`
   position: relative;
   z-index: 1;
-  max-width: 600px;
-  margin: 2.5rem auto 0;
+  max-width: 45rem;
+  margin: 2.5rem 0 0;
   text-align: left;
 `;
 
@@ -1216,6 +1216,22 @@ export default memo(function CaseStudyPage({
 
   const renderFullWidthImage = (section: CaseStudySection) => (
     <div key={section.id}>
+      {(section.heading || section.body) && (
+        <CenterTextBlock style={{ marginBottom: "2.5rem" }}>
+          <CenterText>
+            {section.heading && <SectionHeading>{section.heading}</SectionHeading>}
+            {section.body && (
+              <SectionBody style={{ alignItems: "flex-start" }}>
+                {parseBody(section.body).map((paragraph, idx) => (
+                  <Paragraph key={idx} style={{ textAlign: "left" }}>
+                    {paragraph}
+                  </Paragraph>
+                ))}
+              </SectionBody>
+            )}
+          </CenterText>
+        </CenterTextBlock>
+      )}
       <FullWidthImageContainer
         initial={{ opacity: 0, scale: 0.97 }}
         whileInView={{ opacity: 1, scale: 1 }}
@@ -1230,12 +1246,16 @@ export default memo(function CaseStudyPage({
             webp={section.images[0].webp}
             aspectRatio={section.images[0].aspectRatio || "16/9"}
             borderRadius="8px"
-            objectFit="cover"
+            objectFit={section.images[0].objectFit || "cover"}
+            objectPosition={section.images[0].objectPosition}
+            backgroundColor={section.images[0].backgroundColor}
+            imagePaddingBlock={section.images[0].imagePaddingBlock}
+            border={section.images[0].containerBorder}
             style={{ width: "100%" }}
           />
         )}
       </FullWidthImageContainer>
-      {(section.caption || section.body) && <Caption>{section.caption || section.body}</Caption>}
+      {section.caption && <Caption>{section.caption}</Caption>}
     </div>
   );
 
@@ -1408,9 +1428,33 @@ export default memo(function CaseStudyPage({
 
     const leftImage = images[0];
     const rightImage = images[1];
+    const hasHeading = Boolean(section.heading);
 
     return (
       <div key={section.id}>
+        {hasHeading && (
+          <CenterTextBlock>
+            <CenterText
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={VIEWPORT_ONCE}
+              transition={TEXT_TRANSITION}
+            >
+              <SectionHeading style={{ textAlign: "left" }}>
+                {section.heading}
+              </SectionHeading>
+              {section.body && (
+                <SectionBody style={{ alignItems: "flex-start" }}>
+                  {parseBody(section.body).map((paragraph, idx) => (
+                    <TextOnlyParagraph key={idx} style={{ textAlign: "left" }}>
+                      {paragraph}
+                    </TextOnlyParagraph>
+                  ))}
+                </SectionBody>
+              )}
+            </CenterText>
+          </CenterTextBlock>
+        )}
         <StaggeredPairWrapper>
           <StaggeredLeft
             initial={{ opacity: 0, y: 30 }}
@@ -1429,6 +1473,7 @@ export default memo(function CaseStudyPage({
               imagePaddingBlock={leftImage.imagePaddingBlock}
               objectFit={leftImage.objectFit || "cover"}
               objectPosition={leftImage.objectPosition}
+              border={leftImage.containerBorder}
             />
           </StaggeredLeft>
 
@@ -1449,11 +1494,12 @@ export default memo(function CaseStudyPage({
               imagePaddingBlock={rightImage.imagePaddingBlock}
               objectFit={rightImage.objectFit || "cover"}
               objectPosition={rightImage.objectPosition || "top center"}
+              border={rightImage.containerBorder}
             />
           </StaggeredRight>
         </StaggeredPairWrapper>
 
-        {section.body && <StaggeredCaption>{section.body}</StaggeredCaption>}
+        {!hasHeading && section.body && <StaggeredCaption>{section.body}</StaggeredCaption>}
       </div>
     );
   };
@@ -1628,6 +1674,7 @@ export default memo(function CaseStudyPage({
                   imagePaddingBlock={stickyImage.imagePaddingBlock}
                   objectFit={stickyImage.objectFit || "cover"}
                   objectPosition={stickyImage.objectPosition || "center"}
+                  border={stickyImage.containerBorder}
                 />
               </StickyHeroFrame>
             )}
@@ -1714,6 +1761,7 @@ export default memo(function CaseStudyPage({
               imageScale={image.imageScale}
               backgroundColor={image.backgroundColor}
               imagePaddingBlock={image.imagePaddingBlock}
+              imagePaddingInline={image.imagePaddingInline}
             />
           </ElevatedImageWrap>
 
@@ -1846,6 +1894,7 @@ export default memo(function CaseStudyPage({
               objectFit={heroImage.objectFit || "cover"}
               objectPosition={heroImage.objectPosition || "center"}
               imageScale={1}
+              border={heroImage.containerBorder}
               onLoad={() => setHeroImageLoaded(true)}
             />
             {!heroImageLoaded && (
@@ -1871,6 +1920,8 @@ export default memo(function CaseStudyPage({
           const nextIsImageHeavy = next ? IMAGE_HEAVY_LAYOUTS.has(next.layout) : false;
           const isCompact =
             !section.disableCompactPadding &&
+            !section.heading &&
+            !section.body &&
             currentIsImageHeavy &&
             (prevIsImageHeavy || nextIsImageHeavy);
 

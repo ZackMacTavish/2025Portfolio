@@ -28,21 +28,25 @@ const CarouselRoot = styled.div`
 
 import React from "react";
 
-const Frame = React.forwardRef<HTMLDivElement, React.ComponentProps<typeof motion.div>>((props, ref) => (
-  <motion.div
-    ref={ref}
-    style={{
-      position: "relative",
-      width: "100%",
-      borderRadius: "12px",
-      overflow: "hidden",
-      aspectRatio: "3 / 2",
-      background: "#f0efeb",
-      ...(props.style || {})
-    }}
-    {...props}
-  />
-));
+const Frame = React.forwardRef<HTMLDivElement, React.ComponentProps<typeof motion.div> & { $aspectRatio?: string }>((props, ref) => {
+  const { $aspectRatio, style, ...rest } = props;
+  return (
+    <motion.div
+      ref={ref}
+      style={{
+        position: "relative",
+        width: "100%",
+        borderRadius: "12px",
+        overflow: "hidden",
+        aspectRatio: $aspectRatio || "3 / 2",
+        maxHeight: "1080px",
+        border: "1px solid rgba(15, 23, 42, 0.08)",
+        ...(style || {})
+      }}
+      {...rest}
+    />
+  );
+});
 Frame.displayName = "Frame";
 
 const ControlsOverlay = styled.div<{ $visible: boolean }>`
@@ -221,6 +225,7 @@ export default function ImageCarousel({
     <CarouselRoot>
       <Frame
         ref={frameRef}
+        $aspectRatio={activeImage.aspectRatio}
         tabIndex={0}
         data-carousel-frame="true"
         onMouseEnter={() => setIsHovered(true)}
@@ -257,11 +262,13 @@ export default function ImageCarousel({
               avif={prevImage.avif}
               webp={prevImage.webp}
               aspectRatio={prevImage.aspectRatio || "3/2"}
-              borderRadius="0"
+              borderRadius={prevImage.borderRadius || "8px"}
               backgroundColor={prevImage.backgroundColor}
               imagePaddingBlock={prevImage.imagePaddingBlock}
+              imagePaddingInline={prevImage.imagePaddingInline}
               objectFit={prevImage.objectFit || "cover"}
               objectPosition={prevImage.objectPosition || "center"}
+              border={prevImage.containerBorder}
               disableRevealAnimation
               loading="eager"
               decoding="auto"
@@ -277,11 +284,13 @@ export default function ImageCarousel({
             avif={activeImage.avif}
             webp={activeImage.webp}
             aspectRatio={activeImage.aspectRatio || "3/2"}
-            borderRadius="0"
+            borderRadius={activeImage.borderRadius || "8px"}
             backgroundColor={activeImage.backgroundColor}
             imagePaddingBlock={activeImage.imagePaddingBlock}
+            imagePaddingInline={activeImage.imagePaddingInline}
             objectFit={activeImage.objectFit || "cover"}
             objectPosition={activeImage.objectPosition || "center"}
+            border={activeImage.containerBorder}
             disableRevealAnimation
             loading="eager"
             decoding="auto"

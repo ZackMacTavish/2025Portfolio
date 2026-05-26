@@ -36,6 +36,9 @@ interface CaseStudyImage {
   /** Optional vertical inset so the image sits within the frame */
   imagePaddingBlock?: string;
 
+  /** Optional horizontal inset so the image sits within the frame */
+  imagePaddingInline?: string;
+
   /** Optional border radius override for the rendered image frame */
   borderRadius?: string;
 

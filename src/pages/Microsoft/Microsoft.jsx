@@ -12,9 +12,6 @@ import hpWebp from '../../assets/HP.webp';
 import wallet from '../../assets/Wallet.png';
 import walletAvif from '../../assets/Wallet.avif';
 import walletWebp from '../../assets/Wallet.webp';
-import cashback from '../../assets/Cashback.png';
-import cashbackAvif from '../../assets/Cashback.avif';
-import cashbackWebp from '../../assets/Cashback.webp';
 import ruby from '../../assets/Ruby.png';
 import rubyAvif from '../../assets/Ruby.avif';
 import rubyWebp from '../../assets/Ruby.webp';
@@ -32,6 +29,7 @@ import ProjectTopSection from '../../components/ProjectTopSection';
 import { BusinessConnectorsModule } from '../../components/BusinessConnectorsIntro';
 import { CopilotPayModule } from '../../components/CopilotPayIntro';
 import { JourneysModule } from '../../components/JourneysIntro';
+import { CashbackHubModule } from '../../components/CashbackHubIntro';
 import { FiArrowUpRight } from 'react-icons/fi';
 
 const PASSWORD = 'yourpassword'; // Change this to your desired password
@@ -342,6 +340,8 @@ const Microsoft = () => {
       </FullHeightTextSection>
 
       <JourneysModule />
+
+      <CashbackHubModule />
       
       <FullHeightTextSection style={{ backgroundColor: '#f5f5f5' }}>
         <TextContainer>
@@ -375,9 +375,6 @@ const Microsoft = () => {
 
       <RisoFlex>
         <SingleImage src={wallet} avif={walletAvif} webp={walletWebp} />
-      </RisoFlex>
-      <RisoFlex>
-        <SingleImage src={cashback} avif={cashbackAvif} webp={cashbackWebp} />
       </RisoFlex>
      
 

@@ -135,6 +135,13 @@ export const projects = {
     image: site.defaultImage,
     keywords: ['microsoft', 'journeys', 'ux'],
   },
+  'cashback-hub': {
+    title: 'Cashback Hub & Edge Shoreline — Microsoft | Zack MacTavish',
+    description: 'Case study: Microsoft Shopping Cashback Hub and Edge Shoreline companion pane — interaction, visual, and cross-platform design by Zack MacTavish.',
+    url: `${SITE_URL}/CashbackHub`,
+    image: `${SITE_URL}/assets/cashback-hub/hero.jpg`,
+    keywords: ['microsoft', 'cashback hub', 'edge shoreline', 'shopping', 'ux'],
+  },
   resume: {
     title: 'Resume — Zack MacTavish',
     description: 'Resume / CV of Zack MacTavish — product & graphic designer.',

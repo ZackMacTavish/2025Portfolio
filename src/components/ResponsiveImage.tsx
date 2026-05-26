@@ -14,6 +14,7 @@ interface ResponsiveImageProps {
   containerBorderRadius?: string;
   backgroundColor?: string;
   imagePaddingBlock?: string;
+  imagePaddingInline?: string;
   objectFit?: "cover" | "contain";
   objectPosition?: string;
   imageScale?: number;
@@ -21,6 +22,7 @@ interface ResponsiveImageProps {
   loading?: "lazy" | "eager";
   decoding?: "sync" | "async" | "auto";
   onLoad?: () => void;
+  border?: string;
 }
 
 function normalizeAssetUrl(url?: string) {
@@ -35,12 +37,13 @@ function normalizeAssetUrl(url?: string) {
   }
 }
 
-const Container = styled(motion.div)<{ $aspectRatio?: string; $borderRadius: string; $backgroundColor?: string }>`
+const Container = styled(motion.div)<{ $aspectRatio?: string; $borderRadius: string; $backgroundColor?: string; $border?: string }>`
   position: relative;
   width: 100%;
   overflow: hidden;
   border-radius: ${(props) => props.$borderRadius};
   background: ${(props) => props.$backgroundColor || "transparent"};
+  ${(props) => (props.$border ? `border: ${props.$border};` : "")}
 
   ${(props) =>
     props.$aspectRatio
@@ -60,12 +63,17 @@ const Picture = styled.picture<{ $fillContainer: boolean; $borderRadius: string 
 
 const ImageFrame = styled.div<{
   $imagePaddingBlock?: string;
+  $imagePaddingInline?: string;
   $fillContainer: boolean;
   $borderRadius: string;
 }>`
   position: ${(props) => (props.$fillContainer ? "absolute" : "relative")};
-  inset: ${(props) => (props.$fillContainer ? `${props.$imagePaddingBlock || "0"} 0` : "auto")};
+  inset: ${(props) =>
+    props.$fillContainer
+      ? `${props.$imagePaddingBlock || "0"} ${props.$imagePaddingInline || "0"}`
+      : "auto"};
   padding-block: ${(props) => (props.$fillContainer ? "0" : props.$imagePaddingBlock || "0")};
+  padding-inline: ${(props) => (props.$fillContainer ? "0" : props.$imagePaddingInline || "0")};
   overflow: hidden;
   border-radius: ${(props) => props.$borderRadius};
 `;
@@ -103,6 +111,7 @@ export default function ResponsiveImage({
   containerBorderRadius,
   backgroundColor,
   imagePaddingBlock,
+  imagePaddingInline,
   objectFit = "cover",
   objectPosition = "center",
   imageScale = 1,
@@ -110,6 +119,7 @@ export default function ResponsiveImage({
   loading = "lazy",
   decoding = "async",
   onLoad,
+  border,
 }: ResponsiveImageProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
@@ -176,6 +186,7 @@ export default function ResponsiveImage({
       $aspectRatio={aspectRatio}
       $borderRadius={resolvedContainerBorderRadius}
       $backgroundColor={backgroundColor}
+      $border={border}
       {...(disableRevealAnimation
         ? {}
         : {
@@ -187,6 +198,7 @@ export default function ResponsiveImage({
     >
       <ImageFrame
         $imagePaddingBlock={imagePaddingBlock}
+        $imagePaddingInline={imagePaddingInline}
         $fillContainer={fillContainer}
         $borderRadius={borderRadius}
       >

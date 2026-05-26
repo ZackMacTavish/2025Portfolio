@@ -201,7 +201,7 @@ export default function ProjectTopSection({
                 src={normalizedImageSrc}
                 alt={imageAlt}
                 $imageWidth={$imageWidth}
-                fetchpriority="high"
+                fetchPriority="high"
                 loading="eager"
                 decoding="async"
               />
@@ -211,7 +211,7 @@ export default function ProjectTopSection({
               src={normalizeAssetUrl(imageSrc)}
               alt={imageAlt}
               $imageWidth={$imageWidth}
-              fetchpriority="high"
+              fetchPriority="high"
               loading="eager"
               decoding="async"
             />
