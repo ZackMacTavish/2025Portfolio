@@ -27,6 +27,40 @@
     <!-- Preload the primary font subset so text paints without waiting on CSS parse -->
     <link rel="preload" as="font" type="font/woff2" href="/fonts/SpaceGrotesk-latin.woff2" crossorigin />
 
+    <!--
+      Prerender flash guard:
+      The root route is prerendered with the LandingPage DOM baked in (for SEO),
+      but styled-components v6 injects its CSS via CSSOM at runtime — it is NOT
+      present in the static HTML. That means on first paint the Nav logo SVG
+      (no intrinsic width/height) and other elements render huge/unstyled for
+      a moment before React hydrates and the IntroAnimation overlay mounts.
+
+      To avoid this, we hide #root and show a plain white screen until React
+      has rendered. main.jsx removes the `app-hydrating` class on <html> after
+      the first paint, at which point the IntroAnimation overlay takes over.
+
+      We only do this on the root route, since other routes do not run the
+      intro animation and benefit from showing prerendered content immediately.
+    -->
+    <style>
+      html.app-hydrating #root { visibility: hidden; }
+      html.app-hydrating::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: #ffffff;
+        z-index: 2147483647;
+      }
+    </style>
+    <script>
+      (function () {
+        var p = window.location.pathname;
+        if (p === '/' || p === '/index.html') {
+          document.documentElement.classList.add('app-hydrating');
+        }
+      })();
+    </script>
+
   <meta name="description" content="Explore the portfolio of Zack MacTavish, a multidisciplinary designer specializing in art direction, branding, UX/UI, and visual storytelling for digital and print. View selected projects, case studies, and creative work." />
   <!-- Canonical URL for non-JS crawlers; runtime SEO component will update this per route -->
   <link rel="canonical" href="https://mactavish.xyz/" />
@@ -64,7 +98,7 @@
   <meta name="theme-color" content="#000000" />
   <meta name="author" content="Zack MacTavish" />
   <link rel="icon" type="image/png" sizes="64x64" href="/assets/og/favicon-64.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/og/website-logoresolutions-180px.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/og/favicon-180.png" />
   <!-- legacy ICO fallback -->
   <link rel="icon" href="/favicon.ico" />
 

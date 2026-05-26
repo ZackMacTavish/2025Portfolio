@@ -1,6 +1,6 @@
 import React, { useState, Suspense, lazy, useEffect, useRef } from "react";
 import { ThemeProvider } from "styled-components";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import './App.css';
 
 // Themes
@@ -39,6 +39,33 @@ const Journeys = lazy(() => import("./pages/Journeys/Journeys"));
 
 // Assets
 import sun from './assets/Sun-DRKGREEN-01.svg';
+
+/**
+ * Renders <Nav /> on every route EXCEPT the root path while the intro
+ * animation is playing. IntroAnimation dispatches an `intro-animation-done`
+ * event on window when its GSAP timeline completes (or when reduced-motion
+ * skips the wipe). Until then, the Nav is unmounted so it can't peek over
+ * the white prerender-flash cover or the intro overlay.
+ */
+function NavGate() {
+  const location = useLocation();
+  const isRoot = location.pathname === "/" || location.pathname === "/index.html";
+  const [introDone, setIntroDone] = useState(() => !isRoot);
+
+  useEffect(() => {
+    if (!isRoot) {
+      setIntroDone(true);
+      return undefined;
+    }
+    setIntroDone(false);
+    const onDone = () => setIntroDone(true);
+    window.addEventListener("intro-animation-done", onDone);
+    return () => window.removeEventListener("intro-animation-done", onDone);
+  }, [isRoot]);
+
+  if (!introDone) return null;
+  return <Nav />;
+}
 
 function App() {
   const [theme, setTheme] = useState("light");
@@ -186,7 +213,7 @@ function App() {
               <Customcursor />
             </Suspense>
           )}
-          <Nav />
+          <NavGate />
           {showShortcutsPill && (
             <button
               type="button"

@@ -229,6 +229,9 @@ export default function IntroAnimation() {
     if (prefersReducedMotion) {
       setCounter('100%');
       setShowIntro(false);
+      // NavGate (and any other listeners) need this event even when the
+      // animation is skipped, otherwise Nav stays hidden forever.
+      window.dispatchEvent(new Event('intro-animation-done'));
       return;
     }
 

@@ -6,7 +6,9 @@ const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 
-// List of images to optimize (absolute or relative to project root)
+// List of images to optimize (absolute or relative to project root).
+// Entries can be jpg/jpeg/png OR webp source files; webp sources only emit
+// AVIF and WebP mobile variants (no jpeg fallback).
 const images = [
   'src/assets/BrandGuidelines—Mockup.jpg',
   'src/assets/LeysiApp—Screens copy.jpg',
@@ -15,6 +17,11 @@ const images = [
   'src/assets/iphones—Mockup copy.png',
   'src/assets/Group 55618@2x.png',
   'src/assets/Me.jpeg',
+  // Medium "My writing" card covers — webp sources, no jpeg fallback needed.
+  'src/assets/Card1.webp',
+  'src/assets/Card2.webp',
+  'src/assets/Card3.webp',
+  'src/assets/Card4.webp',
 ];
 
 const outputSizes = [600, 900]; // px widths for mobile
@@ -26,10 +33,14 @@ const formats = [
 
 (async () => {
   for (const imgPath of images) {
-    const base = imgPath.replace(/\.(jpg|jpeg|png)$/i, '');
+    const base = imgPath.replace(/\.(jpg|jpeg|png|webp)$/i, '');
+    const sourceExt = path.extname(imgPath).toLowerCase().slice(1);
+    const isWebpSource = sourceExt === 'webp';
     for (const size of outputSizes) {
       const input = imgPath;
       for (const { ext, options } of formats) {
+        // Skip jpeg fallback for webp sources — modern browsers all support webp.
+        if (isWebpSource && ext === 'jpg') continue;
         const out = `${base}-mobile-${size}.${ext}`;
         try {
           await sharp(input)

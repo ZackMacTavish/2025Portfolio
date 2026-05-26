@@ -77,6 +77,34 @@ const ResponsiveProjectImage = ({ desktop, desktopAvif, desktopWebp, mobile600, 
     <img src={desktop} alt={alt} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
   </picture>
 );
+import card1 from '../../assets/Card1.webp';
+import card1Avif from '../../assets/Card1.avif';
+import card1Webp from '../../assets/Card1.webp';
+import card1Mobile600Avif from '../../assets/Card1-mobile-600.avif';
+import card1Mobile900Avif from '../../assets/Card1-mobile-900.avif';
+import card1Mobile600Webp from '../../assets/Card1-mobile-600.webp';
+import card1Mobile900Webp from '../../assets/Card1-mobile-900.webp';
+import card2 from '../../assets/Card2.webp';
+import card2Avif from '../../assets/Card2.avif';
+import card2Webp from '../../assets/Card2.webp';
+import card2Mobile600Avif from '../../assets/Card2-mobile-600.avif';
+import card2Mobile900Avif from '../../assets/Card2-mobile-900.avif';
+import card2Mobile600Webp from '../../assets/Card2-mobile-600.webp';
+import card2Mobile900Webp from '../../assets/Card2-mobile-900.webp';
+import card3 from '../../assets/Card3.webp';
+import card3Avif from '../../assets/Card3.avif';
+import card3Webp from '../../assets/Card3.webp';
+import card3Mobile600Avif from '../../assets/Card3-mobile-600.avif';
+import card3Mobile900Avif from '../../assets/Card3-mobile-900.avif';
+import card3Mobile600Webp from '../../assets/Card3-mobile-600.webp';
+import card3Mobile900Webp from '../../assets/Card3-mobile-900.webp';
+import card4 from '../../assets/Card4.webp';
+import card4Avif from '../../assets/Card4.avif';
+import card4Webp from '../../assets/Card4.webp';
+import card4Mobile600Avif from '../../assets/Card4-mobile-600.avif';
+import card4Mobile900Avif from '../../assets/Card4-mobile-900.avif';
+import card4Mobile600Webp from '../../assets/Card4-mobile-600.webp';
+import card4Mobile900Webp from '../../assets/Card4-mobile-900.webp';
 import card5 from '../../assets/Card5.webp';
 import card5Webp from '../../assets/Card5.webp';
 import card5Avif from '../../assets/Card5.avif';
@@ -903,13 +931,13 @@ const LandingPage = ({ introDone = true }) => {
               // For main project tiles, use ResponsiveProjectImage for the largest images
               let tileImage = null;
               if (isFirst) {
-                tileImage = <ResponsiveProjectImage desktop={leysiTile} desktopAvif={leysiTileAvif} desktopWebp={leysiTileWebp} mobile600={leysiTileMobile600} mobile900={leysiTileMobile900} mobile600Avif={leysiTileMobile600Avif} mobile900Avif={leysiTileMobile900Avif} mobile600Webp={leysiTileMobile600Webp} mobile900Webp={leysiTileMobile900Webp} alt="Leysi App project tile" />;
+                tileImage = <ResponsiveProjectImage desktop={card1} desktopAvif={card1Avif} desktopWebp={card1Webp} mobile600={card1Mobile600Webp} mobile900={card1Mobile900Webp} mobile600Avif={card1Mobile600Avif} mobile900Avif={card1Mobile900Avif} mobile600Webp={card1Mobile600Webp} mobile900Webp={card1Mobile900Webp} alt="76 features in Figma to know — article cover" />;
               } else if (isSecond) {
-                tileImage = <ResponsiveProjectImage desktop={gigaTile} desktopAvif={gigaTileAvif} desktopWebp={gigaTileWebp} mobile600={gigaTileMobile600} mobile900={gigaTileMobile900} mobile600Avif={gigaTileMobile600Avif} mobile900Avif={gigaTileMobile900Avif} mobile600Webp={gigaTileMobile600Webp} mobile900Webp={gigaTileMobile900Webp} alt="Giga project tile" />;
+                tileImage = <ResponsiveProjectImage desktop={card2} desktopAvif={card2Avif} desktopWebp={card2Webp} mobile600={card2Mobile600Webp} mobile900={card2Mobile900Webp} mobile600Avif={card2Mobile600Avif} mobile900Avif={card2Mobile900Avif} mobile600Webp={card2Mobile600Webp} mobile900Webp={card2Mobile900Webp} alt="My journey as a Product designer at Microsoft — article cover" />;
               } else if (isThird) {
-                tileImage = <ResponsiveProjectImage desktop={threePillarsTile} desktopAvif={threePillarsTileAvif} desktopWebp={threePillarsTileWebp} mobile600={threePillarsTileMobile600} mobile900={threePillarsTileMobile900} mobile600Avif={threePillarsTileMobile600Avif} mobile900Avif={threePillarsTileMobile900Avif} mobile600Webp={threePillarsTileMobile600Webp} mobile900Webp={threePillarsTileMobile900Webp} alt="Three Pillars project tile" />;
+                tileImage = <ResponsiveProjectImage desktop={card3} desktopAvif={card3Avif} desktopWebp={card3Webp} mobile600={card3Mobile600Webp} mobile900={card3Mobile900Webp} mobile600Avif={card3Mobile600Avif} mobile900Avif={card3Mobile900Avif} mobile600Webp={card3Mobile600Webp} mobile900Webp={card3Mobile900Webp} alt="12 features to consider when designing an e-commerce mobile app — article cover" />;
               } else if (isFourth) {
-                tileImage = <ResponsiveProjectImage desktop={outsourceTile} desktopAvif={outsourceTileAvif} desktopWebp={outsourceTileWebp} mobile600={outsourceTileMobile600} mobile900={outsourceTileMobile900} mobile600Avif={outsourceTileMobile600Avif} mobile900Avif={outsourceTileMobile900Avif} mobile600Webp={outsourceTileMobile600Webp} mobile900Webp={outsourceTileMobile900Webp} alt="Outsource project tile" />;
+                tileImage = <ResponsiveProjectImage desktop={card4} desktopAvif={card4Avif} desktopWebp={card4Webp} mobile600={card4Mobile600Webp} mobile900={card4Mobile900Webp} mobile600Avif={card4Mobile600Avif} mobile900Avif={card4Mobile900Avif} mobile600Webp={card4Mobile600Webp} mobile900Webp={card4Mobile900Webp} alt="Designing in the 8pt grid system — article cover" />;
               } else if (isFifth) {
                 tileImage = <ResponsiveProjectImage desktop={card6} desktopAvif={card6Avif} desktopWebp={card6Webp} mobile600={card6} mobile900={card6} mobile600Avif={card6Avif} mobile900Avif={card6Avif} mobile600Webp={card6Webp} mobile900Webp={card6Webp} alt="Card 6" />;
               } else if (isSixth) {

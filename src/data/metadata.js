@@ -30,12 +30,16 @@ export const site = {
     // square brand mark for other uses (PNG)
     squareLogo: `${SITE_URL}/assets/og/website-logoresolutions-square-logo-1200px.png`,
     // favicons / app icons (served from public/assets/og) - prefer PNG sources
+    // NOTE: the `website-logoresolutions-*px.png` files are mis-sized (the
+    // pixel dimensions don't match their filename) which causes Google to
+    // reject them. Use the correctly-sized `favicon-N.png` files instead.
     favicons: {
-      '16x16': `${SITE_URL}/assets/og/website-logoresolutions-16px.png`,
-      '32x32': `${SITE_URL}/assets/og/website-logoresolutions-32px.png`,
-      '180x180': `${SITE_URL}/assets/og/website-logoresolutions-180px.png`,
-      '192x192': `${SITE_URL}/assets/og/website-logoresolutions-192px.png`,
-      '512x512': `${SITE_URL}/assets/og/website-logoresolutions-512px.png`,
+      '16x16': `${SITE_URL}/assets/og/favicon-16.png`,
+      '32x32': `${SITE_URL}/assets/og/favicon-32.png`,
+      '48x48': `${SITE_URL}/assets/og/favicon-48.png`,
+      '180x180': `${SITE_URL}/assets/og/favicon-180.png`,
+      '192x192': `${SITE_URL}/assets/og/favicon-192.png`,
+      '512x512': `${SITE_URL}/assets/og/favicon-512.png`,
     },
 };
 
