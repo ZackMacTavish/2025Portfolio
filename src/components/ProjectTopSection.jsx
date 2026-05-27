@@ -155,6 +155,13 @@ export default function ProjectTopSection({
   divider = true,
   imageExt = 'jpg',
   title = '',
+  // Intrinsic dimensions of the logo (in pixels). Passed through as `width`
+  // and `height` HTML attributes so the browser can reserve the correct
+  // aspect-ratio box before the image loads — preventing the top section
+  // from collapsing to zero height and the next section from briefly
+  // appearing above the fold.
+  imageNaturalWidth = null,
+  imageNaturalHeight = null,
 }) {
   const imageBasePath = imageBaseName
     ? `${imageBaseName.startsWith('assets/') ? '/' : '/src/'}${imageBaseName}`
@@ -201,6 +208,8 @@ export default function ProjectTopSection({
                 src={normalizedImageSrc}
                 alt={imageAlt}
                 $imageWidth={$imageWidth}
+                width={imageNaturalWidth || undefined}
+                height={imageNaturalHeight || undefined}
                 fetchPriority="high"
                 loading="eager"
                 decoding="async"
@@ -211,6 +220,8 @@ export default function ProjectTopSection({
               src={normalizeAssetUrl(imageSrc)}
               alt={imageAlt}
               $imageWidth={$imageWidth}
+              width={imageNaturalWidth || undefined}
+              height={imageNaturalHeight || undefined}
               fetchPriority="high"
               loading="eager"
               decoding="async"

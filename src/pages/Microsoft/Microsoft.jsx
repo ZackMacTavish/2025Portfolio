@@ -30,6 +30,7 @@ import { BusinessConnectorsModule } from '../../components/BusinessConnectorsInt
 import { CopilotPayModule } from '../../components/CopilotPayIntro';
 import { JourneysModule } from '../../components/JourneysIntro';
 import { CashbackHubModule } from '../../components/CashbackHubIntro';
+import { VideoCommerceModule } from '../../components/VideoCommerceIntro';
 import { FiArrowUpRight } from 'react-icons/fi';
 
 const PASSWORD = 'yourpassword'; // Change this to your desired password
@@ -297,6 +298,8 @@ const Microsoft = () => {
         imageExt="png"
         imageAlt="Microsoft Logo"
         imageWidth="44vw"
+        imageNaturalWidth={785}
+        imageNaturalHeight={786}
         buttons={[
           { href: "https://www.microsoft.com/en-us/shopping/?form=MT00PA&cs=2199494592", label: "Visit Shopping" }
         ]}
@@ -342,6 +345,8 @@ const Microsoft = () => {
       <JourneysModule />
 
       <CashbackHubModule />
+
+      <VideoCommerceModule />
       
       <FullHeightTextSection style={{ backgroundColor: '#f5f5f5' }}>
         <TextContainer>

@@ -142,6 +142,20 @@ export const projects = {
     image: `${SITE_URL}/assets/cashback-hub/hero.jpg`,
     keywords: ['microsoft', 'cashback hub', 'edge shoreline', 'shopping', 'ux'],
   },
+  'video-commerce': {
+    title: 'Video Commerce — Bing Shopping | Zack MacTavish',
+    description: 'Case study: Bing Shopping video commerce initiative — live and short-form video integrations across U.S., Japan, and India pilots with TalkShopLive, QVC Japan, and Roposo.',
+    url: `${SITE_URL}/VideoCommerce`,
+    image: `${SITE_URL}/assets/video-commerce/Full Frame.jpg`,
+    keywords: ['microsoft', 'bing shopping', 'video commerce', 'live shopping', 'talkshoplive', 'roposo', 'ux'],
+  },
+  'ironlak-internship': {
+    title: 'Ironlak Internship — Brand Identity & Production Design | Zack MacTavish',
+    description: 'Case study: A multilingual wordmark identity system for Ironlak, an Australian spray paint company, and three months of production design across print, digital, and outdoor.',
+    url: `${SITE_URL}/IronlakInternship`,
+    image: `${SITE_URL}/assets/ironlak-internship/IronlakAdvert2.jpg`,
+    keywords: ['ironlak', 'brand identity', 'graphic design', 'production design', 'graffiti', 'internship'],
+  },
   resume: {
     title: 'Resume — Zack MacTavish',
     description: 'Resume / CV of Zack MacTavish — product & graphic designer.',

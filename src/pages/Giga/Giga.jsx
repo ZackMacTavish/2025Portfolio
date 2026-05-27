@@ -84,6 +84,8 @@ export default function Giga() {
            imageExt="png"
            imageAlt="Giga Macbook Mockup"
            imageWidth="38vw"
+           imageNaturalWidth={1469}
+           imageNaturalHeight={1010}
            buttons={[{ href: "https://gigaintelligence.com", label: "Visit Giga" }]}
 /> 
 

@@ -29,13 +29,13 @@ const Page = styled.div`
 const HeroSection = styled.section`
   position: relative;
   overflow: hidden;
-  min-height: 90vh;
+  min-height: 110vh;
   background: #f5f5f5;
   padding: 5rem 1.5rem 10rem;
 
   @media (min-width: 768px) {
-    min-height: 96vh;
-    padding: 7rem 1.5rem 14rem;
+    min-height: 116vh;
+    padding: 7rem 1.5rem 16rem;
   }
 
   @media (max-height: 980px) and (min-width: 901px) {
@@ -69,14 +69,14 @@ const HeroTopAction = styled.div`
 const HeroPeekImageWrap = styled.div`
   position: absolute;
   left: 50%;
-  bottom: -32%;
+  bottom: -6%;
   transform: translateX(-50%);
   width: min(72rem, 92vw);
   z-index: 1;
   pointer-events: none;
 
   @media (max-width: 768px) {
-    bottom: -18%;
+    bottom: -8%;
     width: 120vw;
   }
 
@@ -194,9 +194,9 @@ const Headline = styled(motion.h1)`
 
 const SectionsContainer = styled.div``;
 
-const Section = styled.section<{ $background: string; $compact: boolean }>`
+const Section = styled.section<{ $background: string; $compact: boolean; $padding?: string }>`
   background: ${(props) => props.$background};
-  padding: ${(props) => (props.$compact ? "0" : "3.75rem 0")};
+  padding: ${(props) => props.$padding ?? (props.$compact ? "0" : "3.75rem 0")};
 `;
 
 const SectionContent = styled.div`
@@ -255,7 +255,6 @@ const ImageElement = styled(ResponsiveImage)`
 const FullWidthImageContainer = styled(motion.div)`
   overflow: hidden;
   border-radius: 0;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 `;
 
 const ImagePairGrid = styled.div`
@@ -554,7 +553,7 @@ const StaggeredCaption = styled.p`
 `;
 
 const CenterTextBlock = styled.div`
-  margin: 0;
+  margin: 0 0 2rem;
   max-width: 45rem;
 `;
 
@@ -613,21 +612,21 @@ const StickySplitWrapper = styled.section`
   display: flex;
   flex-direction: column;
   gap: 0;
-  padding: 0 0 4rem;
+  padding: 0 0 6rem;
 `;
 
-const StickyColumn = styled.div`
+const StickyColumn = styled.div<{ $background?: string }>`
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   padding: 0;
-  background: white;
+  background: ${(props) => props.$background || "white"};
 `;
 
 const StickyMediaPin = styled.div<{ $fullBleed?: boolean }>`
   position: relative;
   width: min(65vw, 1080px);
   margin: 0 auto;
-  padding-top: ${(props) => (props.$fullBleed ? "0" : "1.5rem")};
+  padding-top: ${(props) => (props.$fullBleed ? "0" : "3rem")};
 
   @media (max-width: 1024px) {
     width: min(72vw, 980px);
@@ -635,7 +634,7 @@ const StickyMediaPin = styled.div<{ $fullBleed?: boolean }>`
 
   @media (max-width: 768px) {
     width: calc(100vw - 2.5rem);
-    padding-top: ${(props) => (props.$fullBleed ? "0" : "1rem")};
+    padding-top: ${(props) => (props.$fullBleed ? "0" : "2rem")};
   }
 `;
 
@@ -662,7 +661,7 @@ const StickyHeroImage = styled(ResponsiveImage)`
 `;
 
 const TagsRow = styled.div`
-  margin-top: 1rem;
+  margin-top: 2.5rem;
   padding: 0 1.25rem;
   display: flex;
   flex-wrap: wrap;
@@ -985,8 +984,8 @@ function LazyTagsSection({ tags }: LazyTagsSectionProps) {
           {tags.map((tag, idx) => (
             <motion.div
               key={`${tag}-${idx}`}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ y: 8 }}
+              animate={{ y: 0 }}
               transition={{ duration: 0.35, delay: idx * 0.04 }}
             >
               <Tag>
@@ -1018,8 +1017,8 @@ function LazyCollateralSection({ images }: LazyCollateralSectionProps) {
       {isInView && (
         <CollateralMediaWrap>
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ y: 12 }}
+            animate={{ y: 0 }}
             transition={{ duration: 0.45 }}
           >
             <ImageCarousel images={images} autoPlay intervalMs={2800} />
@@ -1098,6 +1097,7 @@ export default memo(function CaseStudyPage({
   };
 
   const getSectionBackground = (section: CaseStudySection, isOdd: boolean): string => {
+    if (section.sectionBackground) return section.sectionBackground;
     const accentBg = toAlphaBackground(section.accentColor);
     if (accentBg) return accentBg;
     return isOdd ? "white" : "#f5f5f5";
@@ -1131,8 +1131,8 @@ export default memo(function CaseStudyPage({
       <TwoColumnGrid>
         {/* Text Column */}
         <TextColumn
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ x: -30 }}
+          whileInView={{ x: 0 }}
           viewport={VIEWPORT_ONCE}
           transition={TEXT_TRANSITION}
         >
@@ -1149,8 +1149,8 @@ export default memo(function CaseStudyPage({
         {/* Image Column */}
         {section.images && section.images[0] && (
           <ImageColumn
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ x: 30 }}
+            whileInView={{ x: 0 }}
             viewport={VIEWPORT_ONCE}
             transition={IMAGE_TRANSITION}
           >
@@ -1176,8 +1176,8 @@ export default memo(function CaseStudyPage({
         {section.images && section.images[0] && (
           <ImageColumn
             style={{ order: 2 }}
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ x: -30 }}
+            whileInView={{ x: 0 }}
             viewport={VIEWPORT_ONCE}
             transition={IMAGE_TRANSITION}
           >
@@ -1196,8 +1196,8 @@ export default memo(function CaseStudyPage({
         {/* Text Column */}
         <TextColumn
           style={{ order: 1 }}
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ x: 30 }}
+          whileInView={{ x: 0 }}
           viewport={VIEWPORT_ONCE}
           transition={TEXT_TRANSITION}
         >
@@ -1217,7 +1217,7 @@ export default memo(function CaseStudyPage({
   const renderFullWidthImage = (section: CaseStudySection) => (
     <div key={section.id}>
       {(section.heading || section.body) && (
-        <CenterTextBlock style={{ marginBottom: "2.5rem" }}>
+        <CenterTextBlock style={{ marginBottom: "3.75rem" }}>
           <CenterText>
             {section.heading && <SectionHeading>{section.heading}</SectionHeading>}
             {section.body && (
@@ -1233,8 +1233,8 @@ export default memo(function CaseStudyPage({
         </CenterTextBlock>
       )}
       <FullWidthImageContainer
-        initial={{ opacity: 0, scale: 0.97 }}
-        whileInView={{ opacity: 1, scale: 1 }}
+        initial={{ scale: 0.97 }}
+        whileInView={{ scale: 1 }}
         viewport={VIEWPORT_ONCE}
         transition={IMAGE_TRANSITION}
       >
@@ -1251,6 +1251,7 @@ export default memo(function CaseStudyPage({
             backgroundColor={section.images[0].backgroundColor}
             imagePaddingBlock={section.images[0].imagePaddingBlock}
             border={section.images[0].containerBorder}
+            mixBlendMode={section.images[0].mixBlendMode}
             style={{ width: "100%" }}
           />
         )}
@@ -1267,8 +1268,8 @@ export default memo(function CaseStudyPage({
           section.images.slice(0, 2).map((image, idx) => (
             <GalleryImage
               key={idx}
-              initial={{ opacity: 0, scale: 0.97 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ scale: 0.97 }}
+              whileInView={{ scale: 1 }}
               viewport={VIEWPORT_ONCE}
               transition={{
                 ...IMAGE_TRANSITION,
@@ -1299,8 +1300,8 @@ export default memo(function CaseStudyPage({
           section.images.map((image, idx) => (
             <GalleryImage
               key={idx}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ scale: 0.95 }}
+              whileInView={{ scale: 1 }}
               viewport={VIEWPORT_ONCE}
               whileHover={{ scale: 1.02 }}
               transition={{
@@ -1335,8 +1336,8 @@ export default memo(function CaseStudyPage({
               key={`${image.src}-${idx}`}
               $index={idx}
               $count={images.length}
-              initial={{ opacity: 0, y: 20, scale: 0.97 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              initial={{ y: 20, scale: 0.97 }}
+              whileInView={{ y: 0, scale: 1 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{
                 ...TEXT_TRANSITION,
@@ -1366,8 +1367,8 @@ export default memo(function CaseStudyPage({
     return (
       <ThreeColGrid key={section.id}>
         <LabelsColumn
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ x: -20 }}
+          whileInView={{ x: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={TEXT_TRANSITION}
         >
@@ -1381,8 +1382,8 @@ export default memo(function CaseStudyPage({
         <FeatureImageColumn>
           {image && (
             <FeatureImageWrap
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 24 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={IMAGE_TRANSITION}
             >
@@ -1402,8 +1403,8 @@ export default memo(function CaseStudyPage({
           )}
         </FeatureImageColumn>
         <FeatureTextColumn
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ x: 20 }}
+          whileInView={{ x: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={TEXT_TRANSITION}
         >
@@ -1435,8 +1436,8 @@ export default memo(function CaseStudyPage({
         {hasHeading && (
           <CenterTextBlock>
             <CenterText
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
               viewport={VIEWPORT_ONCE}
               transition={TEXT_TRANSITION}
             >
@@ -1457,8 +1458,8 @@ export default memo(function CaseStudyPage({
         )}
         <StaggeredPairWrapper>
           <StaggeredLeft
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 30 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={IMAGE_TRANSITION}
           >
@@ -1478,8 +1479,8 @@ export default memo(function CaseStudyPage({
           </StaggeredLeft>
 
           <StaggeredRight
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 30 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ ...IMAGE_TRANSITION, delay: 0.15 }}
           >
@@ -1508,8 +1509,8 @@ export default memo(function CaseStudyPage({
     <div key={section.id}>
       <CenterTextBlock>
         <CenterText
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={VIEWPORT_ONCE}
           transition={TEXT_TRANSITION}
         >
@@ -1538,8 +1539,8 @@ export default memo(function CaseStudyPage({
       <QuoteWrapper>
         <QuoteContent
           $accentColor={section.accentColor}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={VIEWPORT_ONCE}
           transition={TEXT_TRANSITION}
         >
@@ -1552,11 +1553,35 @@ export default memo(function CaseStudyPage({
 
   const renderImageCarousel = (section: CaseStudySection) => (
     <div key={section.id}>
-      {section.heading && <SectionHeading>{section.heading}</SectionHeading>}
+      {(section.heading || section.body) && (
+        <CenterTextBlock>
+          <CenterText
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
+            viewport={VIEWPORT_ONCE}
+            transition={TEXT_TRANSITION}
+          >
+            {section.heading && (
+              <SectionHeading style={{ textAlign: "left" }}>
+                {section.heading}
+              </SectionHeading>
+            )}
+            {section.body && (
+              <SectionBody style={{ alignItems: "flex-start" }}>
+                {parseBody(section.body).map((paragraph, idx) => (
+                  <TextOnlyParagraph key={idx} style={{ textAlign: "left" }}>
+                    {paragraph}
+                  </TextOnlyParagraph>
+                ))}
+              </SectionBody>
+            )}
+          </CenterText>
+        </CenterTextBlock>
+      )}
       {section.images && section.images.length > 0 && (
         <motion.div
-          initial={{ opacity: 0, scale: 0.97 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ scale: 0.97 }}
+          whileInView={{ scale: 1 }}
           viewport={VIEWPORT_ONCE}
           transition={IMAGE_TRANSITION}
         >
@@ -1575,14 +1600,15 @@ export default memo(function CaseStudyPage({
 
     return (
       <StickySplitWrapper key={section.id}>
+        {blocks.length > 0 && (
         <ScrollColumn>
           {blocks.map((block, idx) => {
             if (block.type === "text") {
               return (
                 <ScrollBlock
                   key={`${section.id}-text-${idx}`}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ x: 20 }}
+                  whileInView={{ x: 0 }}
                   viewport={VIEWPORT_ONCE}
                   transition={TEXT_TRANSITION}
                 >
@@ -1603,8 +1629,8 @@ export default memo(function CaseStudyPage({
               return (
                 <ScrollBlock
                   key={`${section.id}-image-${idx}`}
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+                  initial={{ scale: 0.97 }}
+                  whileInView={{ scale: 1 }}
                   viewport={VIEWPORT_ONCE}
                   transition={IMAGE_TRANSITION}
                 >
@@ -1625,8 +1651,8 @@ export default memo(function CaseStudyPage({
               return (
                 <ScrollBlock
                   key={`${section.id}-carousel-${idx}`}
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+                  initial={{ scale: 0.97 }}
+                  whileInView={{ scale: 1 }}
                   viewport={VIEWPORT_ONCE}
                   transition={IMAGE_TRANSITION}
                 >
@@ -1645,8 +1671,8 @@ export default memo(function CaseStudyPage({
               return (
                 <ScrollBlock
                   key={`${section.id}-quote-${idx}`}
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ x: 30 }}
+                  whileInView={{ x: 0 }}
                   viewport={VIEWPORT_ONCE}
                   transition={TEXT_TRANSITION}
                 >
@@ -1658,9 +1684,12 @@ export default memo(function CaseStudyPage({
             return null;
           })}
         </ScrollColumn>
+        )}
 
-        <StickyColumn>
-          <StickyMediaPin $fullBleed={stickyImageIsFullBleed}>
+        <StickyColumn $background={section.sectionBackground}>
+          <StickyMediaPin
+            $fullBleed={stickyImageIsFullBleed}
+          >
             {stickyImage && (
               <StickyHeroFrame $fullBleed={stickyImageIsFullBleed}>
                 <StickyHeroImage
@@ -1710,8 +1739,8 @@ export default memo(function CaseStudyPage({
         <ParallaxTextLayer>
           {section.heading && (
             <ParallaxHeading
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 40 }}
+              whileInView={{ y: 0 }}
               viewport={VIEWPORT_ONCE}
               transition={TEXT_TRANSITION}
             >
@@ -1720,8 +1749,8 @@ export default memo(function CaseStudyPage({
           )}
           {section.body && (
             <ParallaxBody
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 40 }}
+              whileInView={{ y: 0 }}
               viewport={VIEWPORT_ONCE}
               transition={{ ...TEXT_TRANSITION, delay: 0.15 }}
             >
@@ -1743,8 +1772,8 @@ export default memo(function CaseStudyPage({
           <ElevatedImageWrap
             $containerBorder={image.containerBorder}
             $containerShadow={image.containerShadow}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 40 }}
+            whileInView={{ y: 0 }}
             viewport={VIEWPORT_ONCE}
             transition={IMAGE_TRANSITION}
           >
@@ -1874,8 +1903,8 @@ export default memo(function CaseStudyPage({
 
           {/* Hero Headline */}
           <Headline
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ y: 30 }}
+            animate={{ y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
           >
             {caseStudy.heroHeadline}
@@ -1930,20 +1959,15 @@ export default memo(function CaseStudyPage({
           }
 
           return (
-            <motion.div
-              key={section.id}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "200px" }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            >
+            <div key={section.id}>
               <Section
                 $background={getSectionBackground(section, idx % 2 === 0)}
                 $compact={isCompact}
+                $padding={section.sectionPadding}
               >
                 <SectionContent>{renderSection(section)}</SectionContent>
               </Section>
-            </motion.div>
+            </div>
           );
         })}
       </SectionsContainer>

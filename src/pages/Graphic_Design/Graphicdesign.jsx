@@ -28,10 +28,7 @@ import bbftwo from '../../assets/BKBFToteBag.jpg';
 import bbfthree from '../../assets/BKBFBookmark.jpg';
 import bbffour from '../../assets/BBFPosterframed.jpg';
 import bbffive from '../../assets/BBFAd.jpg';
-import ironlakadvert from '../../assets/IronlakAdvert2.jpg';
-import ironlakadone from '../../assets/Group 55614@2x.png';
-import ironlakadtwo from '../../assets/Group 55615@2x.png';
-import ironlaksweaters from '../../assets/Group 55616@2x.png';
+import { IronlakInternshipModule } from '../../components/IronlakInternshipIntro';
 import graphicpostersAvif from '../../assets/GP1.avif';
 import graphicpostersWebp from '../../assets/GP1.webp';
 import oliviafloralAvif from '../../assets/OliviaFloralMockup.avif';
@@ -143,6 +140,8 @@ export default function GraphicDesign() {
         </GDTopSectionText>
         <Pineapple src={pineapple} alt="Graphic Design Cover" />
       </GDTopSection>
+
+      <IronlakInternshipModule />
 
   {/* Hero Cover image, now in FullBg for modern format and full width */}
 
@@ -266,40 +265,6 @@ export default function GraphicDesign() {
     }}
   />
 </div>
-
-      <FullHeightTextSection style={{ backgroundColor: '#191919' }}>
-  <TextContainer>
-    <TextContent style={{ color: 'white' }}>
-      By working on my own version of an Ironlak marketing campaign, it led to me interning for Ironlak shortly after my graduation. I worked on a variety of advertisements.
-    </TextContent>
-  </TextContainer>
-</FullHeightTextSection>
-
-      <RisoFlex style={{height:'auto'}}>
-        <SingleImage src={ironlakadvert} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }}
-          responsiveWidth="95vw"
-        />
-      </RisoFlex>
-
-      <RisoFlex style={{height:'auto'}}>
-        <SingleImage src={ironlakadone} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }}
-          responsiveWidth="95vw"
-        />
-      </RisoFlex>
-
-      <RisoFlex style={{height:'auto'}}>
-        <SingleImage src={ironlakadtwo} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }}
-          responsiveWidth="95vw"
-        />
-      </RisoFlex>
-
-      <RisoFlex style={{height:'auto'}}>
-        <SingleImage src={ironlaksweaters} width="45vw" style={{ boxShadow: 'none', marginTop: '5vh' }}
-          responsiveWidth="95vw"
-        />
-      </RisoFlex>
-
-
 
            <FullHeightTextSection style={{ backgroundColor: '#f5f5f5' }}>
   <TextContainer>

@@ -78,6 +78,8 @@ export default function AccessDirect() {
          imageExt="png"
          imageAlt="Access Direct Macbook Mockup"
          imageWidth="38vw"
+         imageNaturalWidth={1406}
+         imageNaturalHeight={869}
          buttons={[
         { href: "https://access-direct.net", label: "Visit Access Direct" }
       ]}

@@ -22,7 +22,7 @@ export default function BusinessConnectors() {
 
   return (
     <ViewingContainer
-      initial={{ opacity: 0 }}
+      initial={false}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >

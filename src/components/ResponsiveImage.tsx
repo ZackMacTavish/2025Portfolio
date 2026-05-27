@@ -23,6 +23,7 @@ interface ResponsiveImageProps {
   decoding?: "sync" | "async" | "auto";
   onLoad?: () => void;
   border?: string;
+  mixBlendMode?: string;
 }
 
 function normalizeAssetUrl(url?: string) {
@@ -120,6 +121,7 @@ export default function ResponsiveImage({
   decoding = "async",
   onLoad,
   border,
+  mixBlendMode,
 }: ResponsiveImageProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
@@ -211,7 +213,7 @@ export default function ResponsiveImage({
             loading={loading}
             decoding={decoding}
             onLoad={onLoad}
-            style={{ y: shouldParallax ? parallaxY : 0, scale: imageScale }}
+            style={{ y: shouldParallax ? parallaxY : 0, scale: imageScale, mixBlendMode: mixBlendMode as React.CSSProperties["mixBlendMode"] | undefined }}
             $objectFit={objectFit}
             $objectPosition={objectPosition}
             $hasParallax={shouldParallax}

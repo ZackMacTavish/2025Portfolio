@@ -53,6 +53,9 @@ interface CaseStudyImage {
 
   /** Optional visual scale override for images with extra built-in whitespace */
   imageScale?: number;
+
+  /** Optional CSS mix-blend-mode applied to the rendered image */
+  mixBlendMode?: string;
 }
 
 /**
@@ -114,8 +117,17 @@ interface CaseStudySection {
   /** Optional accent color for sections such as image-on-color-block or quote */
   accentColor?: string;
 
+  /** Optional explicit background color for the section wrapper (overrides the auto white/grey alternation) */
+  sectionBackground?: string;
+
+  /** Optional CSS border applied to the section's primary container (currently honored by sticky-split) */
+  sectionBorder?: string;
+
   /** Optional flag to preserve standard vertical section padding even in compact image-heavy runs */
   disableCompactPadding?: boolean;
+
+  /** Optional CSS padding override applied to the Section wrapper (e.g. "1rem 0" to tighten spacing within a grouped run) */
+  sectionPadding?: string;
 
   /**
    * Optional sticky media/content payload for sticky-split layouts

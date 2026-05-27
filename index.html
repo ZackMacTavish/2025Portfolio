@@ -5,6 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!--
+      Strip trailing slashes BEFORE React boots. GitHub Pages serves directory
+      URLs (e.g. /Microsoft/) but react-router v7 strict-matches paths defined
+      without a slash (`<Route path="/Microsoft">`). Without this, `/Microsoft/`
+      falls through to the catch-all and redirects to `/`.
+    -->
+    <script type="text/javascript">
+      (function () {
+        var p = window.location.pathname;
+        if (p.length > 1 && p.charAt(p.length - 1) === '/') {
+          window.history.replaceState(
+            null,
+            '',
+            p.slice(0, -1) + window.location.search + window.location.hash
+          );
+        }
+      })();
+    </script>
+
+    <!--
       GitHub Pages SPA path restore: 404.html bounces deep links to "/?/<path>".
       This script rewrites the URL back into the real path BEFORE React boots,
       so react-router and any preload hints see the intended route.

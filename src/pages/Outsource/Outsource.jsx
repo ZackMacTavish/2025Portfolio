@@ -92,6 +92,8 @@ export default function Outsource() {
         title="Outsource"
         imageBaseName="assets/Outsource—Macbook"
         imageExt="png"
+        imageNaturalWidth={1469}
+        imageNaturalHeight={1010}
         buttons={[
           { href: "https://www.outsourceconsultants.com/home", label: "Visit Outsource" },
           { href: "https://www.decoderny.com/", label: "Visit DecoderNY" },

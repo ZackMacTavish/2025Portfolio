@@ -38,6 +38,8 @@ export default function ThreePillars() {
             imageExt="png"
             imageAlt="ThreePillars Macbook Mockup"
             imageWidth="38vw"
+            imageNaturalWidth={1469}
+            imageNaturalHeight={1010}
             buttons={[
               { href: "https://threepillars.com", label: "Visit ThreePillars" }
             ]}

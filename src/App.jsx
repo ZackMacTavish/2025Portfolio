@@ -10,6 +10,7 @@ import { lightTheme, darkTheme, GlobalStyles } from './components/Themes/Themes'
 import Nav from "./components/Nav/Nav";
 import ErrorBoundary from "./components/ErrorBoundary";
 import IntroAnimation from "./pages/Intro_Animation/IntroAnimation";
+import IntroGate from "./components/IntroGate";
 
 // LandingPage is lazy-loaded so it stays out of the root-route critical
 // path; IntroAnimation triggers the same dynamic import on mount, so by the
@@ -37,32 +38,38 @@ const BusinessConnectors = lazy(() => import("./pages/BusinessConnectors/Busines
 const CopilotPay = lazy(() => import("./pages/CopilotPay/CopilotPay"));
 const Journeys = lazy(() => import("./pages/Journeys/Journeys"));
 const CashbackHub = lazy(() => import("./pages/CashbackHub/CashbackHub"));
+const VideoCommerce = lazy(() => import("./pages/VideoCommerce/VideoCommerce"));
+const IronlakInternship = lazy(() => import("./pages/IronlakInternship/IronlakInternship"));
 
 // Assets
 import sun from './assets/Sun-DRKGREEN-01.svg';
 
 /**
- * Renders <Nav /> on every route EXCEPT the root path while the intro
- * animation is playing. IntroAnimation dispatches an `intro-animation-done`
- * event on window when its GSAP timeline completes (or when reduced-motion
- * skips the wipe). Until then, the Nav is unmounted so it can't peek over
- * the white prerender-flash cover or the intro overlay.
+ * Renders <Nav /> on every route EXCEPT while the intro animation is playing.
+ * IntroAnimation (root) and IntroGate (deep-link first visit) both dispatch
+ * an `intro-animation-done` event on window when their wipe completes. Until
+ * then Nav is unmounted so it can't peek over the intro overlay.
  */
 function NavGate() {
   const location = useLocation();
   const isRoot = location.pathname === "/" || location.pathname === "/index.html";
-  const [introDone, setIntroDone] = useState(() => !isRoot);
+  const [introDone, setIntroDone] = useState(() => {
+    // Intro plays on the root route every load, and on the first non-root
+    // deep-link mount per session (tracked via sessionStorage in IntroGate).
+    if (typeof window === "undefined") return true;
+    if (isRoot) return false;
+    try {
+      return window.sessionStorage.getItem("intro-played") === "true";
+    } catch {
+      return true;
+    }
+  });
 
   useEffect(() => {
-    if (!isRoot) {
-      setIntroDone(true);
-      return undefined;
-    }
-    setIntroDone(false);
     const onDone = () => setIntroDone(true);
     window.addEventListener("intro-animation-done", onDone);
     return () => window.removeEventListener("intro-animation-done", onDone);
-  }, [isRoot]);
+  }, []);
 
   if (!introDone) return null;
   return <Nav />;
@@ -215,6 +222,7 @@ function App() {
             </Suspense>
           )}
           <NavGate />
+          <IntroGate />
           {showShortcutsPill && (
             <button
               type="button"
@@ -371,6 +379,8 @@ function App() {
             <Route path="/CopilotPay" element={<CopilotPay />} />
             <Route path="/Journeys" element={<Journeys />} />
             <Route path="/CashbackHub" element={<CashbackHub />} />
+            <Route path="/VideoCommerce" element={<VideoCommerce />} />
+            <Route path="/IronlakInternship" element={<IronlakInternship />} />
             <Route path="/Resume" element={<Resume />} />
 
             {/* Fallback for unknown routes */}
