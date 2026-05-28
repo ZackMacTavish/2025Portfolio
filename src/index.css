@@ -12,6 +12,19 @@ code {
     monospace;
 }
 
+/* No-orphan typography: balanced wrapping for headings, pretty wrapping for
+   prose. See src/data/typography-orphan-policy.md. Browsers that don't yet
+   support these properties (older Safari) ignore them and fall back to
+   default wrapping; the NoOrphan component and \u00A0 in data layers cover
+   those cases. */
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+p, li, dd, dt, blockquote, figcaption {
+  text-wrap: pretty;
+}
+
 /* Disable Nav hover-bridge on touch devices so it can't intercept taps */
 @media (hover: none) and (pointer: coarse) {
   .nav-hover-bridge {

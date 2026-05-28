@@ -2,10 +2,12 @@ import Socials from "../components/Social Bar/Socials";
 import PortfolioCardsSection from "./PortfolioCardsSection";
 import { motion, useInView } from "framer-motion";
 import styled from "styled-components";
-import { ReactNode, memo, useRef, useState } from "react";
+import { ReactNode, memo, useRef, useState, type ComponentProps } from "react";
 import { CaseStudy, CaseStudyImage, CaseStudySection } from "../../types/caseStudy";
 import ResponsiveImage from "./ResponsiveImage";
 import ImageCarousel from "./ImageCarousel";
+import ZoomableImage from "./ZoomableImage";
+import NoOrphan from "./NoOrphan";
 
 interface CaseStudyPageProps {
   /** The complete case study object containing all page content and metadata */
@@ -71,7 +73,7 @@ const HeroPeekImageWrap = styled.div`
   left: 50%;
   bottom: -6%;
   transform: translateX(-50%);
-  width: min(72rem, 92vw);
+  width: min(64rem, 92vw);
   z-index: 1;
   pointer-events: none;
 
@@ -176,7 +178,7 @@ const MetadataValue = styled.p`
   margin: 0;
 `;
 
-const Headline = styled(motion.h1)`
+const HeadlineBase = styled(motion.h1)`
   font-size: 2.25rem;
   font-weight: 700;
   line-height: 1.2;
@@ -192,6 +194,17 @@ const Headline = styled(motion.h1)`
   }
 `;
 
+const Headline = (
+  props: ComponentProps<typeof HeadlineBase>,
+) => {
+  const { children, ...rest } = props;
+  return (
+    <HeadlineBase {...rest}>
+      <NoOrphan>{children}</NoOrphan>
+    </HeadlineBase>
+  );
+};
+
 const SectionsContainer = styled.div``;
 
 const Section = styled.section<{ $background: string; $compact: boolean; $padding?: string }>`
@@ -204,12 +217,23 @@ const SectionContent = styled.div`
   max-width: 64rem;
 `;
 
-const SectionHeading = styled.h2`
+const SectionHeadingBase = styled.h2`
   font-size: 1.875rem;
   font-weight: 700;
   color: #111827;
   margin-bottom: 1.5rem;
 `;
+
+const SectionHeading = (
+  props: ComponentProps<typeof SectionHeadingBase>,
+) => {
+  const { children, ...rest } = props;
+  return (
+    <SectionHeadingBase {...rest}>
+      <NoOrphan>{children}</NoOrphan>
+    </SectionHeadingBase>
+  );
+};
 
 const SectionBody = styled.div`
   display: flex;
@@ -217,13 +241,24 @@ const SectionBody = styled.div`
   gap: 1rem;
 `;
 
-const Paragraph = styled.p`
+const ParagraphBase = styled.p`
   margin: 0;
   max-width: 68ch;
   font-size: 1rem;
   line-height: 1.625;
   color: #666666;
 `;
+
+const Paragraph = (
+  props: ComponentProps<typeof ParagraphBase>,
+) => {
+  const { children, ...rest } = props;
+  return (
+    <ParagraphBase {...rest}>
+      <NoOrphan>{children}</NoOrphan>
+    </ParagraphBase>
+  );
+};
 
 const TwoColumnGrid = styled.div`
   display: grid;
@@ -624,7 +659,7 @@ const StickyColumn = styled.div<{ $background?: string }>`
 
 const StickyMediaPin = styled.div<{ $fullBleed?: boolean }>`
   position: relative;
-  width: min(65vw, 1080px);
+  width: min(64rem, 92vw);
   margin: 0 auto;
   padding-top: ${(props) => (props.$fullBleed ? "0" : "3rem")};
 
@@ -1238,23 +1273,55 @@ export default memo(function CaseStudyPage({
         viewport={VIEWPORT_ONCE}
         transition={IMAGE_TRANSITION}
       >
-        {section.images && section.images[0] && (
-          <ImageElement
-            src={section.images[0].src}
-            alt={section.images[0].alt}
-            avif={section.images[0].avif}
-            webp={section.images[0].webp}
-            aspectRatio={section.images[0].aspectRatio || "16/9"}
-            borderRadius="8px"
-            objectFit={section.images[0].objectFit || "cover"}
-            objectPosition={section.images[0].objectPosition}
-            backgroundColor={section.images[0].backgroundColor}
-            imagePaddingBlock={section.images[0].imagePaddingBlock}
-            border={section.images[0].containerBorder}
-            mixBlendMode={section.images[0].mixBlendMode}
-            style={{ width: "100%" }}
-          />
-        )}
+        {section.images && section.images[0] && (() => {
+          const image = section.images[0];
+          const imageNode = (
+            <ImageElement
+              src={image.src}
+              alt={image.alt}
+              avif={image.avif}
+              webp={image.webp}
+              aspectRatio={image.aspectRatio || "16/9"}
+              borderRadius="8px"
+              objectFit={image.objectFit || "cover"}
+              objectPosition={image.objectPosition}
+              backgroundColor={image.backgroundColor}
+              imagePaddingBlock={image.imagePaddingBlock}
+              border={image.containerBorder}
+              mixBlendMode={image.mixBlendMode}
+              style={{ width: "100%" }}
+            />
+          );
+
+          if (image.zoomable) {
+            const zoomRatio = image.zoomAspectRatio || image.aspectRatio || "16/9";
+            const overlayNode = (
+              <ImageElement
+                src={image.src}
+                alt={image.alt}
+                avif={image.avif}
+                webp={image.webp}
+                aspectRatio={zoomRatio}
+                borderRadius="8px"
+                objectFit="contain"
+                backgroundColor={image.backgroundColor}
+                style={{ width: "100%" }}
+              />
+            );
+            return (
+              <ZoomableImage
+                id={`${section.id}-0`}
+                ariaLabel={`Open ${image.alt} in full-screen viewer`}
+                aspectRatio={zoomRatio}
+                overlayContent={overlayNode}
+              >
+                {imageNode}
+              </ZoomableImage>
+            );
+          }
+
+          return imageNode;
+        })()}
       </FullWidthImageContainer>
       {section.caption && <Caption>{section.caption}</Caption>}
     </div>
@@ -1281,10 +1348,12 @@ export default memo(function CaseStudyPage({
                 alt={image.alt}
                 avif={image.avif}
                 webp={image.webp}
-                aspectRatio={image.aspectRatio || "3/2"}
-                borderRadius="0"
-                objectFit="contain"
-                style={{ height: "26rem" }}
+                aspectRatio={image.aspectRatio}
+                borderRadius="0.5rem"
+                objectFit={image.objectFit || "contain"}
+                backgroundColor={image.backgroundColor}
+                imagePaddingBlock={image.imagePaddingBlock}
+                imagePaddingInline={image.imagePaddingInline}
               />
             </GalleryImage>
           ))}

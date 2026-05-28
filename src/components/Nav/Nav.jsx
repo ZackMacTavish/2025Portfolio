@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import logo from '../../assets/Final-M-SinglePiece.svg';
 import { Link, useLocation } from 'react-router-dom';
+import CaseStudyTransitionLink from '../CaseStudyTransitionLink';
 
 const spotlightLeftMove = keyframes`
   0% { transform: translateX(-40%) translateY(0); opacity: 1; }
@@ -428,7 +429,18 @@ export default function Nav() {
                 ×
               </CloseButton>
               <DropdownMenu to="/Microsoft" onClick={handleClose}>Microsoft</DropdownMenu>
-              <DropdownMenu to="/Outsource" onClick={handleClose}>Outsource</DropdownMenu>
+              <CaseStudyTransitionLink
+                slug="outsource"
+                to="/Outsource"
+                onActivate={handleClose}
+                preloadRoute={() => import('../../pages/Outsource/Outsource')}
+              >
+                {({ onClick }) => (
+                  <DropdownMenu to="/Outsource" onClick={onClick}>
+                    Outsource
+                  </DropdownMenu>
+                )}
+              </CaseStudyTransitionLink>
               <DropdownMenu to="/Ux" onClick={handleClose}>Leysi</DropdownMenu>
               <DropdownMenu to="/Piton" onClick={handleClose}>Piton</DropdownMenu>
               <DropdownMenu to="/ThreePillars" onClick={handleClose}>Three Pillars</DropdownMenu>

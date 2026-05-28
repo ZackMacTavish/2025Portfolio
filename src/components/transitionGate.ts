@@ -128,6 +128,13 @@ export async function measureTransitionDecodeDuration(
   return { duration: performance.now() - startedAt, allDecoded };
 }
 
+function prefersReducedMotion(): boolean {
+  if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+    return false;
+  }
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
 export async function shouldRunCardTransition(
   images: TransitionImage[],
   thresholdMs = CARD_TRANSITION_DECODE_GATE_MS,
@@ -135,6 +142,12 @@ export async function shouldRunCardTransition(
 ): Promise<boolean> {
   if (typeof window === "undefined") {
     return true;
+  }
+
+  // Honor OS / browser / extension reduced-motion preference: never run the
+  // card-fan (intro or case-study) when the user has asked for less motion.
+  if (prefersReducedMotion()) {
+    return false;
   }
 
   const lockSessionOnFailure = options?.lockSessionOnFailure ?? true;

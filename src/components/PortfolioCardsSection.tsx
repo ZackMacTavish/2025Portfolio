@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { FiLock } from "react-icons/fi";
 import Grid60 from "./Layout/Grid60";
 import { SingleImage } from "./CaseStudyPrimitives";
+import CaseStudyTransitionLink from "./CaseStudyTransitionLink";
 
 import leysiTile from "../assets/LeysiApp—Screens copy.jpg";
 import leysiTileAvif from "../assets/LeysiApp—Screens copy.avif";
@@ -274,26 +275,38 @@ export default function PortfolioCardsSection() {
           </ProjectCard>
 
           <ProjectCard>
-            <Tile to="/Outsource" aria-label="Outsource project">
-              <SingleImage
-                src={outsourceTile}
-                avif={outsourceTileAvif}
-                webp={outsourceTileWebp}
-                alt="Outsource project tile"
-                width="100%"
-                responsive={false}
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  height: "100%",
-                  objectFit: "cover",
-                  zIndex: 0,
-                  borderRadius: 0,
-                  boxShadow: "none",
-                }}
-              />
-              <TileOverlay />
-            </Tile>
+            <CaseStudyTransitionLink
+              slug="outsource"
+              to="/Outsource"
+              preloadRoute={() => import("../pages/Outsource/Outsource")}
+            >
+              {({ onClick }) => (
+                <Tile
+                  to="/Outsource"
+                  aria-label="Outsource project"
+                  onClick={onClick}
+                >
+                  <SingleImage
+                    src={outsourceTile}
+                    avif={outsourceTileAvif}
+                    webp={outsourceTileWebp}
+                    alt="Outsource project tile"
+                    width="100%"
+                    responsive={false}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      height: "100%",
+                      objectFit: "cover",
+                      zIndex: 0,
+                      borderRadius: 0,
+                      boxShadow: "none",
+                    }}
+                  />
+                  <TileOverlay />
+                </Tile>
+              )}
+            </CaseStudyTransitionLink>
             <TileCaption>
               <TileTitle>Outsource</TileTitle>
               <TileSubtitle>Commerce and editorial design across surfaces</TileSubtitle>

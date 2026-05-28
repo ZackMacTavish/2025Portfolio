@@ -56,6 +56,14 @@ interface CaseStudyImage {
 
   /** Optional CSS mix-blend-mode applied to the rendered image */
   mixBlendMode?: string;
+
+  /** When true, the image opens in a full-screen pan/zoom viewer on click */
+  zoomable?: boolean;
+
+  /** Aspect ratio to use inside the full-screen zoom overlay (defaults to `aspectRatio`).
+   *  Use this when the inline render is cropped (e.g. cover with 16/10) but the overlay
+   *  should show the image's natural ratio uncropped. */
+  zoomAspectRatio?: string;
 }
 
 /**

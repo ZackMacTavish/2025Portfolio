@@ -8,7 +8,7 @@ const GlobalCursorStyle = createGlobalStyle`
 `;
 
 const AppCursorstyles = styled.div`
-  z-index: 2000;
+  z-index: 2147483647;
   border-radius: 50%;
   width: 50px;
   height: 50px;

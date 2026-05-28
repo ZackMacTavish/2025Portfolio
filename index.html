@@ -56,10 +56,12 @@
 
       To avoid this, we hide #root and show a plain white screen until React
       has rendered. main.jsx removes the `app-hydrating` class on <html> after
-      the first paint, at which point the IntroAnimation overlay takes over.
+      the first paint, at which point the IntroAnimation overlay (root route)
+      or IntroGate overlay (deep-link first visit) takes over.
 
-      We only do this on the root route, since other routes do not run the
-      intro animation and benefit from showing prerendered content immediately.
+      We apply this on every route because every prerendered page suffers the
+      same styled-components-injects-at-runtime FOUC — not just `/`. The
+      guard is removed after two RAFs in main.jsx, so the cost is minimal.
     -->
     <style>
       html.app-hydrating #root { visibility: hidden; }
@@ -73,10 +75,7 @@
     </style>
     <script>
       (function () {
-        var p = window.location.pathname;
-        if (p === '/' || p === '/index.html') {
-          document.documentElement.classList.add('app-hydrating');
-        }
+        document.documentElement.classList.add('app-hydrating');
       })();
     </script>
 

@@ -33,7 +33,7 @@ import { CashbackHubModule } from '../../components/CashbackHubIntro';
 import { VideoCommerceModule } from '../../components/VideoCommerceIntro';
 import { FiArrowUpRight } from 'react-icons/fi';
 
-const PASSWORD = 'yourpassword'; // Change this to your desired password
+const PASSWORD = 'microsoftshopping';
 
 // Spotlight background animations (copied from LandingPage)
 const spotlightLeftMove = keyframes`
