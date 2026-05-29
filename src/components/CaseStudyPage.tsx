@@ -1,13 +1,62 @@
 import Socials from "../components/Social Bar/Socials";
 import PortfolioCardsSection from "./PortfolioCardsSection";
 import { motion, useInView } from "framer-motion";
-import styled from "styled-components";
+import styled, { type DefaultTheme } from "styled-components";
 import { ReactNode, memo, useRef, useState, type ComponentProps } from "react";
 import { CaseStudy, CaseStudyImage, CaseStudySection } from "../../types/caseStudy";
 import ResponsiveImage from "./ResponsiveImage";
 import ImageCarousel from "./ImageCarousel";
 import ZoomableImage from "./ZoomableImage";
 import NoOrphan from "./NoOrphan";
+
+// Data-driven section backgrounds in caseStudies.ts pre-date theming. In dark
+// mode, swap neutral whites/greys for the dark surface token so the section
+// chrome flips, while leaving brand colors (navy, yellow, etc.) untouched.
+const NEUTRAL_BACKGROUNDS = new Set([
+  "white",
+  "#fff",
+  "#ffffff",
+  "#fafafa",
+  "#f9fafb",
+  "#f5f5f5",
+  "#f6f8fc",
+  "#f0efeb",
+  "#e7e7e7",
+  "#eeeeee",
+  "#eee",
+]);
+
+const themedBg = (value: string | undefined, theme: DefaultTheme): string | undefined => {
+  if (!value) return value;
+  if (theme.name !== "dark") return value;
+  return NEUTRAL_BACKGROUNDS.has(value.toLowerCase()) ? theme.surface : value;
+};
+
+// Returns true when the given CSS color is light enough that dark text is
+// needed for accessible contrast (regardless of active theme).
+const isLightBackground = (value: string | undefined): boolean => {
+  if (!value) return false;
+  const hex = value.trim().replace(/^#/, "");
+  let r: number, g: number, b: number;
+  if (hex.length === 3) {
+    r = parseInt(hex[0] + hex[0], 16);
+    g = parseInt(hex[1] + hex[1], 16);
+    b = parseInt(hex[2] + hex[2], 16);
+  } else if (hex.length === 6) {
+    r = parseInt(hex.slice(0, 2), 16);
+    g = parseInt(hex.slice(2, 4), 16);
+    b = parseInt(hex.slice(4, 6), 16);
+  } else {
+    return false;
+  }
+  if ([r, g, b].some(Number.isNaN)) return false;
+  const srgb = [r, g, b].map((v) => {
+    const s = v / 255;
+    return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+  });
+  const lum = 0.2126 * srgb[0] + 0.7152 * srgb[1] + 0.0722 * srgb[2];
+  return lum > 0.55;
+};
 
 interface CaseStudyPageProps {
   /** The complete case study object containing all page content and metadata */
@@ -25,14 +74,14 @@ interface CaseStudyPageProps {
 
 const Page = styled.div`
   min-height: 100vh;
-  background: white;
+  background: ${(p) => p.theme.surface};
 `;
 
 const HeroSection = styled.section`
   position: relative;
   overflow: hidden;
   min-height: 110vh;
-  background: #f5f5f5;
+  background: ${(p) => p.theme.surfaceMuted};
   padding: 5rem 1.5rem 10rem;
 
   @media (min-width: 768px) {
@@ -142,7 +191,7 @@ const HeroPeekImageContainer = styled.div<{ $backgroundColor?: string }>`
   position: relative;
   width: 100%;
   height: 100%;
-  background: ${({ $backgroundColor }) => $backgroundColor || "transparent"};
+  background: ${({ $backgroundColor, theme }) => themedBg($backgroundColor, theme) || "transparent"};
   padding-block: ${({ $backgroundColor }) => ($backgroundColor ? "clamp(1rem, 2vw, 1.5rem)" : "0")};
   border-radius: ${({ $backgroundColor }) => ($backgroundColor ? "24px" : "0")};
   overflow: hidden;
@@ -166,7 +215,7 @@ const MetadataItem = styled.div`
 const MetadataLabel = styled.p`
   font-size: 0.75rem;
   letter-spacing: 0.1em;
-  color: #a3a3a3;
+  color: ${(p) => p.theme.mutedText};
   text-transform: uppercase;
   margin: 0;
   margin-bottom: 0.5rem;
@@ -174,7 +223,7 @@ const MetadataLabel = styled.p`
 
 const MetadataValue = styled.p`
   font-size: 0.875rem;
-  color: #4b5563;
+  color: ${(p) => p.theme.mutedText};
   margin: 0;
 `;
 
@@ -182,7 +231,7 @@ const HeadlineBase = styled(motion.h1)`
   font-size: 2.25rem;
   font-weight: 700;
   line-height: 1.2;
-  color: #111827;
+  color: ${(p) => p.theme.strongText};
   max-width: 56rem;
 
   @media (min-width: 768px) {
@@ -208,8 +257,15 @@ const Headline = (
 const SectionsContainer = styled.div``;
 
 const Section = styled.section<{ $background: string; $compact: boolean; $padding?: string }>`
-  background: ${(props) => props.$background};
+  background: ${(p) => themedBg(p.$background, p.theme)};
   padding: ${(props) => props.$padding ?? (props.$compact ? "0" : "3.75rem 0")};
+  ${(p) =>
+    isLightBackground(themedBg(p.$background, p.theme))
+      ? `
+    h1, h2, h3, h4, h5, h6 { color: #1a1a1a; }
+    p { color: rgba(26, 26, 26, 0.78); }
+  `
+      : ""}
 `;
 
 const SectionContent = styled.div`
@@ -220,7 +276,7 @@ const SectionContent = styled.div`
 const SectionHeadingBase = styled.h2`
   font-size: 1.875rem;
   font-weight: 700;
-  color: #111827;
+  color: ${(p) => p.theme.strongText};
   margin-bottom: 1.5rem;
 `;
 
@@ -246,7 +302,7 @@ const ParagraphBase = styled.p`
   max-width: 68ch;
   font-size: 1rem;
   line-height: 1.625;
-  color: #666666;
+  color: ${(p) => p.theme.mutedText};
 `;
 
 const Paragraph = (
@@ -306,7 +362,7 @@ const Caption = styled.p`
   margin-top: 0.75rem;
   font-size: 0.875rem;
   font-style: italic;
-  color: #8b8b8b;
+  color: ${(p) => p.theme.mutedText};
 `;
 
 const ImageGrid = styled.div`
@@ -490,7 +546,7 @@ const FeatureLabel = styled.span<{ $active: boolean }>`
   line-height: 2.4;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: ${(props) => (props.$active ? "#000" : "#bbb")};
+  color: ${(p) => (p.$active ? p.theme.strongText : p.theme.mutedText)};
   font-weight: ${(props) => (props.$active ? 700 : 600)};
 
   @media (max-width: 768px) {
@@ -533,7 +589,7 @@ const FeatureSubheading = styled.h3`
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #555;
+  color: ${(p) => p.theme.mutedText};
 `;
 
 const FeatureTextBody = styled(SectionBody)`
@@ -584,7 +640,7 @@ const StaggeredCaption = styled.p`
   max-width: 600px;
   text-align: center;
   font-size: 0.95rem;
-  color: #888;
+  color: ${(p) => p.theme.mutedText};
 `;
 
 const CenterTextBlock = styled.div`
@@ -628,7 +684,7 @@ const QuoteText = styled.p`
   font-size: clamp(1.2rem, 2.1vw, 1.55rem);
   font-style: italic;
   line-height: 1.5;
-  color: #1a1a1a;
+  color: ${(p) => p.theme.strongText};
   text-wrap: balance;
 `;
 
@@ -640,7 +696,7 @@ const QuoteAttribution = styled.cite`
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #999;
+  color: ${(p) => p.theme.mutedText};
 `;
 
 const StickySplitWrapper = styled.section`
@@ -654,7 +710,7 @@ const StickyColumn = styled.div<{ $background?: string }>`
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   padding: 0;
-  background: ${(props) => props.$background || "white"};
+  background: ${(p) => themedBg(p.$background, p.theme) || p.theme.surface};
 `;
 
 const StickyMediaPin = styled.div<{ $fullBleed?: boolean }>`
@@ -708,12 +764,12 @@ const Tag = styled.span`
   font-size: 0.7rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #888;
+  color: ${(p) => p.theme.mutedText};
   padding: 0.25rem 0;
 `;
 
 const TagDivider = styled.span`
-  color: #9a9a9a;
+  color: ${(p) => p.theme.mutedText};
   margin: 0 0.25rem;
 `;
 
@@ -726,7 +782,7 @@ const ScrollColumn = styled.div`
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   padding: 3.5rem 0 3rem;
-  background: #f0efeb;
+  background: ${(p) => (p.theme.name === "dark" ? p.theme.surfaceMuted : "#f0efeb")};
 
   > * {
     width: min(65vw, 1080px);
@@ -765,7 +821,7 @@ const QuoteLeftAligned = styled.p`
   font-size: 1.5rem;
   font-style: italic;
   line-height: 1.5;
-  color: #222;
+  color: ${(p) => p.theme.strongText};
 `;
 
 const ParallaxRevealWrapper = styled.section`
@@ -801,7 +857,7 @@ const ParallaxTextLayer = styled.div`
   position: relative;
   z-index: 2;
   padding: 2.5rem 6% 3.5rem;
-  background: white;
+  background: ${(p) => p.theme.surface};
 
   @media (max-width: 768px) {
     padding: 2rem 1.25rem;
@@ -809,7 +865,7 @@ const ParallaxTextLayer = styled.div`
 `;
 
 const ParallaxHeading = styled(motion.h2)`
-  color: #111;
+  color: ${(p) => p.theme.strongText};
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 700;
   line-height: 1.15;
@@ -819,7 +875,7 @@ const ParallaxHeading = styled(motion.h2)`
 
 const ParallaxBody = styled(motion.p)`
   margin: 0;
-  color: #222;
+  color: ${(p) => p.theme.mutedText};
   font-size: 1.05rem;
   line-height: 1.7;
   max-width: 540px;
@@ -885,8 +941,8 @@ const ColorBlockText = styled.div`
 `;
 
 const NextProjectSection = styled.section`
-  border-top: 1px solid #e5e7eb;
-  background: white;
+  border-top: 1px solid ${(p) => p.theme.border};
+  background: ${(p) => p.theme.surface};
   padding: 4rem 1.5rem 6rem;
 
   @media (min-width: 768px) {
@@ -912,7 +968,7 @@ const FooterLabel = styled.p`
   margin: 0;
   font-size: 0.8rem;
   letter-spacing: 0.12em;
-  color: #9ca3af;
+  color: ${(p) => p.theme.mutedText};
   text-transform: uppercase;
 `;
 
@@ -923,9 +979,9 @@ const ShareActions = styled.div`
 `;
 
 const ShareButton = styled.button`
-  border: 1px solid #d1d5db;
-  background: #ffffff;
-  color: #111827;
+  border: 1px solid ${(p) => p.theme.pillBorder};
+  background: ${(p) => p.theme.pillBg};
+  color: ${(p) => p.theme.pillText};
   border-radius: 999px;
   padding: 0.45rem 0.75rem;
   font-size: 0.78rem;
@@ -935,8 +991,8 @@ const ShareButton = styled.button`
   transition: all 180ms ease;
 
   &:hover {
-    border-color: #9ca3af;
-    background: #f9fafb;
+    border-color: ${(p) => p.theme.mutedText};
+    background: ${(p) => p.theme.surfaceMuted};
   }
 `;
 
@@ -961,7 +1017,7 @@ const NextProjectButton = styled(motion.button)`
 const NextProjectLabel = styled.p`
   font-size: 0.875rem;
   letter-spacing: 0.1em;
-  color: #a3a3a3;
+  color: ${(p) => p.theme.mutedText};
   text-transform: uppercase;
   margin: 0;
 `;
@@ -970,7 +1026,7 @@ const NextProjectTitle = styled.h3`
   margin-top: 0.5rem;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #111827;
+  color: ${(p) => p.theme.strongText};
 
   @media (min-width: 768px) {
     margin-top: 0;
@@ -980,11 +1036,11 @@ const NextProjectTitle = styled.h3`
 
 const NextProjectArrow = styled.div`
   font-size: 1.5rem;
-  color: #a3a3a3;
+  color: ${(p) => p.theme.mutedText};
   transition: color 200ms;
 
   ${NextProjectButton}:hover & {
-    color: #111827;
+    color: ${(p) => p.theme.strongText};
   }
 `;
 
@@ -1282,7 +1338,7 @@ export default memo(function CaseStudyPage({
               avif={image.avif}
               webp={image.webp}
               aspectRatio={image.aspectRatio || "16/9"}
-              borderRadius="8px"
+              borderRadius={image.borderRadius || "8px"}
               objectFit={image.objectFit || "cover"}
               objectPosition={image.objectPosition}
               backgroundColor={image.backgroundColor}
@@ -1302,7 +1358,7 @@ export default memo(function CaseStudyPage({
                 avif={image.avif}
                 webp={image.webp}
                 aspectRatio={zoomRatio}
-                borderRadius="8px"
+                borderRadius={image.borderRadius || "8px"}
                 objectFit="contain"
                 backgroundColor={image.backgroundColor}
                 style={{ width: "100%" }}

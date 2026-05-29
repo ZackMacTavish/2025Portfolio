@@ -37,7 +37,7 @@ export default function CashbackHub() {
       <CaseStudyPage caseStudy={caseStudy} />
       <div
         style={{
-          borderTop: "1px solid #e5e7eb",
+          borderTop: "1px solid var(--border, #d1d5db)",
           width: "100vw",
           position: "relative",
           left: 0,

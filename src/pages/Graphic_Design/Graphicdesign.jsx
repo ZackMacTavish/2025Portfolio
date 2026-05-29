@@ -122,6 +122,33 @@ const ThisIsItText = styled(ParagraphFour)`
   padding-right: 0;       /* remove base desktop padding */
 `;
 
+const PosterCardSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4vh;
+  padding: 6vh 0;
+  width: 100%;
+`;
+
+const PosterCard = styled.div`
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 3vw 4vw;
+  width: 60vw;
+  max-width: 1000px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 850px) {
+    width: 92vw;
+    padding: 4vw 5vw;
+    border-radius: 16px;
+  }
+`;
+
 export default function GraphicDesign() {
 
     useLayoutEffect(() => {
@@ -156,7 +183,16 @@ export default function GraphicDesign() {
   </TextContainer>
 </FullHeightTextSection>
 
-  <FullBg src={goldenAvif} webp={goldenWebp} fallback={goldenPng} style={{ width: '100vw', height: 'auto', objectFit: 'cover', display: 'block', margin: 0, padding: 0, borderRadius: 0 }} />
+  <PosterCardSection>
+    <PosterCard style={{ padding: 0, overflow: 'hidden' }}>
+      <FullBg
+        src={goldenAvif}
+        webp={goldenWebp}
+        fallback={goldenPng}
+        style={{ width: '100%', height: 'auto', objectFit: 'cover', display: 'block', margin: 0, padding: 0, borderRadius: 0, backgroundColor: 'transparent' }}
+      />
+    </PosterCard>
+  </PosterCardSection>
 
 
 
@@ -171,24 +207,32 @@ export default function GraphicDesign() {
 </FullHeightTextSection>
 
           
-            <FullBg 
-              src={graphicpostersAvif}
-              webp={graphicpostersWebp}
-              style={{ borderRadius: 0 }}
-              alt="Graphic Posters 1"
-            />
-            <FullBg 
-              src={oliviafloralAvif}
-              webp={oliviafloralWebp}
-              style={{ borderRadius: 0 }}
-              alt="Olivia Floral Mockup"
-            />
-            <FullBg 
-              src={goodbyehelloAvif}
-              webp={goodbyehelloWebp}
-              style={{ borderRadius: 0 }}
-              alt="Graphic Posters 2"
-            />
+          <PosterCardSection>
+            <PosterCard>
+              <FullBg
+                src={graphicpostersAvif}
+                webp={graphicpostersWebp}
+                style={{ width: '100%', margin: 0, borderRadius: 0, backgroundColor: 'transparent' }}
+                alt="Graphic Posters 1"
+              />
+            </PosterCard>
+            <PosterCard style={{ padding: 0, overflow: 'hidden' }}>
+              <FullBg
+                src={oliviafloralAvif}
+                webp={oliviafloralWebp}
+                style={{ width: '100%', margin: 0, borderRadius: 0, backgroundColor: 'transparent', display: 'block' }}
+                alt="Olivia Floral Mockup"
+              />
+            </PosterCard>
+            <PosterCard>
+              <FullBg
+                src={goodbyehelloAvif}
+                webp={goodbyehelloWebp}
+                style={{ width: '100%', margin: 0, borderRadius: 0, backgroundColor: 'transparent' }}
+                alt="Graphic Posters 2"
+              />
+            </PosterCard>
+          </PosterCardSection>
 
             {/* "This is it" poster section standardized to 60vw */}
             <ThisIsItContainer>
@@ -198,9 +242,9 @@ export default function GraphicDesign() {
               </ThisIsItText>
             </ThisIsItContainer>
 
-<FullHeightTextSection style={{ backgroundColor: '#F5F5F5' }}>
+<FullHeightTextSection>
   <TextContainer>
-    <TextContent style={{ color: '#5d5d5d' }}>
+    <TextContent>
       Working alongside the Walmart team at Publicis, we created a variety of designs to present to Marketing. The lines I worked on were the Christmas, Halloween, and Back To School campaigns.
     </TextContent>
   </TextContainer>
@@ -226,7 +270,14 @@ export default function GraphicDesign() {
         />
       </RisoFlex>
 
-            <FullBg style={{paddingTop: '10vh', borderRadius: 0}} src={messagesfour} />
+            <PosterCardSection style={{ paddingTop: '10vh' }}>
+              <PosterCard style={{ padding: 0, overflow: 'hidden' }}>
+                <FullBg
+                  src={messagesfour}
+                  style={{ width: '100%', margin: 0, borderRadius: 0, backgroundColor: 'transparent', display: 'block' }}
+                />
+              </PosterCard>
+            </PosterCardSection>
 
       <RisoFlex>
   <SingleImage src={threestack} width="45vw" style={{ boxShadow: 'none', paddingTop: '5vh', paddingBottom: '5vh' }}
@@ -266,9 +317,9 @@ export default function GraphicDesign() {
   />
 </div>
 
-           <FullHeightTextSection style={{ backgroundColor: '#f5f5f5' }}>
+           <FullHeightTextSection>
   <TextContainer>
-    <TextContent style={{ color: '#5d5d5d'}}>
+    <TextContent>
       Brooklyn Book Festival is a rebranding of a popular festival that occurs in Brooklyn, NY. 
       I designed totes, bookmarks, brochures, and posters for the event.
     </TextContent>

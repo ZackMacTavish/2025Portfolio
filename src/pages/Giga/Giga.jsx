@@ -121,9 +121,9 @@ export default function Giga() {
 
             <FullBg src={iphonesAvif} webp={iphonesWebp} fallback={iphonesPng} style={{ width: '100vw', maxWidth: '100vw', height: 'auto', objectFit: 'cover', display: 'block', margin: 0, padding: 0, borderRadius: 0 }} />
 
- <FullHeightTextSection style={{ backgroundColor: '#ffffff' }}>
+ <FullHeightTextSection>
   <TextContainer>
-    <TextContent style={{ color: '#5D5D5D' }}>
+    <TextContent>
       Giga is a startup focused on sharing experiences between its users. 
       Through a robust data management system, users can share information and learn about their favorite subjects
     </TextContent>
@@ -151,32 +151,8 @@ export default function Giga() {
             <RisoFlex>
                 <SingleImage src={imactwo} avif={imactwoAvif} webp={imactwoWebp} />
             </RisoFlex>
-<RisoFlex style={{ paddingBottom: '7vh' }}>
-  <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-    <SingleImage
-      src={about}
-      avif={aboutAvif}
-      webp={aboutWebp}
-      style={{
-        width: '60vw',
-        maxWidth: '420px',
-        minHeight: 'auto',
-        height: 'auto',
-        borderRadius: 24,
-        boxShadow: '0 2px 12px 0 rgba(0,0,0,0.06)',
-      }}
-    />
-    <style>{`
-      @media (max-width: 850px) {
-        .about-me-img {
-          width: 96vw !important;
-          max-width: 96vw !important;
-          min-height: 60vw !important;
-          border-radius: 0 !important;
-        }
-      }
-    `}</style>
-  </div>
+<RisoFlex>
+  <SingleImage src={about} avif={aboutAvif} webp={aboutWebp} />
 </RisoFlex>
 
 

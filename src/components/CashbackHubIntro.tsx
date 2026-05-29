@@ -18,7 +18,9 @@ function normalizeAssetUrl(url: string) {
 }
 
 const IntroSection = styled.section`
-  background: linear-gradient(135deg, #f1f6ff 0%, #fdfbff 100%);
+  background: ${(p) => (p.theme.name === 'dark'
+    ? 'linear-gradient(135deg, #1b2238 0%, #1a1622 100%)'
+    : 'linear-gradient(135deg, #f1f6ff 0%, #fdfbff 100%)')};
   padding: 8rem 1.5rem;
   display: flex;
   align-items: center;
@@ -70,7 +72,7 @@ const IntroHeading = styled(motion.h2)`
   font-size: clamp(1.85rem, 4vw, 2.25rem);
   font-weight: 700;
   line-height: 1.2;
-  color: #111827;
+  color: ${(p) => p.theme.strongText};
   margin: 0;
 
   @media (min-width: 768px) {
@@ -85,7 +87,7 @@ const IntroHeading = styled(motion.h2)`
 const IntroSubtitle = styled(motion.p)`
   font-size: 0.98rem;
   line-height: 1.65;
-  color: #4b5563;
+  color: ${(p) => p.theme.mutedText};
   margin: 0;
   max-width: 62ch;
 

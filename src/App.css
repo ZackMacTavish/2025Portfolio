@@ -34,9 +34,9 @@ body {
     right: 1rem;
     bottom: 1rem;
     z-index: 110;
-    border: 1px solid #d1d5db;
-    background: #ffffff;
-    color: #111827;
+    border: 1px solid var(--pill-border, #d1d5db);
+    background: var(--pill-bg, #ffffff);
+    color: var(--pill-text, #111827);
     border-radius: 999px;
     padding: 0.5rem 0.85rem;
     font-size: 0.8rem;

@@ -119,9 +119,9 @@ export default function AccessDirect() {
       {/* Sections */}
   <FullBg src={iphonesJpg} avif={iphonesAvif} webp={iphonesWebp} style={{ backgroundColor: 'white', width: '100vw', maxWidth: '100vw', height: 'auto', objectFit: 'cover', display: 'block', margin: 0, padding: 0, borderRadius: 0 }} />
 
-      <FullHeightTextSection style={{ backgroundColor: 'white' }}>
+      <FullHeightTextSection>
   <TextContainer>
-    <TextContent style={{ color: '#5d5d5d' }}>
+    <TextContent>
       Access Direct is a company focused on security solutions. I collaborated closely on the project, working on their brand identity, logos, and website. I served as the UI Designer and Webmaster, redesigning the site and building it using React.js.
     </TextContent>
   </TextContainer>

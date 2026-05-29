@@ -104,7 +104,7 @@ const PasswordContainer = styled.div`
   display: grid;
   place-items: center;
   padding: 6rem 1.5rem 2rem;
-  background: #ffffff;
+  background: ${(p) => p.theme.surface};
   position: relative;
   z-index: 1;
 `;
@@ -117,7 +117,7 @@ const PasswordIntro = styled.div`
   text-align: center;
   max-width: 40rem;
   margin-bottom: 1.5rem;
-  color: #111;
+  color: ${(p) => p.theme.strongText};
 `;
 
 const PasswordEyebrow = styled.p`
@@ -126,7 +126,7 @@ const PasswordEyebrow = styled.p`
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #5f6b63;
+  color: ${(p) => p.theme.mutedText};
 `;
 
 const PasswordTitle = styled.h1`
@@ -139,7 +139,7 @@ const PasswordDescription = styled.p`
   margin: 0;
   font-size: 1rem;
   line-height: 1.6;
-  color: #4b5563;
+  color: ${(p) => p.theme.mutedText};
 `;
 
 const PasswordGate = styled.div`
@@ -155,11 +155,11 @@ const PasswordForm = styled.form`
   align-items: center;
   gap: 1rem;
   width: min(100%, 28rem);
-  background: rgba(255,255,255,0.9);
+  background: ${(p) => p.theme.surfaceMuted};
   padding: 2rem 3rem;
   border-radius: 12px;
   box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-  border: 1px solid rgba(17, 24, 39, 0.08);
+  border: 1px solid ${(p) => p.theme.border};
 
   @media (max-width: 640px) {
     padding: 1.5rem;
@@ -172,12 +172,12 @@ const PasswordInput = styled.input`
   font-size: 1.1rem;
   padding: 0.6rem 1.1rem;
   border-radius: 999px;
-  border: 1px solid #ccc;
+  border: 1px solid ${(p) => p.theme.border};
   min-width: 240px;
   outline: none;
-  color: #111;
-  background: #fff;
-  &::placeholder { color: #9b9b9b; }
+  color: ${(p) => p.theme.strongText};
+  background: ${(p) => p.theme.surface};
+  &::placeholder { color: ${(p) => p.theme.mutedText}; }
 `;
 
 // Black rounded submit button, consistent with site styles
@@ -197,6 +197,29 @@ const PasswordButton = styled.button`
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   transition: background 0.2s ease;
   &:hover { background: #333; }
+`;
+
+// Accent text bands with light + dark variants. Each tone is paired to clear
+// WCAG AA contrast (>= 7:1 for the large 2.3rem headings used here).
+const ACCENT_TONES = {
+  blue:   { light: { bg: '#eaf6ff', fg: '#1a3a5d' }, dark: { bg: '#0f1d2e', fg: '#cfe2f5' } },
+  purple: { light: { bg: '#f7eaff', fg: '#5d2d5d' }, dark: { bg: '#1f1226', fg: '#e4cdf0' } },
+  cream:  { light: { bg: '#fffbe6', fg: '#5d5d5d' }, dark: { bg: '#1f1d12', fg: '#efe7c4' } },
+};
+
+const AccentBand = styled(FullHeightTextSection)`
+  background-color: ${(p) => ACCENT_TONES[p.$tone][p.theme.name === 'dark' ? 'dark' : 'light'].bg};
+  --accent-fg: ${(p) => ACCENT_TONES[p.$tone][p.theme.name === 'dark' ? 'dark' : 'light'].fg};
+`;
+
+const AccentText = styled(TextContent)`
+  color: var(--accent-fg);
+  /* Scales from ~1.25rem on phones up to ~2rem on large desktops, mirroring
+     the clamp pattern used by the foundation typography tokens. */
+  font-size: clamp(1.25rem, 1.4vw + 0.85rem, 2rem);
+  max-width: 50ch;
+  line-height: 1.45;
+  margin: 0;
 `;
 
 const Microsoft = () => {
@@ -233,19 +256,6 @@ const Microsoft = () => {
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
-    const previousBackgroundColor = document.body.style.backgroundColor;
-    const previousColor = document.body.style.color;
-
-    document.body.style.backgroundColor = '#ffffff';
-    document.body.style.color = '#111111';
-
-    return () => {
-      document.body.style.backgroundColor = previousBackgroundColor;
-      document.body.style.color = previousColor;
-    };
   }, []);
 
   const handleSubmit = (e) => {
@@ -334,13 +344,13 @@ const Microsoft = () => {
 
       <BusinessConnectorsModule />
 
-      <FullHeightTextSection style={{ backgroundColor: '#eaf6ff' }}>
+      <AccentBand $tone="blue">
         <TextContainer>
-          <TextContent style={{ color: '#1a3a5d', fontSize: '2.3rem', maxWidth: '50ch', lineHeight: '1.4', margin: '0' }}>
+          <AccentText>
             Journeys reframed shopping as a progression rather than a single destination. The concept created a central hub for discovery, comparison, and post-purchase support so users could keep track of activity, price changes, deals, and recommendations without carrying that mental load across multiple products and retailers.
-          </TextContent>
+          </AccentText>
         </TextContainer>
-      </FullHeightTextSection>
+      </AccentBand>
 
       <JourneysModule />
 
@@ -348,11 +358,11 @@ const Microsoft = () => {
 
       <VideoCommerceModule />
       
-      <FullHeightTextSection style={{ backgroundColor: '#f5f5f5' }}>
+      <FullHeightTextSection style={{ backgroundColor: 'var(--surface-muted, #f5f5f5)' }}>
         <TextContainer>
-          <TextContent style={{ color: '#222', fontSize: '2.3rem', maxWidth: '50ch', lineHeight: '1.4', margin: '0' }}>
+          <AccentText style={{ color: 'var(--text-strong, #222)' }}>
             This work focused on reimagining shopping as an educational experience rather than a transactional one. I designed early concepts for Copilot Shopping and a Generative Results Page (GRP) that helped users understand product categories, compare specs, and evaluate pricing. These experiences aimed to reduce decision fatigue while increasing trust and confidence for high-consideration purchases.
-          </TextContent>
+          </AccentText>
         </TextContainer>
       </FullHeightTextSection>
       
@@ -370,26 +380,26 @@ const Microsoft = () => {
         <VideoWithOverlay ref={videoRefs[1]} src="/assets/microsoft-demo.mp4" poster="/assets/Preview2.png" />
       </RisoFlex>
    
-      <FullHeightTextSection style={{ backgroundColor: '#f7eaff' }}>
+      <AccentBand $tone="purple">
         <TextContainer>
-          <TextContent style={{ color: '#5d2d5d', fontSize: '2.3rem', maxWidth: '50ch', lineHeight: '1.4', margin: '0' }}>
+          <AccentText>
             This work focused on reducing friction at the moment of purchase through Microsoft Wallet and the Cashback Hub. I contributed to experiences that let users securely save payment methods, passwords, and rewards for faster checkout across Microsoft surfaces. More recently, this work has extended into Copilot, exploring how AI can surface cashback, apply rewards, and streamline checkout without disrupting user trust.
-          </TextContent>
+          </AccentText>
         </TextContainer>
-      </FullHeightTextSection>
+      </AccentBand>
 
       <RisoFlex>
         <SingleImage src={wallet} avif={walletAvif} webp={walletWebp} />
       </RisoFlex>
      
 
-   <FullHeightTextSection style={{ backgroundColor: '#fffbe6' }}>
+   <AccentBand $tone="cream">
         <TextContainer>
-          <TextContent style={{ color: '#5d5d5d', fontSize: '2.3rem', maxWidth: '50ch', lineHeight: '1.4', margin: '0' }}>
+          <AccentText>
             I worked across Bing Shopping, Microsoft Start, Windows, Outlook, and Copilot to create consistent commerce experiences at scale. This included Outlook shopping concepts for managing promotions, feed-based browsing, and unsubscribe flows. The goal was to unify shopping behavior across Microsoft’s surfaces while respecting context and user intent.
-          </TextContent>
+          </AccentText>
         </TextContainer>
-      </FullHeightTextSection>
+      </AccentBand>
 
       <RisoFlex>
         <SingleImage src={ruby} avif={rubyAvif} webp={rubyWebp} />

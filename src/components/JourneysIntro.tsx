@@ -18,7 +18,9 @@ function normalizeAssetUrl(url: string) {
 }
 
 const IntroSection = styled.section`
-  background: linear-gradient(135deg, #edf5ff 0%, #fbfdff 100%);
+  background: ${(p) => (p.theme.name === 'dark'
+    ? 'linear-gradient(135deg, #182032 0%, #14171f 100%)'
+    : 'linear-gradient(135deg, #edf5ff 0%, #fbfdff 100%)')};
   padding: 7rem 1.5rem;
   display: flex;
   align-items: center;
@@ -59,21 +61,21 @@ const Eyebrow = styled(motion.p)`
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #416287;
+  color: ${(p) => (p.theme.name === 'dark' ? '#8fb3df' : '#416287')};
 `;
 
 const IntroHeading = styled(motion.h2)`
   margin: 0;
   font-size: clamp(2.4rem, 4.5vw, 4.3rem);
   line-height: 0.96;
-  color: #0f172a;
+  color: ${(p) => p.theme.strongText};
 `;
 
 const IntroSubtitle = styled(motion.p)`
   margin: 0;
   font-size: 1rem;
   line-height: 1.72;
-  color: #475569;
+  color: ${(p) => p.theme.mutedText};
 
   @media (min-width: 768px) {
     font-size: 1.08rem;
@@ -86,9 +88,9 @@ const ImageColumn = styled(motion.div)`
   justify-content: center;
   border-radius: 24px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(65, 98, 135, 0.14);
-  box-shadow: 0 24px 50px rgba(83, 109, 144, 0.12);
+  background: ${(p) => (p.theme.name === 'dark' ? 'rgba(255, 255, 255, 0.04)' : 'rgba(255, 255, 255, 0.72)')};
+  border: 1px solid ${(p) => (p.theme.name === 'dark' ? 'rgba(143, 179, 223, 0.18)' : 'rgba(65, 98, 135, 0.14)')};
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.2);
 
   @media (max-width: 1023px) {
     order: -1;

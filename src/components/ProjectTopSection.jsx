@@ -60,7 +60,7 @@ const TopSectionText = styled.div`
     text-align: center;
     gap: 0.75rem;
     }
-      background: white;
+      background: transparent;
       padding: 0;
 `;
 
@@ -73,7 +73,7 @@ const TopSectionImage = styled.div`
   max-width: none;
   min-width: 0;
   min-height: 0;
-  background: white;
+  background: transparent;
   padding: 0;
   @media (max-width: 1000px) {
     justify-content: center;
@@ -133,7 +133,7 @@ const TopSectionTitle = styled.h1`
 
 const Divider = styled.div`
   height: 1px;
-  background: #e0e0e0;
+  background: ${(p) => p.theme.border};
   width: 48px;
   margin: 0.1em 0 0.3em 0;
 

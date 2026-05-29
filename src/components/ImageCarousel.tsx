@@ -36,11 +36,10 @@ const Frame = React.forwardRef<HTMLDivElement, React.ComponentProps<typeof motio
       style={{
         position: "relative",
         width: "100%",
-        borderRadius: "12px",
+        borderRadius: "8px",
         overflow: "hidden",
         aspectRatio: $aspectRatio || "3 / 2",
         maxHeight: "1080px",
-        border: "1px solid rgba(15, 23, 42, 0.08)",
         ...(style || {})
       }}
       {...rest}
@@ -131,7 +130,7 @@ const Dot = styled.button<{ $active: boolean }>`
   border: none;
   cursor: pointer;
   padding: 0;
-  background: ${(props) => (props.$active ? "#333" : "#ccc")};
+  background: ${(props) => (props.$active ? "var(--text-strong, #333)" : "var(--border, #ccc)")};
   transform: ${(props) => (props.$active ? "scale(1.3)" : "scale(1)")};
   transition: all 0.3s;
 `;

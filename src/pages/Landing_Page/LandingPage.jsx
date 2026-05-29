@@ -378,7 +378,7 @@ const Arrow = styled.div`
 // --- Projects Section Styles ---
 const ProjectsSection = styled.section`
   width: 100vw;
-  background: white;
+  background: ${(p) => p.theme.surface};
   padding: 14vh 5vw; /* slightly increased spacing above/below */
   box-sizing: border-box;
 
@@ -457,7 +457,7 @@ const TileTitle = styled.h3`
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 600;
   font-size: 1.15rem;
-  color: #111;
+  color: ${(p) => p.theme.strongText};
   transition: color 160ms ease;
 `;
 
@@ -465,7 +465,7 @@ const TileSubtitle = styled.p`
   margin: 0;
   font-family: 'Space Grotesk', sans-serif;
   font-size: 0.95rem;
-  color: #5d5d5d;
+  color: ${(p) => p.theme.mutedText};
 `;
 
 // Optional section header styles for re-use
@@ -488,17 +488,17 @@ const SectionTitle = styled.h2`
   margin: 0;
   font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(1.4rem, 3vw, 2rem);
-  color: #111;
+  color: ${(p) => p.theme.strongText};
 `;
 
 const SectionSubtitle = styled.p`
   margin: 0;
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1rem;
-  color: #5d5d5d;
+  color: ${(p) => p.theme.mutedText};
   text-align: right;
   a {
-    color: #5d5d5d;
+    color: ${(p) => p.theme.mutedText};
     text-decoration: none;
     transition: color 160ms ease;
   }
@@ -837,15 +837,15 @@ const LandingPage = ({ introDone = true }) => {
       <PortfolioCardsSection />
 
       {/* Module 2: Second Paragraph */}
-      <FullHeightTextSection style={{ backgroundColor: '#f7f7f7' }}>
+      <FullHeightTextSection style={{ backgroundColor: 'var(--surface-subtle, #f7f7f7)' }}>
         <TextContainer>
-          <TextContent style={{ color: '#5d5d5d' }}>
+          <TextContent style={{ color: 'var(--text-muted, #5d5d5d)' }}>
             I’ve partnered with agencies including{' '}
             <a
               href="https://www.publicisgroupe.com/en"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: '#5d5d5d', textDecoration: 'underline' }}
+              style={{ color: 'var(--text-muted, #5d5d5d)', textDecoration: 'underline' }}
             >
               Publicis Groupe
             </a>
@@ -854,7 +854,7 @@ const LandingPage = ({ introDone = true }) => {
               href="https://prairieandforge.com/"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: '#5d5d5d', textDecoration: 'underline' }}
+              style={{ color: 'var(--text-muted, #5d5d5d)', textDecoration: 'underline' }}
             >
               Prairie & Forge
             </a>
@@ -863,7 +863,7 @@ const LandingPage = ({ introDone = true }) => {
               href="https://varfaj.com/"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: '#5d5d5d', textDecoration: 'underline' }}
+              style={{ color: 'var(--text-muted, #5d5d5d)', textDecoration: 'underline' }}
             >
               Varfaj Partners
             </a>

@@ -1,4 +1,15 @@
 import React, { useLayoutEffect } from 'react';
+import styled from 'styled-components';
+
+const ThemedPanel = styled.div`
+  width: 100vw;
+  margin: 0 calc(50% - 50vw);
+  padding: 0;
+  background: ${(p) => (p.theme.name === 'dark' ? p.theme.surfaceMuted || p.theme.surface : '#f5f5f5')};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 // Assets
 import pitonlogo from '../../assets/FullLogo-02.png';
@@ -48,7 +59,9 @@ export default function Piton() {
     return (
         <StyledDiv>
       <RisoFlex style={{height: '100vh'}}>
-        <SingleImage src={pitonlogo} avif={pitonlogoAvif} webp={pitonlogoWebp} style={{ boxShadow: 'none' }} />
+        <div style={{ background: 'white', padding: '5vw 7vw', borderRadius: 24, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '60vw', maxWidth: 1000, boxSizing: 'border-box' }}>
+          <SingleImage src={pitonlogo} avif={pitonlogoAvif} webp={pitonlogoWebp} style={{ boxShadow: 'none', background: 'transparent', width: '100%', height: 'auto' }} />
+        </div>
       </RisoFlex>
 
        <ProjectDetailsContainer>
@@ -80,9 +93,9 @@ export default function Piton() {
            
 
             <FullBg src={pitoniphones} avif={pitoniphonesAvif} webp={pitoniphonesWebp} style={{ width: '100vw', maxWidth: '100vw', height: 'auto', objectFit: 'cover', display: 'block', margin: 0, padding: 0, borderRadius: 0 }} />
-             <FullHeightTextSection style={{ backgroundColor: 'white' }}>
+             <FullHeightTextSection>
   <TextContainer>
-    <TextContent style={{ color: '#5d5d5d'}}>
+    <TextContent>
       Piton is a startup focused on athleisure clothing with an accompanying workout app. The brand emphasizes social change and environmentalism. When exploring the initial designs, the idea was to use hands-free technology, something that wasn’t feasible at the time but is now possible with the integration of AI features. The app’s leading innovation is a voice-enabled feature that pairs with your headphones, allowing you to log workouts hands-free and receive real-time tips while exercising.
         <Seo {...projects.piton} sameAs={site.sameAs} keywords={projects.piton.keywords} siteDefaults={site} jsonLd={{
           '@context': 'https://schema.org',
@@ -99,14 +112,14 @@ export default function Piton() {
   </TextContainer>
 </FullHeightTextSection>
 
-      <div style={{ width: '100vw', margin: '0px calc(50% - 50vw)', padding: '0', background: '#f5f5f5', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <ThemedPanel>
         <div style={{ width: '60vw', margin: '0px auto', padding: '4vh 0 0 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <SingleImage alt="Piton App Screen 1" src={pitonscreens} avif={pitonscreensAvif} webp={pitonscreensWebp} style={{ width: '60vw', maxWidth: 800, height: 'auto', display: 'block', borderRadius: 16, boxShadow: 'none', background: '#f5f5f5' }} />
+          <SingleImage alt="Piton App Screen 1" src={pitonscreens} avif={pitonscreensAvif} webp={pitonscreensWebp} style={{ width: '60vw', maxWidth: 800, height: 'auto', display: 'block', borderRadius: 16, boxShadow: 'none', background: 'transparent' }} />
         </div>
         <div style={{ width: '60vw', margin: '0px auto', padding: '0 0 4vh 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <SingleImage alt="Piton App Screen 2" src={pitonscreens2} avif={pitonscreens2Avif} webp={pitonscreens2Webp} style={{ width: '60vw', maxWidth: 800, height: 'auto', display: 'block', borderRadius: 16, boxShadow: 'none', background: '#f5f5f5' }} />
+          <SingleImage alt="Piton App Screen 2" src={pitonscreens2} avif={pitonscreens2Avif} webp={pitonscreens2Webp} style={{ width: '60vw', maxWidth: 800, height: 'auto', display: 'block', borderRadius: 16, boxShadow: 'none', background: 'transparent' }} />
         </div>
-      </div>
+      </ThemedPanel>
 
            <FullBg
                 src={allpiton}

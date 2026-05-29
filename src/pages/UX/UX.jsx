@@ -25,9 +25,9 @@ import { FullHeightTextSection, TextContainer, TextContent } from '../../compone
 import { Seo } from '@zackmactavish/foundation';
 import { site, projects } from '../../data/metadata';
 
-// White background wrapper for Leysi content
+// Background wrapper for Leysi content (themes to dark surface in dark mode)
 const LeysiContainer = styled.div`
-  background-color: white;
+  background-color: ${(p) => (p.theme.name === 'dark' ? p.theme.surface : 'white')};
 `;
 
 export const FlexLeysi = styled.div`
@@ -92,29 +92,29 @@ export default function Ux() {
      <ProjectDetailsContainer>
   <ProjectDetails>
     <ProjectBlock>
-      <ProjectHeader style={{ color: 'rgb(46, 84, 78)' }}>Project Type</ProjectHeader>
-      <ProjectSubtitle style={{ color: 'rgb(60, 60, 60)' }}>
+      <ProjectHeader>Project Type</ProjectHeader>
+      <ProjectSubtitle>
         UX/UI, Branding, Strategy
       </ProjectSubtitle>
     </ProjectBlock>
 
     <ProjectBlock>
-      <ProjectHeader style={{ color: 'rgb(46, 84, 78)' }}>Digital Product</ProjectHeader>
-      <ProjectSubtitle style={{ color: 'rgb(60, 60, 60)' }}>
+      <ProjectHeader>Digital Product</ProjectHeader>
+      <ProjectSubtitle>
         Brand logo, and identity, and an IOS mobile app
       </ProjectSubtitle>
     </ProjectBlock>
 
     <ProjectBlock>
-      <ProjectHeader style={{ color: 'rgb(46, 84, 78)' }}>My Role</ProjectHeader>
-      <ProjectSubtitle style={{ color: 'rgb(60, 60, 60)' }}>
+      <ProjectHeader>My Role</ProjectHeader>
+      <ProjectSubtitle>
         Responsible for creating the brand logo, colors, and utilizing Apple's HIG for the V1 wireframes for Leysi's IOS app launch
       </ProjectSubtitle>
     </ProjectBlock>
 
     <ProjectBlock>
-      <ProjectHeader style={{ color: 'rgb(46, 84, 78)' }}>Timeframe</ProjectHeader>
-      <ProjectSubtitle style={{ color: 'rgb(60, 60, 60)' }}>
+      <ProjectHeader>Timeframe</ProjectHeader>
+      <ProjectSubtitle>
         3 months
       </ProjectSubtitle>
     </ProjectBlock>
@@ -141,9 +141,9 @@ export default function Ux() {
 </div>
 
         {/* Description */}
-       <FullHeightTextSection style={{ backgroundColor: 'white' }}>
+       <FullHeightTextSection>
   <TextContainer>
-    <TextContent style={{ color: '#5d5d5d' }}>
+    <TextContent>
      Leysi is the ultimate food platform designed for young adults. It helps users manage spending, engage with friends, and discover deals at local vendors within their campus community. I collaborated with Varfaj Partners to design the app for NYU students, taking responsibility for creating the brand identity and the initial app designs.
     </TextContent>
   </TextContainer>
@@ -177,8 +177,8 @@ export default function Ux() {
           <SingleImage src={leysimockup2} avif={leysimockup2Avif} webp={leysimockup2Webp} style={{ boxShadow: 'none' }} />
         </RisoFlex>
 
-        {/* Leysi Phones Two with full-width white background */}
-        <RisoFlex style={{ backgroundColor: '#FFFFFF', width: '100vw', padding: '4vw 0' }}>
+        {/* Leysi Phones Two with full-width background (themed) */}
+        <RisoFlex style={{ width: '100vw', padding: '4vw 0 10vw' }}>
           <SingleImage src={leysiphones2} avif={leysiphones2Avif} webp={leysiphones2Webp} style={{ boxShadow: 'none' }} />
         </RisoFlex>
 

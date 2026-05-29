@@ -23,7 +23,7 @@ import gigaTileWebp from "../assets/iphones—Mockup copy.webp";
 
 const Section = styled.section`
   width: 100vw;
-  background: white;
+  background: ${(p) => p.theme.surface};
   padding: 14vh 5vw;
   box-sizing: border-box;
 `;
@@ -34,7 +34,7 @@ const SectionTitle = styled.h2`
   margin: 0 0 2rem;
   font-family: "Space Grotesk", sans-serif;
   font-size: clamp(1.4rem, 3vw, 2rem);
-  color: #111;
+  color: ${(p) => p.theme.strongText};
 `;
 
 const Grid = styled.div`
@@ -65,7 +65,7 @@ const Tile = styled(Link)`
   border-radius: ${(p) => p.theme.radii.card};
   overflow: hidden;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  background-color: #f5f5f5;
+  background-color: ${(p) => p.theme.surfaceMuted};
   text-decoration: none;
   transition: transform 180ms ease, box-shadow 180ms ease;
 
@@ -114,7 +114,7 @@ const TileTitle = styled.h3`
   font-family: "Space Grotesk", sans-serif;
   font-weight: 600;
   font-size: 1.15rem;
-  color: #111;
+  color: ${(p) => p.theme.strongText};
   transition: color 160ms ease;
 `;
 
@@ -122,7 +122,7 @@ const TileSubtitle = styled.p`
   margin: 0;
   font-family: "Space Grotesk", sans-serif;
   font-size: 0.95rem;
-  color: #5d5d5d;
+  color: ${(p) => p.theme.mutedText};
 `;
 
 const ProjectCard = styled(Card)`

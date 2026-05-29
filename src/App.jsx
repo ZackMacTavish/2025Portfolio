@@ -75,13 +75,54 @@ function NavGate() {
   return <Nav />;
 }
 
+const THEME_STORAGE_KEY = "zm-theme-preference";
+
+const getInitialTheme = () => {
+  if (typeof window === "undefined") return "light";
+  try {
+    const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+    if (stored === "light" || stored === "dark") return stored;
+  } catch {
+    /* localStorage may be unavailable (privacy mode, SSR) */
+  }
+  if (window.matchMedia?.("(prefers-color-scheme: dark)").matches) return "dark";
+  return "light";
+};
+
 function App() {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(getInitialTheme);
+  const [hasManualThemeOverride, setHasManualThemeOverride] = useState(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+      return stored === "light" || stored === "dark";
+    } catch {
+      return false;
+    }
+  });
   const [showShortcutsHelp, setShowShortcutsHelp] = useState(false);
   const [showShortcutsPill, setShowShortcutsPill] = useState(false);
   const [enableCustomCursor, setEnableCustomCursor] = useState(false);
   const helpDialogRef = useRef(null);
   const lastFocusedElementRef = useRef(null);
+
+  // Reflect current theme on <html> so non-styled-components consumers
+  // (CSS files, inline styles via CSS vars, native form controls) can react.
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
+  // Follow OS theme until the user explicitly toggles. Once they override,
+  // we stop tracking the system pref to honor their choice.
+  useEffect(() => {
+    if (hasManualThemeOverride) return;
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const apply = () => setTheme(mq.matches ? "dark" : "light");
+    mq.addEventListener?.("change", apply);
+    return () => mq.removeEventListener?.("change", apply);
+  }, [hasManualThemeOverride]);
 
   // Only load the custom cursor on devices with a real pointer. Touch devices
   // gain nothing from it and shouldn't pay the JS/render cost.
@@ -95,10 +136,20 @@ function App() {
   }, []);
 
   const themeToggler = () => {
-    setTheme(theme === "light" ? "dark" : "light");
+    setTheme((prev) => {
+      const next = prev === "light" ? "dark" : "light";
+      try {
+        window.localStorage.setItem(THEME_STORAGE_KEY, next);
+      } catch {
+        /* ignore storage failures */
+      }
+      return next;
+    });
+    setHasManualThemeOverride(true);
   };
 
-  // Global shortcut: press ? to open shortcuts help, Escape to close it.
+  // Global shortcut: press ? to open shortcuts help, Escape to close it,
+  // press d (no modifiers) to toggle dark mode.
   useEffect(() => {
     const onKeyDown = (event) => {
       const target = event.target;
@@ -118,6 +169,17 @@ function App() {
 
       if (event.key === "Escape") {
         setShowShortcutsHelp(false);
+      }
+
+      // Avoid hijacking Cmd/Ctrl+D (bookmark) or any modified combo.
+      if (
+        (event.key === "d" || event.key === "D") &&
+        !event.metaKey &&
+        !event.ctrlKey &&
+        !event.altKey
+      ) {
+        event.preventDefault();
+        themeToggler();
       }
     };
 
@@ -242,7 +304,7 @@ function App() {
                 position: "fixed",
                 inset: 0,
                 zIndex: 120,
-                background: "rgba(0, 0, 0, 0.55)",
+                background: "var(--overlay-scrim, rgba(0, 0, 0, 0.55))",
                 display: "grid",
                 placeItems: "center",
                 padding: "1.25rem",
@@ -259,10 +321,10 @@ function App() {
                 onKeyDown={handleDialogKeyDown}
                 style={{
                   width: "min(520px, 100%)",
-                  background: "#ffffff",
-                  color: "#111827",
+                  background: "var(--dialog-bg, #ffffff)",
+                  color: "var(--dialog-text, #111827)",
                   borderRadius: "14px",
-                  border: "1px solid #e5e7eb",
+                  border: "1px solid var(--border, #e5e7eb)",
                   boxShadow: "0 30px 80px rgba(0, 0, 0, 0.35)",
                   padding: "1.2rem 1.2rem 1rem",
                 }}
@@ -286,8 +348,9 @@ function App() {
                     onClick={closeShortcutsHelp}
                     aria-label="Close keyboard shortcuts help"
                     style={{
-                      border: "1px solid #d1d5db",
-                      background: "#ffffff",
+                      border: "1px solid var(--pill-border, #d1d5db)",
+                      background: "var(--pill-bg, #ffffff)",
+                      color: "var(--pill-text, #111827)",
                       borderRadius: "8px",
                       padding: "0.25rem 0.5rem",
                       cursor: "pointer",
@@ -299,7 +362,7 @@ function App() {
 
                 <p
                   id="keyboard-shortcuts-description"
-                  style={{ margin: "0.75rem 0 1rem", color: "#4b5563", fontSize: "0.92rem" }}
+                  style={{ margin: "0.75rem 0 1rem", color: "var(--dialog-muted-text, #4b5563)", fontSize: "0.92rem" }}
                 >
                   Use these shortcuts to navigate transitions and media quickly.
                 </p>
@@ -308,6 +371,10 @@ function App() {
                   <li style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
                     <strong>? </strong>
                     <span>Open this help panel</span>
+                  </li>
+                  <li style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
+                    <strong>D</strong>
+                    <span>Toggle dark mode ({theme === "dark" ? "currently dark" : "currently light"})</span>
                   </li>
                   <li style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
                     <strong>Esc</strong>
