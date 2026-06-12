@@ -48,7 +48,6 @@ import {
 } from '../../components/GigaPrimitives';
 
 import { RisoFlex, SingleImage, DoubleImage, FullBg } from '../../components/CaseStudyPrimitives';
-import { PitonScreens } from '../UX/UX';
 
 export default function Piton() {
 
