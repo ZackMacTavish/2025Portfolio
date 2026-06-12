@@ -1,17 +1,16 @@
 import React, { useEffect, useLayoutEffect, useRef, useState, Suspense, lazy } from 'react';
 import styled from 'styled-components';
 import { shouldRunCardTransition } from '../../components/transitionGate';
+// Static import: CaseStudyTransition is already in the root bundle via
+// Nav -> CaseStudyTransitionLink, so a dynamic import here doesn't split it
+// out and only triggers a Vite mixed-import warning.
+import CaseStudyTransition from '../../components/CaseStudyTransition';
 
 // LandingPage is rendered immediately but covered by the intro overlay until
 // the wipe animation completes. Lazy-loading it keeps ~130KB of image URL
 // imports and below-the-fold components out of the root-route critical path;
 // the chunk loads in parallel with the intro animation.
 const LandingPage = lazy(() => import('../Landing_Page/LandingPage'));
-
-// The card-fan transition pulls in framer-motion; lazy-load it so the root
-// route paints without paying that cost. It only mounts after the
-// `shouldRunCardTransition` gate decides to run the animation.
-const CaseStudyTransition = lazy(() => import('../../components/CaseStudyTransition'));
 
 // Lightweight inline replacement for framer-motion's `useReducedMotion`.
 // Keeping this local removes the entire framer-motion package from the
@@ -315,15 +314,13 @@ export default function IntroAnimation() {
             <div style={{position: 'absolute', inset: 0, background: introBackground, zIndex: 1}} />
           )}
           {introCardsEnabled && introReady && (
-            <Suspense fallback={null}>
-              <CaseStudyTransition
-                images={introTransitionImages}
-                isActive={showIntro}
-                onComplete={handleTransitionComplete}
-                overlayColor={introWhite}
-                loadingBackgroundColor={introWhite}
-              />
-            </Suspense>
+            <CaseStudyTransition
+              images={introTransitionImages}
+              isActive={showIntro}
+              onComplete={handleTransitionComplete}
+              overlayColor={introWhite}
+              loadingBackgroundColor={introWhite}
+            />
           )}
           {/* On slower devices, show only the Zachary MacTavish intro animation. */}
           {introReady && (

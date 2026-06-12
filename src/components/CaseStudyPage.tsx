@@ -191,7 +191,7 @@ const HeroPeekImageContainer = styled.div<{ $backgroundColor?: string; $border?:
   position: relative;
   width: 100%;
   height: 100%;
-  background: ${({ $backgroundColor, theme }) => themedBg($backgroundColor, theme) || "transparent"};
+  background: ${({ $backgroundColor }) => $backgroundColor || "transparent"};
   padding-block: ${({ $backgroundColor }) => ($backgroundColor ? "clamp(1rem, 2vw, 1.5rem)" : "0")};
   border-radius: ${({ $backgroundColor }) => ($backgroundColor ? "24px" : "0")};
   ${({ $border }) => ($border ? `border: ${$border};` : "")}
