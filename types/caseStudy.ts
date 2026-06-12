@@ -137,6 +137,12 @@ interface CaseStudySection {
   /** Optional CSS padding override applied to the Section wrapper (e.g. "1rem 0" to tighten spacing within a grouped run) */
   sectionPadding?: string;
 
+  /** Optional color applied to the section heading (e.g. "#fff" for headings over dark sectionBackground) */
+  headingColor?: string;
+
+  /** Optional max-width applied to the inner content of layouts that can be narrowed and centered (currently honored by image-pair) */
+  contentMaxWidth?: string;
+
   /**
    * Optional sticky media/content payload for sticky-split layouts
    * Includes primary image, optional tags, and optional supporting thumbnails

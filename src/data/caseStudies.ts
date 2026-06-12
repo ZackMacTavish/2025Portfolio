@@ -2153,6 +2153,204 @@ export const outsourceCaseStudy: CaseStudy = {
   ],
 };
 
+export const leysiCaseStudy: CaseStudy = {
+  slug: "leysi",
+  title: "Leysi",
+  subtitle:
+    "Brand identity and iOS app design for a food-budgeting startup built by NYU students",
+  coverImage: {
+    src: "/assets/Leysi-White-01.png",
+    avif: "/assets/Leysi-White-01.avif",
+    webp: "/assets/Leysi-White-01.webp",
+    alt: "Leysi wordmark and icon",
+    aspectRatio: "16/9",
+    objectFit: "contain",
+    backgroundColor: "#ffffff",
+    containerBorder: "1px solid #e5e5e5",
+    containerShadow: "none",
+    mixBlendMode: "multiply",
+  },
+  transitionImages: [
+    {
+      src: "/assets/Leysi%E2%80%94iphones.png",
+      alt: "Transition 1 — Leysi iOS app on iPhones",
+    },
+    {
+      src: "/assets/Leysi-LG-02.png",
+      alt: "Transition 2 — Leysi mark on brand blue",
+    },
+    {
+      src: "/assets/LeysiApp%E2%80%94Screens%20copy.png",
+      alt: "Transition 3 — Leysi app screen flow",
+    },
+    {
+      src: "/assets/mobile-phone-1c.png",
+      alt: "Transition 4 — Leysi single device mockup",
+    },
+    {
+      src: "/assets/Untitled-1800-x-1024-px-1500-x-1024-px.png",
+      alt: "Transition 5 — Leysi launch composition",
+    },
+  ],
+  heroHeadline:
+    "Brand identity and an iOS launch for a food-budgeting app built by NYU students",
+  meta: {
+    client: "Leysi · Varfaj Partners (now Avenue Z)",
+    role: "Freelance Designer: Brand Identity & iOS Product",
+    timeline: "3 months",
+    platform: "iOS / Brand",
+  },
+  sections: [
+    {
+      id: "intro",
+      layout: "sticky-split",
+      stickyContent: {
+        image: {
+          src: "/assets/Leysi%E2%80%94iphones.png",
+          avif: "/assets/Leysi%E2%80%94iphones.avif",
+          webp: "/assets/Leysi%E2%80%94iphones.webp",
+          alt: "Leysi iOS app shown across iPhones",
+          aspectRatio: "4/3",
+          objectFit: "cover",
+          containerBorder: "1px solid #e5e5e5",
+        },
+        tags: ["UX/UI", "BRANDING", "iOS", "MOBILE"],
+      },
+    },
+    {
+      id: "background",
+      layout: "text-only",
+      sectionBackground: "#f5f5f5",
+      sectionPadding: "3.75rem 0 0.5rem",
+      heading: "Background",
+      body: `Leysi is a free iOS food-budgeting application designed for independent young adults — specifically college students learning to manage grocery and restaurant spending for the first time. The app was founded by NYU students and built around a focused premise: rather than overwhelming new earners with full financial portfolios, narrow the scope to food and build real money habits from there.\n\nThe startup came to Varfaj Partners for design support, and I was brought in as a freelance designer to lead two workstreams: brand identity and MVP product design.`,
+    },
+    {
+      id: "role",
+      layout: "text-only",
+      sectionBackground: "#f5f5f5",
+      sectionPadding: "0.5rem 0 1.5rem",
+      heading: "My Role",
+      body: `I was responsible for the brand logo and color system, and for completing the iOS app screens needed to reach launch. A Varfaj designer had established early directional work on the user flows before I joined, so part of my job was picking up an existing system thoughtfully — understanding the intent behind prior decisions and extending them rather than starting over.\n\nI worked within Apple's Human Interface Guidelines throughout to ensure the product felt native, polished, and consistent on iOS.`,
+    },
+    {
+      id: "app-screens",
+      layout: "full-width-image",
+      sectionBackground: "#f5f5f5",
+      sectionPadding: "1.5rem 0 3.75rem",
+      images: [
+        {
+          src: "/assets/LeysiApp%E2%80%94Screens%20copy.png",
+          avif: "/assets/LeysiApp%E2%80%94Screens%20copy.avif",
+          webp: "/assets/LeysiApp%E2%80%94Screens%20copy.webp",
+          alt: "Leysi MVP screen flow — dashboard, analytics, bank linking, and Leysi Map",
+          aspectRatio: "16/9",
+          objectFit: "cover",
+          backgroundColor: "#f5f5f5",
+        },
+      ],
+    },
+    {
+      id: "logo-design",
+      layout: "text-only",
+      sectionBackground: "#ffffff",
+      sectionPadding: "3.75rem 0 1.5rem",
+      heading: "Logo Design",
+      body: `The logo brief was open-ended: create something that captures both food and budgeting without leaning too heavily into either. Finance-forward marks tend to feel cold; food-forward marks lose the utility story. I wanted something that lived naturally in both.\n\nMy concept was an orange being peeled, with the inner slice shaped as a coin. The orange is familiar, warm, and food-adjacent — and the coin reframes it as something financial without any jargon. It felt like a metaphor that users in their early twenties could actually connect with.\n\nMy initial design centered on just the peel and coin. Through feedback from the Leysi founders, we evolved it to include a fork, knife, and plate — grounding the mark more explicitly in the food experience. The final logo holds both ideas in balance and became the foundation for the app's broader visual identity.`,
+    },
+    {
+      id: "logo-system",
+      layout: "image-pair",
+      sectionBackground: "#0A84E3",
+      heading: "Final Mark",
+      headingColor: "#ffffff",
+      body: `Applied across the brand's primary color, the final logo holds both metaphors at once — the orange peel and the coin — anchoring everything else the product would become.`,
+      images: [
+        {
+          src: "/assets/Leysi-LG-01.png",
+          avif: "/assets/Leysi-LG-01.avif",
+          webp: "/assets/Leysi-LG-01.webp",
+          alt: "Leysi logo applied on the brand blue, primary lockup",
+          objectFit: "contain",
+          backgroundColor: "#0A84E3",
+          containerShadow: "none",
+        },
+        {
+          src: "/assets/Leysi-LG-02.png",
+          avif: "/assets/Leysi-LG-02.avif",
+          webp: "/assets/Leysi-LG-02.webp",
+          alt: "Leysi logo applied on the brand blue, secondary composition",
+          objectFit: "contain",
+          backgroundColor: "#0A84E3",
+          containerShadow: "none",
+        },
+      ],
+    },
+    {
+      id: "product-design",
+      layout: "text-only",
+      sectionBackground: "#ffffff",
+      sectionPadding: "3.75rem 0 3.75rem",
+      heading: "Product Design",
+      body: `Leysi's core screens centered on a real-time dashboard showing daily spend, budget progress, and a Spend Per Day metric — all designed to give users an at-a-glance read of how their choices were affecting their budget in the moment. The app also included an analytics view for weekly and monthly trends, bank linking via Plaid, and a social discovery layer called Leysi Map for finding and sharing local restaurant recommendations.\n\nMy focus was on completing the MVP — filling in the remaining core screens and edge cases needed before the developers could build. Designing for this user meant keeping financial concepts approachable: clear hierarchy, plain language, and a gamified tone that made consistent tracking feel rewarding rather than disciplinary.`,
+    },
+    {
+      id: "single-device",
+      layout: "full-width-image",
+      sectionBackground: "#ffffff",
+      sectionPadding: "1.5rem 0 3.75rem",
+      images: [
+        {
+          src: "/assets/mobile-phone-1c.png",
+          avif: "/assets/mobile-phone-1c.avif",
+          webp: "/assets/mobile-phone-1c.webp",
+          alt: "Leysi dashboard on a single iPhone",
+          aspectRatio: "16/10",
+          objectFit: "contain",
+          backgroundColor: "#ffffff",
+          containerShadow: "none",
+        },
+      ],
+    },
+    {
+      id: "launch-composition",
+      layout: "full-width-image",
+      sectionBackground: "#f5f5f5",
+      sectionPadding: "3.75rem 0 1.5rem",
+      images: [
+        {
+          src: "/assets/Untitled-1800-x-1024-px-1500-x-1024-px.png",
+          avif: "/assets/Untitled-1800-x-1024-px-1500-x-1024-px.avif",
+          webp: "/assets/Untitled-1800-x-1024-px-1500-x-1024-px.webp",
+          alt: "Leysi launch composition across multiple iPhones",
+          aspectRatio: "16/9",
+          objectFit: "contain",
+          backgroundColor: "#ffffff",
+          borderRadius: "12px",
+          imagePaddingBlock: "2.5rem",
+          containerShadow: "none",
+        },
+      ],
+    },
+    {
+      id: "outcome",
+      layout: "text-only",
+      sectionBackground: "#f5f5f5",
+      sectionPadding: "1.5rem 0 0.5rem",
+      heading: "Outcome",
+      body: `Leysi launched on the App Store and was used within the NYU student community. The project has since wound down, but it was a tight, focused engagement — a good example of freelance design work that required both brand thinking and product execution within a short runway.`,
+    },
+    {
+      id: "credits",
+      layout: "text-only",
+      sectionBackground: "#f5f5f5",
+      sectionPadding: "0.5rem 0 3.75rem",
+      heading: "Team",
+      body: `Founders: Leysi Team\n\nDesigners: Zachary MacTavish & Varfaj Partners team\n\nDevelopment: Varfaj Partners team`,
+    },
+  ],
+};
+
 /**
  * Export array of case studies
  * Ready to be extended with additional studies
@@ -2165,4 +2363,5 @@ export const caseStudies: CaseStudy[] = [
   videoCommerceCaseStudy,
   ironlakInternshipCaseStudy,
   outsourceCaseStudy,
+  leysiCaseStudy,
 ];

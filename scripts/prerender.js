@@ -155,6 +155,18 @@ async function prerender() {
   });
         const html = await page.content();
 
+        // Strip the prerender server's origin from any URLs that were
+        // serialized as absolute. With Vite's `base: "./"`, React's runtime
+        // modulepreload injection and Vite's image-import URL normalization
+        // resolve relative asset paths against the current document origin,
+        // so `page.content()` writes them out as `http://localhost:<PORT>/...`.
+        // If we ship those, every visitor's browser will issue requests to
+        // their own localhost — which trips Chrome's Local Network Access
+        // permission prompt ("Access other apps and services on this device").
+        // Convert them to root-relative URLs so they work on any host.
+        const originRe = new RegExp(`https?://(?:localhost|127\\.0\\.0\\.1)(?::${PORT})?`, 'g');
+        const cleanedHtml = html.replace(originRe, '');
+
         // Determine output path
         const outDir = path.join(DIST_DIR, route.replace(/^\//, ''));
         const outPath = route === '/' || route === '/index/' ? path.join(DIST_DIR, 'index.html') : path.join(outDir, 'index.html');
@@ -162,7 +174,7 @@ async function prerender() {
         // Ensure directory exists
         const dirToEnsure = path.dirname(outPath);
         fs.mkdirSync(dirToEnsure, { recursive: true });
-        fs.writeFileSync(outPath, html, 'utf8');
+        fs.writeFileSync(outPath, cleanedHtml, 'utf8');
         console.log('Wrote', outPath);
       } catch (err) {
         console.error('Failed to prerender', url, err);

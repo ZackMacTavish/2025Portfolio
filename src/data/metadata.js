@@ -92,11 +92,22 @@ export const projects = {
     keywords: ['piton', 'branding', 'app design'],
   },
   ux: {
-    title: 'Leysi — Product & UX | Zack MacTavish',
-    description: 'Case study: Leysi — UX and product design by Zack MacTavish.',
+    title: 'Leysi — Brand Identity & iOS App Design | Zack MacTavish',
+    description:
+      'Case study: Leysi — brand identity and iOS app design for a food-budgeting startup built by NYU students, designed in collaboration with Varfaj Partners (now Avenue Z).',
     url: `${SITE_URL}/Ux`,
     image: `${SITE_URL}/assets/og/ux-1200x630.jpg`,
-    keywords: ['leysi', 'ux', 'product design'],
+    keywords: [
+      'leysi',
+      'brand identity',
+      'logo design',
+      'ios app',
+      'food budgeting',
+      'fintech',
+      'mobile ux',
+      'varfaj partners',
+      'avenue z',
+    ],
   },
   'access-direct': {
     title: 'Access Direct — UX & Brand | Zack MacTavish',

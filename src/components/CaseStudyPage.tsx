@@ -187,13 +187,14 @@ const SkeletonLoader = styled(motion.div)`
   }
 `;
 
-const HeroPeekImageContainer = styled.div<{ $backgroundColor?: string }>`
+const HeroPeekImageContainer = styled.div<{ $backgroundColor?: string; $border?: string }>`
   position: relative;
   width: 100%;
   height: 100%;
   background: ${({ $backgroundColor, theme }) => themedBg($backgroundColor, theme) || "transparent"};
   padding-block: ${({ $backgroundColor }) => ($backgroundColor ? "clamp(1rem, 2vw, 1.5rem)" : "0")};
   border-radius: ${({ $backgroundColor }) => ($backgroundColor ? "24px" : "0")};
+  ${({ $border }) => ($border ? `border: ${$border};` : "")}
   overflow: hidden;
 `;
 
@@ -352,6 +353,7 @@ const ImagePairGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.75rem;
+  align-items: center;
 
   @media (min-width: 900px) {
     grid-template-columns: 1fr 1fr;
@@ -1385,8 +1387,18 @@ export default memo(function CaseStudyPage({
 
   const renderImagePair = (section: CaseStudySection) => (
     <div key={section.id}>
-      {section.heading && <SectionHeading>{section.heading}</SectionHeading>}
-      <ImagePairGrid>
+      {section.heading && (
+        <SectionHeading style={section.headingColor ? { color: section.headingColor } : undefined}>
+          {section.heading}
+        </SectionHeading>
+      )}
+      <ImagePairGrid
+        style={
+          section.contentMaxWidth
+            ? { maxWidth: section.contentMaxWidth, marginInline: "auto" }
+            : undefined
+        }
+      >
         {section.images &&
           section.images.slice(0, 2).map((image, idx) => (
             <GalleryImage
@@ -1829,6 +1841,7 @@ export default memo(function CaseStudyPage({
                   objectFit={stickyImage.objectFit || "cover"}
                   objectPosition={stickyImage.objectPosition || "center"}
                   border={stickyImage.containerBorder}
+                  mixBlendMode={stickyImage.mixBlendMode}
                 />
               </StickyHeroFrame>
             )}
@@ -2037,7 +2050,10 @@ export default memo(function CaseStudyPage({
         </HeroContent>
 
         <HeroPeekImageWrap>
-          <HeroPeekImageContainer $backgroundColor={heroImage.backgroundColor}>
+          <HeroPeekImageContainer
+            $backgroundColor={heroImage.backgroundColor}
+            $border={heroImage.backgroundColor ? heroImage.containerBorder : undefined}
+          >
             <HeroPeekImage
               src={heroImage.src}
               alt={heroImage.alt}
@@ -2048,7 +2064,7 @@ export default memo(function CaseStudyPage({
               objectFit={heroImage.objectFit || "cover"}
               objectPosition={heroImage.objectPosition || "center"}
               imageScale={1}
-              border={heroImage.containerBorder}
+              border={heroImage.backgroundColor ? undefined : heroImage.containerBorder}
               onLoad={() => setHeroImageLoaded(true)}
             />
             {!heroImageLoaded && (

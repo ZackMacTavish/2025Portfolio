@@ -1,198 +1,90 @@
-import React, { useLayoutEffect } from 'react';
-import styled from 'styled-components';
-import {  ProjectDetails, ProjectHeader, ProjectSubtitle, ProjectDetailsContainer, ProjectBlock, RisoItemtwo, StyledDiv } from '../../components/GigaPrimitives';
-import { FullBg, RisoFlex, SingleImage, DoubleImage } from '../../components/CaseStudyPrimitives';
+import { useLayoutEffect } from "react";
+import { motion } from "framer-motion";
+import styled from "styled-components";
+import { Seo } from "@zackmactavish/foundation";
+import CaseStudyPage from "../../components/CaseStudyPage";
+import PortfolioCardsSection from "../../components/PortfolioCardsSection";
+import Socials from "../../components/Social Bar/Socials";
+import Grid60 from "../../components/Layout/Grid60";
+import { caseStudies } from "../../data/caseStudies";
+import { site, projects } from "../../data/metadata";
 
-// Assets
-import LeysiLogo from '../../assets/Leysi-White-01.jpg';
-import LeysiBlue from '../../assets/Leysi-LG-02.jpg';
-import LeysiBlueAvif from '../../assets/Leysi-LG-02.avif';
-import LeysiBlueWebp from '../../assets/Leysi-LG-02.webp';
-import LeysiBluetwo from '../../assets/Leysi-LG-01.jpg';
-import LeysiBluetwoAvif from '../../assets/Leysi-LG-01.avif';
-import LeysiBluetwoWebp from '../../assets/Leysi-LG-01.webp';
-import leysimockup2 from '../../assets/mobile-phone-1c.png';
-import leysimockup2Avif from '../../assets/mobile-phone-1c.avif';
-import leysimockup2Webp from '../../assets/mobile-phone-1c.webp';
-import leysiphonesAvif from '../../assets/Leysi—iphones.avif';
-import leysiphonesWebp from '../../assets/Leysi—iphones.webp';
-import leysiphonesJpg from '../../assets/Leysi—iphones.jpg';
-import leysiscreens from '../../assets/LeysiApp—Screens copy.jpg';
-import leysiphones2 from '../../assets/Untitled-1800-x-1024-px-1500-x-1024-px.png';
-import leysiphones2Avif from '../../assets/Untitled-1800-x-1024-px-1500-x-1024-px.avif';
-import leysiphones2Webp from '../../assets/Untitled-1800-x-1024-px-1500-x-1024-px.webp';
-import { FullHeightTextSection, TextContainer, TextContent } from '../../components/CaseStudyPrimitives';
-import { Seo } from '@zackmactavish/foundation';
-import { site, projects } from '../../data/metadata';
-
-// Background wrapper for Leysi content (themes to dark surface in dark mode)
-const LeysiContainer = styled.div`
-  background-color: ${(p) => (p.theme.name === 'dark' ? p.theme.surface : 'white')};
-`;
-
-export const FlexLeysi = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  height: 100dvh;
-  width: 100vw;
-
-  @media(max-width: 450px) {
-    height: 40vh;
-  }
-`;
-
-export const PitonScreens = styled.div`
-  display: grid;
-  grid-template-columns: ${(props) => props.ColumnsSet};
-  grid-template-rows: ${(props) => props.RowsSet || '1vh 15vh 1vh'};
-  height: 38vh;
-  width: 100vw;
-
-  @media (max-width: 850px) {
-    grid-template-columns: 100vw;
-    grid-template-rows: 2vw auto 2vw;
-    height: auto;
-  }
+const ViewingContainer = styled(motion.div)`
+  position: relative;
 `;
 
 export default function Ux() {
+  const caseStudy = caseStudies.find((item) => item.slug === "leysi");
+
   useLayoutEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }, []);
 
+  if (!caseStudy) return null;
+
   return (
-    <StyledDiv>
-      <Seo {...projects.ux} sameAs={site.sameAs} keywords={projects.ux.keywords} siteDefaults={site} jsonLd={{
-        '@context': 'https://schema.org',
-        '@type': 'CreativeWork',
-        headline: projects.ux.title,
-        description: projects.ux.description,
-        image: projects.ux.image,
-        author: { '@type': 'Person', name: site.name, url: `${site.url}/MacTavish` },
-        url: projects.ux.url,
-        keywords: projects.ux.keywords,
-      }} />
-      {/* Leysi white background wrapper */}
-      <LeysiContainer>
-
-        {/* Logo Section */}
-        <FlexLeysi>
-          <RisoItemtwo
-  style={{
-    borderRadius: '10px',
-    boxShadow: 'none'   // removes the shadow
-  }}
-  src={LeysiLogo}
-/> 
-        </FlexLeysi>
-
-        {/* Project Details */}
-     <ProjectDetailsContainer>
-  <ProjectDetails>
-    <ProjectBlock>
-      <ProjectHeader>Project Type</ProjectHeader>
-      <ProjectSubtitle>
-        UX/UI, Branding, Strategy
-      </ProjectSubtitle>
-    </ProjectBlock>
-
-    <ProjectBlock>
-      <ProjectHeader>Digital Product</ProjectHeader>
-      <ProjectSubtitle>
-        Brand logo, and identity, and an IOS mobile app
-      </ProjectSubtitle>
-    </ProjectBlock>
-
-    <ProjectBlock>
-      <ProjectHeader>My Role</ProjectHeader>
-      <ProjectSubtitle>
-        Responsible for creating the brand logo, colors, and utilizing Apple's HIG for the V1 wireframes for Leysi's IOS app launch
-      </ProjectSubtitle>
-    </ProjectBlock>
-
-    <ProjectBlock>
-      <ProjectHeader>Timeframe</ProjectHeader>
-      <ProjectSubtitle>
-        3 months
-      </ProjectSubtitle>
-    </ProjectBlock>
-  </ProjectDetails>
-</ProjectDetailsContainer>
-
-        {/* Full Background Image */}
-    <div style={{ width: '100vw', overflow: 'hidden' }}>
-  <FullBg
-  src={leysiphonesAvif}
-  webp={leysiphonesWebp}
-  fallback={leysiphonesJpg}
-    style={{
-      display: 'block',
-      width: '100vw',
-      maxWidth: '100vw',
-      height: 'auto',
-      objectFit: 'cover',
-      margin: 0,
-      padding: 0,
-      borderRadius: 0
-    }}
-  />
-</div>
-
-        {/* Description */}
-       <FullHeightTextSection>
-  <TextContainer>
-    <TextContent>
-     Leysi is the ultimate food platform designed for young adults. It helps users manage spending, engage with friends, and discover deals at local vendors within their campus community. I collaborated with Varfaj Partners to design the app for NYU students, taking responsibility for creating the brand identity and the initial app designs.
-    </TextContent>
-  </TextContainer>
-</FullHeightTextSection>
-
-        {/* Blue Background Sections */}
-        <RisoFlex style={{ backgroundColor: '#0A84E3', padding: '6vh 0' }}>
-          <SingleImage src={LeysiBlue} avif={LeysiBlueAvif} webp={LeysiBlueWebp} />
-        </RisoFlex>
-
-        <RisoFlex style={{ backgroundColor: '#0A84E3', padding: '4vh 0' }}>
-          <SingleImage src={LeysiBluetwo} avif={LeysiBluetwoAvif} webp={LeysiBluetwoWebp} />
-        </RisoFlex>
-
-        {/* Screenshots */}
-       <div style={{ width: '100vw', overflow: 'hidden' }}>
-  <FullBg
-    src={leysiscreens}
-    style={{
-      display: 'block',
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover',
-      margin: 0,
-      padding: 0
-    }}
-  />
-</div>
-
-        <RisoFlex>
-          <SingleImage src={leysimockup2} avif={leysimockup2Avif} webp={leysimockup2Webp} style={{ boxShadow: 'none' }} />
-        </RisoFlex>
-
-        {/* Leysi Phones Two with full-width background (themed) */}
-        <RisoFlex style={{ width: '100vw', padding: '4vw 0 10vw' }}>
-          <SingleImage src={leysiphones2} avif={leysiphones2Avif} webp={leysiphones2Webp} style={{ boxShadow: 'none' }} />
-        </RisoFlex>
-
-        {/* Footer / Team Credits */}
-        <FullHeightTextSection style={{ backgroundColor: 'black' }}>
-  <TextContainer>
-      <TextContent style={{ color: 'white', textAlign: 'center', lineHeight: 1.5 }}>
-    Founders — Leysi Team<br />
-    Designers — Zachary MacTavish & Varfaj Team<br />
-    Development — Varfaj Team
-      </TextContent>
-  </TextContainer>
-</FullHeightTextSection>
-      </LeysiContainer>
-    </StyledDiv>
+    <ViewingContainer
+      initial={false}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Seo
+        {...projects.ux}
+        sameAs={site.sameAs}
+        keywords={projects.ux.keywords}
+        siteDefaults={site}
+      />
+      <CaseStudyPage caseStudy={caseStudy} />
+      <div
+        style={{
+          borderTop: "1px solid var(--border, #d1d5db)",
+          width: "100vw",
+          position: "relative",
+          left: 0,
+          right: 0,
+        }}
+      />
+      <PortfolioCardsSection />
+      <Grid60
+        style={{
+          paddingTop: "1.5rem",
+          paddingBottom: "4rem",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <Socials />
+        <a
+          href="https://zackmactavish.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontFamily: "Space Grotesk, sans-serif",
+            fontWeight: 600,
+            fontSize: "1.1rem",
+            color: "#fff",
+            textDecoration: "none",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.4em",
+            transition: "color 0.18s",
+          }}
+        >
+          Art Portfolio{" "}
+          <span
+            style={{
+              fontSize: "1.3em",
+              lineHeight: 1,
+              display: "inline-block",
+              transform: "translateY(1px)",
+            }}
+          >
+            &rarr;
+          </span>
+        </a>
+      </Grid60>
+    </ViewingContainer>
   );
 }
