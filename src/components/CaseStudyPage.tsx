@@ -1345,6 +1345,7 @@ export default memo(function CaseStudyPage({
               objectPosition={image.objectPosition}
               backgroundColor={image.backgroundColor}
               imagePaddingBlock={image.imagePaddingBlock}
+              imageScale={image.imageScale}
               border={image.containerBorder}
               mixBlendMode={image.mixBlendMode}
               style={{ width: "100%" }}
@@ -1840,6 +1841,7 @@ export default memo(function CaseStudyPage({
                   imagePaddingBlock={stickyImage.imagePaddingBlock}
                   objectFit={stickyImage.objectFit || "cover"}
                   objectPosition={stickyImage.objectPosition || "center"}
+                  imageScale={stickyImage.imageScale}
                   border={stickyImage.containerBorder}
                   mixBlendMode={stickyImage.mixBlendMode}
                 />
