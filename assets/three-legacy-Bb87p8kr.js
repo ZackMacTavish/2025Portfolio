@@ -1,6 +1,0 @@
-System.register(["./three-legacy-pzFKRJSU.js","./vendor-legacy-Dy2oZrq6.js","./LandingPage-legacy-L7O6wEi8.js","./metadata-legacy-CqQNvn2j.js","./index-legacy-CsTpLS3N.js","./Grid60-legacy-3l6DcIU9.js","./CaseStudyPrimitives-legacy-DBpwZTJe.js","./Socials-legacy-lYstv_VZ.js","./index-legacy-rMHrgVJl.js"],function(e,t){"use strict";var s,r,a,n,c,l,i,o,d;return{setters:[e=>{s=e.j,r=e.C,a=e.u,n=e.a,c=e.R,l=e.T},e=>{i=e.b,o=e.c},e=>{d=e.w},null,null,null,null,null,null],execute:function(){const t=o.div`
-  width: 100vw;
-  height: 100vh;
-  height: 100dvh;
-  background-color: black;
-`,u=()=>{const e=i.useRef(),t=i.useRef("undefined"!=typeof window&&window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches);a(({clock:s})=>{if(!e.current||t.current)return;const r=s.getElapsedTime(),a=e.current.geometry.attributes.position;for(let e=0;e<a.count;e++){const t=a.getX(e),s=a.getY(e),n=.15*Math.sin(3*t+r)+.15*Math.cos(3*s+r);a.setZ(e,n)}a.needsUpdate=!0});const[r]=n(l,[d]);return r.wrapS=r.wrapT=c,r.repeat.set(1,1),s.jsxs("mesh",{ref:e,children:[s.jsx("planeGeometry",{args:[3,3,32,32]}),s.jsx("meshBasicMaterial",{map:r})]})};e("default",()=>s.jsx(t,{children:s.jsx(r,{camera:{fov:50,position:[0,0,4]},dpr:[1,1.5],gl:{antialias:!1,powerPreference:"low-power"},children:s.jsx(i.Suspense,{fallback:null,children:s.jsx(u,{})})})}))}}});
