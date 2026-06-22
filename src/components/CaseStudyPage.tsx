@@ -82,11 +82,13 @@ const HeroSection = styled.section`
   overflow: hidden;
   min-height: 110vh;
   background: ${(p) => p.theme.surfaceMuted};
-  padding: 5rem 1.5rem 10rem;
+  /* Horizontal gutter lives on HeroContent (mirroring SectionContent) so the
+     hero headline/metadata align with every body section's grid. */
+  padding: 5rem 0 10rem;
 
   @media (min-width: 768px) {
     min-height: 116vh;
-    padding: 7rem 1.5rem 16rem;
+    padding: 7rem 0 16rem;
   }
 
   @media (max-height: 980px) and (min-width: 901px) {
@@ -94,7 +96,7 @@ const HeroSection = styled.section`
     flex-direction: column;
     gap: clamp(1rem, 2vh, 1.5rem);
     min-height: auto;
-    padding: 6rem 1.5rem 3rem;
+    padding: 6rem 0 3rem;
   }
 
   @media (max-width: 900px) {
@@ -102,15 +104,29 @@ const HeroSection = styled.section`
     flex-direction: column;
     gap: clamp(1rem, 3vw, 1.75rem);
     min-height: auto;
-    padding: 4.5rem 1.25rem 2rem;
+    /* Clear the fixed ~73px site header so the metadata bar doesn't touch it. */
+    padding: 7rem 0 2rem;
   }
 `;
 
 const HeroContent = styled.div`
   position: relative;
   z-index: 2;
+  box-sizing: border-box;
   margin: 0 auto;
+  /* width:100% so that as a flex item (the hero becomes a flex column on
+     short/!mobile viewports) it fills to the 64rem cap and aligns with the
+     body SectionContent grid, instead of shrinking to its content width. */
+  width: 100%;
   max-width: 64rem;
+  /* Match SectionContent's inner gutter so the hero aligns with body sections */
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+
+  @media (max-width: 480px) {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
 `;
 
 const HeroTopAction = styled.div`
@@ -122,7 +138,13 @@ const HeroPeekImageWrap = styled.div`
   left: 50%;
   bottom: -6%;
   transform: translateX(-50%);
-  width: min(64rem, 92vw);
+  box-sizing: border-box;
+  /* Match SectionContent exactly (width:100% capped at 64rem + 1.5rem gutter)
+     so the hero image tracks the body grid at every width. Using vw here
+     pinched the image inward between ~900–1093px. */
+  width: 100%;
+  max-width: 64rem;
+  padding: 0 1.5rem;
   z-index: 1;
   pointer-events: none;
 
@@ -138,6 +160,7 @@ const HeroPeekImageWrap = styled.div`
     transform: none;
     width: 100%;
     max-width: 100%;
+    padding: 0 1.5rem;
     margin: 1rem auto 0;
   }
 
@@ -151,9 +174,14 @@ const HeroPeekImageWrap = styled.div`
     left: auto;
     bottom: auto;
     transform: none;
-    width: min(64rem, 88vw);
-    max-width: 100%;
+    width: 100%;
+    max-width: 64rem;
+    padding: 0 1.5rem;
     margin: 0 auto;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 1.25rem;
   }
 `;
 
@@ -270,8 +298,16 @@ const Section = styled.section<{ $background: string; $compact: boolean; $paddin
 `;
 
 const SectionContent = styled.div`
+  box-sizing: border-box;
   margin: 0 auto;
   max-width: 64rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+
+  @media (max-width: 480px) {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
 `;
 
 const SectionHeadingBase = styled.h2`
@@ -709,25 +745,33 @@ const StickySplitWrapper = styled.section`
 `;
 
 const StickyColumn = styled.div<{ $background?: string }>`
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  /* Body-width (not 100vw) so inner content lines up with the standard
+     Section/SectionContent grid. A 100vw full-bleed here includes the
+     scrollbar width and shifts the centered content ~half a scrollbar off. */
+  width: 100%;
   padding: 0;
   background: ${(p) => themedBg(p.$background, p.theme) || p.theme.surface};
 `;
 
 const StickyMediaPin = styled.div<{ $fullBleed?: boolean }>`
   position: relative;
-  width: min(64rem, 92vw);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 64rem;
   margin: 0 auto;
+  /* Match the standard SectionContent grid so this module aligns with the
+     text/image sections above and below it at every breakpoint */
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
   padding-top: ${(props) => (props.$fullBleed ? "0" : "3rem")};
 
-  @media (max-width: 1024px) {
-    width: min(72vw, 980px);
+  @media (max-width: 768px) {
+    padding-top: ${(props) => (props.$fullBleed ? "0" : "2rem")};
   }
 
-  @media (max-width: 768px) {
-    width: calc(100vw - 2.5rem);
-    padding-top: ${(props) => (props.$fullBleed ? "0" : "2rem")};
+  @media (max-width: 480px) {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
 `;
 
@@ -755,7 +799,7 @@ const StickyHeroImage = styled(ResponsiveImage)`
 
 const TagsRow = styled.div`
   margin-top: 2.5rem;
-  padding: 0 1.25rem;
+  padding: 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -781,29 +825,31 @@ const CollateralMediaWrap = styled.div`
 `;
 
 const ScrollColumn = styled.div`
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
   padding: 3.5rem 0 3rem;
   background: ${(p) => (p.theme.name === "dark" ? p.theme.surfaceMuted : "#f0efeb")};
 
+  /* Inner blocks mirror SectionContent so the overview/scroll content aligns
+     with the hero metadata and every body section on the 64rem grid. */
   > * {
-    width: min(65vw, 1080px);
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 64rem;
     margin-left: auto;
     margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 480px) {
     > * {
-      width: min(72vw, 980px);
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
     }
   }
 
   @media (max-width: 768px) {
     padding: 2.5rem 0 2.5rem;
-
-    > * {
-      width: calc(100vw - 2.5rem);
-    }
   }
 `;
 

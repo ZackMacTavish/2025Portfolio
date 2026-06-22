@@ -36,7 +36,7 @@ const TopSectionContainer = styled.div`
       align-items: stretch;
       width: 100vw;
       max-width: 100vw;
-      gap: 2vh;
+      gap: 0.75rem;
       margin: 0 auto 4vh auto;
       padding-left: 2vw;
       padding-right: 2vw;
@@ -78,7 +78,7 @@ const TopSectionImage = styled.div`
   @media (max-width: 1000px) {
     justify-content: center;
     width: 100%;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
   }
   @media (max-width: 850px) {
     margin-top: 0;
@@ -100,15 +100,18 @@ const TopSectionImageStyled = styled.img`
   object-fit: contain;
   display: block;
   margin: 0 auto;
+  /* Opt-in: flip a monochrome black logo to white so it pops on the dark
+     surface instead of disappearing into it. */
+  ${(p) => (p.$invertOnDark && p.theme.name === 'dark' ? 'filter: invert(1);' : '')}
   @media (max-width: 1000px) {
-    width: 98vw;
-    max-width: 98vw;
+    width: 100%;
+    max-width: 340px;
     min-width: 0;
     margin: 0 auto;
   }
   @media (max-width: 850px) {
     width: 100%;
-    max-width: 100vw;
+    max-width: 260px;
     min-width: 0;
     height: auto;
     margin-bottom: 0;
@@ -162,6 +165,9 @@ export default function ProjectTopSection({
   // appearing above the fold.
   imageNaturalWidth = null,
   imageNaturalHeight = null,
+  // Flip a monochrome (black) logo to white in dark mode so it stays legible
+  // against dark surfaces.
+  invertOnDark = false,
 }) {
   const imageBasePath = imageBaseName
     ? `${imageBaseName.startsWith('assets/') ? '/' : '/src/'}${imageBaseName}`
@@ -169,9 +175,16 @@ export default function ProjectTopSection({
   const normalizedImageAvif = imageBasePath ? normalizeAssetUrl(`${imageBasePath}.avif`) : null;
   const normalizedImageWebp = imageBasePath ? normalizeAssetUrl(`${imageBasePath}.webp`) : null;
   const normalizedImageSrc = imageBasePath ? normalizeAssetUrl(`${imageBasePath}.${imageExt || 'jpg'}`) : null;
-  const mobileAvif = findMobileVariant(normalizedImageAvif);
-  const mobileWebp = findMobileVariant(normalizedImageWebp);
-  const mobileSrc = findMobileVariant(normalizedImageSrc);
+  // The build only generates `-mobile-900` variants for images whose longest
+  // edge exceeds 900px. Requesting a mobile source for a smaller image (e.g. the
+  // 785px logo) points a matched <source> at a file that doesn't exist; a
+  // <picture> does NOT fall through on a 404, so the image breaks on ≤900px.
+  // Only look up mobile variants when we know one would have been generated.
+  const hasMobileVariant =
+    Math.max(imageNaturalWidth || 0, imageNaturalHeight || 0) > 900;
+  const mobileAvif = hasMobileVariant ? findMobileVariant(normalizedImageAvif) : null;
+  const mobileWebp = hasMobileVariant ? findMobileVariant(normalizedImageWebp) : null;
+  const mobileSrc = hasMobileVariant ? findMobileVariant(normalizedImageSrc) : null;
 
   return (
     <>
@@ -208,6 +221,7 @@ export default function ProjectTopSection({
                 src={normalizedImageSrc}
                 alt={imageAlt}
                 $imageWidth={$imageWidth}
+                $invertOnDark={invertOnDark}
                 width={imageNaturalWidth || undefined}
                 height={imageNaturalHeight || undefined}
                 fetchPriority="high"

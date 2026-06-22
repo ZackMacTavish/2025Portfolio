@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FiLock } from "react-icons/fi";
-import Grid60 from "./Layout/Grid60";
 import { SingleImage } from "./CaseStudyPrimitives";
 import CaseStudyTransitionLink from "./CaseStudyTransitionLink";
 
@@ -22,13 +21,28 @@ import gigaTileAvif from "../assets/iphones—Mockup copy.avif";
 import gigaTileWebp from "../assets/iphones—Mockup copy.webp";
 
 const Section = styled.section`
-  width: 100vw;
+  width: 100%;
   background: ${(p) => p.theme.surface};
-  padding: 14vh 5vw;
+  /* Vertical rhythm only; horizontal alignment is owned by Inner so the cards
+     track the same 64rem grid as the case study body sections above. */
+  padding: 14vh 0;
   box-sizing: border-box;
 `;
 
-const Inner = styled(Grid60)``;
+/* Match the case study SectionContent grid (64rem cap + 1.5rem gutter) so the
+   cards line up with every section above instead of the legacy 60vw/1100px
+   Grid60 (which rendered ~698px wide and offset to the right). */
+const Inner = styled.div`
+  width: 100%;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+
+  @media (max-width: 480px) {
+    padding: 0 1.25rem;
+  }
+`;
 
 const SectionTitle = styled.h2`
   margin: 0 0 2rem;

@@ -21,26 +21,28 @@ const IntroSection = styled.section`
   background: ${(p) => (p.theme.name === 'dark'
     ? 'linear-gradient(135deg, #1a2438 0%, #14171f 100%)'
     : 'linear-gradient(135deg, #eef4ff 0%, #fbfdff 100%)')};
-  padding: 8rem 1.5rem;
+  padding: 8rem 0;
   display: flex;
   align-items: center;
 
   @media (max-width: 1023px) {
-    padding: 5.5rem 2rem;
+    padding: 5.5rem 0;
   }
 
   @media (max-width: 640px) {
-    padding: 4.5rem 1.25rem;
+    padding: 4.5rem 0;
   }
 
   @media (min-width: 768px) {
-    padding: 10rem 1.5rem;
+    padding: 10rem 0;
   }
 `;
 
 const IntroContent = styled.div`
-  max-width: 90rem;
+  box-sizing: border-box;
+  max-width: 84rem;
   margin: 0 auto;
+  padding: 0 1.5rem;
   display: grid;
   grid-template-columns: 1fr;
   gap: 3rem;
@@ -103,14 +105,12 @@ const ImageColumn = styled(motion.div)`
   justify-content: center;
   border-radius: 16px;
   overflow: hidden;
-  max-width: 42rem;
   width: 100%;
   margin: 0 auto;
 
   @media (max-width: 1023px) {
     order: -1;
     margin-bottom: 0.5rem;
-    max-width: 34rem;
   }
 `;
 

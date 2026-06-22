@@ -310,6 +310,7 @@ const Microsoft = () => {
         imageWidth="44vw"
         imageNaturalWidth={785}
         imageNaturalHeight={786}
+        invertOnDark={true}
         buttons={[
           { href: "https://www.microsoft.com/en-us/shopping/?form=MT00PA&cs=2199494592", label: "Visit Shopping" }
         ]}
@@ -453,28 +454,27 @@ const PlayIcon = styled.div`
   pointer-events: none;
 `;
 
+const VideoGutter = styled.div`
+  width: 100%;
+  max-width: 64rem;
+  margin: 0 auto 4vh auto;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+`;
+
 const VideoWrapper = styled.div`
   border-radius: 24px;
   overflow: hidden;
   position: relative;
-  width: 60vw;
-  max-width: 1000px;
+  width: 100%;
   aspect-ratio: 16/9;
-  margin: 0 auto 4vh auto;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: none;
 
-  @media (max-width: 1320px) {
-    width: 90vw;
-    max-width: 90vw;
-  }
   @media (max-width: 850px) {
-    width: 100vw;
-    max-width: 100vw;
     border-radius: 0;
-    height: auto;
   }
 `;
 
@@ -506,33 +506,35 @@ const VideoWithOverlay = React.forwardRef(({ src, poster }, ref) => {
   };
 
   return (
-    <VideoWrapper data-cursor="link">
-      <video
-        ref={videoRef}
-        src={src}
-        controls
-        playsInline
-        preload="none"
-        poster={poster}
-        data-cursor="link"
-        style={{ width: '100%', height: '100%', borderRadius: 'inherit', background: '#000', display: 'block', objectFit: 'cover' }}
-      />
-      {!isPlaying && (
-        <PlayOverlay
-          onClick={handleOverlayClick}
-          role="button"
-          aria-label="Play video"
+    <VideoGutter>
+      <VideoWrapper data-cursor="link">
+        <video
+          ref={videoRef}
+          src={src}
+          controls
+          playsInline
+          preload="none"
+          poster={poster}
           data-cursor="link"
-        >
-          <PlayIcon>
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.5)" />
-              <polygon points="18,14 36,24 18,34" fill="#fff" />
-            </svg>
-          </PlayIcon>
-        </PlayOverlay>
-      )}
-    </VideoWrapper>
+          style={{ width: '100%', height: '100%', borderRadius: 'inherit', background: '#000', display: 'block', objectFit: 'cover' }}
+        />
+        {!isPlaying && (
+          <PlayOverlay
+            onClick={handleOverlayClick}
+            role="button"
+            aria-label="Play video"
+            data-cursor="link"
+          >
+            <PlayIcon>
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.5)" />
+                <polygon points="18,14 36,24 18,34" fill="#fff" />
+              </svg>
+            </PlayIcon>
+          </PlayOverlay>
+        )}
+      </VideoWrapper>
+    </VideoGutter>
   );
 });
 

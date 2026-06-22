@@ -161,30 +161,51 @@ export const SingleImage = ({
   const mobileWebp = findMobileVariant(normalizedWebp);
   const mobileSrc = findMobileVariant(normalizedSrc);
 
-  const responsiveStyle = {
-    width,
-    maxWidth: '1000px',
-    height: 'auto',
-    display: 'block',
-    borderRadius: '24px',
-    boxShadow: '0 2px 12px 0 rgba(0,0,0,0.06)',
-    ...style,
-  };
+  // Grid-aligned model: responsive images render at the shared case-study
+  // width (max 64rem) with 1.5rem gutters so every page image lines up on the
+  // same left/right edge as the case-study content. The legacy `width` prop is
+  // only honored when responsive={false} (e.g. absolutely-positioned card
+  // backgrounds in PortfolioCardsSection).
+  const pictureStyle = responsive
+    ? {
+        display: 'block',
+        width: '100%',
+        maxWidth: '64rem',
+        margin: '0 auto',
+        padding: '0 1.5rem',
+        boxSizing: 'border-box',
+      }
+    : undefined;
 
-  const mediaQuery = `@media (max-width: 1320px) { width: 90vw !important; max-width: 90vw !important; } @media (max-width: 850px) { width: 100vw !important; max-width: 100vw !important; border-radius: 0 !important; }`;
+  const responsiveStyle = responsive
+    ? {
+        width: '100%',
+        height: 'auto',
+        display: 'block',
+        borderRadius: '24px',
+        boxShadow: '0 2px 12px 0 rgba(0,0,0,0.06)',
+        ...style,
+      }
+    : {
+        width,
+        maxWidth: '1000px',
+        height: 'auto',
+        display: 'block',
+        borderRadius: '24px',
+        boxShadow: '0 2px 12px 0 rgba(0,0,0,0.06)',
+        ...style,
+      };
 
   return (
-    <picture>
+    <picture style={pictureStyle}>
       {mobileAvif && <source srcSet={mobileAvif} type="image/avif" media="(max-width: 900px)" />}
       {normalizedAvif && <source srcSet={normalizedAvif} type="image/avif" />}
       {mobileWebp && <source srcSet={mobileWebp} type="image/webp" media="(max-width: 900px)" />}
       {normalizedWebp && <source srcSet={normalizedWebp} type="image/webp" />}
       {mobileSrc && <source srcSet={mobileSrc} media="(max-width: 900px)" />}
-      {responsive && <style>{`.single-image-responsive { ${mediaQuery} }`}</style>}
       <img
         src={normalizedSrc}
         alt={alt}
-        className={responsive ? 'single-image-responsive' : undefined}
         style={responsiveStyle}
         loading={loading}
         decoding={decoding}
@@ -200,7 +221,7 @@ export const RisoFlex = styled.div`
   align-items: center;
   height: auto;
   padding: 3vh 0;
-  width: 100vw;
+  width: 100%;
 `;
 
 export const SingleGrid = styled.div`
@@ -234,7 +255,7 @@ export const DoubleImage = ({
   styleRight = {},
 }) => {
   const leftStyle = {
-    width: '50vw',
+    width: '50%',
     height: 'auto',
     display: 'block',
     borderRadius: 0,
@@ -244,7 +265,7 @@ export const DoubleImage = ({
     ...styleLeft,
   };
   const rightStyle = {
-    width: '50vw',
+    width: '50%',
     height: 'auto',
     display: 'block',
     borderRadius: 0,
@@ -260,7 +281,7 @@ export const DoubleImage = ({
   const mobileWebpRight = findMobileVariant(webpRight);
   const mobileSrcRight = findMobileVariant(srcRight);
   return (
-    <div style={{ display: 'flex', width: '100vw', height: 'auto', flexWrap: 'wrap', margin: 0, padding: 0 }}>
+    <div style={{ display: 'flex', width: '100%', maxWidth: '64rem', margin: '0 auto', padding: '0 1.5rem', boxSizing: 'border-box', height: 'auto', flexWrap: 'wrap' }}>
       <picture>
         {mobileAvifLeft && <source srcSet={mobileAvifLeft} type="image/avif" media="(max-width: 900px)" />}
         {avifLeft && <source srcSet={avifLeft} type="image/avif" />}

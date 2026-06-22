@@ -54,13 +54,26 @@ const Navdiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: rgba(0,0,0,0.6);
-  backdrop-filter: blur(6px);
+  /* The frosted bar lives on ::before instead of the element itself. If the
+     Navdiv carried backdrop-filter, it would become a "backdrop root" and
+     isolate its descendants — meaning the Projects dropdown's own
+     backdrop-filter would have nothing from the page behind it to blur. */
+  background-color: transparent;
   position: fixed;
   width: 100vw;
   height: 8vh;
   padding: 0 3vw;
   z-index: 1000;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    z-index: -1;
+  }
 `;
 
 const StrokeWrapper = styled.div`
@@ -222,7 +235,10 @@ const ListItem = styled.li`
   align-items: center;
   height: 100%;
 
-  /* enable hover-open for devices that support hover (desktop) */
+  /* Hover-open for any device that supports hover (laptops/desktops),
+     at every width. The fullscreen takeover is gated on (hover: none)
+     below, so hovering a narrow laptop opens the normal dropdown
+     rather than the mobile overlay. */
   @media (hover: hover) {
     &:hover > div {
       display: block;
@@ -261,7 +277,7 @@ const CloseButton = styled.button`
   display: none;
   transition: opacity 0.2s;
   &:hover { opacity: 1; }
-  @media (max-width: 850px) {
+  @media (hover: none) and (max-width: 850px) {
     display: block;
   }
 `;
@@ -271,15 +287,21 @@ const Dropdown = styled.div`
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: rgba(0,0,0,0.6);
-  backdrop-filter: blur(6px);
-  border-radius: 0 0 0.25rem 0.25rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  /* Frosted "liquid glass": a translucent tint over a blurred + saturated
+     backdrop, with a soft top highlight + hairline border to catch the light. */
+  background-color: rgba(20, 20, 20, 0.45);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: none;
+  border-radius: 0 0 0.5rem 0.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
   display: ${(props) => (props.$open ? 'block' : 'none')};
   min-width: 10rem;
   z-index: 1200;
 
-  @media (max-width: 850px) {
+  @media (hover: none) and (max-width: 850px) {
     position: fixed;
     top: 0;
     left: 0;
@@ -288,12 +310,14 @@ const Dropdown = styled.div`
     height: 100vh;
     height: 100dvh;
     min-width: unset;
+    border: none;
     border-radius: 0;
     display: ${(props) => (props.$open ? 'flex' : 'none')};
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background-color: rgba(0,0,0,0.97);
+    -webkit-backdrop-filter: none;
     backdrop-filter: none;
     box-shadow: none;
     padding: 0;
@@ -315,7 +339,7 @@ const DropdownMenu = styled(Link)`
     color: white;
   }
 
-  @media (max-width: 850px) {
+  @media (hover: none) and (max-width: 850px) {
     font-family: 'Space Grotesk', sans-serif;
     font-size: clamp(1.5rem, 6vw, 2rem);
     font-weight: 600;
@@ -347,7 +371,7 @@ export default function Nav() {
     if (typeof document === 'undefined') return;
     const isMobile =
       typeof window !== 'undefined' &&
-      window.matchMedia('(max-width: 850px)').matches;
+      window.matchMedia('(hover: none) and (max-width: 850px)').matches;
     if (!open || !isMobile) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
@@ -360,7 +384,7 @@ export default function Nav() {
   useEffect(() => {
     if (!open) return;
     if (typeof window === 'undefined') return;
-    // Only activate on mobile
+    // Only activate on touch devices (where the fullscreen takeover applies)
     if (!window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
 
     const handleClick = (e) => {
@@ -392,9 +416,12 @@ export default function Nav() {
               role="presentation"
               aria-haspopup="true"
               aria-expanded={open}
+              data-cursor="link"
               style={{ cursor: 'default' }}
               onClick={(e) => {
-                // Only allow click on mobile
+                // Tap-to-toggle only on touch devices (no hover). On
+                // hover-capable laptops the dropdown is hover-driven at all
+                // widths (see ListItem CSS), so suppress the click default.
                 if (typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches) {
                   handleToggle();
                 } else {

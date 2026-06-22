@@ -90,27 +90,39 @@ const GDTopSectionText = styled.div`
 `;
 // Removed legacy RisoItem/RisoItemtwo styled components. Use SingleImage instead.
 export const ThisisIt = styled.img`
-  width: 86%; /* slightly narrower image within its column */
+  width: 100%; /* fill the grid column */
+  max-width: 420px; /* keep the poster from getting oversized when stacked */
   height: auto;
   display: block;
-  margin: 0;
+  margin: 0 auto;
   border-radius: ${(p) => p.theme.radii.card};
 `
 
 const ThisIsItContainer = styled(Grid60TwoCol)`
-  /* Narrower text column + wider gap for clearer hierarchy */
-  width: 62vw;
-  max-width: 1100px;
+  /* Align to the page's 64rem grid (the old 62vw made this section render far
+     narrower than its neighbours, shrinking the poster to ~146px and leaving
+     dead space that pushed the copy left). */
+  width: 100%;
+  max-width: 64rem;
   margin: 0 auto;
-  grid-template-columns: 0.56fr minmax(280px, 0.44fr); /* image narrower, text wider */
-  gap: ${(p) => p.theme.spacing['3xl']};
+  box-sizing: border-box;
+  padding: 4vh 1.5rem;
+  /* minmax(0, …) lets both columns distribute the full width evenly so the
+     copy fills its column instead of stranding empty space on the right. */
+  grid-template-columns: minmax(0, 0.52fr) minmax(0, 0.48fr);
+  gap: clamp(2rem, 4vw, 3.5rem);
   align-items: center;
-  padding: ${(p) => p.theme.spacing['3xl']} 0;
 
   @media (max-width: 1000px) {
-    width: 90vw;
     grid-template-columns: 1fr;
-    gap: ${(p) => p.theme.spacing.lg};
+    gap: 2rem;
+    justify-items: center;
+    text-align: center;
+    padding: 4vh 1.25rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 3vh 1.25rem;
   }
 `;
 
@@ -153,7 +165,7 @@ export default function GraphicDesign() {
 
     useLayoutEffect(() => {
         window.scrollTo(0, 0)
-    });
+    }, []);
 
 
     return (
@@ -174,9 +186,9 @@ export default function GraphicDesign() {
 
 
 
-           <FullHeightTextSection style={{ backgroundColor: '#191919' }}>
+           <FullHeightTextSection style={{ backgroundColor: 'var(--surface-muted)' }}>
   <TextContainer>
-    <TextContent style={{ color: '#FFF' }}>
+    <TextContent style={{ color: 'var(--text-strong)' }}>
       Stay Golden was a passion project created with my friend Alek Vasic, representing a series of songs. 
       It received silver and bronze awards for digital art and packaging design from the Indigo Design Awards.
     </TextContent>
@@ -197,9 +209,9 @@ export default function GraphicDesign() {
 
 
 
-                <FullHeightTextSection style={{ backgroundColor: '#191919' }}>
+                <FullHeightTextSection style={{ backgroundColor: 'var(--surface-muted)' }}>
   <TextContainer>
-    <TextContent style={{ color: '#FFF' }}>
+    <TextContent style={{ color: 'var(--text-strong)' }}>
       Graphic Posters meet at the intersection of my art and design practice. 
       This includes passion projects, and a poster for the 2017 VCD Design show in Chicago, IL.
     </TextContent>
@@ -242,18 +254,17 @@ export default function GraphicDesign() {
               </ThisIsItText>
             </ThisIsItContainer>
 
-<FullHeightTextSection>
+<FullHeightTextSection style={{ backgroundColor: 'var(--surface-muted)', marginTop: '6vh' }}>
   <TextContainer>
-    <TextContent>
+    <TextContent style={{ color: 'var(--text-strong)' }}>
       Working alongside the Walmart team at Publicis, we created a variety of designs to present to Marketing. The lines I worked on were the Christmas, Halloween, and Back To School campaigns.
     </TextContent>
   </TextContainer>
 </FullHeightTextSection>
 
             <RisoFlex style={{ justifyContent: 'center' }}>
-        <div style={{ width: '60vw', margin: '0 auto', display: 'flex', justifyContent: 'center', boxShadow: 'none' }}>
-          <SingleImage src={messages} width="30vw" style={{ boxShadow: 'none' }}
-            responsiveWidth="95vw"
+        <div style={{ width: '100%', maxWidth: '64rem', margin: '0 auto', padding: '0 1.5rem', boxSizing: 'border-box', display: 'flex', justifyContent: 'center' }}>
+          <SingleImage src={messages} responsive={false} style={{ boxShadow: 'none', width: '100%', maxWidth: '32rem', borderRadius: '24px' }}
           />
         </div>
 </RisoFlex>
@@ -285,41 +296,41 @@ export default function GraphicDesign() {
   />
       </RisoFlex>
 
-           <div style={{ width: '100%', height: '100vh', overflow: 'hidden' }}>
+           <div style={{ width: '100%', maxWidth: '64rem', margin: '0 auto', padding: '0 1.5rem', boxSizing: 'border-box' }}>
   <FullBg
     src={gobackbig}
     style={{
       width: '100%',
-      height: '100%',
+      height: 'auto',
       objectFit: 'cover',
       objectPosition: 'center',
       display: 'block',
       margin: 0,
       padding: 0,
-      borderRadius: 0
+      borderRadius: '24px'
     }}
   />
 </div>
 
-       <div style={{ width: '100%', height: '100vh', overflow: 'hidden' }}>
+       <div style={{ width: '100%', maxWidth: '64rem', margin: '4vh auto 0 auto', padding: '0 1.5rem', boxSizing: 'border-box' }}>
   <FullBg
     src={btc}
     style={{
       width: '100%',
-      height: '100%',
+      height: 'auto',
       objectFit: 'cover',
       objectPosition: 'center', // centers crop vertically and horizontally
       display: 'block',
       margin: 0,
       padding: 0,
-      borderRadius: 0
+      borderRadius: '24px'
     }}
   />
 </div>
 
-           <FullHeightTextSection>
+           <FullHeightTextSection style={{ backgroundColor: 'var(--surface-muted)', marginTop: '6vh' }}>
   <TextContainer>
-    <TextContent>
+    <TextContent style={{ color: 'var(--text-strong)' }}>
       Brooklyn Book Festival is a rebranding of a popular festival that occurs in Brooklyn, NY. 
       I designed totes, bookmarks, brochures, and posters for the event.
     </TextContent>

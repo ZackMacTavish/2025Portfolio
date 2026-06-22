@@ -21,22 +21,24 @@ const IntroSection = styled.section`
   background: ${(p) => (p.theme.name === 'dark'
     ? 'linear-gradient(135deg, #182032 0%, #14171f 100%)'
     : 'linear-gradient(135deg, #edf5ff 0%, #fbfdff 100%)')};
-  padding: 7rem 1.5rem;
+  padding: 7rem 0;
   display: flex;
   align-items: center;
 
   @media (max-width: 1023px) {
-    padding: 5rem 1.5rem;
+    padding: 5rem 0;
   }
 
   @media (min-width: 768px) {
-    padding: 8rem 1.5rem;
+    padding: 8rem 0;
   }
 `;
 
 const IntroContent = styled.div`
-  max-width: 90rem;
+  box-sizing: border-box;
+  max-width: 84rem;
   margin: 0 auto;
+  padding: 0 1.5rem;
   display: grid;
   grid-template-columns: 1fr;
   gap: 3rem;

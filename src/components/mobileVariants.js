@@ -52,8 +52,10 @@ function _basenameOf(url) {
  *
  * For hashed Vite assets, performs a map lookup. For literal `/assets/...` URLs
  * (public/), returns `<dir>/<basename>-mobile-900.<ext>` without verifying that
- * the file exists on disk — the browser handles missing variants by falling
- * through to the next `<source>`, so the cost of a wrong guess is one 404.
+ * the file exists on disk. Callers MUST only request variants for images large
+ * enough to have one generated (longest edge > 900px); the generator skips
+ * smaller images, and a `<picture>` does NOT fall through to the next source if
+ * a matched mobile source 404s — it shows a broken image.
  */
 export function findMobileVariant(desktopUrl) {
   const parsed = _basenameOf(desktopUrl);

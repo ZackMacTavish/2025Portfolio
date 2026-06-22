@@ -6,7 +6,6 @@ import { site, projects } from '../../data/metadata';
 import { Suspense, lazy } from 'react';
 import ErrorBoundary from '../../components/ErrorBoundary';
 const Scene = lazy(() => import('../../components/Three/three'));
-import Grid60 from '../../components/Layout/Grid60';
 import me from '../../assets/Me.jpeg';
 import meAvif from '../../assets/Me.avif';
 import meWebp from '../../assets/Me.webp';
@@ -377,23 +376,35 @@ const Arrow = styled.div`
 
 // --- Projects Section Styles ---
 const ProjectsSection = styled.section`
-  width: 100vw;
+  width: 100%;
   background: ${(p) => p.theme.surface};
-  padding: 14vh 5vw; /* slightly increased spacing above/below */
+  /* Vertical rhythm only; horizontal alignment is owned by ProjectsInner so the
+     cards track the same 64rem grid as the rest of the site. */
+  padding: 14vh 0;
   box-sizing: border-box;
 
   @media (max-width: 850px) {
-    padding: 7vh 5vw; /* tighter vertical breathing room on mobile */
+    padding: 7vh 0; /* tighter vertical breathing room on mobile */
   }
 
   @media (max-width: 600px) {
-    padding: 5vh 5vw;
+    padding: 5vh 0;
   }
 `;
 
-// Use shared Grid60 container to standardize the 60vw grid across sections
-const ProjectsInner = styled(Grid60)`
-  /* additional local overrides if needed */
+/* 64rem grid contract (matches the case study SectionContent + Giga cards) so
+   this section lines up with every other content section instead of the legacy
+   60vw/1100px Grid60 (which rendered ~786px wide and offset to the right). */
+const ProjectsInner = styled.div`
+  width: 100%;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+
+  @media (max-width: 480px) {
+    padding: 0 1.25rem;
+  }
 `;
 
 const ProjectsGrid = styled.div`
