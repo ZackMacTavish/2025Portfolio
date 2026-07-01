@@ -39,6 +39,7 @@ const CopilotPay = lazy(() => import("./pages/CopilotPay/CopilotPay"));
 const Journeys = lazy(() => import("./pages/Journeys/Journeys"));
 const CashbackHub = lazy(() => import("./pages/CashbackHub/CashbackHub"));
 const VideoCommerce = lazy(() => import("./pages/VideoCommerce/VideoCommerce"));
+const WindowsNotifications = lazy(() => import("./pages/WindowsNotifications/WindowsNotifications"));
 const IronlakInternship = lazy(() => import("./pages/IronlakInternship/IronlakInternship"));
 
 // Assets
@@ -447,6 +448,7 @@ function App() {
             <Route path="/Journeys" element={<Journeys />} />
             <Route path="/CashbackHub" element={<CashbackHub />} />
             <Route path="/VideoCommerce" element={<VideoCommerce />} />
+            <Route path="/WindowsNotifications" element={<WindowsNotifications />} />
             <Route path="/IronlakInternship" element={<IronlakInternship />} />
             <Route path="/Resume" element={<Resume />} />
 

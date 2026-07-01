@@ -741,7 +741,7 @@ const StickySplitWrapper = styled.section`
   display: flex;
   flex-direction: column;
   gap: 0;
-  padding: 0 0 6rem;
+  padding: 0;
 `;
 
 const StickyColumn = styled.div<{ $background?: string }>`
@@ -763,11 +763,8 @@ const StickyMediaPin = styled.div<{ $fullBleed?: boolean }>`
      text/image sections above and below it at every breakpoint */
   padding-left: 1.5rem;
   padding-right: 1.5rem;
-  padding-top: ${(props) => (props.$fullBleed ? "0" : "3rem")};
-
-  @media (max-width: 768px) {
-    padding-top: ${(props) => (props.$fullBleed ? "0" : "2rem")};
-  }
+  padding-top: ${(props) => (props.$fullBleed ? "0" : "2.5rem")};
+  padding-bottom: ${(props) => (props.$fullBleed ? "0" : "2.5rem")};
 
   @media (max-width: 480px) {
     padding-left: 1.25rem;
@@ -775,10 +772,16 @@ const StickyMediaPin = styled.div<{ $fullBleed?: boolean }>`
   }
 `;
 
-const StickyHeroFrame = styled.div<{ $fullBleed?: boolean }>`
+const StickyHeroFrame = styled.div<{ $fullBleed?: boolean; $aspectRatio?: string }>`
   position: relative;
   min-height: 0;
-  height: clamp(340px, 46vw, 680px);
+  overflow: hidden;
+  border-radius: 12px;
+  ${(props) =>
+    !props.$aspectRatio
+      ? `height: clamp(340px, 46vw, 680px);`
+      : ""
+  }
 
   ${(props) =>
     props.$fullBleed
@@ -789,12 +792,16 @@ const StickyHeroFrame = styled.div<{ $fullBleed?: boolean }>`
       : ""}
 
   @media (max-width: 768px) {
-    height: clamp(260px, 58vw, 460px);
+    ${(props) =>
+      props.$aspectRatio
+        ? ""
+        : `height: clamp(260px, 58vw, 460px);`
+    }
   }
 `;
 
 const StickyHeroImage = styled(ResponsiveImage)`
-  height: 100%;
+  width: 100%;
 `;
 
 const TagsRow = styled.div`
@@ -826,7 +833,7 @@ const CollateralMediaWrap = styled.div`
 
 const ScrollColumn = styled.div`
   width: 100%;
-  padding: 3.5rem 0 3rem;
+  padding: 3.5rem 0 4.5rem;
   background: ${(p) => (p.theme.name === "dark" ? p.theme.surfaceMuted : "#f0efeb")};
 
   /* Inner blocks mirror SectionContent so the overview/scroll content aligns
@@ -1875,14 +1882,14 @@ export default memo(function CaseStudyPage({
             $fullBleed={stickyImageIsFullBleed}
           >
             {stickyImage && (
-              <StickyHeroFrame $fullBleed={stickyImageIsFullBleed}>
+              <StickyHeroFrame $fullBleed={stickyImageIsFullBleed} $aspectRatio={stickyImage.aspectRatio}>
                 <StickyHeroImage
                   src={stickyImage.src}
                   alt={stickyImage.alt}
                   avif={stickyImage.avif}
                   webp={stickyImage.webp}
                   aspectRatio={stickyImage.aspectRatio || "16/9"}
-                  borderRadius="12px"
+                  borderRadius="0"
                   backgroundColor={stickyImage.backgroundColor}
                   imagePaddingBlock={stickyImage.imagePaddingBlock}
                   objectFit={stickyImage.objectFit || "cover"}
@@ -1890,6 +1897,7 @@ export default memo(function CaseStudyPage({
                   imageScale={stickyImage.imageScale}
                   border={stickyImage.containerBorder}
                   mixBlendMode={stickyImage.mixBlendMode}
+                  disableRevealAnimation
                 />
               </StickyHeroFrame>
             )}

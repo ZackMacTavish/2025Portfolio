@@ -93,7 +93,7 @@ const TopSectionImage = styled.div`
 // Styled image for the top section
 const TopSectionImageStyled = styled.img`
   width: 100%;
-  max-width: 700px;
+  max-width: ${(p) => p.$imageWidth || '700px'};
   min-width: 0;
   height: auto;
   border-radius: 18px;

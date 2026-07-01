@@ -118,6 +118,7 @@ const StyledImage = styled.picture`
   display: block;
   width: 100%;
   height: auto;
+  aspect-ratio: 4 / 3;
 
   img {
     display: block;
@@ -204,7 +205,8 @@ export function CopilotPayIntro({ onLaunch }: CopilotPayIntroProps) {
             <img
               src={previewPng}
               alt="Copilot Pay interface design"
-              loading="lazy"
+              loading="eager"
+              fetchPriority="high"
               decoding="async"
             />
           </StyledImage>

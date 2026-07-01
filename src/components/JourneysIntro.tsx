@@ -102,6 +102,8 @@ const ImageColumn = styled(motion.div)`
 const StyledImage = styled.picture`
   display: block;
   width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
 
   img {
     display: block;

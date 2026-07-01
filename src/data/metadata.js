@@ -174,6 +174,13 @@ export const projects = {
     image: `${SITE_URL}/assets/video-commerce/Full Frame.jpg`,
     keywords: ['microsoft', 'bing shopping', 'video commerce', 'live shopping', 'talkshoplive', 'roposo', 'ux'],
   },
+  'windows-notifications': {
+    title: 'Windows Notifications — Microsoft | Zack MacTavish',
+    description: 'Case study: Commerce notifications in Windows OS -- price drops, back-in-stock, cash back, and coupons designed for the taskbar and Windows notification surface.',
+    url: `${SITE_URL}/WindowsNotifications`,
+    image: `${SITE_URL}/assets/windows-notifications/Prong 2 price drop.png`,
+    keywords: ['microsoft', 'windows', 'notifications', 'commerce', 'cashback', 'ux', 'product design'],
+  },
   'ironlak-internship': {
     title: 'Ironlak Internship — Brand Identity & Production Design | Zack MacTavish',
     description: 'Case study: A multilingual wordmark identity system for Ironlak, an Australian spray paint company, and three months of production design across print, digital, and outdoor.',

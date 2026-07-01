@@ -31,6 +31,7 @@ import { CopilotPayModule } from '../../components/CopilotPayIntro';
 import { JourneysModule } from '../../components/JourneysIntro';
 import { CashbackHubModule } from '../../components/CashbackHubIntro';
 import { VideoCommerceModule } from '../../components/VideoCommerceIntro';
+import { WindowsNotificationsModule } from '../../components/WindowsNotificationsIntro';
 import { FiArrowUpRight } from 'react-icons/fi';
 
 const PASSWORD = 'microsoftshopping';
@@ -307,7 +308,7 @@ const Microsoft = () => {
         imageBaseName="assets/MSFTlogo"
         imageExt="png"
         imageAlt="Microsoft Logo"
-        imageWidth="44vw"
+        imageWidth="24vw"
         imageNaturalWidth={785}
         imageNaturalHeight={786}
         invertOnDark={true}
@@ -345,17 +346,11 @@ const Microsoft = () => {
 
       <BusinessConnectorsModule />
 
-      <AccentBand $tone="blue">
-        <TextContainer>
-          <AccentText>
-            Journeys reframed shopping as a progression rather than a single destination. The concept created a central hub for discovery, comparison, and post-purchase support so users could keep track of activity, price changes, deals, and recommendations without carrying that mental load across multiple products and retailers.
-          </AccentText>
-        </TextContainer>
-      </AccentBand>
-
       <JourneysModule />
 
       <CashbackHubModule />
+
+      <WindowsNotificationsModule />
 
       <VideoCommerceModule />
       
