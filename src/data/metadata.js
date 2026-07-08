@@ -188,6 +188,13 @@ export const projects = {
     image: `${SITE_URL}/assets/ironlak-internship/IronlakAdvert2.jpg`,
     keywords: ['ironlak', 'brand identity', 'graphic design', 'production design', 'graffiti', 'internship'],
   },
+  partnerships: {
+    title: 'Partnership Pitches — Microsoft Copilot | Zack MacTavish',
+    description: 'Case study: AI-to-AI and AI-to-business integration patterns for Microsoft Copilot — bespoke partnership flows designed for Walmart, Amazon, Lyft, and DoorDash.',
+    url: `${SITE_URL}/Partnerships`,
+    image: site.defaultImage,
+    keywords: ['microsoft', 'copilot', 'partnerships', 'walmart', 'amazon', 'lyft', 'doordash', 'ai', 'ux', 'product design'],
+  },
   resume: {
     title: 'Resume — Zack MacTavish',
     description: 'Resume / CV of Zack MacTavish — product & graphic designer.',

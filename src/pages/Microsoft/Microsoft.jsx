@@ -27,6 +27,7 @@ import outlookWebp from '../../assets/Outlook.webp';
 import { ProjectDetailsContainer, ProjectDetails, ProjectBlock, ProjectHeader, ProjectSubtitle, ProjectImage, Cellphones, StyledDiv } from '../../components/GigaPrimitives';
 import ProjectTopSection from '../../components/ProjectTopSection';
 import { BusinessConnectorsModule } from '../../components/BusinessConnectorsIntro';
+import { PartnershipsModule } from '../../components/PartnershipsIntro';
 import { CopilotPayModule } from '../../components/CopilotPayIntro';
 import { JourneysModule } from '../../components/JourneysIntro';
 import { CashbackHubModule } from '../../components/CashbackHubIntro';
@@ -342,9 +343,11 @@ const Microsoft = () => {
         <VideoWithOverlay ref={videoRefs[0]} src="/assets/microsoft-demo2.mp4" poster="/assets/Preview1.png" />
       </RisoFlex>
 
-      <CopilotPayModule />
+      <PartnershipsModule />
 
       <BusinessConnectorsModule />
+
+      <CopilotPayModule />
 
       <JourneysModule />
 
@@ -497,6 +500,8 @@ const VideoWithOverlay = React.forwardRef(({ src, poster }, ref) => {
   const handleOverlayClick = () => {
     const video = videoRef.current;
     if (!video) return;
+    video.muted = false;
+    video.volume = 1;
     video.play().catch(() => {});
   };
 

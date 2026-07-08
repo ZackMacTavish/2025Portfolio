@@ -681,6 +681,90 @@ const StaggeredCaption = styled.p`
   color: ${(p) => p.theme.mutedText};
 `;
 
+const RelatedCalloutWrap = styled.div`
+  margin-top: 2.5rem;
+`;
+
+const RelatedEyebrow = styled.p`
+  margin: 0 0 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: ${(p) => p.theme.mutedText};
+`;
+
+const RelatedCard = styled.a`
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  max-width: 36rem;
+  border: 1px solid ${(p) => p.theme.border};
+  border-radius: 16px;
+  overflow: hidden;
+  background: ${(p) => p.theme.surfaceMuted};
+  text-decoration: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    border-color: ${(p) => p.theme.mutedText};
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+`;
+
+const RelatedCardImage = styled.div`
+  width: 200px;
+  min-width: 200px;
+  align-self: stretch;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  @media (max-width: 640px) {
+    width: 120px;
+    min-width: 120px;
+  }
+`;
+
+const RelatedCardContent = styled.div`
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+`;
+
+const RelatedCardTitle = styled.h3`
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: ${(p) => p.theme.strongText};
+  line-height: 1.2;
+`;
+
+const RelatedCardBody = styled.p`
+  margin: 0 0 1.25rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: ${(p) => p.theme.mutedText};
+`;
+
+const RelatedCardCTA = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: ${(p) => p.theme.strongText};
+`;
+
 const CenterTextBlock = styled.div`
   margin: 0 0 2rem;
   max-width: 45rem;
@@ -995,6 +1079,41 @@ const ColorBlockText = styled.div`
   text-align: left;
 `;
 
+const ColorBlockLogoRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0;
+`;
+
+const ColorBlockLogoWrap = styled.div`
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  /* Cap-height center sits ~2px above the flex mathematical center;
+     nudge the logo up so its center aligns with the text visually. */
+  transform: translateY(-2px);
+`;
+
+const ColorBlockLogo = styled.img<{ $rounded?: boolean; $whiteBg?: boolean }>`
+  height: 1.875rem;
+  width: auto;
+  max-width: 100px;
+  object-fit: contain;
+  display: block;
+  border-radius: ${(p) => (p.$rounded ? "6px" : "0")};
+  /* White backplate: constrain to a square so logos of varying natural
+     aspect ratios all sit inside a consistent square chip. */
+  ${(p) => p.$whiteBg ? `
+    background: #fff;
+    padding: 5px;
+    border-radius: 6px;
+    width: 1.875rem;
+    height: 1.875rem;
+    object-fit: contain;
+  ` : ""}
+`;
+
 const NextProjectSection = styled.section`
   border-top: 1px solid ${(p) => p.theme.border};
   background: ${(p) => p.theme.surface};
@@ -1167,7 +1286,7 @@ function LazyCollateralSection({ images }: LazyCollateralSectionProps) {
             animate={{ y: 0 }}
             transition={{ duration: 0.45 }}
           >
-            <ImageCarousel images={images} autoPlay intervalMs={2800} />
+            <ImageCarousel images={images} autoPlay intervalMs={2800} activeDecoding="auto" />
           </motion.div>
         </CollateralMediaWrap>
       )}
@@ -1392,8 +1511,8 @@ export default memo(function CaseStudyPage({
               alt={image.alt}
               avif={image.avif}
               webp={image.webp}
-              aspectRatio={image.aspectRatio || "16/9"}
-              borderRadius={image.borderRadius || "8px"}
+              aspectRatio={image.aspectRatio}
+              borderRadius={image.borderRadius || "16px"}
               objectFit={image.objectFit || "cover"}
               objectPosition={image.objectPosition}
               backgroundColor={image.backgroundColor}
@@ -1706,9 +1825,39 @@ export default memo(function CaseStudyPage({
           transition={TEXT_TRANSITION}
         >
           {section.heading && (
-            <SectionHeading style={{ textAlign: "left" }}>
-              {section.heading}
-            </SectionHeading>
+            section.logoSrc ? (
+              <ColorBlockLogoRow>
+                <ColorBlockLogoWrap>
+                  <picture>
+                    {section.logoAvif && <source srcSet={section.logoAvif} type="image/avif" />}
+                    {section.logoWebp && <source srcSet={section.logoWebp} type="image/webp" />}
+                    <ColorBlockLogo
+                      src={section.logoSrc}
+                      alt={`${section.heading} logo`}
+                      $rounded={section.logoSrc?.includes("Walmart")}
+                      $whiteBg={section.logoSrc?.includes("Amazon") || section.logoSrc?.includes("Lyft") || section.logoSrc?.includes("DoorDash")}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </picture>
+                </ColorBlockLogoWrap>
+                <SectionHeading
+                  style={{
+                    marginBottom: 0,
+                    marginTop: 0,
+                    paddingBottom: "3px",
+                    lineHeight: 1,
+                    ...(section.headingColor ? { color: section.headingColor } : {}),
+                  }}
+                >
+                  {section.heading}
+                </SectionHeading>
+              </ColorBlockLogoRow>
+            ) : (
+              <SectionHeading style={{ textAlign: "left" }}>
+                {section.heading}
+              </SectionHeading>
+            )
           )}
           <SectionBody style={{ alignItems: "flex-start" }}>
             {parseBody(section.body).map((paragraph, idx) => (
@@ -1776,7 +1925,7 @@ export default memo(function CaseStudyPage({
           viewport={VIEWPORT_ONCE}
           transition={IMAGE_TRANSITION}
         >
-          <ImageCarousel images={section.images} />
+          <ImageCarousel images={section.images} autoPlay intervalMs={7000} fixedAspectRatio={section.sectionAspectRatio} />
         </motion.div>
       )}
     </div>
@@ -1990,11 +2139,47 @@ export default memo(function CaseStudyPage({
 
           {(section.heading || section.body) && (
             <ColorBlockText>
-              {section.heading && <SectionHeading>{section.heading}</SectionHeading>}
+              {section.heading && (
+                <ColorBlockLogoRow>
+                  {section.logoSrc && (
+                    <ColorBlockLogoWrap>
+                      <picture>
+                        {section.logoAvif && <source srcSet={section.logoAvif} type="image/avif" />}
+                        {section.logoWebp && <source srcSet={section.logoWebp} type="image/webp" />}
+                        <ColorBlockLogo
+                          src={section.logoSrc}
+                          alt={`${section.heading} logo`}
+                          $rounded={section.logoSrc?.includes("Walmart")}
+                          $whiteBg={section.logoSrc?.includes("Amazon") || section.logoSrc?.includes("Lyft") || section.logoSrc?.includes("DoorDash")}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </picture>
+                    </ColorBlockLogoWrap>
+                  )}
+                  <SectionHeading
+                    style={{
+                      marginBottom: 0,
+                      marginTop: 0,
+                      paddingBottom: "3px",
+                      lineHeight: 1,
+                      ...(section.headingColor ? { color: section.headingColor } : {}),
+                    }}
+                  >
+                    {section.heading}
+                  </SectionHeading>
+                </ColorBlockLogoRow>
+              )}
               {section.body && (
-                <SectionBody style={{ alignItems: "flex-start" }}>
+                <SectionBody style={{ alignItems: "flex-start", marginTop: "1.25rem" }}>
                   {parseBody(section.body).map((paragraph, idx) => (
-                    <Paragraph key={idx} style={{ textAlign: "left" }}>
+                    <Paragraph
+                      key={idx}
+                      style={{
+                        textAlign: "left",
+                        ...(section.accentColor ? { color: section.accentColor } : {}),
+                      }}
+                    >
                       {paragraph}
                     </Paragraph>
                   ))}
@@ -2006,6 +2191,44 @@ export default memo(function CaseStudyPage({
       </ColorBlockSection>
     );
   };
+
+  const renderRelatedCallout = (section: CaseStudySection) => (
+    <div key={section.id}>
+      <RelatedCalloutWrap>
+        {section.labels?.[0] && (
+          <RelatedEyebrow>{section.labels[0]}</RelatedEyebrow>
+        )}
+        <RelatedCard href={section.relatedHref || "#"}>
+          {section.images?.[0] && (
+            <RelatedCardImage>
+              <picture style={{ display: "block", width: "100%", height: "100%" }}>
+                {section.images[0].avif && <source srcSet={section.images[0].avif} type="image/avif" />}
+                {section.images[0].webp && <source srcSet={section.images[0].webp} type="image/webp" />}
+                <img
+                  src={section.images[0].src}
+                  alt={section.images[0].alt}
+                  loading="lazy"
+                  decoding="async"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                />
+              </picture>
+            </RelatedCardImage>
+          )}
+          <RelatedCardContent>
+            {section.heading && (
+              <RelatedCardTitle>{section.heading}</RelatedCardTitle>
+            )}
+            {section.body && (
+              <RelatedCardBody>{section.body}</RelatedCardBody>
+            )}
+            <RelatedCardCTA>
+              {section.relatedLabel || "View Case Study"} →
+            </RelatedCardCTA>
+          </RelatedCardContent>
+        </RelatedCard>
+      </RelatedCalloutWrap>
+    </div>
+  );
 
   // Section renderer dispatcher
   const renderSection = (section: CaseStudySection) => {
@@ -2026,6 +2249,8 @@ export default memo(function CaseStudyPage({
         return renderThreeColumnFeature(section);
       case "staggered-pair":
         return renderStaggeredPair(section);
+      case "related-callout":
+        return renderRelatedCallout(section);
       case "text-only":
         return renderTextOnly(section);
       case "quote":
@@ -2121,6 +2346,10 @@ export default memo(function CaseStudyPage({
               objectPosition={heroImage.objectPosition || "center"}
               imageScale={1}
               border={heroImage.backgroundColor ? undefined : heroImage.containerBorder}
+              loading="eager"
+              decoding="sync"
+              loading="eager"
+              decoding="sync"
               onLoad={() => setHeroImageLoaded(true)}
             />
             {!heroImageLoaded && (

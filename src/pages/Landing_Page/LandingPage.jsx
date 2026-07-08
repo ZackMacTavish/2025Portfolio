@@ -931,7 +931,7 @@ const LandingPage = ({ introDone = true }) => {
               const subtitle = isFirst
                 ? 'A guide to all things Figma'
                 : isSecond
-                ? "What I've learned at Microsoft as a Product designer"
+                ? "Shaping the shopping experience at Microsoft"
                 : isThird
                 ? 'A practical UX checklist for e‑commerce mobile apps'
                 : isFourth

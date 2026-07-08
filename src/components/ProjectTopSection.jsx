@@ -71,7 +71,10 @@ const TopSectionImage = styled.div`
   align-items: center;
   width: 100%;
   max-width: none;
-  min-width: 0;
+  /* Prevent the flex container from collapsing to zero width on the first
+     paint tick (which would make the image's aspect-ratio produce 0 height
+     and cause a jump when flex allocates proper space). */
+  min-width: min(38vw, 100%);
   min-height: 0;
   background: transparent;
   padding: 0;
@@ -100,6 +103,12 @@ const TopSectionImageStyled = styled.img`
   object-fit: contain;
   display: block;
   margin: 0 auto;
+  /* Explicit aspect-ratio prevents layout shift when flex-basis starts at 0.
+     The HTML width/height attributes alone aren't enough when the containing
+     flex item starts at zero width, so we set it explicitly in CSS too. */
+  ${(p) => (p.$naturalWidth && p.$naturalHeight
+    ? `aspect-ratio: ${p.$naturalWidth} / ${p.$naturalHeight};`
+    : '')}
   /* Opt-in: flip a monochrome black logo to white so it pops on the dark
      surface instead of disappearing into it. */
   ${(p) => (p.$invertOnDark && p.theme.name === 'dark' ? 'filter: invert(1);' : '')}
@@ -222,11 +231,13 @@ export default function ProjectTopSection({
                 alt={imageAlt}
                 $imageWidth={$imageWidth}
                 $invertOnDark={invertOnDark}
+                $naturalWidth={imageNaturalWidth || undefined}
+                $naturalHeight={imageNaturalHeight || undefined}
                 width={imageNaturalWidth || undefined}
                 height={imageNaturalHeight || undefined}
                 fetchPriority="high"
                 loading="eager"
-                decoding="async"
+                decoding="sync"
               />
           </picture>
         ) : (

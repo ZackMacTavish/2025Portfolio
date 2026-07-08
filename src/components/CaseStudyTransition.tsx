@@ -93,6 +93,10 @@ const StyledCard = styled(motion.img)`
   contain: paint;
   will-change: transform, opacity;
   transform-origin: bottom center;
+  /* Prevent a one-frame flash of the fully-visible card before framer-motion
+     applies initial={{ opacity: 0 }} via useLayoutEffect. CSS opacity is
+     overridden immediately by framer-motion on mount. */
+  opacity: 0;
 `;
 
 /**

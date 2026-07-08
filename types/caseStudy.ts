@@ -105,7 +105,8 @@ interface CaseStudySection {
     | "asymmetric-mosaic"
     | "image-carousel"
     | "three-column-feature"
-    | "staggered-pair";
+    | "staggered-pair"
+    | "related-callout";
 
   /** Optional heading for the section */
   heading?: string;
@@ -149,7 +150,7 @@ interface CaseStudySection {
    */
   stickyContent?: {
     /** Primary sticky image shown in the left column */
-    image: CaseStudyImage;
+    image?: CaseStudyImage;
 
     /** Optional flag to let the primary sticky image span the full viewport width */
     fullBleedImage?: boolean;
@@ -189,6 +190,25 @@ interface CaseStudySection {
 
   /** Optional parallax speed factor from 0.0 to 1.0 */
   parallaxSpeed?: number;
+
+  /** Optional logo shown next to the section heading (used by image-on-color-block) */
+  logoSrc?: string;
+
+  /** Optional AVIF source for the section logo */
+  logoAvif?: string;
+
+  /** Optional WebP source for the section logo */
+  logoWebp?: string;
+
+  /** Optional href for a related case study card (used by related-callout layout) */
+  relatedHref?: string;
+
+  /** Optional CTA label for a related case study card */
+  relatedLabel?: string;
+
+  /** Optional fixed aspect ratio for image-carousel sections, overriding per-image ratios.
+   *  Keeps the Frame at a consistent height throughout the carousel (e.g. "911/1000" for portrait prints). */
+  sectionAspectRatio?: string;
 }
 
 /**

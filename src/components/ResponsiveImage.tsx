@@ -125,6 +125,11 @@ export default function ResponsiveImage({
 }: ResponsiveImageProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
+  // Track whether the image has decoded — only used when the reveal animation
+  // is active (disableRevealAnimation = false) to prevent the container's
+  // coloured backgroundColor showing as an empty card before the image appears.
+  // Carousels use disableRevealAnimation and their own isImageLoaded state.
+  const [imgDecoded, setImgDecoded] = useState(disableRevealAnimation);
   // Guard against prerender / SSR where `window` is undefined.
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== "undefined" && window.innerWidth < 768
@@ -149,6 +154,43 @@ export default function ResponsiveImage({
   const normalizedSrc = normalizeAssetUrl(src);
   const normalizedAvif = normalizeAssetUrl(avif);
   const normalizedWebp = normalizeAssetUrl(webp);
+
+  // Pre-decode the image 400 px before it enters the viewport so that by the
+  // time the whileInView reveal animation fires, the image is already ready and
+  // appears as part of the slide-up rather than popping in afterward.
+  // Only active when the reveal animation is enabled (non-carousel images).
+  useEffect(() => {
+    if (disableRevealAnimation || !normalizedSrc) return;
+    if (typeof window === "undefined" || !window.IntersectionObserver) return;
+
+    const el = containerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0]?.isIntersecting) return;
+        observer.disconnect();
+        const img = new Image();
+        img.src = normalizedAvif || normalizedWebp || normalizedSrc;
+        const decode = () => {
+          if (typeof img.decode === "function") {
+            img.decode().then(() => setImgDecoded(true)).catch(() => setImgDecoded(true));
+          } else {
+            setImgDecoded(true);
+          }
+        };
+        if (img.complete) {
+          decode();
+        } else {
+          img.onload = decode;
+          img.onerror = () => setImgDecoded(true);
+        }
+      },
+      { rootMargin: "400px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [disableRevealAnimation, normalizedSrc, normalizedAvif, normalizedWebp]);
 
   useEffect(() => {
     if (!shouldParallax) {
@@ -192,10 +234,10 @@ export default function ResponsiveImage({
       {...(disableRevealAnimation
         ? {}
         : {
-            initial: { opacity: 0, y: 24 },
+            initial: { opacity: 0, y: 10 },
             whileInView: { opacity: 1, y: 0 },
             viewport: { once: true, amount: 0.2 },
-            transition: { duration: 0.9, ease: [0.25, 0.1, 0.25, 1] },
+            transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] },
           })}
     >
       <ImageFrame
@@ -212,8 +254,16 @@ export default function ResponsiveImage({
             alt={alt}
             loading={loading}
             decoding={decoding}
-            onLoad={onLoad}
-            style={{ y: shouldParallax ? parallaxY : 0, scale: imageScale, mixBlendMode: mixBlendMode as React.CSSProperties["mixBlendMode"] | undefined }}
+            onLoad={(e) => {
+              onLoad?.(e as React.SyntheticEvent<HTMLImageElement>);
+            }}
+            style={{
+              y: shouldParallax ? parallaxY : 0,
+              scale: imageScale,
+              mixBlendMode: mixBlendMode as React.CSSProperties["mixBlendMode"] | undefined,
+              opacity: imgDecoded ? 1 : 0,
+              transition: imgDecoded ? "opacity 0.3s ease" : "none",
+            }}
             $objectFit={objectFit}
             $objectPosition={objectPosition}
             $hasParallax={shouldParallax}

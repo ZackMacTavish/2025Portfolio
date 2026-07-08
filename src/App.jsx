@@ -41,6 +41,7 @@ const CashbackHub = lazy(() => import("./pages/CashbackHub/CashbackHub"));
 const VideoCommerce = lazy(() => import("./pages/VideoCommerce/VideoCommerce"));
 const WindowsNotifications = lazy(() => import("./pages/WindowsNotifications/WindowsNotifications"));
 const IronlakInternship = lazy(() => import("./pages/IronlakInternship/IronlakInternship"));
+const Partnerships = lazy(() => import("./pages/Partnerships/Partnerships"));
 
 // Assets
 import sun from './assets/Sun-DRKGREEN-01.svg';
@@ -102,7 +103,14 @@ function App() {
     }
   });
   const [showShortcutsHelp, setShowShortcutsHelp] = useState(false);
-  const [showShortcutsPill, setShowShortcutsPill] = useState(false);
+  const [showShortcutsPill, setShowShortcutsPill] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    try {
+      return window.sessionStorage.getItem('intro-played') === 'true';
+    } catch {
+      return false;
+    }
+  });
   const [enableCustomCursor, setEnableCustomCursor] = useState(false);
   const helpDialogRef = useRef(null);
   const lastFocusedElementRef = useRef(null);
@@ -450,6 +458,7 @@ function App() {
             <Route path="/VideoCommerce" element={<VideoCommerce />} />
             <Route path="/WindowsNotifications" element={<WindowsNotifications />} />
             <Route path="/IronlakInternship" element={<IronlakInternship />} />
+            <Route path="/Partnerships" element={<Partnerships />} />
             <Route path="/Resume" element={<Resume />} />
 
             {/* Fallback for unknown routes */}

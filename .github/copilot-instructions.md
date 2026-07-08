@@ -35,6 +35,11 @@
 - All page-level components live in `src/pages/`; shared UI in `src/components/`.
 - Use the grid/layout primitives from `@zackmactavish/foundation` for consistent spacing and structure.
 
+## Copy & Typography Rules
+- **No em dashes (`—`) anywhere in case study text, headings, alt text, subtitles, or intro copy.** Use a colon (`:`) for section subtitle separators, a comma (`,`) for parenthetical asides, or rephrase the sentence entirely.
+- This applies to all text in `src/data/caseStudies.ts`, all `*Intro.tsx` / `*Module.tsx` components, and any inline copy in page components.
+- Before committing any new case study or intro section, grep for `—` and fix every occurrence.
+
 ## Integration Points
 - The `@zackmactavish/foundation` package is the main source of shared UI, SEO, and theme logic.
 - No backend or API integration is present; all data is static or imported from local files.
