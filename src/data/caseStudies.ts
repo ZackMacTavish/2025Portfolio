@@ -594,7 +594,7 @@ export const journeysCaseStudy: CaseStudy = {
   meta: {
     client: "My Shopping / Journeys | Microsoft Shopping",
     role: "Mid-level designer partnering with a principal designer",
-    timeline: "Placeholder case study",
+    timeline: "2024",
     platform: "Browser / Copilot / Microsoft ecosystem",
   },
   sections: [
@@ -4244,13 +4244,6 @@ export const partnershipsCaseStudy: CaseStudy = {
           objectFit: "cover",
         },
         {
-          src: "/assets/partnerships/Journeys checkout.jpg",
-          avif: "/assets/partnerships/Journeys checkout.avif",
-          webp: "/assets/partnerships/Journeys checkout.webp",
-          alt: "Journeys checkout flow",
-          objectFit: "cover",
-        },
-        {
           src: "/assets/partnerships/Three days later.jpg",
           avif: "/assets/partnerships/Three days later.avif",
           webp: "/assets/partnerships/Three days later.webp",
@@ -4258,10 +4251,10 @@ export const partnershipsCaseStudy: CaseStudy = {
           objectFit: "cover",
         },
         {
-          src: "/assets/partnerships/The amazon advantage.jpg",
-          avif: "/assets/partnerships/The amazon advantage.avif",
-          webp: "/assets/partnerships/The amazon advantage.webp",
-          alt: "The Amazon advantage framing",
+          src: "/assets/partnerships/Journeys checkout.jpg",
+          avif: "/assets/partnerships/Journeys checkout.avif",
+          webp: "/assets/partnerships/Journeys checkout.webp",
+          alt: "Journeys checkout flow",
           objectFit: "cover",
         },
       ],

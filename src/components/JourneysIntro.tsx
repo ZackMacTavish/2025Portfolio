@@ -158,7 +158,7 @@ export function JourneysIntro({ onLaunch }: JourneysIntroProps) {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7, delay: 0.18 }}
           >
-            I worked with a principal designer on three user-flow scenarios, interaction models, and feed-based versus static hub layouts. The page now highlights onboarding, account linking, feed modules, and saved-product views from the project itself.
+            I worked with a principal designer on three user-flow scenarios, interaction models, and feed-based versus static hub layouts. The latest iteration of Journeys is now shipped in the Copilot app.
           </IntroSubtitle>
           <CaseStudyIntroCTA
             type="button"

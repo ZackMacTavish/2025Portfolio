@@ -2345,8 +2345,6 @@ export default memo(function CaseStudyPage({
               border={heroImage.backgroundColor ? undefined : heroImage.containerBorder}
               loading="eager"
               decoding="sync"
-              loading="eager"
-              decoding="sync"
               onLoad={() => setHeroImageLoaded(true)}
             />
             {!heroImageLoaded && (

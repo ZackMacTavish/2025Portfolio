@@ -106,6 +106,13 @@ function App() {
   const [showShortcutsPill, setShowShortcutsPill] = useState(() => {
     if (typeof window === 'undefined') return false;
     try {
+      // Intro always plays on the root route — hide the pill until the
+      // animation completes, even if intro-played is already in sessionStorage
+      // (mirrors the NavGate logic exactly).
+      const isRoot =
+        window.location.pathname === '/' ||
+        window.location.pathname === '/index.html';
+      if (isRoot) return false;
       return window.sessionStorage.getItem('intro-played') === 'true';
     } catch {
       return false;
