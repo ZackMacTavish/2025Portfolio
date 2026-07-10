@@ -2026,6 +2026,7 @@ export default memo(function CaseStudyPage({
         </ScrollColumn>
         )}
 
+        {(stickyImage || tags.length > 0 || collateralImages.length > 0) && (
         <StickyColumn $background={section.sectionBackground}>
           <StickyMediaPin
             $fullBleed={stickyImageIsFullBleed}
@@ -2058,6 +2059,7 @@ export default memo(function CaseStudyPage({
             )}
           </StickyMediaPin>
         </StickyColumn>
+        )}
       </StickySplitWrapper>
     );
   };

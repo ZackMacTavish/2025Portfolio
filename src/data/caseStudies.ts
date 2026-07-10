@@ -4053,7 +4053,7 @@ export const partnershipsCaseStudy: CaseStudy = {
     {
       id: "walmart-flow",
       layout: "text-only",
-      sectionBackground: "#f5f5f5",
+      sectionBackground: "#ffffff",
       sectionPadding: "3.75rem 0 1.5rem",
       heading: "The Flow",
       body: `A user opens Copilot with a time-pressured, emotional prompt, "My brother Jake just called, and he's bringing his wife and their kid for Christmas morning. I have NOTHING for Lily. Help me." Copilot asks clarifying questions (age, interests, budget) and builds a gift shortlist. When the user is ready to buy, Copilot surfaces a handoff to Walmart's Sparky to complete the purchase.`,
@@ -4062,9 +4062,23 @@ export const partnershipsCaseStudy: CaseStudy = {
       id: "walmart-screens",
       layout: "image-carousel",
       sectionAspectRatio: "851/500",
-      sectionBackground: "#f5f5f5",
+      sectionBackground: "#ffffff",
       sectionPadding: "1.5rem 0 1.5rem",
       images: [
+        {
+          src: "/assets/partnerships/Walmart 1.jpg",
+          avif: "/assets/partnerships/Walmart 1.avif",
+          webp: "/assets/partnerships/Walmart 1.webp",
+          alt: "Walmart Copilot flow, screen 1",
+          objectFit: "cover",
+        },
+        {
+          src: "/assets/partnerships/Walmart 2.jpg",
+          avif: "/assets/partnerships/Walmart 2.avif",
+          webp: "/assets/partnerships/Walmart 2.webp",
+          alt: "Walmart Copilot flow, screen 2",
+          objectFit: "cover",
+        },
         {
           src: "/assets/partnerships/Walmart 3.jpg",
           avif: "/assets/partnerships/Walmart 3.avif",
@@ -4117,7 +4131,7 @@ export const partnershipsCaseStudy: CaseStudy = {
     {
       id: "amazon-header",
       layout: "image-on-color-block",
-      sectionBackground: "#f5f5f5",
+      sectionBackground: "#ffffff",
       heading: "Amazon",
       logoSrc: "/assets/partnerships/logos/Amazon-logo.png",
       logoAvif: "/assets/partnerships/logos/Amazon-logo.avif",
@@ -4138,7 +4152,7 @@ export const partnershipsCaseStudy: CaseStudy = {
     {
       id: "amazon-alexa",
       layout: "text-only",
-      sectionBackground: "#ffffff",
+      sectionBackground: "#f5f5f5",
       sectionPadding: "3.75rem 0 1.5rem",
       heading: "Alexa Patterns",
       body: `Two distinct Alexa integration patterns were explored. The first: users could @mention Alexa directly into a Copilot group chat, similar to inviting another person into a conversation. This same @mention pattern was explored as a general mechanism for bringing other partners into a Copilot chat.\n\nThe second: a full handoff to Alexa, but unlike the Walmart/Sparky handoff, Copilot stayed present in the conversation rather than exiting. What context should transfer to Alexa (vs. staying in Copilot) was an open question planned for a dedicated user research study.`,
@@ -4147,7 +4161,7 @@ export const partnershipsCaseStudy: CaseStudy = {
       id: "amazon-alexa-screens",
       layout: "image-carousel",
       sectionAspectRatio: "851/500",
-      sectionBackground: "#ffffff",
+      sectionBackground: "#f5f5f5",
       sectionPadding: "1.5rem 0 3.75rem",
       images: [
         {
@@ -4264,7 +4278,7 @@ export const partnershipsCaseStudy: CaseStudy = {
     {
       id: "lyft-header",
       layout: "image-on-color-block",
-      sectionBackground: "#f5f5f5",
+      sectionBackground: "#ffffff",
       heading: "Lyft",
       logoSrc: "/assets/partnerships/logos/Lyft-logo.png",
       logoAvif: "/assets/partnerships/logos/Lyft-logo.avif",
