@@ -114,9 +114,15 @@ const Viewer = styled(motion.div)`
 
 const ZoomStage = styled(motion.div)<{ $ratio: number }>`
   position: relative;
-  width: min(95vw, ${(p) => 92 * p.$ratio}vh, 1800px);
+  /* For tall images (ratio < 0.75) render at a fixed wide width so the browser
+     allocates enough pixels for sharp zoom. The Viewer's overflow:hidden clips
+     the excess height; users can pan/drag to explore the full image. */
+  width: ${(p) =>
+    p.$ratio < 0.75
+      ? "min(90vw, 1400px)"
+      : `min(95vw, ${92 * p.$ratio}vh, 1800px)`};
   aspect-ratio: ${(p) => p.$ratio};
-  max-height: 92vh;
+  max-height: ${(p) => (p.$ratio < 0.75 ? "none" : "92vh")};
   cursor: inherit;
   will-change: transform;
   display: flex;
@@ -262,16 +268,31 @@ export default function ZoomableImage({
     setMounted(true);
   }, []);
 
+  /** For tall images, compute a y offset that shows the top of the stage. */
+  const getInitialY = useCallback(() => {
+    const ratio = parseAspectRatio(aspectRatio);
+    if (ratio >= 0.75 || typeof window === "undefined") return 0;
+    const stageWidth = Math.min(window.innerWidth * 0.9, 1400);
+    const stageHeight = stageWidth / ratio;
+    // The Backdrop has padding: clamp(1rem, 4vw, 3rem) on all sides,
+    // so the Viewer's usable height is innerHeight minus that top+bottom padding.
+    const backdropPadding = Math.min(Math.max(16, window.innerWidth * 0.04), 48);
+    const viewerHeight = window.innerHeight - backdropPadding * 2;
+    return Math.max(0, (stageHeight - viewerHeight) / 2);
+  }, [aspectRatio]);
+
   const resetTransform = useCallback(() => {
     scale.set(1);
     x.set(0);
-    y.set(0);
-  }, [scale, x, y]);
+    y.set(getInitialY());
+  }, [scale, x, y, getInitialY]);
 
   const handleOpen = useCallback(() => {
-    resetTransform();
+    scale.set(1);
+    x.set(0);
+    y.set(getInitialY());
     setOpen(true);
-  }, [resetTransform]);
+  }, [scale, x, y, getInitialY]);
 
   const handleClose = useCallback(() => {
     setOpen(false);
@@ -294,7 +315,7 @@ export default function ZoomableImage({
         scale.set(next);
         if (next === MIN_SCALE) {
           x.set(0);
-          y.set(0);
+          y.set(getInitialY());
         }
       }
       if (e.key === "0") {
@@ -319,7 +340,7 @@ export default function ZoomableImage({
     scale.set(next);
     if (next === MIN_SCALE) {
       x.set(0);
-      y.set(0);
+      y.set(getInitialY());
     }
   };
 
@@ -332,8 +353,11 @@ export default function ZoomableImage({
   };
 
   const handleDragEnd = () => {
-    // When fully zoomed out, snap back to centre on release.
-    if (scale.get() <= 1.001) {
+    // For tall images the image extends beyond the viewport at scale=1, so
+    // panning is intentional — don't snap back. Only snap to the initial
+    // position for normal-ratio images where scale=1 means fully visible.
+    const isTall = parseAspectRatio(aspectRatio) < 0.75;
+    if (!isTall && scale.get() <= 1.001) {
       x.set(0);
       y.set(0);
     }
@@ -432,7 +456,7 @@ export default function ZoomableImage({
                       scale.set(next);
                       if (next === MIN_SCALE) {
                         x.set(0);
-                        y.set(0);
+                        y.set(getInitialY());
                       }
                     }}
                   >
