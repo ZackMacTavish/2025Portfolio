@@ -51,7 +51,7 @@ function LiveClocks() {
         gap: "0.75rem 1.25rem",
         fontFamily: "'Space Mono', 'Courier New', monospace",
         fontSize: "0.68rem",
-        color: "var(--dialog-muted-text, #4b5563)",
+        color: "rgba(255, 255, 255, 0.75)",
         letterSpacing: "0.03em",
         lineHeight: 1.4,
       }}
@@ -98,7 +98,7 @@ function YearCountdown() {
       style={{
         fontFamily: "'Space Mono', 'Courier New', monospace",
         fontSize: "0.68rem",
-        color: "var(--dialog-muted-text, #4b5563)",
+        color: "rgba(255, 255, 255, 0.75)",
         letterSpacing: "0.03em",
         lineHeight: 1.4,
       }}
@@ -178,7 +178,7 @@ export default function SiteFooter() {
                 fontSize: "0.78rem",
                 fontWeight: 500,
                 letterSpacing: "0.03em",
-                color: "var(--dialog-muted-text, #4b5563)",
+                color: "rgba(255, 255, 255, 0.75)",
               }}
             >
               Zachary MacTavish. Creative Designer.

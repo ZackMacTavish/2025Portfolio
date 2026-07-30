@@ -358,7 +358,7 @@ function App() {
               style={{
                 position: "fixed",
                 inset: 0,
-                zIndex: 120,
+                zIndex: 1000,
                 background: "var(--overlay-scrim, rgba(0, 0, 0, 0.55))",
                 display: "grid",
                 placeItems: "center",
@@ -375,6 +375,7 @@ function App() {
                 onClick={(event) => event.stopPropagation()}
                 onKeyDown={handleDialogKeyDown}
                 style={{
+                  outline: "none",
                   width: "min(520px, 100%)",
                   background: "var(--dialog-bg, #ffffff)",
                   color: "var(--dialog-text, #111827)",
