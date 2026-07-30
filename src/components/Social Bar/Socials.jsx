@@ -53,7 +53,7 @@ const Socialbar = styled.div`
 `;
 
 const SocialImages = styled.img`
-  width: clamp(44px, 2vw, 70px);
+  width: ${(p) => p.$small ? "clamp(26px, 1.2vw, 40px)" : "clamp(44px, 2vw, 70px)"};
   transition: all 1s ease;
   display: block;
 
@@ -63,27 +63,27 @@ const SocialImages = styled.img`
 `;
 
 
-export default function Socials() {
+export default function Socials({ small } = {}) {
   return (
     <Socialbar>
       <SocialLink href="https://dribbble.com/Zmactavish" target="_blank" rel="noreferrer" aria-label="Dribbble">
-        <SocialImages src={dribbble} />
+        <SocialImages src={dribbble} $small={small} />
         <Tooltip>Dribbble</Tooltip>
       </SocialLink>
       <SocialLink href="https://www.instagram.com/zackmichaelmactavish" target="_blank" rel="noreferrer" aria-label="Instagram">
-        <SocialImages src={instagram} />
+        <SocialImages src={instagram} $small={small} />
         <Tooltip>Instagram</Tooltip>
       </SocialLink>
       <SocialLink href="https://www.linkedin.com/in/zacharymactavish/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-        <SocialImages src={linkedin} />
+        <SocialImages src={linkedin} $small={small} />
         <Tooltip>LinkedIn</Tooltip>
       </SocialLink>
       <SocialLink href="https://github.com/ZackMacTavish" target="_blank" rel="noreferrer" aria-label="Github">
-        <SocialImages src={github} />
+        <SocialImages src={github} $small={small} />
         <Tooltip>Github</Tooltip>
       </SocialLink>
       <SocialLink href="https://medium.com/@zmactavish" target="_blank" rel="noreferrer" aria-label="Medium">
-        <SocialImages src={medium} />
+        <SocialImages src={medium} $small={small} />
         <Tooltip>Medium</Tooltip>
       </SocialLink>
     </Socialbar>

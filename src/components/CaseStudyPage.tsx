@@ -2177,7 +2177,10 @@ export default memo(function CaseStudyPage({
                   {parseBody(section.body).map((paragraph, idx) => (
                     <Paragraph
                       key={idx}
-                      style={{ textAlign: "left" }}
+                      style={{
+                        textAlign: "left",
+                        ...(section.headingColor ? { color: "rgba(255,255,255,0.8)" } : {}),
+                      }}
                     >
                       {paragraph}
                     </Paragraph>

@@ -8,6 +8,7 @@ import { lightTheme, darkTheme, GlobalStyles } from './components/Themes/Themes'
 
 // Components
 import Nav from "./components/Nav/Nav";
+import SiteFooter from "./components/SiteFooter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import IntroAnimation from "./pages/Intro_Animation/IntroAnimation";
 import IntroGate from "./components/IntroGate";
@@ -77,6 +78,33 @@ function NavGate() {
   return <Nav />;
 }
 
+/**
+ * Renders <SiteFooter /> on every route except the intro animation (/).
+ * Mirrors the NavGate logic so the footer appears exactly when Nav does.
+ */
+function FooterGate() {
+  const location = useLocation();
+  const isRoot = location.pathname === "/" || location.pathname === "/index.html";
+  const [introDone, setIntroDone] = useState(() => {
+    if (typeof window === "undefined") return true;
+    if (isRoot) return false;
+    try {
+      return window.sessionStorage.getItem("intro-played") === "true";
+    } catch {
+      return true;
+    }
+  });
+
+  useEffect(() => {
+    const onDone = () => setIntroDone(true);
+    window.addEventListener("intro-animation-done", onDone);
+    return () => window.removeEventListener("intro-animation-done", onDone);
+  }, []);
+
+  if (!introDone) return null;
+  return <SiteFooter />;
+}
+
 const THEME_STORAGE_KEY = "zm-theme-preference";
 
 const getInitialTheme = () => {
@@ -119,6 +147,7 @@ function App() {
     }
   });
   const [enableCustomCursor, setEnableCustomCursor] = useState(false);
+  const [cursorEnabled, setCursorEnabled] = useState(true);
   const helpDialogRef = useRef(null);
   const lastFocusedElementRef = useRef(null);
 
@@ -196,6 +225,16 @@ function App() {
       ) {
         event.preventDefault();
         themeToggler();
+      }
+
+      if (
+        (event.key === "c" || event.key === "C") &&
+        !event.metaKey &&
+        !event.ctrlKey &&
+        !event.altKey
+      ) {
+        event.preventDefault();
+        setCursorEnabled((prev) => !prev);
       }
     };
 
@@ -294,7 +333,7 @@ function App() {
       <GlobalStyles />
       <div className="App">
         <Router>
-          {enableCustomCursor && (
+          {enableCustomCursor && cursorEnabled && (
             <Suspense fallback={null}>
               <Customcursor />
             </Suspense>
@@ -393,6 +432,10 @@ function App() {
                     <span>Toggle dark mode ({theme === "dark" ? "currently dark" : "currently light"})</span>
                   </li>
                   <li style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
+                    <strong>C</strong>
+                    <span>Toggle custom cursor ({cursorEnabled ? "currently custom" : "currently default"})</span>
+                  </li>
+                  <li style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
                     <strong>Esc</strong>
                     <span>Skip case study transition animation</span>
                   </li>
@@ -472,6 +515,7 @@ function App() {
             <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Suspense>
+          <FooterGate />
         </Router>
         {process.env.NODE_ENV === "development" && (
           <Suspense fallback={null}>
