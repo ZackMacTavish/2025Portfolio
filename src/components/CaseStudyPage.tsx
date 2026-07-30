@@ -3,6 +3,7 @@ import PortfolioCardsSection from "./PortfolioCardsSection";
 import { motion, useInView } from "framer-motion";
 import styled, { type DefaultTheme } from "styled-components";
 import { ReactNode, memo, useRef, useState, type ComponentProps } from "react";
+import { FiArrowUpRight } from "react-icons/fi";
 import { CaseStudy, CaseStudyImage, CaseStudySection } from "../../types/caseStudy";
 import ResponsiveImage from "./ResponsiveImage";
 import ImageCarousel from "./ImageCarousel";
@@ -177,7 +178,7 @@ const HeroPeekImageWrap = styled.div`
     width: 100%;
     max-width: 64rem;
     padding: 0 1.5rem;
-    margin: 0 auto;
+    margin: 2rem auto 0;
   }
 
   @media (max-width: 480px) {
@@ -257,6 +258,7 @@ const MetadataValue = styled.p`
 `;
 
 const HeadlineBase = styled(motion.h1)`
+  margin: 0;
   font-size: 2.25rem;
   font-weight: 700;
   line-height: 1.2;
@@ -282,6 +284,32 @@ const Headline = (
     </HeadlineBase>
   );
 };
+
+const WebsiteLink = styled.a`
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid ${(p) => p.theme.strongText};
+  border-radius: 6px;
+  color: ${(p) => p.theme.strongText};
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 160ms ease, color 160ms ease;
+
+  &:hover {
+    background: ${(p) => p.theme.strongText};
+    color: ${(p) => p.theme.surface};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${(p) => p.theme.strongText};
+    outline-offset: 3px;
+  }
+`;
 
 const SectionsContainer = styled.div``;
 
@@ -2330,6 +2358,17 @@ export default memo(function CaseStudyPage({
           >
             {caseStudy.heroHeadline}
           </Headline>
+
+          {caseStudy.website && (
+            <WebsiteLink
+              href={caseStudy.website.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {caseStudy.website.label}
+              <FiArrowUpRight aria-hidden="true" />
+            </WebsiteLink>
+          )}
         </HeroContent>
 
         <HeroPeekImageWrap>

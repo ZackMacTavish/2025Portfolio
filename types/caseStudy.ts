@@ -264,6 +264,12 @@ interface CaseStudy {
   /** Main headline displayed in the hero section */
   heroHeadline: string;
 
+  /** Optional external website CTA displayed beneath the hero headline */
+  website?: {
+    label: string;
+    href: string;
+  };
+
   /** Metadata object containing client, role, timeline, and platform */
   meta: CaseStudyMeta;
 

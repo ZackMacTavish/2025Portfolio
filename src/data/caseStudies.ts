@@ -3712,6 +3712,10 @@ export const gigaCaseStudy: CaseStudy = {
   ],
   heroHeadline:
     "Designing at the frontier of AI product design: where the agent is the product",
+  website: {
+    label: "Visit current website",
+    href: "https://ai.gigaintelligence.com/",
+  },
   meta: {
     client: "Giga Intelligence",
     role: "Lead Designer to UX Consultant: Brand & Web App",
