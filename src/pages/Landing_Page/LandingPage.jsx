@@ -122,6 +122,7 @@ import PortfolioCardsSection from '../../components/PortfolioCardsSection';
 import { FullHeightTextSection, TextContainer, TextContent } from '../../components/CaseStudyPrimitives';
 import { Link } from 'react-router-dom';
 import { FiLock } from 'react-icons/fi';
+import ProcessExperience from './ProcessExperience';
 
 // Spotlight background animations
 const spotlightLeftMove = keyframes`
@@ -376,6 +377,8 @@ const Arrow = styled.div`
 
 // --- Projects Section Styles ---
 const ProjectsSection = styled.section`
+  position: relative;
+  z-index: 2;
   width: 100%;
   background: ${(p) => p.theme.surface};
   /* Vertical rhythm only; horizontal alignment is owned by ProjectsInner so the
@@ -882,6 +885,8 @@ const LandingPage = ({ introDone = true }) => {
           </TextContent>
         </TextContainer>
       </FullHeightTextSection>
+
+      <ProcessExperience />
 
       {/* Writing Section: Medium cards */}
       <ProjectsSection>
