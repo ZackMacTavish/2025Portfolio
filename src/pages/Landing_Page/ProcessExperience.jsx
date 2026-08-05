@@ -12,8 +12,8 @@ const processSteps = [
   },
   {
     eyebrow: '01 / Discovery',
-    title: 'Discovery & Research',
-    body: "I start by getting into the client's world: competitive research, stakeholder kickoffs, and a FigJam brainstorm to pull everyone's perspective into one place. I dig into pain points from both the business side and the user's side, then bring in quantitative and qualitative research, like A/B testing on early screens and interview-style studies with UX researchers on platforms like UserTesting, to make sure decisions are grounded in real behavior, not assumptions.",
+    title: 'Discovery',
+    body: "I start by getting into the client's world: competitive context, stakeholder kickoffs, and a FigJam brainstorm to pull everyone's perspective into one place. I also dig into past and existing research on the topic, then map pain points from both the business side and the user's side so we are solving the right problem before design starts.",
     range: [0.168, 0.194, 0.274, 0.318],
   },
   {
@@ -23,10 +23,16 @@ const processSteps = [
     range: [0.344, 0.371, 0.45, 0.494],
   },
   {
-    eyebrow: '03 / Design',
-    title: 'Design',
-    body: "From here, ideas become real: low, medium, and high-fidelity mockups, then interactive prototypes to test the design. I've built in Figma for years and Adobe XD before that, and I'm now exploring how AI fits into the workflow, using Figma's MCP to hand design context straight to Claude Code and vibe-code functional prototypes. Whether it's a Figma prototype or a working build, the goal is the same: get something real in front of users fast.",
-    range: [0.521, 0.547, 0.627, 0.671],
+    eyebrow: '03 / Design & Research',
+    title: 'Design & Research',
+    body: "From here, ideas become real: low, medium, and high-fidelity mockups, then interactive prototypes to test the design. I validate the work with quantitative and qualitative research, including A/B testing on early screens and interview-style studies on platforms like UserTesting, so decisions are grounded in real behavior, not assumptions. Whether it's a Figma prototype or a working build, the goal is the same: get something real in front of users fast.",
+    range: [0.521, 0.547, 0.615, 0.655],
+  },
+  {
+    eyebrow: '04 / Testing & Handoff',
+    title: 'Testing & Handoff',
+    body: "I pressure-test the work with usability sessions, edge-case mapping, accessibility checks, and design-peer reviews to make sure every state holds up. Then I hand off with redlines, specs, and token-based guidance in Figma Dev Mode, staying close with engineers through check-ins and kickoff alignment with PMs and stakeholders.",
+    range: [0.675, 0.705, 0.775, 0.815],
   },
 ];
 
@@ -201,7 +207,7 @@ const FaqSection = styled.section`
   z-index: 1;
   background: transparent;
   color: #111;
-  margin-top: -185vh;
+  margin-top: -150vh;
   padding: clamp(6rem, 14vh, 10rem) 0;
 `;
 
@@ -310,9 +316,9 @@ const ProcessExperience = () => {
     offset: ['start start', 'end end'],
   });
   useMotionValueEvent(scrollYProgress, 'change', setProgress);
-  const inversion = interpolate(progress, [0, 0.72, 0.84], [0, 0, 1]);
-  const railOpacity = interpolate(progress, [0, 0.71, 0.76], [0.2, 0.2, 0]);
-  const cueOpacity = interpolate(progress, [0, 0.69, 0.74], [1, 1, 0]);
+  const inversion = interpolate(progress, [0, 0.78, 0.88], [0, 0, 1]);
+  const railOpacity = interpolate(progress, [0, 0.74, 0.755], [0.2, 0.2, 0]);
+  const cueOpacity = interpolate(progress, [0, 0.74, 0.755], [1, 1, 0]);
   const backgroundChannel = Math.round(255 * inversion);
   const foregroundChannel = Math.round(255 - 238 * inversion);
 
