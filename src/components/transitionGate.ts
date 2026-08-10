@@ -13,6 +13,7 @@ export function areTransitionImagesDecoded(images: TransitionImage[]): boolean {
 }
 const imagePreloadPromises = new Map<string, Promise<boolean>>();
 export const CARD_TRANSITION_DECODE_GATE_MS = 1400;
+const IMAGE_DECODE_TIMEOUT_MS = 4000;
 let cardTransitionsLockedOffForSession = false;
 const MAX_TRANSITION_IMAGE_RETRIES = 1;
 
@@ -38,10 +39,14 @@ function loadAndDecodeImage(src: string, attempt = 0): Promise<boolean> {
     const img = new Image();
     img.decoding = "async";
     let finalized = false;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
     const finalize = (didDecode: boolean) => {
       if (finalized) return;
       finalized = true;
+      if (timeoutId !== undefined) {
+        clearTimeout(timeoutId);
+      }
 
       if (didDecode) {
         decodedImageCache.add(src);
@@ -53,6 +58,8 @@ function loadAndDecodeImage(src: string, attempt = 0): Promise<boolean> {
 
       resolve(didDecode);
     };
+
+    timeoutId = setTimeout(() => finalize(false), IMAGE_DECODE_TIMEOUT_MS);
 
     img.onload = async () => {
       if (typeof img.decode === "function") {

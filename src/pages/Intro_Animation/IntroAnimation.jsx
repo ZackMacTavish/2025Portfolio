@@ -285,6 +285,10 @@ export default function IntroAnimation() {
       });
 
       timeline = tl;
+    }).catch(() => {
+      if (cancelled) return;
+      setShowIntro(false);
+      window.dispatchEvent(new Event('intro-animation-done'));
     });
 
     return () => {
@@ -320,6 +324,7 @@ export default function IntroAnimation() {
               onComplete={handleTransitionComplete}
               overlayColor={introWhite}
               loadingBackgroundColor={introWhite}
+              usePortal={false}
             />
           )}
           {/* On slower devices, show only the Zachary MacTavish intro animation. */}

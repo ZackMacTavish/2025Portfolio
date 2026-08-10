@@ -46,6 +46,9 @@ interface CaseStudyTransitionProps {
 
   /** Optional background color for the loading state */
   loadingBackgroundColor?: string;
+
+  /** Render in document.body unless a parent stacking context controls layering */
+  usePortal?: boolean;
 }
 
 const cardEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -144,12 +147,15 @@ export default function CaseStudyTransition({
   isReverse = false,
   overlayColor = "black",
   loadingBackgroundColor = "rgba(0, 0, 0, 0.85)",
+  usePortal = true,
 }: CaseStudyTransitionProps) {
   const prefersReducedMotion = useReducedMotion();
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [transitionReady, setTransitionReady] = useState(false);
   const hasCalledComplete = useRef(false);
   const onCompleteRef = useRef(onComplete);
+  const renderTransition = (content: ReactNode) =>
+    usePortal ? renderInDocumentBody(content) : content;
 
   useEffect(() => {
     onCompleteRef.current = onComplete;
@@ -303,7 +309,7 @@ export default function CaseStudyTransition({
 
   // Reduced motion variant: simple crossfade
   if (prefersReducedMotion) {
-    return renderInDocumentBody(
+    return renderTransition(
       <AnimatePresence>
         {isActive && imagesLoaded && transitionReady && (
           <StyledContainer
@@ -341,7 +347,7 @@ export default function CaseStudyTransition({
 
   // Loading state indicator
   if (isActive && (!imagesLoaded || !transitionReady)) {
-    return renderInDocumentBody(
+    return renderTransition(
       <motion.div
         style={{
           position: "fixed",
@@ -367,7 +373,7 @@ export default function CaseStudyTransition({
   }
 
   // Full motion variant with 3-phase animation or reverse animation
-  return renderInDocumentBody(
+  return renderTransition(
     <AnimatePresence>
       {isActive && imagesLoaded && transitionReady && (
         <StyledContainer
