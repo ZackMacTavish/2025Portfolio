@@ -462,8 +462,14 @@ export default function Nav() {
                 onActivate={handleClose}
                 preloadRoute={() => import('../../pages/Outsource/Outsource')}
               >
-                {({ onClick }) => (
-                  <DropdownMenu to="/Outsource" onClick={onClick}>
+                {({ onClick, onIntent }) => (
+                  <DropdownMenu
+                    to="/Outsource"
+                    onClick={onClick}
+                    onPointerEnter={onIntent}
+                    onFocus={onIntent}
+                    onPointerDown={onIntent}
+                  >
                     Outsource
                   </DropdownMenu>
                 )}

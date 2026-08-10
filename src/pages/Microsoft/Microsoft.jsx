@@ -27,6 +27,7 @@ import outlookWebp from '../../assets/Outlook.webp';
 import { ProjectDetailsContainer, ProjectDetails, ProjectBlock, ProjectHeader, ProjectSubtitle, ProjectImage, Cellphones, StyledDiv } from '../../components/GigaPrimitives';
 import ProjectTopSection from '../../components/ProjectTopSection';
 import { BusinessConnectorsModule } from '../../components/BusinessConnectorsIntro';
+import { PhiaModule } from '../../components/PhiaIntro';
 import { PartnershipsModule } from '../../components/PartnershipsIntro';
 import { CopilotPayModule } from '../../components/CopilotPayIntro';
 import { JourneysModule } from '../../components/JourneysIntro';
@@ -232,7 +233,7 @@ const Microsoft = () => {
   const [error, setError] = useState('');
 
   // Refs for all videos
-  const videoRefs = useMemo(() => [React.createRef(), React.createRef(), React.createRef()], []);
+  const videoRefs = useMemo(() => [React.createRef(), React.createRef()], []);
 
   // Pause other videos when one plays
   useEffect(() => {
@@ -347,6 +348,8 @@ const Microsoft = () => {
 
       <BusinessConnectorsModule />
 
+      <PhiaModule />
+
       <CopilotPayModule />
 
       <JourneysModule />
@@ -371,10 +374,6 @@ const Microsoft = () => {
       <RisoFlex>
         <SingleImage src={hp} avif={hpAvif} webp={hpWebp} />
       </RisoFlex>
-        <RisoFlex>
-        <VideoWithOverlay ref={videoRefs[2]} src="/assets/microsoft-demo3.mp4" poster="/assets/Preview3.png" />
-      </RisoFlex>
-      
       <RisoFlex>
         <VideoWithOverlay ref={videoRefs[1]} src="/assets/microsoft-demo.mp4" poster="/assets/Preview2.png" />
       </RisoFlex>

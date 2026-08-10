@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode, type MouseEvent } from "react";
+import { useState, type ReactNode, type MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import CaseStudyTransition, {
   shouldRunCardTransition,
@@ -8,6 +8,7 @@ import { caseStudies } from "../data/caseStudies";
 
 type RenderProps = {
   onClick: (e: MouseEvent) => void;
+  onIntent: () => void;
   isTransitioning: boolean;
 };
 
@@ -37,7 +38,7 @@ export default function CaseStudyTransitionLink({
   const [transitioning, setTransitioning] = useState(false);
   const caseStudy = caseStudies.find((item) => item.slug === slug);
 
-  useEffect(() => {
+  const handleIntent = () => {
     if (!caseStudy) return;
     warmPreloadTransitionImages(caseStudy.transitionImages);
     if (preloadRoute) {
@@ -45,7 +46,7 @@ export default function CaseStudyTransitionLink({
         /* ignore preload failures */
       });
     }
-  }, [caseStudy, preloadRoute]);
+  };
 
   const handleClick = async (e: MouseEvent) => {
     // Allow modifier-clicks / middle-click to fall through to default link behavior.
@@ -79,14 +80,23 @@ export default function CaseStudyTransitionLink({
     setTransitioning(true);
   };
 
+  const handleTransitionComplete = () => {
+    setTransitioning(false);
+    navigate(to);
+  };
+
   return (
     <>
-      {children({ onClick: handleClick, isTransitioning: transitioning })}
+      {children({
+        onClick: handleClick,
+        onIntent: handleIntent,
+        isTransitioning: transitioning,
+      })}
       {transitioning && caseStudy && (
         <CaseStudyTransition
           images={caseStudy.transitionImages}
           isActive={true}
-          onComplete={() => navigate(to)}
+          onComplete={handleTransitionComplete}
           layoutId={caseStudy.slug}
           sharedSourceImageSrc={caseStudy.coverImage.src}
         />

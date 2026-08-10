@@ -1,4 +1,5 @@
 import { CaseStudy } from "../types/caseStudy";
+import { phiaCaseStudy } from "./phiaCaseStudy";
 
 /**
  * Business Connectors case study — complete case study object
@@ -2217,7 +2218,7 @@ export const outsourceCaseStudy: CaseStudy = {
   subtitle:
     "Eighteen months as Multimedia Designer rebuilding a permit expediting firm's brand, websites, internal tools, and three subsidiary identities",
   coverImage: {
-    src: "/assets/BrandGuidelines%E2%80%94Mockup.jpg",
+    src: "/assets/BrandGuidelines%E2%80%94Mockup.png",
     avif: "/assets/BrandGuidelines%E2%80%94Mockup.avif",
     webp: "/assets/BrandGuidelines%E2%80%94Mockup.webp",
     alt: "Outsource brand guidelines mockup",
@@ -2238,7 +2239,7 @@ export const outsourceCaseStudy: CaseStudy = {
       alt: "Transition 3, BuildingOwl product UI",
     },
     {
-      src: "/assets/BrandGuidelines%E2%80%94Mockup.jpg",
+      src: "/assets/BrandGuidelines%E2%80%94Mockup.png",
       alt: "Transition 4, Outsource brand guidelines",
     },
     {
@@ -2312,7 +2313,7 @@ export const outsourceCaseStudy: CaseStudy = {
       sectionPadding: "3.75rem 0 1.5rem",
       images: [
         {
-          src: "/assets/Outsource%E2%80%94iphones.jpg",
+          src: "/assets/Outsource%E2%80%94iphones.png",
           avif: "/assets/Outsource%E2%80%94iphones.avif",
           webp: "/assets/Outsource%E2%80%94iphones.webp",
           alt: "Outsource parent brand on iPhone screens",
@@ -2322,7 +2323,7 @@ export const outsourceCaseStudy: CaseStudy = {
           borderRadius: "12px",
         },
         {
-          src: "/assets/Outsource%E2%80%94pages.jpg",
+          src: "/assets/Outsource%E2%80%94pages.png",
           avif: "/assets/Outsource%E2%80%94pages.avif",
           webp: "/assets/Outsource%E2%80%94pages.webp",
           alt: "Outsource website page layouts",
@@ -2332,7 +2333,7 @@ export const outsourceCaseStudy: CaseStudy = {
           borderRadius: "12px",
         },
         {
-          src: "/assets/Outsource_Imac_2.jpg",
+          src: "/assets/Outsource_Imac_2.png",
           avif: "/assets/Outsource_Imac_2.avif",
           webp: "/assets/Outsource_Imac_2.webp",
           alt: "Outsource homepage on iMac",
@@ -2342,7 +2343,7 @@ export const outsourceCaseStudy: CaseStudy = {
           borderRadius: "12px",
         },
         {
-          src: "/assets/Outsource-ipad.jpg",
+          src: "/assets/Outsource-ipad.png",
           avif: "/assets/Outsource-ipad.avif",
           webp: "/assets/Outsource-ipad.webp",
           alt: "Outsource on iPad",
@@ -2352,7 +2353,7 @@ export const outsourceCaseStudy: CaseStudy = {
           borderRadius: "12px",
         },
         {
-          src: "/assets/Leadership.jpg",
+          src: "/assets/Leadership.png",
           avif: "/assets/Leadership.avif",
           webp: "/assets/Leadership.webp",
           alt: "Outsource leadership marketing piece",
@@ -2382,14 +2383,14 @@ export const outsourceCaseStudy: CaseStudy = {
       body: `The mobile experience was designed for both light and dark contexts, with the visual system flexing to maintain hierarchy and brand presence across either mode.`,
       images: [
         {
-          src: "/assets/OutsourceLightPhone2.jpg",
+          src: "/assets/OutsourceLightPhone2.png",
           avif: "/assets/OutsourceLightPhone2.avif",
           webp: "/assets/OutsourceLightPhone2.webp",
           alt: "Outsource mobile site, light mode",
           objectFit: "contain",
         },
         {
-          src: "/assets/Outsource%E2%80%94iPhone_2%E2%80%94Darksq.jpg",
+          src: "/assets/Outsource%E2%80%94iPhone_2%E2%80%94Darksq.png",
           avif: "/assets/Outsource%E2%80%94iPhone_2%E2%80%94Darksq.avif",
           webp: "/assets/Outsource%E2%80%94iPhone_2%E2%80%94Darksq.webp",
           alt: "Outsource mobile site, dark mode",
@@ -2427,7 +2428,7 @@ export const outsourceCaseStudy: CaseStudy = {
       heading: "CEU System Applications",
       images: [
         {
-          src: "/assets/CEU%E2%80%94iphones.jpg",
+          src: "/assets/CEU%E2%80%94iphones.png",
           avif: "/assets/CEU%E2%80%94iphones.avif",
           webp: "/assets/CEU%E2%80%94iphones.webp",
           alt: "CEU mobile interfaces",
@@ -2438,7 +2439,7 @@ export const outsourceCaseStudy: CaseStudy = {
           imagePaddingBlock: "3rem",
         },
         {
-          src: "/assets/Outsource%E2%80%94CEUpages.jpg",
+          src: "/assets/Outsource%E2%80%94CEUpages.png",
           avif: "/assets/Outsource%E2%80%94CEUpages.avif",
           webp: "/assets/Outsource%E2%80%94CEUpages.webp",
           alt: "CEU course pages and curriculum layouts",
@@ -2449,7 +2450,7 @@ export const outsourceCaseStudy: CaseStudy = {
           imagePaddingBlock: "3rem",
         },
         {
-          src: "/assets/CEU_Imac_2.jpg",
+          src: "/assets/CEU_Imac_2.png",
           avif: "/assets/CEU_Imac_2.avif",
           webp: "/assets/CEU_Imac_2.webp",
           alt: "CEU course catalog on iMac",
@@ -2460,7 +2461,7 @@ export const outsourceCaseStudy: CaseStudy = {
           imagePaddingBlock: "3rem",
         },
         {
-          src: "/assets/AIA.jpg",
+          src: "/assets/AIA.png",
           avif: "/assets/AIA.avif",
           webp: "/assets/AIA.webp",
           alt: "CEU AIA-accredited course collateral",
@@ -2487,7 +2488,7 @@ export const outsourceCaseStudy: CaseStudy = {
       sectionPadding: "1.5rem 0 3.75rem",
       images: [
         {
-          src: "/assets/BookADemo-01.jpg",
+          src: "/assets/BookADemo-01.png",
           avif: "/assets/BookADemo-01.avif",
           webp: "/assets/BookADemo-01.webp",
           alt: "BuildingOwl Book A Demo landing module",
@@ -2546,7 +2547,7 @@ export const outsourceCaseStudy: CaseStudy = {
       body: `A long-form internal strategic document mapping how BuildingOwl would expand its user base across building owners, managers, and code reviewers. Click the diagram to open it in a full-screen viewer, then scroll to zoom and drag to pan.`,
       images: [
         {
-          src: "/assets/BOFlowMap%E2%80%94Long-01-01.jpg",
+          src: "/assets/BOFlowMap%E2%80%94Long-01-01.png",
           avif: "/assets/BOFlowMap%E2%80%94Long-01-01.avif",
           webp: "/assets/BOFlowMap%E2%80%94Long-01-01.webp",
           alt: "BuildingOwl long-form business growth flow map",
@@ -4977,6 +4978,7 @@ export const partnershipsCaseStudy: CaseStudy = {
 
 export const caseStudies: CaseStudy[] = [
   businessConnectorsCaseStudy,
+  phiaCaseStudy,
   copilotPayCaseStudy,
   journeysCaseStudy,
   cashbackHubCaseStudy,

@@ -15,6 +15,15 @@ interface CaseStudyImage {
   /** Optional WebP source URL/path */
   webp?: string;
 
+  /** Optional mobile fallback source URL/path */
+  mobileSrc?: string;
+
+  /** Optional mobile AVIF source URL/path */
+  mobileAvif?: string;
+
+  /** Optional mobile WebP source URL/path */
+  mobileWebp?: string;
+
   /** Optional aspect ratio hint (e.g. "3/2", "16/9", "1/1") */
   aspectRatio?: string;
 
@@ -106,7 +115,8 @@ interface CaseStudySection {
     | "image-carousel"
     | "three-column-feature"
     | "staggered-pair"
-    | "related-callout";
+    | "related-callout"
+    | "video";
 
   /** Optional heading for the section */
   heading?: string;
@@ -143,6 +153,9 @@ interface CaseStudySection {
 
   /** Optional max-width applied to the inner content of layouts that can be narrowed and centered (currently honored by image-pair) */
   contentMaxWidth?: string;
+
+  /** Optional flag to keep image-pair media in full-width vertical rows on desktop */
+  stackImages?: boolean;
 
   /**
    * Optional sticky media/content payload for sticky-split layouts
@@ -187,6 +200,13 @@ interface CaseStudySection {
 
   /** Optional image caption (preferred over using body for captions) */
   caption?: string;
+
+  /** Optional video content used by the video layout */
+  video?: {
+    src: string;
+    poster?: string;
+    ariaLabel: string;
+  };
 
   /** Optional parallax speed factor from 0.0 to 1.0 */
   parallaxSpeed?: number;

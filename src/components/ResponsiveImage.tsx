@@ -7,6 +7,9 @@ interface ResponsiveImageProps {
   alt: string;
   avif?: string;
   webp?: string;
+  mobileSrc?: string;
+  mobileAvif?: string;
+  mobileWebp?: string;
   aspectRatio?: string;
   parallaxSpeed?: number;
   className?: string;
@@ -105,6 +108,9 @@ export default function ResponsiveImage({
   alt,
   avif,
   webp,
+  mobileSrc,
+  mobileAvif,
+  mobileWebp,
   aspectRatio,
   parallaxSpeed = 0,
   className,
@@ -154,6 +160,9 @@ export default function ResponsiveImage({
   const normalizedSrc = normalizeAssetUrl(src);
   const normalizedAvif = normalizeAssetUrl(avif);
   const normalizedWebp = normalizeAssetUrl(webp);
+  const normalizedMobileSrc = normalizeAssetUrl(mobileSrc);
+  const normalizedMobileAvif = normalizeAssetUrl(mobileAvif);
+  const normalizedMobileWebp = normalizeAssetUrl(mobileWebp);
 
   // Pre-decode the image 400 px before it enters the viewport so that by the
   // time the whileInView reveal animation fires, the image is already ready and
@@ -170,8 +179,11 @@ export default function ResponsiveImage({
       (entries) => {
         if (!entries[0]?.isIntersecting) return;
         observer.disconnect();
-        const img = new Image();
-        img.src = normalizedAvif || normalizedWebp || normalizedSrc;
+        const img = el.querySelector("img");
+        if (!img) {
+          setImgDecoded(true);
+          return;
+        }
         const decode = () => {
           if (typeof img.decode === "function") {
             img.decode().then(() => setImgDecoded(true)).catch(() => setImgDecoded(true));
@@ -190,7 +202,7 @@ export default function ResponsiveImage({
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [disableRevealAnimation, normalizedSrc, normalizedAvif, normalizedWebp]);
+  }, [disableRevealAnimation, normalizedSrc]);
 
   useEffect(() => {
     if (!shouldParallax) {
@@ -247,6 +259,9 @@ export default function ResponsiveImage({
         $borderRadius={borderRadius}
       >
         <Picture $fillContainer={fillContainer} $borderRadius={borderRadius}>
+          {normalizedMobileAvif && <source srcSet={normalizedMobileAvif} type="image/avif" media="(max-width: 900px)" />}
+          {normalizedMobileWebp && <source srcSet={normalizedMobileWebp} type="image/webp" media="(max-width: 900px)" />}
+          {normalizedMobileSrc && <source srcSet={normalizedMobileSrc} media="(max-width: 900px)" />}
           {normalizedAvif && <source srcSet={normalizedAvif} type="image/avif" />}
           {normalizedWebp && <source srcSet={normalizedWebp} type="image/webp" />}
           <StyledImg

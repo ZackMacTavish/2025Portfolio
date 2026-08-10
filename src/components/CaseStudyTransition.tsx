@@ -1,5 +1,6 @@
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import styled from "styled-components";
 import {
   type TransitionImage,
@@ -85,6 +86,7 @@ const StyledCard = styled(motion.img)`
   display: block;
   position: absolute;
   overflow: hidden;
+  background-color: #fff;
   border-radius: 0.75rem;
   object-fit: cover;
   object-position: var(--card-object-position, center center);
@@ -98,6 +100,12 @@ const StyledCard = styled(motion.img)`
      overridden immediately by framer-motion on mount. */
   opacity: 0;
 `;
+
+function renderInDocumentBody(content: ReactNode) {
+  return typeof document === "undefined"
+    ? content
+    : createPortal(content, document.body);
+}
 
 /**
  * CaseStudyTransition
@@ -295,7 +303,7 @@ export default function CaseStudyTransition({
 
   // Reduced motion variant: simple crossfade
   if (prefersReducedMotion) {
-    return (
+    return renderInDocumentBody(
       <AnimatePresence>
         {isActive && imagesLoaded && transitionReady && (
           <StyledContainer
@@ -333,7 +341,7 @@ export default function CaseStudyTransition({
 
   // Loading state indicator
   if (isActive && (!imagesLoaded || !transitionReady)) {
-    return (
+    return renderInDocumentBody(
       <motion.div
         style={{
           position: "fixed",
@@ -359,7 +367,7 @@ export default function CaseStudyTransition({
   }
 
   // Full motion variant with 3-phase animation or reverse animation
-  return (
+  return renderInDocumentBody(
     <AnimatePresence>
       {isActive && imagesLoaded && transitionReady && (
         <StyledContainer

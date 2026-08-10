@@ -146,6 +146,13 @@ export const projects = {
     image: site.defaultImage,
     keywords: ['microsoft', 'business connectors', 'ux'],
   },
+  phia: {
+    title: 'Phia — Microsoft Shopping | Zack MacTavish',
+    description: 'Case study: A curated pre-owned luxury experience integrating Phia into Microsoft Shopping discovery, retailer, and product-page flows.',
+    url: `${SITE_URL}/Phia`,
+    image: `${SITE_URL}/assets/og/phia-1200x630.jpg`,
+    keywords: ['microsoft', 'phia', 'luxury resale', 'pre-owned', 'shopping', 'ux', 'product design'],
+  },
   'copilot-pay': {
     title: 'Copilot Pay — Microsoft | Zack MacTavish',
     description: 'Case study: Microsoft Copilot Pay — UX & product design by Zack MacTavish.',

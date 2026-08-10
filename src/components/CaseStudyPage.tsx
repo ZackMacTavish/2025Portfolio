@@ -413,14 +413,23 @@ const FullWidthImageContainer = styled(motion.div)`
   border-radius: 0;
 `;
 
-const ImagePairGrid = styled.div`
+const VideoFrame = styled.video`
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  background: #000;
+  object-fit: cover;
+`;
+
+const ImagePairGrid = styled.div<{ $stacked?: boolean }>`
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.75rem;
   align-items: center;
 
   @media (min-width: 900px) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: ${(props) => (props.$stacked ? "1fr" : "1fr 1fr")};
   }
 `;
 
@@ -1539,6 +1548,9 @@ export default memo(function CaseStudyPage({
               alt={image.alt}
               avif={image.avif}
               webp={image.webp}
+              mobileSrc={image.mobileSrc}
+              mobileAvif={image.mobileAvif}
+              mobileWebp={image.mobileWebp}
               aspectRatio={image.aspectRatio}
               borderRadius={image.borderRadius || "16px"}
               objectFit={image.objectFit || "cover"}
@@ -1560,6 +1572,9 @@ export default memo(function CaseStudyPage({
                 alt={image.alt}
                 avif={image.avif}
                 webp={image.webp}
+                mobileSrc={image.mobileSrc}
+                mobileAvif={image.mobileAvif}
+                mobileWebp={image.mobileWebp}
                 aspectRatio={zoomRatio}
                 borderRadius={image.borderRadius || "8px"}
                 objectFit="contain"
@@ -1586,6 +1601,39 @@ export default memo(function CaseStudyPage({
     </div>
   );
 
+  const renderVideo = (section: CaseStudySection) => (
+    <div key={section.id}>
+      {(section.heading || section.body) && (
+        <CenterTextBlock style={{ marginBottom: "3.75rem" }}>
+          <CenterText>
+            {section.heading && <SectionHeading>{section.heading}</SectionHeading>}
+            {section.body && (
+              <SectionBody style={{ alignItems: "flex-start" }}>
+                {parseBody(section.body).map((paragraph, idx) => (
+                  <Paragraph key={idx} style={{ textAlign: "left" }}>
+                    {paragraph}
+                  </Paragraph>
+                ))}
+              </SectionBody>
+            )}
+          </CenterText>
+        </CenterTextBlock>
+      )}
+      {section.video && (
+        <VideoFrame
+          controls
+          playsInline
+          preload="metadata"
+          poster={section.video.poster}
+          aria-label={section.video.ariaLabel}
+        >
+          <source src={section.video.src} type="video/mp4" />
+        </VideoFrame>
+      )}
+      {section.caption && <Caption>{section.caption}</Caption>}
+    </div>
+  );
+
   const renderImagePair = (section: CaseStudySection) => (
     <div key={section.id}>
       {section.heading && (
@@ -1594,6 +1642,7 @@ export default memo(function CaseStudyPage({
         </SectionHeading>
       )}
       <ImagePairGrid
+        $stacked={section.stackImages}
         style={
           section.contentMaxWidth
             ? { maxWidth: section.contentMaxWidth, marginInline: "auto" }
@@ -1601,7 +1650,7 @@ export default memo(function CaseStudyPage({
         }
       >
         {section.images &&
-          section.images.slice(0, 2).map((image, idx) => (
+          (section.stackImages ? section.images : section.images.slice(0, 2)).map((image, idx) => (
             <GalleryImage
               key={idx}
               initial={{ scale: 0.97 }}
@@ -1617,6 +1666,9 @@ export default memo(function CaseStudyPage({
                 alt={image.alt}
                 avif={image.avif}
                 webp={image.webp}
+                mobileSrc={image.mobileSrc}
+                mobileAvif={image.mobileAvif}
+                mobileWebp={image.mobileWebp}
                 aspectRatio={image.aspectRatio}
                 borderRadius="0.5rem"
                 objectFit={image.objectFit || "contain"}
@@ -2281,6 +2333,8 @@ export default memo(function CaseStudyPage({
         return renderStaggeredPair(section);
       case "related-callout":
         return renderRelatedCallout(section);
+      case "video":
+        return renderVideo(section);
       case "text-only":
         return renderTextOnly(section);
       case "quote":
@@ -2381,6 +2435,9 @@ export default memo(function CaseStudyPage({
               alt={heroImage.alt}
               avif={heroImage.avif}
               webp={heroImage.webp}
+              mobileSrc={heroImage.mobileSrc}
+              mobileAvif={heroImage.mobileAvif}
+              mobileWebp={heroImage.mobileWebp}
               aspectRatio={heroImage.aspectRatio || "16/9"}
               borderRadius="8px"
               objectFit={heroImage.objectFit || "cover"}

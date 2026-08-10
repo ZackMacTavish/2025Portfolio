@@ -294,11 +294,14 @@ export default function PortfolioCardsSection() {
               to="/Outsource"
               preloadRoute={() => import("../pages/Outsource/Outsource")}
             >
-              {({ onClick }) => (
+              {({ onClick, onIntent }) => (
                 <Tile
                   to="/Outsource"
                   aria-label="Outsource project"
                   onClick={onClick}
+                  onPointerEnter={onIntent}
+                  onFocus={onIntent}
+                  onPointerDown={onIntent}
                 >
                   <SingleImage
                     src={outsourceTile}
