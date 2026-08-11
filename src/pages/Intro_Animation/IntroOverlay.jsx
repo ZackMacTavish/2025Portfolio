@@ -37,16 +37,18 @@ const IntroDiv = styled.div`
 
 const IntroText = styled.h1`
   margin: 0;
-  font-family: var(--font-display);
+  font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(2.1rem, 7vw, 6.2rem);
   letter-spacing: 0.04em;
   color: #000;
   position: relative;
   text-align: center;
+  white-space: nowrap;
   z-index: 60;
   line-height: 1.04;
 
   @media (max-width: 900px) {
+    font-size: clamp(1.25rem, 7vw, 2.1rem);
     letter-spacing: 0.03em;
   }
 `;
