@@ -445,10 +445,6 @@ function App() {
                     <strong>Esc</strong>
                     <span>Close this panel</span>
                   </li>
-                  <li style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
-                    <strong>← / →</strong>
-                    <span>Navigate image carousel slides</span>
-                  </li>
                 </ul>
               </div>
             </div>
@@ -471,7 +467,7 @@ function App() {
                       : darkTheme.fontColor,
                   display: 'grid',
                   placeItems: 'center',
-                  fontFamily: 'Space Grotesk, sans-serif',
+                  fontFamily: 'var(--font-body)',
                   letterSpacing: '0.04em',
                 }}
               >

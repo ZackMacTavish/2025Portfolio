@@ -100,7 +100,7 @@ export const ProjectSubtitle = styled.h6`
   }
   line-height: 1.45;
   font-weight: 400;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-body);
 
   @media (max-width: 1320px) {
     font-size: 1.15rem;
@@ -135,7 +135,7 @@ export const TextSection = styled.h3`
   grid-row-end: 7;
   font-size: ${(props) => props.Fontsize};
   width: 80vw;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   justify-self: center;
   align-self: center;
   color: ${(props) => props.theme.fontColor};
@@ -247,7 +247,7 @@ export const ProjectTitle = styled.h2`
 `;
 
 export const ProjectLink = styled.a`
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-body);
   font-size: 1.4rem;
   color: ${(props) => props.theme.fontColor};
   text-decoration: none;

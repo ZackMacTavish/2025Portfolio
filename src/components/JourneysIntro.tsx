@@ -68,6 +68,7 @@ const Eyebrow = styled(motion.p)`
 `;
 
 const IntroHeading = styled(motion.h2)`
+  font-family: var(--font-display);
   margin: 0;
   font-size: clamp(2.4rem, 4.5vw, 4.3rem);
   line-height: 0.96;

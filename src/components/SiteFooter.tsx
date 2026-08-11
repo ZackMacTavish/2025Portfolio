@@ -164,7 +164,7 @@ export default function SiteFooter() {
           <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
             <span
               style={{
-                fontFamily: "Space Grotesk, sans-serif",
+                fontFamily: "var(--font-body)",
                 fontSize: "0.78rem",
                 fontWeight: 500,
                 letterSpacing: "0.03em",

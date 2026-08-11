@@ -45,7 +45,7 @@ export const FullBg = ({ src, avif, webp, alt = '', style = {} }) => {
 export const ParagraphFour = styled.div`
   position: relative;
   padding-right: 6vw;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-weight: 500;
   font-size: 2.5rem;
   width: 40vw;
@@ -66,7 +66,7 @@ export const ParagraphFour = styled.div`
 `;
 
 export const TextContent = styled.p`
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-body);
   color: #ffffff;
   font-size: var(--type-narrative-size);
   max-width: 60ch;

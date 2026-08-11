@@ -84,7 +84,7 @@ const Img = styled.img`
 
 const TextBlock = styled.div`
   flex: 1 1 50%;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-body);
   font-size: ${(p) => p.$textSize || '1.4rem'};
   color: ${(p) => p.$textColor || '#fff'};
   line-height: 1.4;

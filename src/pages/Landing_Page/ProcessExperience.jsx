@@ -63,7 +63,7 @@ const Experience = styled.section`
   width: 100%;
   background: #fff;
   color: #111;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-body);
 `;
 
 const ScrollScene = styled.div`

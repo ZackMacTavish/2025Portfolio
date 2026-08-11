@@ -59,7 +59,7 @@ const ZoomBadge = styled.span`
   border-radius: 999px;
   background: rgba(15, 15, 15, 0.78);
   color: #fff;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.78rem;
   letter-spacing: 0.04em;
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -182,7 +182,7 @@ const ControlBar = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(10px);
   color: rgba(255, 255, 255, 0.92);
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.82rem;
   letter-spacing: 0.03em;
   white-space: nowrap;

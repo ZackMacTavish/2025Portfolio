@@ -508,7 +508,7 @@ const TileCaption = styled.div.attrs({ 'data-cursor': 'link', role: 'link' })`
 
 const TileTitle = styled.h3`
   margin: 0;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 1.15rem;
   color: ${(p) => p.theme.strongText};
@@ -517,7 +517,7 @@ const TileTitle = styled.h3`
 
 const TileSubtitle = styled.p`
   margin: 0;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.95rem;
   color: ${(p) => p.theme.mutedText};
 `;
@@ -547,7 +547,7 @@ const SectionTitle = styled.h2`
 
 const SectionSubtitle = styled.p`
   margin: 0;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-body);
   font-size: 1rem;
   color: ${(p) => p.theme.mutedText};
   text-align: right;
@@ -744,7 +744,7 @@ const GridSubtext = styled.p`
   font-size: clamp(14px, 2.5vw, 1.4rem);
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.9);
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-body);
   text-shadow: 1px 1px 30px rgba(0, 0, 0, 0.8);
   margin: 0;
   font-weight: 400;
@@ -764,7 +764,7 @@ const GridCTA = styled.a`
   padding: 0.85rem 2rem;
   background-color: white;
   color: #1a1a1a;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-body);
   font-size: clamp(13px, 1.8vw, 1.1rem);
   font-weight: 600;
   text-decoration: none;
@@ -961,7 +961,7 @@ const LandingPage = ({ introDone = true }) => {
               const title = isFirst
                 ? '76 features in Figma to know'
                 : isSecond
-                ? 'My journey as a Product designer at Microsoft.'
+                ? 'My journey as a Product designer at Microsoft'
                 : isThird
                 ? '12 features to consider when building an E-commerce app'
                 : isFourth

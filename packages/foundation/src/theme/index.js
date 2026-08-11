@@ -2,10 +2,10 @@ import { createGlobalStyle } from 'styled-components';
 
 export const tokens = {
   fonts: {
-    display: 'Lora, Georgia, serif',
-    body: 'Space Grotesk, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif',
-    heading: 'Space Grotesk, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif',
-    mono: 'Space Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
+    display: 'var(--font-display)',
+    body: 'var(--font-body)',
+    heading: 'var(--font-display)',
+    mono: 'var(--font-mono)'
   },
   fontSizes: {
     xs: '0.75rem',

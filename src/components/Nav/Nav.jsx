@@ -340,7 +340,7 @@ const DropdownMenu = styled(Link)`
   }
 
   @media (hover: none) and (max-width: 850px) {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-body);
     font-size: clamp(1.5rem, 6vw, 2rem);
     font-weight: 600;
     padding: 0.6rem 1.5rem;

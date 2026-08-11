@@ -88,6 +88,7 @@ const EyebrowTag = styled(motion.span)`
 `;
 
 const IntroHeading = styled(motion.h2)`
+  font-family: var(--font-display);
   font-size: clamp(1.85rem, 4vw, 2.25rem);
   font-weight: 700;
   line-height: 1.2;

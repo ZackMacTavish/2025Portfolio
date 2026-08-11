@@ -125,7 +125,7 @@ const TileCaption = styled.div.attrs({ "data-cursor": "link", role: "link" })`
 
 const TileTitle = styled.h3`
   margin: 0;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 1.15rem;
   color: ${(p) => p.theme.strongText};
@@ -134,7 +134,7 @@ const TileTitle = styled.h3`
 
 const TileSubtitle = styled.p`
   margin: 0;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.95rem;
   color: ${(p) => p.theme.mutedText};
 `;

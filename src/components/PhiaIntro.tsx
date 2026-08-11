@@ -36,6 +36,7 @@ const TextColumn = styled.div`
 `;
 
 const IntroHeading = styled(motion.h2)`
+  font-family: var(--font-display);
   margin: 0;
   color: ${(p) => p.theme.strongText};
   font-size: clamp(2rem, 4vw, 3.5rem);

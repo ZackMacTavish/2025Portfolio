@@ -342,6 +342,7 @@ const SectionContent = styled.div`
 `;
 
 const SectionHeadingBase = styled.h2`
+  font-family: var(--font-display);
   font-size: 1.875rem;
   font-weight: 700;
   color: ${(p) => p.theme.strongText};
@@ -632,6 +633,7 @@ const LabelsColumn = styled(motion.div)`
 `;
 
 const FeatureLabel = styled.span<{ $active: boolean }>`
+  font-family: var(--font-mono);
   font-size: 0.85rem;
   line-height: 2.4;
   text-transform: uppercase;
@@ -675,6 +677,7 @@ const FeatureTextColumn = styled(motion.div)`
 
 const FeatureSubheading = styled.h3`
   margin: 0 0 0.35rem;
+  font-family: var(--font-mono);
   font-size: 1.1rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -953,6 +956,7 @@ const TagsRow = styled.div`
 `;
 
 const Tag = styled.span`
+  font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;

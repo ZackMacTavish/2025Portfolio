@@ -173,7 +173,7 @@ const PasswordForm = styled.form`
 
 // Rounded input following site font styles
 const PasswordInput = styled.input`
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-body);
   font-size: 1.1rem;
   padding: 0.6rem 1.1rem;
   border-radius: 999px;
@@ -192,7 +192,7 @@ const PasswordButton = styled.button`
   gap: 0.32em;
   background: #111;
   color: #fff;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 1.05rem;
   border: none;
