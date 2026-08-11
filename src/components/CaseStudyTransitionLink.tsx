@@ -1,10 +1,21 @@
-import { useState, type ReactNode, type MouseEvent } from "react";
+import { useRef, useState, type ReactNode, type MouseEvent } from "react";
+import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import CaseStudyTransition, {
   shouldRunCardTransition,
   warmPreloadTransitionImages,
 } from "./CaseStudyTransition";
 import { caseStudies } from "../data/caseStudies";
+
+const DESTINATION_WAIT_TIMEOUT_MS = 2500;
+
+function afterNextPaint(): Promise<void> {
+  return new Promise((resolve) => {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => resolve());
+    });
+  });
+}
 
 type RenderProps = {
   onClick: (e: MouseEvent) => void;
@@ -36,16 +47,24 @@ export default function CaseStudyTransitionLink({
 }: Props) {
   const navigate = useNavigate();
   const [transitioning, setTransitioning] = useState(false);
+  const [showDestinationCover, setShowDestinationCover] = useState(false);
   const caseStudy = caseStudies.find((item) => item.slug === slug);
+  const routePreloadRef = useRef<Promise<unknown> | null>(null);
+
+  const preloadDestination = () => {
+    if (!preloadRoute) return Promise.resolve();
+
+    if (!routePreloadRef.current) {
+      routePreloadRef.current = preloadRoute().catch(() => undefined);
+    }
+
+    return routePreloadRef.current;
+  };
 
   const handleIntent = () => {
     if (!caseStudy) return;
     warmPreloadTransitionImages(caseStudy.transitionImages);
-    if (preloadRoute) {
-      preloadRoute().catch(() => {
-        /* ignore preload failures */
-      });
-    }
+    void preloadDestination();
   };
 
   const handleClick = async (e: MouseEvent) => {
@@ -62,6 +81,7 @@ export default function CaseStudyTransitionLink({
     }
     e.preventDefault();
     onActivate?.();
+    void preloadDestination();
 
     if (!caseStudy) {
       navigate(to);
@@ -80,9 +100,18 @@ export default function CaseStudyTransitionLink({
     setTransitioning(true);
   };
 
-  const handleTransitionComplete = () => {
-    setTransitioning(false);
+  const handleTransitionComplete = async () => {
+    await Promise.race([
+      preloadDestination(),
+      new Promise((resolve) => window.setTimeout(resolve, DESTINATION_WAIT_TIMEOUT_MS)),
+    ]);
+
+    setShowDestinationCover(true);
+    await afterNextPaint();
     navigate(to);
+    setTransitioning(false);
+    await afterNextPaint();
+    setShowDestinationCover(false);
   };
 
   return (
@@ -100,6 +129,20 @@ export default function CaseStudyTransitionLink({
           layoutId={caseStudy.slug}
           sharedSourceImageSrc={caseStudy.coverImage.src}
         />
+      )}
+      {showDestinationCover && typeof document !== "undefined" && createPortal(
+        <div
+          aria-hidden="true"
+          data-destination-handoff="true"
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 101,
+            background: "var(--surface, #ffffff)",
+            pointerEvents: "none",
+          }}
+        />,
+        document.body
       )}
     </>
   );

@@ -93,6 +93,11 @@ const TopSectionImage = styled.div`
   }
 `;
 
+const TopSectionPicture = styled.picture`
+  display: block;
+  width: 100%;
+`;
+
 // Styled image for the top section
 const TopSectionImageStyled = styled.img`
   width: 100%;
@@ -220,7 +225,7 @@ export default function ProjectTopSection({
       </TopSectionText>
       <TopSectionImage>
         {imageBaseName ? (
-          <picture>
+          <TopSectionPicture>
             {mobileAvif && <source srcSet={mobileAvif} type="image/avif" media="(max-width: 900px)" />}
             <source srcSet={normalizedImageAvif} type="image/avif" />
             {mobileWebp && <source srcSet={mobileWebp} type="image/webp" media="(max-width: 900px)" />}
@@ -239,7 +244,7 @@ export default function ProjectTopSection({
                 loading="eager"
                 decoding="sync"
               />
-          </picture>
+          </TopSectionPicture>
         ) : (
             <TopSectionImageStyled
               src={normalizeAssetUrl(imageSrc)}

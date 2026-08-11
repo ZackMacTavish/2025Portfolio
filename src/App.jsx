@@ -517,8 +517,8 @@ function App() {
             {/* Fallback for unknown routes */}
             <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
+            <FooterGate />
           </Suspense>
-          <FooterGate />
         </Router>
         {process.env.NODE_ENV === "development" && (
           <Suspense fallback={null}>

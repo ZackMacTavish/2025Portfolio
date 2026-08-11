@@ -25,10 +25,10 @@ export const phiaCaseStudy: CaseStudy = {
   ),
   transitionImages: [
     image("hero", "Phia luxury resale landing page"),
-    image("retailer-home", "Phia pre-owned feed beside a Chanel retailer page", "5/3"),
-    image("pdp-pane", "Phia pre-owned alternatives beside a product page", "5/3"),
-    image("chanel-feed", "Phia Chanel catalog integration", "5/3"),
-    image("product-feed", "Phia product recommendation feed", "5/3"),
+    image("landing-entry-light", "Phia resale landing experience in Microsoft Shopping"),
+    image("side-pane-walmart", "Phia pre-owned alternatives beside a Walmart product page"),
+    image("side-pane-chanel", "Phia pre-owned feed beside a Chanel retailer page"),
+    image("side-pane-dark", "Phia dark side-pane exploration on a Chanel page"),
   ],
   heroHeadline: "Bringing curated pre-owned luxury into Microsoft Shopping",
   meta: {
@@ -51,7 +51,7 @@ I joined after the initial concept to help design flows and interactions that ma
       layout: "full-width-image",
       heading: "A Clear Entry Point",
       body: `The landing experience introduced resale as a distinct but connected part of Microsoft Shopping. The visual direction balanced Phia's editorial luxury language with familiar Microsoft Shopping navigation and search patterns.`,
-      images: [image("search-entry", "Phia resale search experience in Microsoft Shopping")],
+      images: [image("landing-entry-light", "Phia resale landing experience in Microsoft Shopping")],
     },
     {
       id: "catalog-system",
@@ -74,10 +74,12 @@ I joined after the initial concept to help design flows and interactions that ma
       layout: "image-pair",
       stackImages: true,
       heading: "Testing the Visual Direction",
-      body: `Light, dark, muted, and color-led variations helped the team evaluate how the Phia identity could sit within Microsoft surfaces while preserving a premium editorial feel.`,
+      body: `Banner iterations explored green, deep green, and muted neutral treatments to evaluate how the Phia identity could sit within Microsoft surfaces while preserving a premium editorial feel.`,
       images: [
-        { ...image("dark-mode", "Dark visual direction for the Phia shopping page"), aspectRatio: undefined },
-        { ...image("hero", "Light visual direction for the Phia shopping page"), aspectRatio: undefined },
+        image("banner-green", "Green banner direction for the Phia shopping landing page"),
+        image("banner-dark-green", "Deep green banner direction for the Phia shopping landing page"),
+        image("banner-muted", "Muted neutral banner direction for the Phia shopping landing page"),
+        image("banner-warm", "Warm neutral banner direction for the Phia shopping landing page"),
       ],
     },
     {
@@ -106,9 +108,9 @@ I joined after the initial concept to help design flows and interactions that ma
 
 The companion pane connected that inventory to the page a shopper was already viewing. This preserved context while making price and product alternatives easy to compare.`,
       images: [
-        { ...image("product-feed", "Phia alternatives integrated with a luxury product page", "5/3"), objectFit: "cover" },
-        { ...image("retailer-home", "Phia companion pane on a Chanel retailer homepage", "5/3"), objectFit: "cover" },
-        { ...image("pdp-pane", "Phia companion pane on a Chanel product detail page", "5/3"), objectFit: "cover" },
+        { ...image("side-pane-walmart", "Phia alternatives integrated with a Walmart product page"), objectFit: "cover" },
+        { ...image("side-pane-chanel", "Phia companion pane on a Chanel retailer homepage"), objectFit: "cover" },
+        { ...image("side-pane-dark", "Dark Phia companion pane on a Chanel product page"), objectFit: "cover" },
       ],
     },
     {

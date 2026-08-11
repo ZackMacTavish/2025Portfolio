@@ -31,9 +31,14 @@ function useReducedMotion() {
 }
 
 import leysiTile from '../../assets/LeysiApp—Screens copy.jpg';
+import leysiTileMobile from '../../assets/LeysiApp—Screens copy-mobile-900.webp';
 import threePillarsTile from '../../assets/ThreePillars—pages.jpg';
+import threePillarsTileMobile from '../../assets/ThreePillars—pages-mobile-900.webp';
 import pitonTile from '../../assets/Piton—Screens.jpg';
+import pitonTileMobile from '../../assets/Piton—Screens-mobile-900.webp';
 import outsourceTile from '../../assets/BrandGuidelines—Mockup.jpg';
+import outsourceTileMobile from '../../assets/BrandGuidelines—Mockup-mobile-900.webp';
+import hpTileMobile from '../../assets/HP-mobile-900.webp';
 
 const IntroDiv = styled.div`
   display: flex;
@@ -121,6 +126,30 @@ const baseIntroTransitionImages = [
   },
 ];
 
+const mobileIntroTransitionImages = [
+  {
+    src: hpTileMobile,
+    alt: 'Microsoft shopping ecosystem preview',
+    objectPosition: 'top center',
+  },
+  {
+    src: leysiTileMobile,
+    alt: 'Leysi project preview',
+  },
+  {
+    src: threePillarsTileMobile,
+    alt: 'ThreePillars project preview',
+  },
+  {
+    src: pitonTileMobile,
+    alt: 'Piton project preview',
+  },
+  {
+    src: outsourceTileMobile,
+    alt: 'Outsource project preview',
+  },
+];
+
 function shuffleImages(images) {
   const shuffled = [...images];
   for (let i = shuffled.length - 1; i > 0; i -= 1) {
@@ -130,19 +159,11 @@ function shuffleImages(images) {
   return shuffled;
 }
 
-function shouldSkipIntroCardTransitionOnDevice() {
-  if (typeof window === 'undefined' || typeof navigator === 'undefined') {
-    return false;
+function getIntroTransitionImages() {
+  if (typeof window !== 'undefined' && window.matchMedia?.('(max-width: 900px)').matches) {
+    return mobileIntroTransitionImages;
   }
-
-  const touchOnlyDevice = window.matchMedia?.('(hover: none) and (pointer: coarse)').matches ?? false;
-  const userAgent = navigator.userAgent;
-  const isIosDevice = /iPhone|iPad|iPod/i.test(userAgent);
-  const isMobileSafari = /Safari/i.test(userAgent) &&
-    /Mobile/i.test(userAgent) &&
-    !/CriOS|Chrome|FxiOS|EdgiOS/i.test(userAgent);
-
-  return touchOnlyDevice && (isIosDevice || isMobileSafari);
+  return baseIntroTransitionImages;
 }
 
 
@@ -151,7 +172,7 @@ export default function IntroAnimation() {
   const introWhite = '#ffffff';
   const [counter, setCounter] = useState('000%');
   const [showIntro, setShowIntro] = useState(true);
-  const [introTransitionImages] = useState(() => shuffleImages(baseIntroTransitionImages));
+  const [introTransitionImages] = useState(() => shuffleImages(getIntroTransitionImages()));
   const [introDecisionReady, setIntroDecisionReady] = useState(false);
   const [introCardsEnabled, setIntroCardsEnabled] = useState(false);
   const introRef = useRef(null);
@@ -164,14 +185,6 @@ export default function IntroAnimation() {
   // Decide whether the intro card stack is fast enough to animate smoothly.
   useEffect(() => {
     let isCancelled = false;
-
-    if (shouldSkipIntroCardTransitionOnDevice()) {
-      setIntroCardsEnabled(false);
-      setIntroDecisionReady(true);
-      return () => {
-        isCancelled = true;
-      };
-    }
 
     shouldRunCardTransition(introTransitionImages, undefined, {
       lockSessionOnFailure: false,
