@@ -28,6 +28,24 @@ interface ImageCarouselProps {
  */
 const CarouselRoot = styled.div`
   width: 100%;
+
+  @media (max-width: 767px) {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+
+    [data-carousel-frame="true"] {
+      width: calc(100% - 1rem) !important;
+      margin-inline: 0.5rem;
+      border-radius: 12px !important;
+      box-shadow: none !important;
+    }
+
+    [data-carousel-frame="true"] > div,
+    [data-carousel-frame="true"] picture,
+    [data-carousel-frame="true"] img {
+      border-radius: 12px !important;
+    }
+  }
 `;
 
 /**
@@ -56,6 +74,8 @@ const Frame = React.forwardRef<HTMLDivElement, React.ComponentProps<typeof motio
         maxHeight: "min(80vh, 1000px)",
         boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
         outline: "none",
+        cursor: "grab",
+        touchAction: "pan-y",
         ...(style || {})
       }}
       {...rest}
@@ -129,26 +149,49 @@ const Slide = styled.div`
 const SlideImage = styled(ResponsiveImage)`
   width: 100%;
   height: 100%;
+
+  img {
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
 `;
 
 const Dots = styled.div`
-  margin-top: 1rem;
+  margin-top: 0.625rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0;
 `;
 
 const Dot = styled.button<{ $active: boolean }>`
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+  position: relative;
+  width: 32px;
+  height: 32px;
   border: none;
   cursor: pointer;
   padding: 0;
-  background: ${(props) => (props.$active ? "var(--text-strong, #333)" : "var(--border, #ccc)")};
-  transform: ${(props) => (props.$active ? "scale(1.3)" : "scale(1)")};
-  transition: all 0.3s;
+  background: transparent;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: ${(props) => (props.$active ? "var(--text-strong, #333)" : "var(--border, #ccc)")};
+    transform: translate(-50%, -50%) scale(${(props) => (props.$active ? 1.3 : 1)});
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--text-strong, #333);
+    outline-offset: -4px;
+    border-radius: 50%;
+  }
 `;
 
 export default function ImageCarousel({
@@ -171,8 +214,7 @@ export default function ImageCarousel({
 
   const total = images.length;
 
-  // Single IntersectionObserver: auto-focus for keyboard nav AND gate autoplay.
-  // Fires when ≥80 % of the carousel is visible. preventScroll avoids page jumps.
+  // Gate autoplay until most of the carousel is visible.
   useEffect(() => {
     const frame = frameRef.current;
     if (!frame) return;
@@ -180,7 +222,6 @@ export default function ImageCarousel({
       (entries) => {
         const inView = entries[0]?.isIntersecting ?? false;
         setIsInViewport(inView);
-        if (inView) frame.focus({ preventScroll: true });
       },
       { threshold: 0.8 }
     );
@@ -240,11 +281,18 @@ export default function ImageCarousel({
           }
         }}
         drag="x"
+        dragDirectionLock
+        dragElastic={0.16}
+        dragMomentum={false}
         dragConstraints={{ left: 0, right: 0 }}
+        onDragStart={() => setIsManuallyPaused(true)}
         onDragEnd={(_, info) => {
-          if (info.offset.x > 80) {
+          const swipeDistance = Math.min(48, (frameRef.current?.clientWidth ?? 400) * 0.12);
+          const projectedOffset = info.offset.x + info.velocity.x * 0.12;
+
+          if (projectedOffset > swipeDistance) {
             goPrev();
-          } else if (info.offset.x < -80) {
+          } else if (projectedOffset < -swipeDistance) {
             goNext();
           }
         }}
@@ -259,6 +307,9 @@ export default function ImageCarousel({
             alt={prevImage.alt}
             avif={prevImage.avif}
             webp={prevImage.webp}
+            mobileSrc={prevImage.mobileSrc}
+            mobileAvif={prevImage.mobileAvif}
+            mobileWebp={prevImage.mobileWebp}
             aspectRatio={prevImage.aspectRatio || "3/2"}
             borderRadius={prevImage.borderRadius || "16px"}
             backgroundColor={prevImage.backgroundColor}
@@ -284,6 +335,9 @@ export default function ImageCarousel({
             alt={activeImage.alt}
             avif={activeImage.avif}
             webp={activeImage.webp}
+            mobileSrc={activeImage.mobileSrc}
+            mobileAvif={activeImage.mobileAvif}
+            mobileWebp={activeImage.mobileWebp}
             aspectRatio={activeImage.aspectRatio || "3/2"}
             borderRadius={activeImage.borderRadius || "16px"}
             backgroundColor={activeImage.backgroundColor}
@@ -305,7 +359,10 @@ export default function ImageCarousel({
               type="button"
               $side="left"
               aria-label="Previous image"
-              onClick={goPrev}
+              onClick={() => {
+                setIsManuallyPaused(true);
+                goPrev();
+              }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <polyline points="15 6 9 12 15 18" />
@@ -326,7 +383,10 @@ export default function ImageCarousel({
               type="button"
               $side="right"
               aria-label="Next image"
-              onClick={goNext}
+              onClick={() => {
+                setIsManuallyPaused(true);
+                goNext();
+              }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <polyline points="9 6 15 12 9 18" />
@@ -345,7 +405,10 @@ export default function ImageCarousel({
               $active={idx === activeIndex}
               aria-label={`Go to slide ${idx + 1}`}
               aria-current={idx === activeIndex}
-              onClick={() => goTo(idx)}
+              onClick={() => {
+                setIsManuallyPaused(true);
+                goTo(idx);
+              }}
             />
           ))}
         </Dots>

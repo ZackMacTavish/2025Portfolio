@@ -347,6 +347,23 @@ const DropdownMenu = styled(Link)`
     text-align: center;
     min-height: 44px;
     width: auto;
+    border-radius: 999px;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 120ms ease, transform 120ms ease;
+
+    &:hover {
+      background-color: transparent;
+    }
+
+    &:active {
+      background-color: rgba(166, 209, 202, 0.28);
+      transform: scale(0.97);
+    }
+
+    &:focus-visible {
+      outline: 2px solid #a6d1ca;
+      outline-offset: 2px;
+    }
   }
 `;
 

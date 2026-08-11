@@ -31,17 +31,17 @@ const TopSectionContainer = styled.div`
     width: 90vw;
     max-width: 90vw;
   }
-    @media (max-width: 850px) {
-      flex-direction: column-reverse;
-      align-items: stretch;
-      width: 100vw;
-      max-width: 100vw;
-      gap: 0.75rem;
-      margin: 0 auto 4vh auto;
-      padding-left: 2vw;
-      padding-right: 2vw;
-      padding-top: 0;
-    }
+
+  @media (max-width: 850px) {
+    flex-direction: column-reverse;
+    align-items: center;
+    width: 100vw;
+    max-width: 100vw;
+    gap: 1.25rem;
+    margin: 0 auto 2.75rem;
+    padding: 0 1.25rem;
+    box-sizing: border-box;
+  }
 `;
 
 const TopSectionText = styled.div`
@@ -55,13 +55,14 @@ const TopSectionText = styled.div`
   height: 100%;
 
   @media (max-width: 850px) {
-    width: min(40rem, 100%);
+    width: 100%;
     align-items: center;
     text-align: center;
-    gap: 0.75rem;
-    }
-      background: transparent;
-      padding: 0;
+    gap: 0.625rem;
+  }
+
+  background: transparent;
+  padding: 0;
 `;
 
 const TopSectionImage = styled.div`
@@ -125,7 +126,7 @@ const TopSectionImageStyled = styled.img`
   }
   @media (max-width: 850px) {
     width: 100%;
-    max-width: 260px;
+    max-width: 176px;
     min-width: 0;
     height: auto;
     margin-bottom: 0;
@@ -156,6 +157,21 @@ const Divider = styled.div`
 
   @media (max-width: 850px) {
     margin: 0 auto 0.2rem;
+  }
+`;
+
+const TopSectionActions = styled(ButtonsGrid)`
+  @media (max-width: 850px) {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0.125rem 0 0;
+
+    ${ProjectButton} {
+      min-height: 44px;
+      margin: 0;
+      padding: 0.7rem 1.2rem;
+    }
   }
 `;
 
@@ -210,13 +226,13 @@ export default function ProjectTopSection({
         {divider && (
           <Divider />
         )}
-        <ButtonsGrid>
+        <TopSectionActions>
           {buttons.map(({ href, label }, i) => (
             <ProjectButton key={i} href={href} target="_blank" rel="noopener noreferrer">
               {label} <FiArrowUpRight style={{ marginLeft: 6, fontSize: '1.2em' }} />
             </ProjectButton>
           ))}
-        </ButtonsGrid>
+        </TopSectionActions>
 
 
 

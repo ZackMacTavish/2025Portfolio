@@ -1675,6 +1675,7 @@ export default memo(function CaseStudyPage({
                 backgroundColor={image.backgroundColor}
                 imagePaddingBlock={image.imagePaddingBlock}
                 imagePaddingInline={image.imagePaddingInline}
+                loading={image.loading}
               />
             </GalleryImage>
           ))}

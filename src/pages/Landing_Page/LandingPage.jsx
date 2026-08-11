@@ -124,6 +124,26 @@ import { Link } from 'react-router-dom';
 import { FiLock } from 'react-icons/fi';
 import ProcessExperience from './ProcessExperience';
 
+const AgencyTextSection = styled(FullHeightTextSection)`
+  @media (max-width: 850px) {
+    padding-inline: 1rem;
+  }
+`;
+
+const AgencyTextContainer = styled(TextContainer)`
+  @media (max-width: 850px) {
+    width: 100%;
+    max-width: none;
+  }
+`;
+
+const AgencyTextContent = styled(TextContent)`
+  @media (max-width: 850px) {
+    width: 100%;
+    max-width: none;
+  }
+`;
+
 // Spotlight background animations
 const spotlightLeftMove = keyframes`
   0% { transform: translate(-50%, -60%) rotate(0deg); }
@@ -851,9 +871,9 @@ const LandingPage = ({ introDone = true }) => {
       <PortfolioCardsSection />
 
       {/* Module 2: Second Paragraph */}
-      <FullHeightTextSection style={{ backgroundColor: 'var(--surface-subtle, #f7f7f7)' }}>
-        <TextContainer>
-          <TextContent style={{ color: 'var(--text-muted, #5d5d5d)' }}>
+      <AgencyTextSection style={{ backgroundColor: 'var(--surface-subtle, #f7f7f7)' }}>
+        <AgencyTextContainer>
+          <AgencyTextContent style={{ color: 'var(--text-muted, #5d5d5d)' }}>
             I’ve partnered with agencies including{' '}
             <a
               href="https://www.publicisgroupe.com/en"
@@ -882,9 +902,9 @@ const LandingPage = ({ introDone = true }) => {
               Varfaj Partners
             </a>
             {' '}on work spanning UX, product, and brand design. My background includes agency experience in New York City and formal design training in Chicago. Client collaborations have included Microsoft, Walmart, Seagate Technology, and Chip Ganassi Racing.
-          </TextContent>
-        </TextContainer>
-      </FullHeightTextSection>
+          </AgencyTextContent>
+        </AgencyTextContainer>
+      </AgencyTextSection>
 
       <ProcessExperience />
 

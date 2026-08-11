@@ -33,6 +33,9 @@ interface CaseStudyImage {
   /** Optional intrinsic height in pixels */
   height?: number;
 
+  /** Browser loading priority for images that must render immediately */
+  loading?: "lazy" | "eager";
+
   /** Optional object-fit override when rendered responsively */
   objectFit?: "cover" | "contain";
 

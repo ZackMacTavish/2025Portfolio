@@ -135,7 +135,7 @@ export default function ResponsiveImage({
   // is active (disableRevealAnimation = false) to prevent the container's
   // coloured backgroundColor showing as an empty card before the image appears.
   // Carousels use disableRevealAnimation and their own isImageLoaded state.
-  const [imgDecoded, setImgDecoded] = useState(disableRevealAnimation);
+  const [imgDecoded, setImgDecoded] = useState(disableRevealAnimation || loading === "eager");
   // Guard against prerender / SSR where `window` is undefined.
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== "undefined" && window.innerWidth < 768
