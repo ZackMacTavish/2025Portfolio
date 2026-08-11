@@ -1,6 +1,0 @@
-System.register(["./three-legacy-BdMASLzS.js","./vendor-legacy-C2msdADn.js","./LandingPage-legacy-X9PK84Qz.js","./metadata-legacy-BfHXKqE3.js","./index-legacy-DNl9zcfO.js","./CaseStudyPrimitives-legacy-BPt2yleX.js","./PortfolioCardsSection-legacy-y0S6rq7I.js","./index-legacy-BYqiN8GS.js"],function(e,t){"use strict";var s,r,n,a,c,i,l,o,d;return{setters:[e=>{s=e.j,r=e.C,n=e.u,a=e.a,c=e.R,i=e.T},e=>{l=e.b,o=e.c},e=>{d=e.w},null,null,null,null,null],execute:function(){const t=o.div`
-  width: 100vw;
-  height: 100vh;
-  height: 100dvh;
-  background-color: black;
-`,u=()=>{const e=l.useRef(),t=l.useRef("undefined"!=typeof window&&window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches);n(({clock:s})=>{if(!e.current||t.current)return;const r=s.getElapsedTime(),n=e.current.geometry.attributes.position;for(let e=0;e<n.count;e++){const t=n.getX(e),s=n.getY(e),a=.15*Math.sin(3*t+r)+.15*Math.cos(3*s+r);n.setZ(e,a)}n.needsUpdate=!0});const[r]=a(i,[d]);return r.wrapS=r.wrapT=c,r.repeat.set(1,1),s.jsxs("mesh",{ref:e,children:[s.jsx("planeGeometry",{args:[3,3,32,32]}),s.jsx("meshBasicMaterial",{map:r})]})};e("default",()=>s.jsx(t,{children:s.jsx(r,{camera:{fov:50,position:[0,0,4]},dpr:[1,1.5],gl:{antialias:!1,powerPreference:"low-power"},children:s.jsx(l.Suspense,{fallback:null,children:s.jsx(u,{})})})}))}}});
