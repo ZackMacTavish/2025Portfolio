@@ -124,6 +124,7 @@ const PasswordIntro = styled.div`
 `;
 
 const PasswordEyebrow = styled.p`
+  font-family: var(--font-mono);
   margin: 0;
   font-size: 0.8rem;
   font-weight: 700;
@@ -134,6 +135,7 @@ const PasswordEyebrow = styled.p`
 
 const PasswordTitle = styled.h1`
   margin: 0;
+  font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 3.4rem);
   line-height: 1;
 `;
@@ -217,6 +219,7 @@ const AccentBand = styled(FullHeightTextSection)`
 
 const AccentText = styled(TextContent)`
   color: var(--accent-fg);
+  font-family: var(--font-display);
   /* Scales from ~1.25rem on phones up to ~2rem on large desktops, mirroring
      the clamp pattern used by the foundation typography tokens. */
   font-size: clamp(1.25rem, 1.4vw + 0.85rem, 2rem);
@@ -471,7 +474,7 @@ const VideoWrapper = styled.div`
   cursor: none;
 
   @media (max-width: 850px) {
-    border-radius: 0;
+    border-radius: 12px;
   }
 `;
 

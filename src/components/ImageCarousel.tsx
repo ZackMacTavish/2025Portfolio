@@ -30,6 +30,8 @@ const CarouselRoot = styled.div`
   width: 100%;
 
   @media (max-width: 767px) {
+    --carousel-image-padding-inline: 1.25rem;
+    --carousel-image-padding-block: 1rem;
     width: 100vw;
     margin-left: calc(50% - 50vw);
 
@@ -258,6 +260,8 @@ export default function ImageCarousel({
   if (!total) return null;
   const activeImage = images[activeIndex];
   const prevImage = images[prevIndex];
+  const getObjectPosition = (image: CaseStudyImage) =>
+    image.objectPosition || (image.objectFit === "contain" ? "center" : "top center");
 
   return (
     <CarouselRoot>
@@ -313,10 +317,10 @@ export default function ImageCarousel({
             aspectRatio={prevImage.aspectRatio || "3/2"}
             borderRadius={prevImage.borderRadius || "16px"}
             backgroundColor={prevImage.backgroundColor}
-            imagePaddingBlock={prevImage.imagePaddingBlock}
-            imagePaddingInline={prevImage.imagePaddingInline}
+            imagePaddingBlock={prevImage.imagePaddingBlock ? `var(--carousel-image-padding-block, ${prevImage.imagePaddingBlock})` : undefined}
+            imagePaddingInline={prevImage.imagePaddingInline ? `var(--carousel-image-padding-inline, ${prevImage.imagePaddingInline})` : undefined}
             objectFit={prevImage.objectFit || "cover"}
-            objectPosition={prevImage.objectPosition || "top center"}
+            objectPosition={getObjectPosition(prevImage)}
             border={prevImage.containerBorder}
             disableRevealAnimation
             loading="lazy"
@@ -341,10 +345,10 @@ export default function ImageCarousel({
             aspectRatio={activeImage.aspectRatio || "3/2"}
             borderRadius={activeImage.borderRadius || "16px"}
             backgroundColor={activeImage.backgroundColor}
-            imagePaddingBlock={activeImage.imagePaddingBlock}
-            imagePaddingInline={activeImage.imagePaddingInline}
+            imagePaddingBlock={activeImage.imagePaddingBlock ? `var(--carousel-image-padding-block, ${activeImage.imagePaddingBlock})` : undefined}
+            imagePaddingInline={activeImage.imagePaddingInline ? `var(--carousel-image-padding-inline, ${activeImage.imagePaddingInline})` : undefined}
             objectFit={activeImage.objectFit || "cover"}
-            objectPosition={activeImage.objectPosition || "top center"}
+            objectPosition={getObjectPosition(activeImage)}
             border={activeImage.containerBorder}
             disableRevealAnimation
             loading="lazy"

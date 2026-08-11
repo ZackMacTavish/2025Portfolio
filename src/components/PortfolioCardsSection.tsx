@@ -46,7 +46,7 @@ const Inner = styled.div`
 
 const SectionTitle = styled.h2`
   margin: 0 0 2rem;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(1.4rem, 3vw, 2rem);
   color: ${(p) => p.theme.strongText};
 `;

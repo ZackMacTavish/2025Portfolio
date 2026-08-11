@@ -243,6 +243,7 @@ const MetadataItem = styled.div`
 `;
 
 const MetadataLabel = styled.p`
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.1em;
   color: ${(p) => p.theme.mutedText};
@@ -252,6 +253,7 @@ const MetadataLabel = styled.p`
 `;
 
 const MetadataValue = styled.p`
+  font-family: var(--font-mono);
   font-size: 0.875rem;
   color: ${(p) => p.theme.mutedText};
   margin: 0;
@@ -259,6 +261,7 @@ const MetadataValue = styled.p`
 
 const HeadlineBase = styled(motion.h1)`
   margin: 0;
+  font-family: var(--font-display);
   font-size: 2.25rem;
   font-weight: 700;
   line-height: 1.2;
@@ -365,8 +368,8 @@ const SectionBody = styled.div`
 const ParagraphBase = styled.p`
   margin: 0;
   max-width: 68ch;
-  font-size: 1rem;
-  line-height: 1.625;
+  font-size: var(--type-narrative-size);
+  line-height: var(--type-narrative-leading);
   color: ${(p) => p.theme.mutedText};
 `;
 
@@ -413,11 +416,23 @@ const FullWidthImageContainer = styled(motion.div)`
   border-radius: 0;
 `;
 
-const VideoFrame = styled.video`
-  display: block;
+const VideoFrameWrap = styled.div`
   width: 100%;
   aspect-ratio: 16 / 9;
   border-radius: 16px;
+  overflow: hidden;
+  background: #000;
+
+  @media (max-width: 767px) {
+    border-radius: 12px;
+  }
+`;
+
+const VideoFrame = styled.video`
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
   background: #000;
   object-fit: cover;
 `;
@@ -724,6 +739,7 @@ const RelatedCalloutWrap = styled.div`
 
 const RelatedEyebrow = styled.p`
   margin: 0 0 0.75rem;
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -810,8 +826,8 @@ const CenterTextBlock = styled.div`
 const CenterText = styled(motion.div)``;
 
 const TextOnlyParagraph = styled(Paragraph)`
-  font-size: clamp(1rem, 1.15vw, 1.15rem);
-  line-height: 1.65;
+  font-size: var(--type-narrative-size);
+  line-height: var(--type-narrative-leading);
   max-width: 62ch;
   text-wrap: pretty;
 `;
@@ -840,9 +856,10 @@ const QuoteContent = styled(motion.div)<{ $accentColor?: string }>`
 const QuoteText = styled.p`
   margin: 0;
   text-align: left;
-  font-size: clamp(1.2rem, 2.1vw, 1.55rem);
+  font-family: var(--font-display);
+  font-size: var(--type-quote-size);
   font-style: italic;
-  line-height: 1.5;
+  line-height: var(--type-quote-leading);
   color: ${(p) => p.theme.strongText};
   text-wrap: balance;
 `;
@@ -850,6 +867,7 @@ const QuoteText = styled.p`
 const QuoteAttribution = styled.cite`
   display: block;
   margin-top: 1.5rem;
+  font-family: var(--font-mono);
   font-size: 0.85rem;
   font-style: normal;
   font-weight: 600;
@@ -994,9 +1012,10 @@ const QuoteLeftAligned = styled.p`
   border-left: 3px solid currentColor;
   padding-left: 1.5rem;
   text-align: left;
-  font-size: 1.5rem;
+  font-family: var(--font-display);
+  font-size: var(--type-quote-size);
   font-style: italic;
-  line-height: 1.5;
+  line-height: var(--type-quote-leading);
   color: ${(p) => p.theme.strongText};
 `;
 
@@ -1052,8 +1071,8 @@ const ParallaxHeading = styled(motion.h2)`
 const ParallaxBody = styled(motion.p)`
   margin: 0;
   color: ${(p) => p.theme.mutedText};
-  font-size: 1.05rem;
-  line-height: 1.7;
+  font-size: var(--type-narrative-size);
+  line-height: var(--type-narrative-leading);
   max-width: 540px;
 `;
 
@@ -1177,6 +1196,7 @@ const FooterActionsRow = styled.div`
 
 const FooterLabel = styled.p`
   margin: 0;
+  font-family: var(--font-mono);
   font-size: 0.8rem;
   letter-spacing: 0.12em;
   color: ${(p) => p.theme.mutedText};
@@ -1226,6 +1246,7 @@ const NextProjectButton = styled(motion.button)`
 `;
 
 const NextProjectLabel = styled.p`
+  font-family: var(--font-mono);
   font-size: 0.875rem;
   letter-spacing: 0.1em;
   color: ${(p) => p.theme.mutedText};
@@ -1620,15 +1641,17 @@ export default memo(function CaseStudyPage({
         </CenterTextBlock>
       )}
       {section.video && (
-        <VideoFrame
-          controls
-          playsInline
-          preload="metadata"
-          poster={section.video.poster}
-          aria-label={section.video.ariaLabel}
-        >
-          <source src={section.video.src} type="video/mp4" />
-        </VideoFrame>
+        <VideoFrameWrap>
+          <VideoFrame
+            controls
+            playsInline
+            preload="metadata"
+            poster={section.video.poster}
+            aria-label={section.video.ariaLabel}
+          >
+            <source src={section.video.src} type="video/mp4" />
+          </VideoFrame>
+        </VideoFrameWrap>
       )}
       {section.caption && <Caption>{section.caption}</Caption>}
     </div>

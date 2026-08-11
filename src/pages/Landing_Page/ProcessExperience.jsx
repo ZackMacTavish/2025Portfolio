@@ -5,31 +5,31 @@ import styled, { keyframes } from 'styled-components';
 
 const processSteps = [
   {
-    eyebrow: 'My Process',
+    eyebrow: 'How I work',
     title: 'My Process',
-    body: "Structured enough to scale, flexible enough to stay curious. Here's my process.",
+    body: 'Structured enough to scale, flexible enough to stay curious. Built to turn ambiguity into focused solutions.',
     range: [-0.01, 0, 0.02, 0.141],
   },
   {
-    eyebrow: '01 / Discovery',
+    eyebrow: '01/04',
     title: 'Discovery',
     body: "I start by getting into the client's world: competitive context, stakeholder kickoffs, and a FigJam brainstorm to pull everyone's perspective into one place. I also dig into past and existing research on the topic, then map pain points from both the business side and the user's side so we are solving the right problem before design starts.",
     range: [0.168, 0.194, 0.274, 0.318],
   },
   {
-    eyebrow: '02 / Ideation',
+    eyebrow: '02/04',
     title: 'Ideation',
     body: "This is where solutions start taking shape: sketches, site maps, user flows, personas. I work through a lot of it solo first, then bring it to the team early for feedback, because the best ideas get sharper in the room. I also like building out the story behind a flow, not just screen A to B to C to D. A narrative helps a user journey land in a way a static screen sequence can't.",
     range: [0.344, 0.371, 0.45, 0.494],
   },
   {
-    eyebrow: '03 / Design & Research',
+    eyebrow: '03/04',
     title: 'Design & Research',
     body: "From here, ideas become real: low, medium, and high-fidelity mockups, then interactive prototypes to test the design. I validate the work with quantitative and qualitative research, including A/B testing on early screens and interview-style studies on platforms like UserTesting, so decisions are grounded in real behavior, not assumptions. Whether it's a Figma prototype or a working build, the goal is the same: get something real in front of users fast.",
     range: [0.521, 0.547, 0.615, 0.655],
   },
   {
-    eyebrow: '04 / Testing & Handoff',
+    eyebrow: '04/04',
     title: 'Testing & Handoff',
     body: "I pressure-test the work with usability sessions, edge-case mapping, accessibility checks, and design-peer reviews to make sure every state holds up. Then I hand off with redlines, specs, and token-based guidance in Figma Dev Mode, staying close with engineers through check-ins and kickoff alignment with PMs and stakeholders.",
     range: [0.675, 0.705, 0.775, 0.815],
@@ -122,7 +122,7 @@ const ScrollCue = styled.div`
   border-radius: 999px;
   background: rgba(15, 15, 15, 0.78);
   color: #fff;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-mono);
   font-size: 0.78rem;
   letter-spacing: 0.04em;
   line-height: 1;
@@ -168,6 +168,7 @@ const PanelContent = styled.div`
 
 const Eyebrow = styled.p`
   margin: 0 0 clamp(1.25rem, 3vh, 2rem);
+  font-family: var(--font-mono);
   font-size: 0.78rem;
   font-weight: 600;
   line-height: 1;
@@ -178,6 +179,7 @@ const Eyebrow = styled.p`
 const ProcessTitle = styled.h2`
   margin: 0 0 clamp(1.25rem, 3vh, 2rem);
   max-width: 14ch;
+  font-family: var(--font-display);
   font-size: clamp(2.75rem, 8vw, 7.5rem);
   font-weight: 500;
   line-height: 0.96;
@@ -187,19 +189,9 @@ const ProcessTitle = styled.h2`
 const ProcessBody = styled.p`
   margin: 0;
   max-width: 60rem;
-  font-size: clamp(1rem, 1.7vw, 1.35rem);
+  font-size: var(--type-narrative-size);
   font-weight: 400;
-  line-height: 1.55;
-
-  @media (max-width: 600px) {
-    font-size: clamp(0.94rem, 4vw, 1.08rem);
-    line-height: 1.48;
-  }
-
-  @media (max-height: 700px) and (max-width: 600px) {
-    font-size: 0.88rem;
-    line-height: 1.42;
-  }
+  line-height: var(--type-narrative-leading);
 `;
 
 const FaqSection = styled.section`
@@ -225,6 +217,7 @@ const FaqInner = styled.div`
 
 const FaqHeading = styled.h2`
   margin: 0 0 clamp(3rem, 8vh, 5rem);
+  font-family: var(--font-display);
   font-size: clamp(2.75rem, 7vw, 6rem);
   font-weight: 500;
   line-height: 1;
@@ -277,8 +270,8 @@ const FaqAnswer = styled.p`
   margin: 0;
   padding: 0 3.5rem clamp(1.75rem, 4vw, 2.75rem) 0;
   color: #494949;
-  font-size: clamp(1rem, 1.6vw, 1.18rem);
-  line-height: 1.65;
+  font-size: var(--type-narrative-size);
+  line-height: var(--type-narrative-leading);
 `;
 
 const interpolate = (progress, range, values) => {

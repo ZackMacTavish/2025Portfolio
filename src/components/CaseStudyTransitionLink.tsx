@@ -2,6 +2,7 @@ import { useRef, useState, type ReactNode, type MouseEvent } from "react";
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import CaseStudyTransition, {
+  CASE_STUDY_TRANSITION_Z_INDEX,
   shouldRunCardTransition,
   warmPreloadTransitionImages,
 } from "./CaseStudyTransition";
@@ -137,7 +138,7 @@ export default function CaseStudyTransitionLink({
           style={{
             position: "fixed",
             inset: 0,
-            zIndex: 101,
+            zIndex: CASE_STUDY_TRANSITION_Z_INDEX + 1,
             background: "var(--surface, #ffffff)",
             pointerEvents: "none",
           }}

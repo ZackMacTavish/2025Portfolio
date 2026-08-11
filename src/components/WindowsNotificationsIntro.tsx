@@ -72,6 +72,7 @@ const TextColumn = styled.div`
 `;
 
 const EyebrowTag = styled(motion.span)`
+  font-family: var(--font-mono);
   display: inline-block;
   font-size: 0.75rem;
   font-weight: 700;
@@ -103,16 +104,11 @@ const IntroHeading = styled(motion.h2)`
 `;
 
 const IntroSubtitle = styled(motion.p)`
-  font-size: 0.98rem;
-  line-height: 1.65;
+  font-size: var(--type-narrative-size);
+  line-height: var(--type-narrative-leading);
   color: ${(p) => p.theme.mutedText};
   margin: 0;
   max-width: 62ch;
-
-  @media (min-width: 768px) {
-    font-size: 1.125rem;
-    line-height: 1.72;
-  }
 `;
 
 const ImageColumn = styled(motion.div)`

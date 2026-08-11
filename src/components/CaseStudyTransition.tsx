@@ -22,6 +22,8 @@ export {
 };
 export type { TransitionImage };
 
+export const CASE_STUDY_TRANSITION_Z_INDEX = 1500;
+
 interface CaseStudyTransitionProps {
   /** Array of exactly 5 images to animate */
   images: TransitionImage[];
@@ -56,7 +58,7 @@ const cardEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const StyledContainer = styled(motion.div)`
   position: fixed;
   inset: 0;
-  z-index: 50;
+  z-index: ${CASE_STUDY_TRANSITION_Z_INDEX};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,7 +73,7 @@ const StyledOverlay = styled(motion.div)<{ $overlayColor: string }>`
 const StyledLoadingContainer = styled(motion.div)`
   position: fixed;
   inset: 0;
-  z-index: 50;
+  z-index: ${CASE_STUDY_TRANSITION_Z_INDEX};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -352,7 +354,7 @@ export default function CaseStudyTransition({
         style={{
           position: "fixed",
           inset: 0,
-          zIndex: 50,
+          zIndex: CASE_STUDY_TRANSITION_Z_INDEX,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",

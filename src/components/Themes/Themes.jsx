@@ -3,9 +3,10 @@ import { createGlobalStyle } from 'styled-components';
 // Standardized design tokens for type, spacing, and radii
 export const tokens = {
     fonts: {
+        display: 'Lora, Georgia, serif',
         body: 'Space Grotesk, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif',
         heading: 'Space Grotesk, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif',
-        mono: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
+        mono: 'Space Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
     },
     fontSizes: {
         xs: '0.75rem',

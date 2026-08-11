@@ -134,6 +134,13 @@ const ThisIsItText = styled(ParagraphFour)`
   padding-right: 0;       /* remove base desktop padding */
 `;
 
+const StandaloneText = styled(TextContent)`
+  font-family: var(--font-display);
+  font-size: var(--type-standalone-size);
+  line-height: var(--type-standalone-leading);
+  max-width: 48ch;
+`;
+
 const PosterCardSection = styled.div`
   display: flex;
   flex-direction: column;
@@ -188,10 +195,10 @@ export default function GraphicDesign() {
 
            <FullHeightTextSection style={{ backgroundColor: 'var(--surface-muted)' }}>
   <TextContainer>
-    <TextContent style={{ color: 'var(--text-strong)' }}>
+    <StandaloneText style={{ color: 'var(--text-strong)' }}>
       Stay Golden was a passion project created with my friend Alek Vasic, representing a series of songs. 
       It received silver and bronze awards for digital art and packaging design from the Indigo Design Awards.
-    </TextContent>
+    </StandaloneText>
   </TextContainer>
 </FullHeightTextSection>
 
@@ -211,10 +218,10 @@ export default function GraphicDesign() {
 
                 <FullHeightTextSection style={{ backgroundColor: 'var(--surface-muted)' }}>
   <TextContainer>
-    <TextContent style={{ color: 'var(--text-strong)' }}>
+    <StandaloneText style={{ color: 'var(--text-strong)' }}>
       Graphic Posters meet at the intersection of my art and design practice. 
       This includes passion projects, and a poster for the 2017 VCD Design show in Chicago, IL.
-    </TextContent>
+    </StandaloneText>
   </TextContainer>
 </FullHeightTextSection>
 
@@ -256,9 +263,9 @@ export default function GraphicDesign() {
 
 <FullHeightTextSection style={{ backgroundColor: 'var(--surface-muted)', marginTop: '6vh' }}>
   <TextContainer>
-    <TextContent style={{ color: 'var(--text-strong)' }}>
+    <StandaloneText style={{ color: 'var(--text-strong)' }}>
       Working alongside the Walmart team at Publicis, we created a variety of designs to present to Marketing. The lines I worked on were the Christmas, Halloween, and Back To School campaigns.
-    </TextContent>
+    </StandaloneText>
   </TextContainer>
 </FullHeightTextSection>
 
@@ -330,10 +337,10 @@ export default function GraphicDesign() {
 
            <FullHeightTextSection style={{ backgroundColor: 'var(--surface-muted)', marginTop: '6vh' }}>
   <TextContainer>
-    <TextContent style={{ color: 'var(--text-strong)' }}>
+    <StandaloneText style={{ color: 'var(--text-strong)' }}>
       Brooklyn Book Festival is a rebranding of a popular festival that occurs in Brooklyn, NY. 
       I designed totes, bookmarks, brochures, and posters for the event.
-    </TextContent>
+    </StandaloneText>
   </TextContainer>
 </FullHeightTextSection>
 

@@ -60,7 +60,7 @@ const IntroDiv = styled.div`
 
 const IntroText = styled.h1`
   margin: 0;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(2.1rem, 7vw, 6.2rem);
   letter-spacing: 0.04em;
   color: #000;

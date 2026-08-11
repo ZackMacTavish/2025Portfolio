@@ -46,8 +46,8 @@ const IntroSubtitle = styled(motion.p)`
   max-width: 62ch;
   margin: 0;
   color: ${(p) => p.theme.mutedText};
-  font-size: 1.125rem;
-  line-height: 1.72;
+  font-size: var(--type-narrative-size);
+  line-height: var(--type-narrative-leading);
 `;
 
 const ImageColumn = styled(motion.div)`

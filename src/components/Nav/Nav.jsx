@@ -215,7 +215,7 @@ const NavLinks = styled.ul`
 
 const NavLabel = styled.span`
   color: #a6d1ca;
-  font-weight: 800;
+  font-weight: 700;
   font-size: 1.2rem;
   text-decoration: none;
   padding: 0.5rem 0;
@@ -248,7 +248,7 @@ const ListItem = styled.li`
 
 const NavLink = styled(Link)`
   color: #a6d1ca;
-  font-weight: 800;
+  font-weight: 700;
   font-size: 1.2rem;
   text-decoration: none;
   padding: 0.5rem 0;

@@ -98,7 +98,7 @@ const TextBlock = styled.div`
   min-width: 0;
   height: auto;
   @media (max-width: 1000px) {
-    font-size: 1.7rem;
+    font-size: ${(p) => p.$textSize || '1.7rem'};
     width: 92vw;
     margin: 0 auto;
     min-height: 40px;

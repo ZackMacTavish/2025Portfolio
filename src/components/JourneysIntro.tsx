@@ -58,6 +58,7 @@ const TextColumn = styled.div`
 `;
 
 const Eyebrow = styled(motion.p)`
+  font-family: var(--font-mono);
   margin: 0;
   font-size: 0.82rem;
   font-weight: 700;
@@ -75,13 +76,9 @@ const IntroHeading = styled(motion.h2)`
 
 const IntroSubtitle = styled(motion.p)`
   margin: 0;
-  font-size: 1rem;
-  line-height: 1.72;
+  font-size: var(--type-narrative-size);
+  line-height: var(--type-narrative-leading);
   color: ${(p) => p.theme.mutedText};
-
-  @media (min-width: 768px) {
-    font-size: 1.08rem;
-  }
 `;
 
 const ImageColumn = styled(motion.div)`

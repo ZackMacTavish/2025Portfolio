@@ -136,7 +136,7 @@ const TopSectionImageStyled = styled.img`
 `;
 
 const TopSectionTitle = styled.h1`
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   color: ${(props) => props.theme.fontColor};
   margin: 0;
   font-size: clamp(2.2rem, 4vw + 0.6rem, 4.25rem);

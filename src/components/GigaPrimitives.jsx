@@ -236,7 +236,7 @@ export const ProjectImage = styled.img`
 `;
 
 export const ProjectTitle = styled.h2`
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: 4.5rem;
   color: ${(props) => props.theme.fontColor};
   margin: 0;

@@ -68,16 +68,14 @@ export const ParagraphFour = styled.div`
 export const TextContent = styled.p`
   font-family: 'Space Grotesk', sans-serif;
   color: #ffffff;
-  font-size: clamp(1.05rem, 1.4vw + 0.75rem, 1.55rem);
+  font-size: var(--type-narrative-size);
   max-width: 60ch;
-  line-height: 1.6;
+  line-height: var(--type-narrative-leading);
   margin: 0;
   text-align: left;
 
   @media (max-width: 850px) {
-    font-size: clamp(1rem, 3.8vw, 1.2rem);
     max-width: 90vw;
-    line-height: 1.65;
   }
 
   a.inline-link {

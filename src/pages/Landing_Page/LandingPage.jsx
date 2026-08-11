@@ -138,10 +138,23 @@ const AgencyTextContainer = styled(TextContainer)`
 `;
 
 const AgencyTextContent = styled(TextContent)`
+  font-family: var(--font-display);
+  font-size: var(--type-standalone-size);
+  line-height: var(--type-standalone-leading);
+  width: 100%;
+  max-width: none;
+
   @media (max-width: 850px) {
     width: 100%;
     max-width: none;
   }
+`;
+
+const AgencyLink = styled.a`
+  color: var(--text-muted, #5d5d5d);
+  text-decoration: underline;
+  text-decoration-thickness: 0.75px;
+  text-underline-offset: 0.2em;
 `;
 
 // Spotlight background animations
@@ -310,17 +323,14 @@ const ParagraphWrapper = styled.div`
 
 const ParagraphTwo = styled.div`
   position: relative;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(1.2rem, 1vw + 0.85rem, 1.7rem);
+  font-size: var(--type-standalone-size);
+  line-height: var(--type-standalone-leading);
   width: 32vw;
   max-width: 34rem;
   color: white;
   z-index: 1;
-
-  @media (max-width: 1400px) {  
-    font-size: 1.3rem;
-  }
 
   @media (max-width: 1000px) {  
     width: 100%;
@@ -328,17 +338,27 @@ const ParagraphTwo = styled.div`
     margin-top: 1vh;
     padding-bottom: 3vh;
     text-align: center;
-    font-size: clamp(1.1rem, 2.8vw, 1.25rem);
   }
 
   @media (max-width: 850px) {
-    font-size: clamp(1.05rem, 4vw, 1.2rem);
     padding-top: 2vh;
   }
+`;
 
-  @media (max-width: 450px) {
-    font-size: 1.05rem;
-  }
+const HeroIntroduction = styled.span`
+  font-weight: 400;
+`;
+
+const EditorialName = styled.span`
+  font-weight: 600;
+`;
+
+const EditorialLink = styled.a`
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 0.75px;
+  text-underline-offset: 0.2em;
 `;
 
 const SocialsWrapper = styled.div`
@@ -520,7 +540,7 @@ const SectionHeader = styled.div`
 
 const SectionTitle = styled.h2`
   margin: 0;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(1.4rem, 3vw, 2rem);
   color: ${(p) => p.theme.strongText};
 `;
@@ -702,7 +722,7 @@ const GridHeader = styled.h1`
   font-size: clamp(16px, 5.5vw, 3.8rem);
   line-height: 1.2;
   color: white;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-body);
   text-shadow: 2px 2px 50px rgba(0, 0, 0, 1);
   margin: 0;
 
@@ -854,7 +874,8 @@ const LandingPage = ({ introDone = true }) => {
             <Socials />
           </SocialsWrapper>
           <ParagraphTwo $widthsize='47vw'>
-          Hi, I'm Zack MacTavish, a product designer based in Philadelphia, PA. I'm currently shaping shopping experiences at Microsoft.
+            <HeroIntroduction>Hi, I'm <EditorialName>Zack MacTavish</EditorialName>,</HeroIntroduction>{' '}
+            a product designer based in Philadelphia, PA. I'm currently shaping shopping experiences at Microsoft.
           </ParagraphTwo>
         </ParagraphWrapper>
 
@@ -875,32 +896,29 @@ const LandingPage = ({ introDone = true }) => {
         <AgencyTextContainer>
           <AgencyTextContent style={{ color: 'var(--text-muted, #5d5d5d)' }}>
             I’ve partnered with agencies including{' '}
-            <a
+            <AgencyLink
               href="https://www.publicisgroupe.com/en"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: 'var(--text-muted, #5d5d5d)', textDecoration: 'underline' }}
             >
               Publicis Groupe
-            </a>
+            </AgencyLink>
             ,{' '}
-            <a
+            <AgencyLink
               href="https://prairieandforge.com/"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: 'var(--text-muted, #5d5d5d)', textDecoration: 'underline' }}
             >
               Prairie & Forge
-            </a>
+            </AgencyLink>
             , and{' '}
-            <a
+            <AgencyLink
               href="https://varfaj.com/"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: 'var(--text-muted, #5d5d5d)', textDecoration: 'underline' }}
             >
               Varfaj Partners
-            </a>
+            </AgencyLink>
             {' '}on work spanning UX, product, and brand design. My background includes agency experience in New York City and formal design training in Chicago. Client collaborations have included Microsoft, Walmart, Seagate Technology, and Chip Ganassi Racing.
           </AgencyTextContent>
         </AgencyTextContainer>
@@ -1027,11 +1045,11 @@ const LandingPage = ({ introDone = true }) => {
         mobileAvif={quilthangingMobile600Avif}
         mobileWebp={quilthangingMobile600Webp}
         style={{ color: '#fff' }}
-        textSize="1.4rem"
+        textSize="var(--type-standalone-size)"
         textColor="#fff"
       >
-        <div style={{ lineHeight: '1.6' }}>
-          Outside of work, I live with my partner <a href="https://oliviazitasmith.com" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>Olivia Smith</a>, who is also an artist. In my own creative time, I focus on making quilts that combine photography, textile techniques, and mixed media, exploring the intersection of art, design, and storytelling.
+        <div style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--type-standalone-size)', lineHeight: 'var(--type-standalone-leading)' }}>
+          Outside of work, I live with my partner <EditorialLink href="https://oliviazitasmith.com" target="_blank" rel="noopener noreferrer">Olivia Smith</EditorialLink>, who is also an artist. In my own creative time, I focus on making quilts that combine photography, textile techniques, and mixed media, exploring the intersection of art, design, and storytelling.
         </div>
       </ImageTextSplit>
 

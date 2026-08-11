@@ -1,38 +1,19 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+import { FiArrowUpRight } from "react-icons/fi";
 import Socials from "./Social Bar/Socials";
 import Grid60 from "./Layout/Grid60";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
-type Zone = { label: string; tz: string | null };
-
 // ─── Clock helpers ────────────────────────────────────────────────────────────
 
-const ZONES: Zone[] = [
-  { label: "LOCAL", tz: null },
-  { label: "EST",   tz: "America/New_York" },
-  { label: "CT",    tz: "America/Chicago" },
-  { label: "MT",    tz: "America/Denver" },
-  { label: "PT",    tz: "America/Los_Angeles" },
-];
-
-function formatClock(date: Date, tz: string | null): string {
+function formatClock(date: Date): string {
   const opts: Intl.DateTimeFormatOptions = {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
     hour12: false,
-    ...(tz ? { timeZone: tz } : {}),
   };
-  const time = date.toLocaleTimeString("en-US", opts);
-  if (!tz) {
-    const offsetMin = -date.getTimezoneOffset();
-    const sign = offsetMin >= 0 ? "+" : "-";
-    const h = Math.floor(Math.abs(offsetMin) / 60);
-    return `${time} [GMT${sign}${h}]`;
-  }
-  return time;
+  return date.toLocaleTimeString("en-US", opts);
 }
 
 // ─── Live clocks ─────────────────────────────────────────────────────────────
@@ -49,21 +30,19 @@ function LiveClocks() {
         display: "flex",
         flexWrap: "wrap",
         gap: "0.75rem 1.25rem",
-        fontFamily: "'Space Mono', 'Courier New', monospace",
+        fontFamily: "var(--font-mono)",
         fontSize: "0.68rem",
         color: "rgba(255, 255, 255, 0.75)",
         letterSpacing: "0.03em",
         lineHeight: 1.4,
       }}
     >
-      {ZONES.map(({ label, tz }) => (
-        <span key={label}>
-          <span style={{ opacity: 0.6, fontSize: "0.62rem", textTransform: "uppercase" }}>
-            {label}&nbsp;
-          </span>
-          {formatClock(now, tz)}
+      <span>
+        <span style={{ opacity: 0.6, fontSize: "0.62rem", textTransform: "uppercase" }}>
+          Local&nbsp;
         </span>
-      ))}
+        {formatClock(now)}
+      </span>
     </div>
   );
 }
@@ -96,7 +75,7 @@ function YearCountdown() {
   return (
     <div
       style={{
-        fontFamily: "'Space Mono', 'Courier New', monospace",
+        fontFamily: "var(--font-mono)",
         fontSize: "0.68rem",
         color: "rgba(255, 255, 255, 0.75)",
         letterSpacing: "0.03em",
@@ -147,22 +126,33 @@ const RightCol = styled.div`
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-const artPortfolioStyle: React.CSSProperties = {
-  fontFamily: "Space Grotesk, sans-serif",
-  fontWeight: 600,
-  fontSize: "0.8rem",
-  letterSpacing: "0.04em",
-  color: "var(--pill-text, #111827)",
-  textDecoration: "none",
-  display: "inline-flex",
-  alignItems: "center",
-  gap: "0.35em",
-  border: "1px solid var(--pill-border, #d1d5db)",
-  background: "var(--pill-bg, #ffffff)",
-  borderRadius: "999px",
-  padding: "0.5rem 0.85rem",
-  flexShrink: 0,
-};
+const ArtPortfolioLink = styled.a`
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.35em;
+  color: rgba(255, 255, 255, 0.88);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+
+  svg {
+    width: 1em;
+    height: 1em;
+  }
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+  }
+`;
 
 export default function SiteFooter() {
   return (
@@ -185,15 +175,15 @@ export default function SiteFooter() {
             </span>
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
               <Socials small />
-              <a
-                href="https://zackmactavish.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={artPortfolioStyle}
-              >
-                Art Portfolio
-              </a>
             </div>
+            <ArtPortfolioLink
+              href="https://zackmactavish.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View my art portfolio
+              <FiArrowUpRight aria-hidden="true" />
+            </ArtPortfolioLink>
           </div>
 
           {/* ── Right column: live clocks + year countdown ── */}
