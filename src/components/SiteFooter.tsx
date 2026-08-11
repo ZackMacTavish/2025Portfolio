@@ -101,7 +101,7 @@ const FooterWrap = styled.footer`
 const FooterInner = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   gap: 2rem;
 
   @media (max-width: 640px) {

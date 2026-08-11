@@ -23,6 +23,7 @@ export {
 export type { TransitionImage };
 
 export const CASE_STUDY_TRANSITION_Z_INDEX = 1500;
+const EMBEDDED_TRANSITION_Z_INDEX = 50;
 
 interface CaseStudyTransitionProps {
   /** Array of exactly 5 images to animate */
@@ -55,10 +56,11 @@ interface CaseStudyTransitionProps {
 
 const cardEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const StyledContainer = styled(motion.div)`
+const StyledContainer = styled(motion.div)<{ $usePortal: boolean }>`
   position: fixed;
   inset: 0;
-  z-index: ${CASE_STUDY_TRANSITION_Z_INDEX};
+  z-index: ${({ $usePortal }) =>
+    $usePortal ? CASE_STUDY_TRANSITION_Z_INDEX : EMBEDDED_TRANSITION_Z_INDEX};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -315,6 +317,7 @@ export default function CaseStudyTransition({
       <AnimatePresence>
         {isActive && imagesLoaded && transitionReady && (
           <StyledContainer
+            $usePortal={usePortal}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -354,7 +357,9 @@ export default function CaseStudyTransition({
         style={{
           position: "fixed",
           inset: 0,
-          zIndex: CASE_STUDY_TRANSITION_Z_INDEX,
+          zIndex: usePortal
+            ? CASE_STUDY_TRANSITION_Z_INDEX
+            : EMBEDDED_TRANSITION_Z_INDEX,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -379,6 +384,7 @@ export default function CaseStudyTransition({
     <AnimatePresence>
       {isActive && imagesLoaded && transitionReady && (
         <StyledContainer
+          $usePortal={usePortal}
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
