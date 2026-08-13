@@ -51,7 +51,10 @@ I joined after the initial concept to help design flows and interactions that ma
       layout: "full-width-image",
       heading: "A Clear Entry Point",
       body: `The landing experience introduced resale as a distinct but connected part of Microsoft Shopping. The visual direction balanced Phia's editorial luxury language with familiar Microsoft Shopping navigation and search patterns.`,
-      images: [image("landing-entry-light", "Phia resale landing experience in Microsoft Shopping")],
+      images: [{
+        ...image("landing-entry-light", "Phia resale landing experience in Microsoft Shopping"),
+        containerBorder: "1px solid var(--border, #d1d5db)",
+      }],
     },
     {
       id: "catalog-system",
@@ -76,10 +79,22 @@ I joined after the initial concept to help design flows and interactions that ma
       heading: "Testing the Visual Direction",
       body: `Banner iterations explored green, deep green, and muted neutral treatments to evaluate how the Phia identity could sit within Microsoft surfaces while preserving a premium editorial feel.`,
       images: [
-        image("banner-green", "Green banner direction for the Phia shopping landing page"),
-        image("banner-dark-green", "Deep green banner direction for the Phia shopping landing page"),
-        image("banner-muted", "Muted neutral banner direction for the Phia shopping landing page"),
-        image("banner-warm", "Warm neutral banner direction for the Phia shopping landing page"),
+        {
+          ...image("banner-green", "Green banner direction for the Phia shopping landing page"),
+          containerBorder: "1px solid var(--border, #d1d5db)",
+        },
+        {
+          ...image("banner-dark-green", "Deep green banner direction for the Phia shopping landing page"),
+          containerBorder: "1px solid var(--border, #d1d5db)",
+        },
+        {
+          ...image("banner-muted", "Muted neutral banner direction for the Phia shopping landing page"),
+          containerBorder: "1px solid var(--border, #d1d5db)",
+        },
+        {
+          ...image("banner-warm", "Warm neutral banner direction for the Phia shopping landing page"),
+          containerBorder: "1px solid var(--border, #d1d5db)",
+        },
       ],
     },
     {
@@ -144,6 +159,8 @@ The companion pane connected that inventory to the page a shopper was already vi
       layout: "text-only",
       heading: "Collaboration and Iconography",
       body: `I worked with Microsoft design and product partners and met with the Phia team, including Phoebe Gates and Sophia Kianni, to align the experience with catalog and brand strategy.
+
+    I also collaborated with designer Mia Kim on concepts for several of the screens shown in this case study.
 
 I also partnered with the Fluent iconography team to design a hanger icon for navigation, giving pre-owned alternatives a clear and recognizable place in the menu.`,
     },

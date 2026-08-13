@@ -34,6 +34,7 @@ import { JourneysModule } from '../../components/JourneysIntro';
 import { CashbackHubModule } from '../../components/CashbackHubIntro';
 import { VideoCommerceModule } from '../../components/VideoCommerceIntro';
 import { WindowsNotificationsModule } from '../../components/WindowsNotificationsIntro';
+import PortfolioCardsSection from '../../components/PortfolioCardsSection';
 import { FiArrowUpRight } from 'react-icons/fi';
 
 const PASSWORD = 'microsoftshopping';
@@ -71,17 +72,18 @@ const SpotlightBackground = styled.div`
     height: 40vw;
     border-radius: 50%;
     filter: blur(200px);
-    background: rgba(255, 255, 255, 0.3);
     z-index: 0;
   }
   &::before {
     top: 20%;
     left: 10%;
+    background: ${(props) => props.theme.heroSpotlightLeft};
     animation: ${spotlightLeftMove} 35s ease-in-out infinite;
   }
   &::after {
     top: 40%;
     left: 65%;
+    background: ${(props) => props.theme.heroSpotlightRight};
     animation: ${spotlightRightMove} 40s ease-in-out infinite;
   }
 
@@ -204,28 +206,39 @@ const PasswordButton = styled.button`
   &:hover { background: #333; }
 `;
 
-// Accent text bands with light + dark variants. Each tone is paired to clear
-// WCAG AA contrast (>= 7:1 for the large 2.3rem headings used here).
-const ACCENT_TONES = {
-  blue:   { light: { bg: '#eaf6ff', fg: '#1a3a5d' }, dark: { bg: '#0f1d2e', fg: '#cfe2f5' } },
-  purple: { light: { bg: '#f7eaff', fg: '#5d2d5d' }, dark: { bg: '#1f1226', fg: '#e4cdf0' } },
-  cream:  { light: { bg: '#fffbe6', fg: '#5d5d5d' }, dark: { bg: '#1f1d12', fg: '#efe7c4' } },
+const SECTION_TONES = {
+  primary: 'sectionPrimary',
+  base: 'sectionBase',
+  muted: 'sectionMuted',
+  accent: 'sectionAccent',
 };
 
 const AccentBand = styled(FullHeightTextSection)`
-  background-color: ${(p) => ACCENT_TONES[p.$tone][p.theme.name === 'dark' ? 'dark' : 'light'].bg};
-  --accent-fg: ${(p) => ACCENT_TONES[p.$tone][p.theme.name === 'dark' ? 'dark' : 'light'].fg};
+  background-color: ${(p) => p.theme[SECTION_TONES[p.$tone]]};
+  --section-text-strong: ${(p) => p.$tone === 'accent'
+    ? p.theme.sectionAccentText
+    : p.$tone === 'primary'
+      ? p.theme.onOlive
+      : p.theme.strongText};
 `;
 
 const AccentText = styled(TextContent)`
-  color: var(--accent-fg);
+  color: var(--section-text-strong, ${(p) => p.theme.strongText});
   font-family: var(--font-display);
-  /* Scales from ~1.25rem on phones up to ~2rem on large desktops, mirroring
-     the clamp pattern used by the foundation typography tokens. */
-  font-size: clamp(1.25rem, 1.4vw + 0.85rem, 2rem);
+  font-size: var(--type-standalone-size);
   max-width: 50ch;
-  line-height: 1.45;
+  line-height: var(--type-standalone-leading);
   margin: 0;
+`;
+
+const MicrosoftMedia = styled(RisoFlex)`
+  padding-top: clamp(4rem, 7vh, 6rem);
+  padding-bottom: clamp(4.75rem, 8vh, 7rem);
+
+  @media (max-width: 850px) {
+    padding-top: clamp(3rem, 7vh, 4rem);
+    padding-bottom: clamp(3.5rem, 8vh, 4.5rem);
+  }
 `;
 
 const Microsoft = () => {
@@ -343,9 +356,9 @@ const Microsoft = () => {
         </ProjectDetails>
       </ProjectDetailsContainer>
 
-      <RisoFlex>
+      <MicrosoftMedia>
         <VideoWithOverlay ref={videoRefs[0]} src="/assets/microsoft-demo2.mp4" poster="/assets/Preview1.png" />
-      </RisoFlex>
+      </MicrosoftMedia>
 
       <PartnershipsModule />
 
@@ -363,25 +376,25 @@ const Microsoft = () => {
 
       <VideoCommerceModule />
       
-      <FullHeightTextSection style={{ backgroundColor: 'var(--surface-muted, #f5f5f5)' }}>
+      <AccentBand $tone="accent">
         <TextContainer>
-          <AccentText style={{ color: 'var(--text-strong, #222)' }}>
+          <AccentText>
             This work focused on reimagining shopping as an educational experience rather than a transactional one. I designed early concepts for Copilot Shopping and a Generative Results Page (GRP) that helped users understand product categories, compare specs, and evaluate pricing. These experiences aimed to reduce decision fatigue while increasing trust and confidence for high-consideration purchases.
           </AccentText>
         </TextContainer>
-      </FullHeightTextSection>
+      </AccentBand>
       
-      <RisoFlex>
+      <MicrosoftMedia>
         <SingleImage src={copilotGrp} avif={copilotGrpAvif} webp={copilotGrpWebp} />
-      </RisoFlex>
-      <RisoFlex>
+      </MicrosoftMedia>
+      <MicrosoftMedia>
         <SingleImage src={hp} avif={hpAvif} webp={hpWebp} />
-      </RisoFlex>
-      <RisoFlex>
+      </MicrosoftMedia>
+      <MicrosoftMedia>
         <VideoWithOverlay ref={videoRefs[1]} src="/assets/microsoft-demo.mp4" poster="/assets/Preview2.png" />
-      </RisoFlex>
+      </MicrosoftMedia>
    
-      <AccentBand $tone="purple">
+      <AccentBand $tone="base">
         <TextContainer>
           <AccentText>
             This work focused on reducing friction at the moment of purchase through Microsoft Wallet and the Cashback Hub. I contributed to experiences that let users securely save payment methods, passwords, and rewards for faster checkout across Microsoft surfaces. More recently, this work has extended into Copilot, exploring how AI can surface cashback, apply rewards, and streamline checkout without disrupting user trust.
@@ -389,12 +402,12 @@ const Microsoft = () => {
         </TextContainer>
       </AccentBand>
 
-      <RisoFlex>
+      <MicrosoftMedia>
         <SingleImage src={wallet} avif={walletAvif} webp={walletWebp} />
-      </RisoFlex>
+      </MicrosoftMedia>
      
 
-   <AccentBand $tone="cream">
+      <AccentBand $tone="muted">
         <TextContainer>
           <AccentText>
             I worked across Bing Shopping, Microsoft Start, Windows, Outlook, and Copilot to create consistent commerce experiences at scale. This included Outlook shopping concepts for managing promotions, feed-based browsing, and unsubscribe flows. The goal was to unify shopping behavior across Microsoft’s surfaces while respecting context and user intent.
@@ -402,28 +415,29 @@ const Microsoft = () => {
         </TextContainer>
       </AccentBand>
 
-      <RisoFlex>
+      <MicrosoftMedia>
         <SingleImage src={ruby} avif={rubyAvif} webp={rubyWebp} />
-      </RisoFlex>
-      <RisoFlex>
+      </MicrosoftMedia>
+      <MicrosoftMedia>
         <SingleImage src={receiptScan} avif={receiptScanAvif} webp={receiptScanWebp} />
-      </RisoFlex>
-      <RisoFlex>
+      </MicrosoftMedia>
+      <MicrosoftMedia>
         <SingleImage src={shoppingCopilot} avif={shoppingCopilotAvif} webp={shoppingCopilotWebp} />
-      </RisoFlex>
+      </MicrosoftMedia>
       {/* New Outlook image section */}
-      <RisoFlex>
+      <MicrosoftMedia>
         <SingleImage src={outlook} avif={outlookAvif} webp={outlookWebp} />
-      </RisoFlex>
-      <FullHeightTextSection style={{ backgroundColor: 'black' }}>
+      </MicrosoftMedia>
+      <AccentBand $tone="primary">
         <TextContainer>
-          <TextContent style={{ color: 'white', textAlign: 'center' }}>
+          <AccentText style={{ textAlign: 'center' }}>
             Microsoft AI CEO — Mustafa Suleyman<br />
             Shopping Design Lead — Ashley Hemingway<br />
             Development Lead — Avinash Vemuluru<br />
-          </TextContent>
+          </AccentText>
         </TextContainer>
-      </FullHeightTextSection>
+      </AccentBand>
+      <PortfolioCardsSection />
     </StyledDiv>
   );
 };

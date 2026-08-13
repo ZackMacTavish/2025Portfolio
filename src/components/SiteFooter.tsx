@@ -4,6 +4,30 @@ import { FiArrowUpRight } from "react-icons/fi";
 import Socials from "./Social Bar/Socials";
 import Grid60 from "./Layout/Grid60";
 
+const ClockBlock = styled.div`
+  display: grid;
+  gap: 0.3rem;
+  color: ${(p) => p.theme.onOlive};
+`;
+
+const ClockLabel = styled.span`
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: ${(p) => p.theme.onOliveMuted};
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+`;
+
+const ClockValue = styled.time`
+  font-family: var(--font-mono);
+  font-size: clamp(1.25rem, 1.375vw, 1.65rem);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.1;
+  white-space: nowrap;
+`;
+
 // ─── Clock helpers ────────────────────────────────────────────────────────────
 
 function formatClock(date: Date): string {
@@ -25,25 +49,10 @@ function LiveClocks() {
     return () => window.clearInterval(id);
   }, []);
   return (
-    <div
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: "0.75rem 1.25rem",
-        fontFamily: "var(--font-mono)",
-        fontSize: "0.68rem",
-        color: "rgba(255, 255, 255, 0.75)",
-        letterSpacing: "0.03em",
-        lineHeight: 1.4,
-      }}
-    >
-      <span>
-        <span style={{ opacity: 0.6, fontSize: "0.62rem", textTransform: "uppercase" }}>
-          Local&nbsp;
-        </span>
-        {formatClock(now)}
-      </span>
-    </div>
+    <ClockBlock>
+      <ClockLabel>Local · Philadelphia</ClockLabel>
+      <ClockValue dateTime={now.toISOString()}>{formatClock(now)}</ClockValue>
+    </ClockBlock>
   );
 }
 
@@ -73,20 +82,10 @@ function YearCountdown() {
   const secs = totalSec % 60;
 
   return (
-    <div
-      style={{
-        fontFamily: "var(--font-mono)",
-        fontSize: "0.68rem",
-        color: "rgba(255, 255, 255, 0.75)",
-        letterSpacing: "0.03em",
-        lineHeight: 1.4,
-      }}
-    >
-      <span style={{ opacity: 0.6, fontSize: "0.62rem", textTransform: "uppercase" }}>
-        Time Left in {year}&nbsp;
-      </span>
-      {days}d {pad(hrs)}h {pad(mins)}m {pad(secs)}s
-    </div>
+    <ClockBlock>
+      <ClockLabel>Time left in {year}</ClockLabel>
+      <ClockValue as="div">{days}d {pad(hrs)}h {pad(mins)}m {pad(secs)}s</ClockValue>
+    </ClockBlock>
   );
 }
 
@@ -94,8 +93,13 @@ function YearCountdown() {
 
 const FooterWrap = styled.footer`
   background: ${(p: { theme: { backgroundColor: string } }) => p.theme.backgroundColor};
-  border-top: 1px solid var(--border, #d1d5db);
+  border-top: 1px solid ${(p) => p.theme.headerBorder};
   width: 100%;
+`;
+
+const FooterGrid = styled(Grid60)`
+  padding-top: clamp(2.5rem, 4vw, 4rem);
+  padding-bottom: clamp(3rem, 5vw, 5rem);
 `;
 
 const FooterInner = styled.div`
@@ -114,7 +118,7 @@ const FooterInner = styled.div`
 const RightCol = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1.35rem;
   align-items: flex-end;
   text-align: right;
 
@@ -131,7 +135,7 @@ const ArtPortfolioLink = styled.a`
   width: fit-content;
   align-items: center;
   gap: 0.35em;
-  color: rgba(255, 255, 255, 0.88);
+  color: ${(p) => p.theme.onOlive};
   font-family: var(--font-body);
   font-size: 0.8rem;
   font-weight: 600;
@@ -157,7 +161,7 @@ const ArtPortfolioLink = styled.a`
 export default function SiteFooter() {
   return (
     <FooterWrap>
-      <Grid60 style={{ paddingTop: "1.5rem", paddingBottom: "4rem" }}>
+      <FooterGrid>
         <FooterInner>
 
           {/* ── Left column: name + socials + art portfolio ── */}
@@ -168,7 +172,7 @@ export default function SiteFooter() {
                 fontSize: "0.78rem",
                 fontWeight: 500,
                 letterSpacing: "0.03em",
-                color: "rgba(255, 255, 255, 0.75)",
+                color: "var(--on-olive-muted)",
               }}
             >
               Zachary MacTavish. Creative Designer.
@@ -193,7 +197,7 @@ export default function SiteFooter() {
           </RightCol>
 
         </FooterInner>
-      </Grid60>
+      </FooterGrid>
     </FooterWrap>
   );
 }

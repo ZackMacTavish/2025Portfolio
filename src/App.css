@@ -120,29 +120,6 @@ body {
     overflow-x: clip;
 }
 
-.shortcuts-pill {
-    position: fixed;
-    right: 1rem;
-    bottom: 1rem;
-    z-index: 110;
-    border: 1px solid var(--pill-border, #d1d5db);
-    background: var(--pill-bg, #ffffff);
-    color: var(--pill-text, #111827);
-    border-radius: 999px;
-    padding: 0.5rem 0.85rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-}
-
-@media (max-width: 767px), (hover: none), (pointer: coarse) {
-    .shortcuts-pill {
-        display: none;
-    }
-}
-
 /* Scrollbar styles */
 ::-webkit-scrollbar {
       background: black;

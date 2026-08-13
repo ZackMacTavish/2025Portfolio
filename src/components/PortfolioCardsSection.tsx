@@ -154,7 +154,7 @@ const ProjectCard = styled(Card)`
   }
 
   &:hover ${TileTitle} {
-    color: ${(props) => props.theme.backgroundColor};
+    color: ${(props) => props.theme.fontColor};
   }
 `;
 export default function PortfolioCardsSection() {

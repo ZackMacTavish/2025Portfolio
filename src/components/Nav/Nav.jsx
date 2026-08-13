@@ -26,7 +26,7 @@ const Spotlight = styled.span`
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,255,255,0.6) 0%, rgba(255,192,203,0.35) 60%, transparent 100%);
+  background: ${(props) => props.theme.headerSpotlight};
   filter: blur(70px);
   pointer-events: none;
   z-index: 997;
@@ -63,15 +63,19 @@ const Navdiv = styled.div`
   width: 100vw;
   height: 8vh;
   padding: 0 3vw;
+  border-bottom: 1px solid ${(props) => props.theme.headerBorder};
+  box-sizing: border-box;
+  transition: border-color 0.25s ease;
   z-index: 1000;
 
   &::before {
     content: '';
     position: absolute;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: ${(props) => props.theme.headerBg};
     -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
+    transition: background-color 0.25s ease;
     z-index: -1;
   }
 `;
@@ -92,7 +96,7 @@ const SolidStroke = styled.span`
   left: 0;
   width: 650px;
   height: 1pt;
-  background-color: #E88D67;
+  background-color: ${(props) => props.theme.headerStrokeSolid};
   mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
   animation: ${slideFade} 10s ease-in-out forwards;
@@ -105,7 +109,7 @@ const NeonStroke = styled.span`
   left: 0;
   width: 650px;
   height: 4px;
-  background: linear-gradient(to right, #FF8D67, #E88D67, #FFAA88);
+  background: ${(props) => props.theme.headerStrokeGlow};
   background-size: 100% 100%;
   background-repeat: no-repeat;
   filter: blur(20px);
@@ -127,14 +131,7 @@ const PinkMicroStroke = styled.span`
   left: 0;
   width: 700px; 
   height: 16px;
-  background: linear-gradient(
-    to right,
-    transparent 0%, 
-    #ff6ec7 10%, 
-    #ff1493 50%, 
-    #ff6ec7 85%, 
-    transparent 100%
-  );
+  background: ${(props) => props.theme.headerStrokeMicro};
   background-size: 100% 100%;
   background-repeat: no-repeat;
   filter: blur(36px);
@@ -149,14 +146,7 @@ const PinkMicroStroke = styled.span`
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-      to right,
-      transparent 0%,
-      rgba(255, 30, 150, 0.8) 35%,
-      rgba(255, 30, 150, 1) 50%,
-      rgba(255, 30, 150, 0.8) 65%,
-      transparent 100%
-    );
+    background: ${(props) => props.theme.headerStrokePulse};
     background-size: 100% 100%;
     background-repeat: no-repeat;
     animation: ${pinkPulse} 2s ease-in-out infinite;
@@ -169,7 +159,7 @@ const PinkMicroStroke = styled.span`
     top: 0;
     width: 60px;
     height: 100%;
-    background: linear-gradient(to right, rgba(255, 30, 150, 0.2), transparent);
+    background: ${(props) => props.theme.headerStrokeTail};
     pointer-events: none;
   }
 
@@ -180,10 +170,14 @@ const Logo = styled.img`
   width: clamp(46px, 2.6vw, 90px);
   max-height: 5vh;
   object-fit: contain;
-  transition: all 0.3s ease;
+  filter: ${(props) => (props.theme.name === 'light' ? 'brightness(0)' : 'brightness(0) invert(1)')};
+  transition: filter 0.3s ease, transform 0.3s ease;
 
   &:hover {
-    filter: invert(0.2) sepia(0.5) saturate(11.7) hue-rotate(313.2deg) brightness(1.2);
+    filter: ${(props) => (props.theme.name === 'light'
+      ? 'brightness(0) saturate(100%) invert(27%) sepia(9%) saturate(779%) hue-rotate(42deg) brightness(91%) contrast(88%)'
+      : 'brightness(0) saturate(100%) invert(68%) sepia(38%) saturate(1166%) hue-rotate(324deg) brightness(99%) contrast(83%)')};
+    transform: translateY(-1px);
   }
 `;
 
@@ -214,7 +208,7 @@ const NavLinks = styled.ul`
 `;
 
 const NavLabel = styled.span`
-  color: #a6d1ca;
+  color: ${(props) => props.theme.headerText};
   font-weight: 700;
   font-size: 1.2rem;
   text-decoration: none;
@@ -247,7 +241,7 @@ const ListItem = styled.li`
 `;
 
 const NavLink = styled(Link)`
-  color: #a6d1ca;
+  color: ${(props) => props.theme.headerText};
   font-weight: 700;
   font-size: 1.2rem;
   text-decoration: none;
@@ -260,6 +254,42 @@ const NavLink = styled(Link)`
   }
 `;
 
+const HelpButton = styled.button`
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: ${(props) => props.theme.headerText};
+  font: inherit;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${(props) => props.theme.headerText};
+    outline-offset: 2px;
+  }
+`;
+
+const HelpIcon = styled.span`
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  font-size: 0.95rem;
+  line-height: 1;
+`;
+
 const CloseButton = styled.button`
   position: absolute;
   top: 18px;
@@ -268,7 +298,7 @@ const CloseButton = styled.button`
   height: 44px;
   background: none;
   border: none;
-  color: #fff;
+  color: ${(props) => props.theme.headerText};
   font-size: 2.25rem;
   font-weight: 700;
   z-index: 1300;
@@ -289,11 +319,10 @@ const Dropdown = styled.div`
   transform: translateX(-50%);
   /* Frosted "liquid glass": a translucent tint over a blurred + saturated
      backdrop, with a soft top highlight + hairline border to catch the light. */
-  background-color: rgba(20, 20, 20, 0.45);
+  background-color: ${(props) => props.theme.headerBg};
   -webkit-backdrop-filter: blur(18px) saturate(180%);
   backdrop-filter: blur(18px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-top: none;
+  border: 1px solid ${(props) => props.theme.headerBorder};
   border-radius: 0 0 0.5rem 0.5rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28),
     inset 0 1px 0 rgba(255, 255, 255, 0.16);
@@ -316,7 +345,7 @@ const Dropdown = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0,0,0,0.97);
+    background-color: ${(props) => props.theme.headerMenuBg};
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
     box-shadow: none;
@@ -330,13 +359,13 @@ const Dropdown = styled.div`
 const DropdownMenu = styled(Link)`
   display: block;
   padding: 0.75rem 1rem;
-  color: white;
+  color: ${(props) => props.theme.headerText};
   text-decoration: none;
   transition: background-color 0.2s ease, color 0.2s ease;
 
   &:hover {
-    background-color: rgba(166, 209, 202, 0.4);
-    color: white;
+    background-color: ${(props) => props.theme.headerHover};
+    color: ${(props) => props.theme.headerText};
   }
 
   @media (hover: none) and (max-width: 850px) {
@@ -356,12 +385,12 @@ const DropdownMenu = styled(Link)`
     }
 
     &:active {
-      background-color: rgba(166, 209, 202, 0.28);
+      background-color: ${(props) => props.theme.headerHover};
       transform: scale(0.97);
     }
 
     &:focus-visible {
-      outline: 2px solid #a6d1ca;
+      outline: 2px solid ${(props) => props.theme.headerText};
       outline-offset: 2px;
     }
   }
@@ -369,11 +398,11 @@ const DropdownMenu = styled(Link)`
 
 const DropdownDivider = styled.div`
   height: 1px;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: ${(props) => props.theme.headerBorder};
   margin: 0.25rem 0;
 `;
 
-export default function Nav() {
+export default function Nav({ onOpenHelp }) {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const dropdownRef = React.useRef();
@@ -501,6 +530,16 @@ export default function Nav() {
           </ListItem>
           <ListItem>
             <NavLink to="/Resume">Resume</NavLink>
+          </ListItem>
+          <ListItem>
+            <HelpButton
+              type="button"
+              onClick={onOpenHelp}
+              aria-label="Open site help"
+              data-cursor="link"
+            >
+              <HelpIcon aria-hidden="true">?</HelpIcon>
+            </HelpButton>
           </ListItem>
         </NavLinks>
 

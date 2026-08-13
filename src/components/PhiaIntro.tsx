@@ -4,7 +4,7 @@ import CaseStudyTransitionLink from "./CaseStudyTransitionLink";
 import { CaseStudyIntroCTA, CaseStudyIntroCTAArrow } from "./CaseStudyIntroCTA";
 
 const IntroSection = styled.section`
-  background: ${(p) => (p.theme.name === "dark" ? "#202020" : "#f7f3f6")};
+  background: ${(p) => p.theme.sectionAccent};
   padding: 8rem 0;
 
   @media (max-width: 640px) {

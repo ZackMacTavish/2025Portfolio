@@ -50,6 +50,12 @@ interface CaseStudyTransitionProps {
   /** Optional background color for the loading state */
   loadingBackgroundColor?: string;
 
+  /** Optional border color for transition cards */
+  cardBorderColor?: string;
+
+  /** Optional CSS filter applied to transition cards */
+  cardFilter?: string;
+
   /** Render in document.body unless a parent stacking context controls layering */
   usePortal?: boolean;
 }
@@ -89,7 +95,7 @@ const StyledLoadingDot = styled(motion.div)`
   background: white;
 `;
 
-const StyledCard = styled(motion.img)`
+const StyledCard = styled(motion.img)<{ $borderColor: string; $cardFilter: string }>`
   display: block;
   position: absolute;
   overflow: hidden;
@@ -97,7 +103,8 @@ const StyledCard = styled(motion.img)`
   border-radius: 0.75rem;
   object-fit: cover;
   object-position: var(--card-object-position, center center);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid ${({ $borderColor }) => $borderColor};
+  filter: ${({ $cardFilter }) => $cardFilter};
   backface-visibility: hidden;
   contain: paint;
   will-change: transform, opacity;
@@ -151,6 +158,8 @@ export default function CaseStudyTransition({
   isReverse = false,
   overlayColor = "black",
   loadingBackgroundColor = "rgba(0, 0, 0, 0.85)",
+  cardBorderColor = "rgba(255, 255, 255, 0.2)",
+  cardFilter = "none",
   usePortal = true,
 }: CaseStudyTransitionProps) {
   const prefersReducedMotion = useReducedMotion();
@@ -326,6 +335,8 @@ export default function CaseStudyTransition({
           >
             {images.map((image, index) => (
               <StyledCard
+                $borderColor={cardBorderColor}
+                $cardFilter={cardFilter}
                 key={image.src}
                 src={image.src}
                 alt={image.alt}
@@ -484,6 +495,8 @@ export default function CaseStudyTransition({
 
             return (
               <StyledCard
+                $borderColor={cardBorderColor}
+                $cardFilter={cardFilter}
                 key={image.src}
                 src={image.src}
                 alt={image.alt}

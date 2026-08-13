@@ -18,9 +18,7 @@ function normalizeAssetUrl(url: string) {
 }
 
 const IntroSection = styled.section`
-  background: ${(p) => (p.theme.name === 'dark'
-    ? 'linear-gradient(135deg, #1a2438 0%, #14171f 100%)'
-    : 'linear-gradient(135deg, #eef4ff 0%, #fbfdff 100%)')};
+  background: ${(p) => p.theme.sectionBase};
   padding: 8rem 0;
   display: flex;
   align-items: center;

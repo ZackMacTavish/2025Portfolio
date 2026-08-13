@@ -45,13 +45,13 @@ export const tokens = {
 };
 
 const baseLight = {
-  backgroundColor: '#3F4739',
+  backgroundColor: '#E3E4D8',
   backgroundTwo: '#ffffff',
-  fontColor: '#5D5D5D',
+  fontColor: '#30352D',
 };
 
 const baseDark = {
-  backgroundColor: '#303030',
+  backgroundColor: '#353A32',
   backgroundTwo: '#303030',
   fontColor: '#a1a1a1',
 };

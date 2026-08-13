@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState, Suspense, lazy } from 'react';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { shouldRunCardTransition } from '../../components/transitionGate';
 // Static import: CaseStudyTransition is already in the root bundle via
 // Nav -> CaseStudyTransitionLink, so a dynamic import here doesn't split it
@@ -63,7 +63,7 @@ const IntroText = styled.h1`
   font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(2.1rem, 7vw, 6.2rem);
   letter-spacing: 0.04em;
-  color: #000;
+  color: ${({ $color }) => $color};
   position: relative;
   text-align: center;
   white-space: nowrap;
@@ -171,7 +171,8 @@ function getIntroTransitionImages() {
 
 export default function IntroAnimation() {
   const text = 'ZACHARY MACTAVISH.';
-  const introWhite = '#ffffff';
+  const theme = useTheme();
+  const isDark = theme.name === 'dark';
   const [counter, setCounter] = useState('000%');
   const [showIntro, setShowIntro] = useState(true);
   const [introTransitionImages] = useState(() => shuffleImages(getIntroTransitionImages()));
@@ -181,8 +182,9 @@ export default function IntroAnimation() {
   const letterRefs = useRef([]);
   const prefersReducedMotion = useReducedMotion();
   const introReady = introDecisionReady;
-  const introBackground = introWhite;
-  const introCounterColor = '#111111';
+  const introBackground = isDark ? '#000000' : '#ffffff';
+  const introForeground = isDark ? '#ffffff' : '#111111';
+  const introCardBorder = isDark ? 'rgba(255, 255, 255, 0.55)' : 'rgba(17, 17, 17, 0.32)';
 
   // Decide whether the intro card stack is fast enough to animate smoothly.
   useEffect(() => {
@@ -337,15 +339,17 @@ export default function IntroAnimation() {
               images={introTransitionImages}
               isActive={showIntro}
               onComplete={handleTransitionComplete}
-              overlayColor={introWhite}
-              loadingBackgroundColor={introWhite}
+              overlayColor={introBackground}
+              loadingBackgroundColor={introBackground}
+              cardBorderColor={introCardBorder}
+              cardFilter={isDark ? 'brightness(0.62)' : 'none'}
               usePortal={false}
             />
           )}
           {/* On slower devices, show only the Zachary MacTavish intro animation. */}
           {introReady && (
             <IntroNameWrap>
-              <IntroText aria-label={text}>
+              <IntroText aria-label={text} $color={introForeground}>
                 {Array.from(text).map((char, index) => (
                   <LetterMask key={`intro-char-${index}`}>
                     <LetterInner
@@ -360,7 +364,7 @@ export default function IntroAnimation() {
               </IntroText>
             </IntroNameWrap>
           )}
-          <IntroCounter $color={introCounterColor}>{counter}</IntroCounter>
+          <IntroCounter $color={introForeground}>{counter}</IntroCounter>
         </IntroDiv>
       )}
     </>

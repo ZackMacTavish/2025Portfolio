@@ -2103,7 +2103,9 @@ export const ironlakInternshipCaseStudy: CaseStudy = {
       id: "the-internship",
       layout: "text-only",
       sectionBackground: "#ffffff",
-      sectionPadding: "1rem 0 3.75rem",
+      sectionPadding: "clamp(5rem, 12vh, 7rem) 0",
+      sectionMinHeight: "clamp(26rem, 58vh, 36rem)",
+      sectionMarginTop: "clamp(2rem, 5vh, 3rem)",
       heading: "The Internship",
       body: `Presenting the full system to Ironlak led directly to a three-month internship with the company. The day-to-day work was grounded in real production across print, digital, and social formats. I designed ads, social media posts, and small promotional cards for Ironlak and several of the spray paint shops they partnered with.`,
     },
@@ -2421,7 +2423,7 @@ export const outsourceCaseStudy: CaseStudy = {
     {
       id: "ceu-intro",
       layout: "image-on-color-block",
-      sectionBackground: "#FEC748",
+      sectionBackground: "#F3E4B6",
       heading: "Outsource CEU",
       body: `Outsource CEU was a subsidiary built around continuing education for architects. In New York, architects are required to regularly complete accredited coursework to maintain their certifications, and CEU was the platform delivering that content. I built the brand identity for CEU from scratch and designed the digital interfaces that translated dense regulatory and code-related material into something clear and approachable. I also produced motion graphics for the CEU video series, which were the educational modules themselves, walking architects through building code topics needed to renew their credits. Brochures and social content supported the brand on the marketing side.`,
       images: [
@@ -2432,7 +2434,7 @@ export const outsourceCaseStudy: CaseStudy = {
           alt: "Outsource CEU homepage on Macbook",
           aspectRatio: "16/10",
           objectFit: "contain",
-          backgroundColor: "#FEC748",
+          backgroundColor: "#F3E4B6",
           imagePaddingBlock: "clamp(0.75rem, 4vw, 2.5rem)",
           imagePaddingInline: "clamp(0.75rem, 4vw, 2.5rem)",
           containerShadow: "none",
@@ -2497,6 +2499,8 @@ export const outsourceCaseStudy: CaseStudy = {
       id: "buildingowl",
       layout: "text-only",
       sectionBackground: "#ffffff",
+      backgroundGroup: "buildingowl",
+      backgroundTone: "primaryMuted",
       sectionPadding: "3.75rem 0 1.5rem",
       heading: "BuildingOwl",
       body: `BuildingOwl was a technology product that monitored and surfaced critical building information, things like outstanding code reviews, maintenance records, and building-specific data all in one place. I expanded the existing brand identity and improved the UX across the product to make it more intuitive. One of the more involved deliverables was a long-form flow map documenting the business structure for how BuildingOwl would grow its user base, built as an internal strategic tool for the team. I also designed a printed booklet and brand guidelines to support the product.`,
@@ -2505,6 +2509,8 @@ export const outsourceCaseStudy: CaseStudy = {
       id: "buildingowl-intro",
       layout: "full-width-image",
       sectionBackground: "#ffffff",
+      backgroundGroup: "buildingowl",
+      backgroundTone: "primaryMuted",
       sectionPadding: "1.5rem 0 3.75rem",
       images: [
         {
@@ -2521,6 +2527,8 @@ export const outsourceCaseStudy: CaseStudy = {
       id: "buildingowl-product",
       layout: "full-width-image",
       sectionBackground: "#f5f5f5",
+      backgroundGroup: "buildingowl",
+      backgroundTone: "primaryMuted",
       sectionPadding: "3.75rem 0 1.5rem",
       images: [
         {
@@ -2537,6 +2545,8 @@ export const outsourceCaseStudy: CaseStudy = {
       id: "buildingowl-collateral",
       layout: "staggered-pair",
       sectionBackground: "#f5f5f5",
+      backgroundGroup: "buildingowl",
+      backgroundTone: "primaryMuted",
       heading: "Booklet & Brand Guidelines",
       body: `A printed booklet introduced BuildingOwl to prospective clients, and a brand guidelines system codified type, color, and logo usage so the product team could extend the identity consistently.`,
       images: [
@@ -2563,6 +2573,8 @@ export const outsourceCaseStudy: CaseStudy = {
     {
       id: "buildingowl-flowmap",
       layout: "full-width-image",
+      backgroundGroup: "buildingowl",
+      backgroundTone: "primaryMuted",
       heading: "Growth Flow Map",
       body: `A long-form internal strategic document mapping how BuildingOwl would expand its user base across building owners, managers, and code reviewers. Click the diagram to open it in a full-screen viewer, then scroll to zoom and drag to pan.`,
       images: [
@@ -3542,6 +3554,7 @@ export const accessDirectCaseStudy: CaseStudy = {
           alt: "Access Direct product detail page for the Highpower One controller",
           aspectRatio: "2400/1745",
           objectFit: "cover",
+          containerBorder: "1px solid var(--border, #d1d5db)",
         },
       ],
     },
@@ -3549,13 +3562,17 @@ export const accessDirectCaseStudy: CaseStudy = {
       id: "brands",
       layout: "text-only",
       sectionBackground: "#f5f5f5",
+      backgroundGroup: "brands",
+      backgroundTone: "muted",
       heading: "Brands",
       body: `A major component of Access Direct's value proposition is the quality of the manufacturers and product lines it carries. The brands section gave David a place to showcase these relationships, signaling to potential clients that they were buying from a company with serious, established supplier partnerships.`,
     },
     {
       id: "brands-imac",
       layout: "full-width-image",
-      sectionBackground: "#111317",
+      sectionBackground: "#f5f5f5",
+      backgroundGroup: "brands",
+      backgroundTone: "muted",
       sectionPadding: "3.75rem 0",
       caption:
         "The manufacturers directory, with searchable filtering across the brands Access Direct carries.",
@@ -4007,7 +4024,7 @@ export const gigaCaseStudy: CaseStudy = {
       id: "outcome",
       layout: "text-only",
       sectionBackground: "#ffffff",
-      sectionPadding: "3.75rem 0 0.5rem",
+      sectionPadding: "3.75rem 0 clamp(4.75rem, 8vh, 6rem)",
       heading: "Outcome",
       body: `Both versions of Giga are live and active. The platform continues to grow and evolve, and my engagement has matured from hands-on designer to UX consultant, contributing strategic and experiential guidance as new features are conceived and built. The brand identity has held across both versions of the product, proving the durability of the original design decisions.`,
     },
@@ -4095,12 +4112,16 @@ export const partnershipsCaseStudy: CaseStudy = {
       id: "intro-tags",
       layout: "text-only",
       sectionBackground: "var(--surface-muted, #f5f5f5)",
+      backgroundGroup: "hero-labels",
+      backgroundTone: "primaryMuted",
       sectionPadding: "0 0 0.5rem",
       body: "AI COMMERCE  ·  PARTNERSHIP DESIGN  ·  INTERACTION DESIGN  ·  CROSS-PLATFORM",
     },
     {
       id: "intro",
       layout: "sticky-split",
+      backgroundGroup: "intro",
+      backgroundTone: "muted",
       stickyContent: {},
       scrollContent: {
         blocks: [
@@ -4528,7 +4549,7 @@ export const partnershipsCaseStudy: CaseStudy = {
     {
       id: "lyft-mom",
       layout: "image-on-color-block",
-      sectionBackground: "#1a1a1a",
+      sectionBackground: "#000000",
       heading: "Book for a Family Member",
       headingColor: "#ffffff",
       body: `Demonstrated saved/reusable information in Copilot: a user could ask Copilot to book a ride for their mom, and Copilot would recall her name and address from prior use. Payment still required manual confirmation each time, it was not auto-filled. This flow was meant to show how Copilot could progressively reduce friction by remembering details across everyday tasks.`,
@@ -4548,7 +4569,7 @@ export const partnershipsCaseStudy: CaseStudy = {
       id: "lyft-mom-screens",
       layout: "image-carousel",
       sectionAspectRatio: "851/500",
-      sectionBackground: "#1a1a1a",
+      sectionBackground: "#000000",
       sectionPadding: "0 0 3.75rem",
       images: [
         {
@@ -4557,7 +4578,7 @@ export const partnershipsCaseStudy: CaseStudy = {
           webp: "/assets/partnerships/Lyft Book for Mom 2.webp",
           alt: "Lyft book for mom, screen 2",
           objectFit: "cover",
-          backgroundColor: "#1a1a1a",
+          backgroundColor: "#000000",
         },
         {
           src: "/assets/partnerships/Lyft Book for Mom 3.jpg",
@@ -4565,7 +4586,7 @@ export const partnershipsCaseStudy: CaseStudy = {
           webp: "/assets/partnerships/Lyft Book for Mom 3.webp",
           alt: "Lyft book for mom, screen 3",
           objectFit: "cover",
-          backgroundColor: "#1a1a1a",
+          backgroundColor: "#000000",
         },
         {
           src: "/assets/partnerships/Lyft Book for Mom 4.jpg",
@@ -4573,7 +4594,7 @@ export const partnershipsCaseStudy: CaseStudy = {
           webp: "/assets/partnerships/Lyft Book for Mom 4.webp",
           alt: "Lyft book for mom, screen 4",
           objectFit: "cover",
-          backgroundColor: "#1a1a1a",
+          backgroundColor: "#000000",
         },
         {
           src: "/assets/partnerships/Lyft Book for Mom 5.jpg",
@@ -4581,7 +4602,7 @@ export const partnershipsCaseStudy: CaseStudy = {
           webp: "/assets/partnerships/Lyft Book for Mom 5.webp",
           alt: "Lyft book for mom, screen 5",
           objectFit: "cover",
-          backgroundColor: "#1a1a1a",
+          backgroundColor: "#000000",
         },
       ],
     },
@@ -4782,7 +4803,7 @@ export const partnershipsCaseStudy: CaseStudy = {
     {
       id: "doordash-groups",
       layout: "image-on-color-block",
-      sectionBackground: "#1a1a1a",
+      sectionBackground: "#000000",
       heading: "Group Planning",
       headingColor: "#ffffff",
       body: `The most complex scenario: planning a group meal that satisfies multiple people's food restrictions and a shared budget. Copilot Tasks automatically sent an email to the group, gathered everyone's responses, and compiled the results, rather than requiring one person to manually collect preferences. Copilot then surfaced one recommended option that best satisfied the group's combined constraints.`,
@@ -4802,7 +4823,7 @@ export const partnershipsCaseStudy: CaseStudy = {
       id: "doordash-groups-screens",
       layout: "image-carousel",
       sectionAspectRatio: "851/500",
-      sectionBackground: "#1a1a1a",
+      sectionBackground: "#000000",
       sectionPadding: "0 0 3.75rem",
       images: [
         {
@@ -4811,7 +4832,7 @@ export const partnershipsCaseStudy: CaseStudy = {
           webp: "/assets/partnerships/DoorDash Large Groups 2.webp",
           alt: "DoorDash group planning, screen 2",
           objectFit: "cover",
-          backgroundColor: "#1a1a1a",
+          backgroundColor: "#000000",
         },
         {
           src: "/assets/partnerships/DoorDash Large Groups 5.jpg",
@@ -4819,7 +4840,7 @@ export const partnershipsCaseStudy: CaseStudy = {
           webp: "/assets/partnerships/DoorDash Large Groups 5.webp",
           alt: "DoorDash group planning, screen 5",
           objectFit: "cover",
-          backgroundColor: "#1a1a1a",
+          backgroundColor: "#000000",
         },
         {
           src: "/assets/partnerships/DoorDash Large Groups 6.jpg",
@@ -4827,7 +4848,7 @@ export const partnershipsCaseStudy: CaseStudy = {
           webp: "/assets/partnerships/DoorDash Large Groups 6.webp",
           alt: "DoorDash group planning, screen 6",
           objectFit: "cover",
-          backgroundColor: "#1a1a1a",
+          backgroundColor: "#000000",
         },
         {
           src: "/assets/partnerships/DoorDash Large Groups 7.jpg",
@@ -4835,7 +4856,7 @@ export const partnershipsCaseStudy: CaseStudy = {
           webp: "/assets/partnerships/DoorDash Large Groups 7.webp",
           alt: "DoorDash group planning, screen 7",
           objectFit: "cover",
-          backgroundColor: "#1a1a1a",
+          backgroundColor: "#000000",
         },
       ],
     },

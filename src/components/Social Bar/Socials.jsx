@@ -54,11 +54,16 @@ const Socialbar = styled.div`
 
 const SocialImages = styled.img`
   width: ${(p) => p.$small ? "clamp(26px, 1.2vw, 40px)" : "clamp(44px, 2vw, 70px)"};
-  transition: all 1s ease;
+  filter: ${(p) => (p.theme.name === 'light' ? 'brightness(0)' : 'brightness(0) invert(1)')};
+  opacity: 1;
+  transition: filter 0.3s ease, transform 0.3s ease;
   display: block;
 
   &:hover {
-    filter: invert(0.2) sepia(0.5) saturate(11.7) hue-rotate(313.2deg) brightness(1.2);
+    filter: ${(p) => (p.theme.name === 'light'
+      ? 'brightness(0) saturate(100%) invert(27%) sepia(9%) saturate(779%) hue-rotate(42deg) brightness(91%) contrast(88%)'
+      : 'brightness(0) saturate(100%) invert(68%) sepia(38%) saturate(1166%) hue-rotate(324deg) brightness(99%) contrast(83%)')};
+    transform: translateY(-2px);
   }
 `;
 

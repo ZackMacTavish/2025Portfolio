@@ -142,6 +142,12 @@ interface CaseStudySection {
   /** Optional explicit background color for the section wrapper (overrides the auto white/grey alternation) */
   sectionBackground?: string;
 
+  /** Optional authored cluster ID; adjacent sections with the same ID share one background band */
+  backgroundGroup?: string;
+
+  /** Optional semantic background role for an authored section cluster */
+  backgroundTone?: "base" | "muted" | "accent" | "primary" | "primaryMuted";
+
   /** Optional CSS border applied to the section's primary container (currently honored by sticky-split) */
   sectionBorder?: string;
 
@@ -150,6 +156,12 @@ interface CaseStudySection {
 
   /** Optional CSS padding override applied to the Section wrapper (e.g. "1rem 0" to tighten spacing within a grouped run) */
   sectionPadding?: string;
+
+  /** Optional minimum height for a section wrapper */
+  sectionMinHeight?: string;
+
+  /** Optional top margin used to separate a section from the previous band */
+  sectionMarginTop?: string;
 
   /** Optional color applied to the section heading (e.g. "#fff" for headings over dark sectionBackground) */
   headingColor?: string;

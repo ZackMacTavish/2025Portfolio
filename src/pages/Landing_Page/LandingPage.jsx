@@ -130,6 +130,14 @@ const AgencyTextSection = styled(FullHeightTextSection)`
   }
 `;
 
+const PersonalImageTextSection = styled(ImageTextSplit)`
+  padding-block: clamp(5rem, 8vh, 7rem);
+
+  @media (max-width: 1000px) {
+    padding-block: clamp(3rem, 7vh, 4rem);
+  }
+`;
+
 const AgencyTextContainer = styled(TextContainer)`
   @media (max-width: 850px) {
     width: 100%;
@@ -186,7 +194,7 @@ const LandingDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 4vw;
+  gap: 3vw;
   width: 100vw;
   height: 100vh;
   height: 100dvh; /* avoid Safari URL bar jumping the hero height */
@@ -203,19 +211,20 @@ const LandingDiv = styled.div`
     height: 40vw;
     border-radius: 50%;
     filter: blur(200px);
-    background: rgba(255, 255, 255, 0.3);
     z-index: 0;
   }
 
   &::before {
     top: 20%;
     left: 10%;
+    background: ${(props) => props.theme.heroSpotlightLeft};
     animation: ${spotlightLeftMove} 35s ease-in-out infinite;
   }
 
   &::after {
     top: 40%;
     left: 65%;
+    background: ${(props) => props.theme.heroSpotlightRight};
     animation: ${spotlightRightMove} 40s ease-in-out infinite;
   }
 
@@ -310,6 +319,7 @@ const ParagraphWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  color: ${(props) => props.theme.onOlive};
   position: relative;
   z-index: 1;
 
@@ -329,7 +339,7 @@ const ParagraphTwo = styled.div`
   line-height: var(--type-standalone-leading);
   width: 32vw;
   max-width: 34rem;
-  color: white;
+  color: ${(props) => props.theme.onOlive};
   z-index: 1;
 
   @media (max-width: 1000px) {  
@@ -345,12 +355,30 @@ const ParagraphTwo = styled.div`
   }
 `;
 
-const HeroIntroduction = styled.span`
-  font-weight: 400;
-`;
-
-const EditorialName = styled.span`
+const HeroName = styled.h1`
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 1.25rem;
+  font-family: var(--font-display);
+  font-size: 5rem;
   font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: 0;
+  color: ${(props) => props.theme.onOlive};
+
+  @media (max-width: 1400px) {
+    font-size: 4.25rem;
+  }
+
+  @media (max-width: 1000px) {
+    align-items: center;
+    font-size: 3.75rem;
+  }
+
+  @media (max-width: 700px) {
+    margin-bottom: 1rem;
+    font-size: 3rem;
+  }
 `;
 
 const EditorialLink = styled.a`
@@ -408,8 +436,8 @@ const ArrowInner = styled.div`
 const Arrow = styled.div`
   width: 24px;
   height: 24px;
-  border-left: 3px solid white;
-  border-bottom: 3px solid white;
+  border-left: 3px solid ${(props) => props.theme.onOlive};
+  border-bottom: 3px solid ${(props) => props.theme.onOlive};
   transform: rotate(-45deg);
   border-radius: 2px;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.35)); /* maintain visibility even near light backgrounds */
@@ -592,7 +620,7 @@ const ProjectCard = styled.div`
   }
 
   &:hover ${TileTitle} {
-    color: ${(props) => props.theme.backgroundColor};
+    color: ${(props) => props.theme.fontColor};
   }
 `;
 
@@ -645,7 +673,7 @@ export const QuiltText = styled(ParagraphTwo)`
   padding-right: 0;
   font-size: clamp(1.05rem, 1.6vw, 1.5rem); /* slightly smaller for better line length */
   line-height: 1.6; /* improve readability */
-  color: white;
+  color: ${(props) => props.theme.onOlive};
 
   /* Keep stacked text readable without becoming visually oversized on smaller screens */
   @media (max-width: 1000px) {
@@ -870,12 +898,15 @@ const LandingPage = ({ introDone = true }) => {
           <AboutPicture src={me} />
         </PortraitContainer>
         <ParagraphWrapper>
+          <HeroName>
+            <span>Zack</span>
+            <span>MacTavish</span>
+          </HeroName>
           <SocialsWrapper>
             <Socials />
           </SocialsWrapper>
           <ParagraphTwo $widthsize='47vw'>
-            <HeroIntroduction>Hi, I'm <EditorialName>Zack MacTavish</EditorialName>,</HeroIntroduction>{' '}
-            a product designer based in Philadelphia, PA. I'm currently shaping shopping experiences at Microsoft.
+            A product designer based in Philadelphia, PA. I'm currently shaping shopping experiences at Microsoft.
           </ParagraphTwo>
         </ParagraphWrapper>
 
@@ -892,7 +923,7 @@ const LandingPage = ({ introDone = true }) => {
       <PortfolioCardsSection />
 
       {/* Module 2: Second Paragraph */}
-      <AgencyTextSection style={{ backgroundColor: 'var(--surface-subtle, #f7f7f7)' }}>
+      <AgencyTextSection style={{ backgroundColor: 'var(--section-muted, #f7f7f7)' }}>
         <AgencyTextContainer>
           <AgencyTextContent style={{ color: 'var(--text-muted, #5d5d5d)' }}>
             I’ve partnered with agencies including{' '}
@@ -1036,7 +1067,7 @@ const LandingPage = ({ introDone = true }) => {
       </ProjectsSection>
 
       {/* Module 3: Quilt + Third Paragraph */}
-      <ImageTextSplit
+      <PersonalImageTextSection
         imageSrc={quilthanging}
         imageAvif={quilthangingAvif}
         imageWebp={quilthangingWebp}
@@ -1044,14 +1075,14 @@ const LandingPage = ({ introDone = true }) => {
         mobileSrc={quilthangingMobile600}
         mobileAvif={quilthangingMobile600Avif}
         mobileWebp={quilthangingMobile600Webp}
-        style={{ color: '#fff' }}
+        style={{ color: 'var(--on-olive)' }}
         textSize="var(--type-standalone-size)"
-        textColor="#fff"
+        textColor="var(--on-olive)"
       >
         <div style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--type-standalone-size)', lineHeight: 'var(--type-standalone-leading)' }}>
           Outside of work, I live with my partner <EditorialLink href="https://oliviazitasmith.com" target="_blank" rel="noopener noreferrer">Olivia Smith</EditorialLink>, who is also an artist. In my own creative time, I focus on making quilts that combine photography, textile techniques, and mixed media, exploring the intersection of art, design, and storytelling.
         </div>
-      </ImageTextSplit>
+      </PersonalImageTextSection>
 
       {/* Module 4: Three.js Scene */}
       <ArtDiv>

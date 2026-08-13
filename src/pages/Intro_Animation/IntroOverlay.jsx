@@ -26,7 +26,7 @@ const IntroDiv = styled.div`
   @media (max-width: 900px) {
     height: 100dvh;
   }
-  background-color: #ffffff;
+  background-color: ${(p) => (p.theme.name === 'dark' ? '#000000' : '#ffffff')};
   position: fixed;
   top: 0;
   left: 0;
@@ -40,7 +40,7 @@ const IntroText = styled.h1`
   font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(2.1rem, 7vw, 6.2rem);
   letter-spacing: 0.04em;
-  color: #000;
+  color: ${(p) => (p.theme.name === 'dark' ? '#ffffff' : '#111111')};
   position: relative;
   text-align: center;
   white-space: nowrap;
@@ -75,7 +75,7 @@ const IntroCounter = styled.div`
   right: clamp(18px, 2.8vw, 40px);
   bottom: clamp(18px, 2.8vw, 40px);
   z-index: 60;
-  color: #111111;
+  color: ${(p) => (p.theme.name === 'dark' ? '#ffffff' : '#111111')};
   font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(0.9rem, 1.35vw, 1.2rem);
   letter-spacing: 0.08em;

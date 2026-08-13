@@ -54,7 +54,7 @@ import sun from './assets/Sun-DRKGREEN-01.svg';
  * an `intro-animation-done` event on window when their wipe completes. Until
  * then Nav is unmounted so it can't peek over the intro overlay.
  */
-function NavGate() {
+function NavGate({ onOpenHelp }) {
   const location = useLocation();
   const isRoot = location.pathname === "/" || location.pathname === "/index.html";
   const [introDone, setIntroDone] = useState(() => {
@@ -76,7 +76,7 @@ function NavGate() {
   }, []);
 
   if (!introDone) return null;
-  return <Nav />;
+  return <Nav onOpenHelp={onOpenHelp} />;
 }
 
 /**
@@ -132,23 +132,12 @@ function App() {
     }
   });
   const [showShortcutsHelp, setShowShortcutsHelp] = useState(false);
-  const [showShortcutsPill, setShowShortcutsPill] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    try {
-      // Intro always plays on the root route — hide the pill until the
-      // animation completes, even if intro-played is already in sessionStorage
-      // (mirrors the NavGate logic exactly).
-      const isRoot =
-        window.location.pathname === '/' ||
-        window.location.pathname === '/index.html';
-      if (isRoot) return false;
-      return window.sessionStorage.getItem('intro-played') === 'true';
-    } catch {
-      return false;
-    }
-  });
   const [enableCustomCursor, setEnableCustomCursor] = useState(false);
   const [cursorEnabled, setCursorEnabled] = useState(true);
+  const [useMobileHelp, setUseMobileHelp] = useState(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return false;
+    return window.matchMedia("(max-width: 767px), (hover: none), (pointer: coarse)").matches;
+  });
   const helpDialogRef = useRef(null);
   const lastFocusedElementRef = useRef(null);
 
@@ -157,6 +146,11 @@ function App() {
   useEffect(() => {
     if (typeof document === "undefined") return;
     document.documentElement.setAttribute("data-theme", theme);
+    document.documentElement.style.colorScheme = theme;
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) {
+      themeColor.setAttribute("content", theme === "dark" ? "#353A32" : "#E3E4D8");
+    }
   }, [theme]);
 
   // Follow OS theme until the user explicitly toggles. Once they override,
@@ -176,6 +170,15 @@ function App() {
     if (typeof window === "undefined" || !window.matchMedia) return;
     const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
     const apply = () => setEnableCustomCursor(mq.matches);
+    apply();
+    mq.addEventListener?.("change", apply);
+    return () => mq.removeEventListener?.("change", apply);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const mq = window.matchMedia("(max-width: 767px), (hover: none), (pointer: coarse)");
+    const apply = () => setUseMobileHelp(mq.matches);
     apply();
     mq.addEventListener?.("change", apply);
     return () => mq.removeEventListener?.("change", apply);
@@ -318,17 +321,6 @@ function App() {
     }
   };
 
-
-  // Listen for when the intro animation is done (LandingPage receives introDone prop)
-  // We'll use a custom event to signal when to show the pill
-  useEffect(() => {
-    function handleIntroDone() {
-      setShowShortcutsPill(true);
-    }
-    window.addEventListener("intro-animation-done", handleIntroDone);
-    return () => window.removeEventListener("intro-animation-done", handleIntroDone);
-  }, []);
-
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <GlobalStyles />
@@ -339,18 +331,8 @@ function App() {
               <Customcursor />
             </Suspense>
           )}
-          <NavGate />
+          <NavGate onOpenHelp={() => setShowShortcutsHelp(true)} />
           <IntroGate />
-          {showShortcutsPill && (
-            <button
-              type="button"
-              className="shortcuts-pill"
-              onClick={() => setShowShortcutsHelp(true)}
-              aria-label="Open keyboard shortcuts help"
-            >
-              ? Shortcuts
-            </button>
-          )}
 
           {showShortcutsHelp && (
             <div
@@ -370,8 +352,8 @@ function App() {
                 ref={helpDialogRef}
                 role="dialog"
                 aria-modal="true"
-                aria-labelledby="keyboard-shortcuts-title"
-                aria-describedby="keyboard-shortcuts-description"
+                aria-labelledby="site-help-title"
+                aria-describedby="site-help-description"
                 tabIndex={-1}
                 onClick={(event) => event.stopPropagation()}
                 onKeyDown={handleDialogKeyDown}
@@ -395,15 +377,15 @@ function App() {
                   }}
                 >
                   <h2
-                    id="keyboard-shortcuts-title"
+                    id="site-help-title"
                     style={{ margin: 0, fontSize: "1.05rem", fontWeight: 700 }}
                   >
-                    Keyboard Shortcuts
+                    {useMobileHelp ? "Appearance" : "Keyboard shortcuts"}
                   </h2>
                   <button
                     type="button"
                     onClick={closeShortcutsHelp}
-                    aria-label="Close keyboard shortcuts help"
+                    aria-label="Close help"
                     style={{
                       border: "1px solid var(--pill-border, #d1d5db)",
                       background: "var(--pill-bg, #ffffff)",
@@ -413,39 +395,63 @@ function App() {
                       cursor: "pointer",
                     }}
                   >
-                    Esc
+                    {useMobileHelp ? "×" : "Esc"}
                   </button>
                 </div>
 
                 <p
-                  id="keyboard-shortcuts-description"
+                  id="site-help-description"
                   style={{ margin: "0.75rem 0 1rem", color: "var(--dialog-muted-text, #4b5563)", fontSize: "0.92rem" }}
                 >
-                  Use these shortcuts to navigate transitions and media quickly.
+                  {useMobileHelp
+                    ? "Choose how this site looks on this device."
+                    : "Use these shortcuts to navigate transitions and media quickly."}
                 </p>
 
-                <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: "0.6rem" }}>
-                  <li style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
-                    <strong>? </strong>
-                    <span>Open this help panel</span>
-                  </li>
-                  <li style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
-                    <strong>D</strong>
-                    <span>Toggle dark mode ({theme === "dark" ? "currently dark" : "currently light"})</span>
-                  </li>
-                  <li style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
-                    <strong>C</strong>
-                    <span>Toggle custom cursor ({cursorEnabled ? "currently custom" : "currently default"})</span>
-                  </li>
-                  <li style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
-                    <strong>Esc</strong>
-                    <span>Skip case study transition animation</span>
-                  </li>
-                  <li style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
-                    <strong>Esc</strong>
-                    <span>Close this panel</span>
-                  </li>
-                </ul>
+                {useMobileHelp ? (
+                  <button
+                    type="button"
+                    onClick={themeToggler}
+                    aria-pressed={theme === "dark"}
+                    style={{
+                      width: "100%",
+                      minHeight: "48px",
+                      border: "1px solid var(--pill-border, #d1d5db)",
+                      background: "var(--pill-bg, #ffffff)",
+                      color: "var(--pill-text, #111827)",
+                      borderRadius: "8px",
+                      padding: "0.75rem 1rem",
+                      font: "inherit",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Switch to {theme === "dark" ? "light" : "dark"} mode
+                  </button>
+                ) : (
+                  <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: "0.6rem" }}>
+                    <li style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
+                      <strong>? </strong>
+                      <span>Open this help panel</span>
+                    </li>
+                    <li style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
+                      <strong>D</strong>
+                      <span>Toggle dark mode ({theme === "dark" ? "currently dark" : "currently light"})</span>
+                    </li>
+                    <li style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
+                      <strong>C</strong>
+                      <span>Toggle custom cursor ({cursorEnabled ? "currently custom" : "currently default"})</span>
+                    </li>
+                    <li style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
+                      <strong>Esc</strong>
+                      <span>Skip case study transition animation</span>
+                    </li>
+                    <li style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
+                      <strong>Esc</strong>
+                      <span>Close this panel</span>
+                    </li>
+                  </ul>
+                )}
               </div>
             </div>
           )}

@@ -73,9 +73,23 @@
         background: #ffffff;
         z-index: 2147483647;
       }
+      html[data-theme='dark'].app-hydrating::before { background: #000000; }
     </style>
     <script>
       (function () {
+        var theme = 'light';
+        try {
+          var storedTheme = localStorage.getItem('zm-theme-preference');
+          if (storedTheme === 'light' || storedTheme === 'dark') {
+            theme = storedTheme;
+          } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            theme = 'dark';
+          }
+        } catch (error) {
+          if (window.matchMedia('(prefers-color-scheme: dark)').matches) theme = 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.style.colorScheme = theme;
         document.documentElement.classList.add('app-hydrating');
       })();
     </script>
@@ -115,6 +129,27 @@
 
   <!-- Theme color for Android Chrome / in-app browsers -->
   <meta name="theme-color" content="#000000" />
+  <script>
+    (function () {
+      var theme = "light";
+      try {
+        var storedTheme = localStorage.getItem("zm-theme-preference");
+        if (storedTheme === "light" || storedTheme === "dark") {
+          theme = storedTheme;
+        } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          theme = "dark";
+        }
+      } catch (error) {
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          theme = "dark";
+        }
+      }
+      document.documentElement.setAttribute("data-theme", theme);
+      document.documentElement.style.colorScheme = theme;
+      document.querySelector('meta[name="theme-color"]').content =
+        theme === "dark" ? "#353A32" : "#E3E4D8";
+    })();
+  </script>
   <meta name="author" content="Zack MacTavish" />
   <link rel="icon" type="image/png" sizes="64x64" href="/assets/og/favicon-64.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/og/favicon-180.png" />

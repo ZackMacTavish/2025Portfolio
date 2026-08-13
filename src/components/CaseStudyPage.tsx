@@ -9,10 +9,32 @@ import ResponsiveImage from "./ResponsiveImage";
 import ImageCarousel from "./ImageCarousel";
 import ZoomableImage from "./ZoomableImage";
 import NoOrphan from "./NoOrphan";
+import { CaseStudyIntroCTA } from "./CaseStudyIntroCTA";
 
-// Data-driven section backgrounds in caseStudies.ts pre-date theming. In dark
-// mode, swap neutral whites/greys for the dark surface token so the section
-// chrome flips, while leaving brand colors (navy, yellow, etc.) untouched.
+const ROTATING_SECTION_TONES = ["base", "muted", "accent"] as const;
+type SectionTone = "base" | "muted" | "accent" | "primary" | "primaryMuted";
+
+const sectionToneBackground = (tone: SectionTone, theme: DefaultTheme): string => ({
+  base: theme.sectionBase,
+  muted: theme.sectionMuted,
+  accent: theme.sectionAccent,
+  primary: theme.sectionPrimary,
+  primaryMuted: theme.sectionPrimaryMuted,
+})[tone];
+
+const sectionToneText = (tone: SectionTone, theme: DefaultTheme) => ({
+  strong: tone === "accent"
+    ? theme.sectionAccentText
+    : tone === "primary" || tone === "primaryMuted"
+      ? theme.onOlive
+      : theme.strongText,
+  muted: tone === "accent"
+    ? theme.sectionAccentMutedText
+    : tone === "primary" || tone === "primaryMuted"
+      ? theme.onOliveMuted
+      : theme.mutedText,
+});
+
 const NEUTRAL_BACKGROUNDS = new Set([
   "white",
   "#fff",
@@ -25,38 +47,26 @@ const NEUTRAL_BACKGROUNDS = new Set([
   "#e7e7e7",
   "#eeeeee",
   "#eee",
+  "var(--surface-muted, #f5f5f5)",
 ]);
+
+const isNeutralBackground = (value: string | undefined): boolean =>
+  !value || NEUTRAL_BACKGROUNDS.has(value.toLowerCase());
 
 const themedBg = (value: string | undefined, theme: DefaultTheme): string | undefined => {
   if (!value) return value;
   if (theme.name !== "dark") return value;
-  return NEUTRAL_BACKGROUNDS.has(value.toLowerCase()) ? theme.surface : value;
+  return isNeutralBackground(value) ? theme.surface : value;
 };
 
-// Returns true when the given CSS color is light enough that dark text is
-// needed for accessible contrast (regardless of active theme).
 const isLightBackground = (value: string | undefined): boolean => {
   if (!value) return false;
   const hex = value.trim().replace(/^#/, "");
-  let r: number, g: number, b: number;
-  if (hex.length === 3) {
-    r = parseInt(hex[0] + hex[0], 16);
-    g = parseInt(hex[1] + hex[1], 16);
-    b = parseInt(hex[2] + hex[2], 16);
-  } else if (hex.length === 6) {
-    r = parseInt(hex.slice(0, 2), 16);
-    g = parseInt(hex.slice(2, 4), 16);
-    b = parseInt(hex.slice(4, 6), 16);
-  } else {
-    return false;
-  }
-  if ([r, g, b].some(Number.isNaN)) return false;
-  const srgb = [r, g, b].map((v) => {
-    const s = v / 255;
-    return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
-  });
-  const lum = 0.2126 * srgb[0] + 0.7152 * srgb[1] + 0.0722 * srgb[2];
-  return lum > 0.55;
+  if (!/^[0-9a-fA-F]{3}$|^[0-9a-fA-F]{6}$/.test(hex)) return false;
+  const fullHex = hex.length === 3 ? [...hex].map((char) => char + char).join("") : hex;
+  const rgb = [0, 2, 4].map((offset) => parseInt(fullHex.slice(offset, offset + 2), 16) / 255);
+  const linear = rgb.map((channel) => channel <= 0.03928 ? channel / 12.92 : Math.pow((channel + 0.055) / 1.055, 2.4));
+  return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2] > 0.55;
 };
 
 interface CaseStudyPageProps {
@@ -82,10 +92,23 @@ const HeroSection = styled.section`
   position: relative;
   overflow: hidden;
   min-height: 110vh;
-  background: ${(p) => p.theme.surfaceMuted};
+  background-color: ${(p) => p.theme.sectionPrimaryMuted};
   /* Horizontal gutter lives on HeroContent (mirroring SectionContent) so the
      hero headline/metadata align with every body section's grid. */
   padding: 5rem 0 10rem;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, ${(p) => p.theme.projectHeroWash} 0%, transparent 24%),
+      linear-gradient(120deg, ${(p) => p.theme.projectHeroWash} 0%, ${(p) => p.theme.projectHeroWash} 18%, transparent 68%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 48%, transparent 88%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 48%, transparent 88%);
+    pointer-events: none;
+    z-index: 0;
+  }
 
   @media (min-width: 768px) {
     min-height: 116vh;
@@ -136,6 +159,7 @@ const HeroTopAction = styled.div`
 
 const HeroPeekImageWrap = styled.div`
   position: absolute;
+  z-index: 1;
   left: 50%;
   bottom: -6%;
   transform: translateX(-50%);
@@ -216,13 +240,13 @@ const SkeletonLoader = styled(motion.div)`
   }
 `;
 
-const HeroPeekImageContainer = styled.div<{ $backgroundColor?: string; $border?: string }>`
+const HeroPeekImageContainer = styled.div<{ $backgroundColor?: string; $border?: string; $borderRadius: string }>`
   position: relative;
   width: 100%;
   height: 100%;
   background: ${({ $backgroundColor }) => $backgroundColor || "transparent"};
   padding-block: ${({ $backgroundColor }) => ($backgroundColor ? "clamp(1rem, 2vw, 1.5rem)" : "0")};
-  border-radius: ${({ $backgroundColor }) => ($backgroundColor ? "24px" : "0")};
+  border-radius: ${({ $backgroundColor, $borderRadius }) => ($backgroundColor ? "24px" : $borderRadius)};
   ${({ $border }) => ($border ? `border: ${$border};` : "")}
   overflow: hidden;
 `;
@@ -288,25 +312,10 @@ const Headline = (
   );
 };
 
-const WebsiteLink = styled.a`
-  display: flex;
-  width: fit-content;
-  align-items: center;
-  gap: 0.5rem;
+const WebsiteLink = styled(CaseStudyIntroCTA).attrs({ as: "a" })`
   margin-top: 1rem;
-  padding: 0.75rem 1rem;
-  border: 1px solid ${(p) => p.theme.strongText};
-  border-radius: 6px;
-  color: ${(p) => p.theme.strongText};
-  font-size: 0.875rem;
-  font-weight: 600;
   text-decoration: none;
-  transition: background-color 160ms ease, color 160ms ease;
-
-  &:hover {
-    background: ${(p) => p.theme.strongText};
-    color: ${(p) => p.theme.surface};
-  }
+  white-space: nowrap;
 
   &:focus-visible {
     outline: 2px solid ${(p) => p.theme.strongText};
@@ -316,16 +325,21 @@ const WebsiteLink = styled.a`
 
 const SectionsContainer = styled.div``;
 
-const Section = styled.section<{ $background: string; $compact: boolean; $padding?: string }>`
-  background: ${(p) => themedBg(p.$background, p.theme)};
-  padding: ${(props) => props.$padding ?? (props.$compact ? "0" : "3.75rem 0")};
-  ${(p) =>
-    isLightBackground(themedBg(p.$background, p.theme))
-      ? `
+const Section = styled.section<{ $background: string; $tone?: SectionTone; $compact: boolean; $padding?: string; $minHeight?: string; $marginTop?: string; $standaloneText?: boolean; $continuesGroup?: boolean }>`
+  background: ${(p) => p.$tone ? sectionToneBackground(p.$tone, p.theme) : themedBg(p.$background, p.theme)};
+  --section-text-strong: ${(p) => p.$tone ? sectionToneText(p.$tone, p.theme).strong : p.theme.strongText};
+  --section-text-muted: ${(p) => p.$tone ? sectionToneText(p.$tone, p.theme).muted : p.theme.mutedText};
+  padding: ${(props) => props.$padding ?? (props.$compact
+    ? "clamp(1.5rem, 3vw, 2.5rem) 0"
+    : props.$standaloneText
+      ? "3.75rem 0 clamp(4.75rem, 8vh, 6rem)"
+      : "3.75rem 0")};
+  min-height: ${(props) => props.$minHeight || "auto"};
+  margin-top: ${(p) => p.$marginTop || (p.$continuesGroup ? "-1px" : "0")};
+  ${(p) => !p.$tone && isLightBackground(themedBg(p.$background, p.theme)) ? `
     h1, h2, h3, h4, h5, h6 { color: #1a1a1a; }
     p { color: rgba(26, 26, 26, 0.78); }
-  `
-      : ""}
+  ` : ""}
 `;
 
 const SectionContent = styled.div`
@@ -345,7 +359,7 @@ const SectionHeadingBase = styled.h2`
   font-family: var(--font-display);
   font-size: 1.875rem;
   font-weight: 700;
-  color: ${(p) => p.theme.strongText};
+  color: var(--section-text-strong, ${(p) => p.theme.strongText});
   margin-bottom: 1.5rem;
 `;
 
@@ -371,7 +385,7 @@ const ParagraphBase = styled.p`
   max-width: 68ch;
   font-size: var(--type-narrative-size);
   line-height: var(--type-narrative-leading);
-  color: ${(p) => p.theme.mutedText};
+  color: var(--section-text-muted, ${(p) => p.theme.mutedText});
 `;
 
 const Paragraph = (
@@ -737,7 +751,7 @@ const StaggeredCaption = styled.p`
 `;
 
 const RelatedCalloutWrap = styled.div`
-  margin-top: 2.5rem;
+  padding-top: 2.5rem;
 `;
 
 const RelatedEyebrow = styled.p`
@@ -835,6 +849,15 @@ const TextOnlyParagraph = styled(Paragraph)`
   text-wrap: pretty;
 `;
 
+const TeamParagraph = styled(Paragraph)`
+  color: ${(p) => p.theme.strongText};
+  font-family: var(--font-display);
+  font-size: var(--type-standalone-size);
+  line-height: var(--type-standalone-leading);
+  max-width: 50ch;
+  text-wrap: pretty;
+`;
+
 const QuoteWrapper = styled.div`
   margin: 0 auto;
   max-width: 800px;
@@ -879,20 +902,23 @@ const QuoteAttribution = styled.cite`
   color: ${(p) => p.theme.mutedText};
 `;
 
-const StickySplitWrapper = styled.section`
+const StickySplitWrapper = styled.section<{ $background?: string; $tone?: SectionTone }>`
   display: flex;
   flex-direction: column;
   gap: 0;
   padding: 0;
+  background: ${(p) => p.$tone ? sectionToneBackground(p.$tone, p.theme) : themedBg(p.$background, p.theme) || p.theme.surface};
+  --section-text-strong: ${(p) => p.$tone ? sectionToneText(p.$tone, p.theme).strong : p.theme.strongText};
+  --section-text-muted: ${(p) => p.$tone ? sectionToneText(p.$tone, p.theme).muted : p.theme.mutedText};
 `;
 
-const StickyColumn = styled.div<{ $background?: string }>`
+const StickyColumn = styled.div`
   /* Body-width (not 100vw) so inner content lines up with the standard
      Section/SectionContent grid. A 100vw full-bleed here includes the
      scrollbar width and shifts the centered content ~half a scrollbar off. */
   width: 100%;
   padding: 0;
-  background: ${(p) => themedBg(p.$background, p.theme) || p.theme.surface};
+  background: transparent;
 `;
 
 const StickyMediaPin = styled.div<{ $fullBleed?: boolean }>`
@@ -977,7 +1003,7 @@ const CollateralMediaWrap = styled.div`
 const ScrollColumn = styled.div`
   width: 100%;
   padding: 3.5rem 0 4.5rem;
-  background: ${(p) => (p.theme.name === "dark" ? p.theme.surfaceMuted : "#f0efeb")};
+  background: transparent;
 
   /* Inner blocks mirror SectionContent so the overview/scroll content aligns
      with the hero metadata and every body section on the 64rem grid. */
@@ -1023,7 +1049,7 @@ const QuoteLeftAligned = styled.p`
   color: ${(p) => p.theme.strongText};
 `;
 
-const ParallaxRevealWrapper = styled.section`
+const ParallaxRevealWrapper = styled.section<{ $background?: string; $tone?: SectionTone }>`
   position: relative;
   width: 100vw;
   margin-left: calc(-50vw + 50%);
@@ -1031,6 +1057,9 @@ const ParallaxRevealWrapper = styled.section`
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  background: ${(p) => p.$tone ? sectionToneBackground(p.$tone, p.theme) : themedBg(p.$background, p.theme) || p.theme.surface};
+  --section-text-strong: ${(p) => p.$tone ? sectionToneText(p.$tone, p.theme).strong : p.theme.strongText};
+  --section-text-muted: ${(p) => p.$tone ? sectionToneText(p.$tone, p.theme).muted : p.theme.mutedText};
 
   @media (max-width: 768px) {
     min-height: 80vh;
@@ -1056,7 +1085,7 @@ const ParallaxTextLayer = styled.div`
   position: relative;
   z-index: 2;
   padding: 2.5rem 6% 3.5rem;
-  background: ${(p) => p.theme.surface};
+  background: transparent;
 
   @media (max-width: 768px) {
     padding: 2rem 1.25rem;
@@ -1363,6 +1392,22 @@ const IMAGE_HEAVY_LAYOUTS = new Set<CaseStudySection["layout"]>([
   "staggered-pair",
 ]);
 
+const MEDIA_SECTION_LAYOUTS = new Set<CaseStudySection["layout"]>([
+  "full-width-image",
+  "image-pair",
+  "gallery-grid",
+  "sticky-split",
+  "parallax-reveal",
+  "image-on-color-block",
+  "asymmetric-mosaic",
+  "image-carousel",
+  "three-column-feature",
+  "staggered-pair",
+  "video",
+  "text-left-image-right",
+  "text-right-image-left",
+]);
+
 const SELF_MANAGED_SECTION_LAYOUTS = new Set<CaseStudySection["layout"]>([
   "sticky-split",
   "parallax-reveal",
@@ -1399,36 +1444,41 @@ export default memo(function CaseStudyPage({
   };
 
   const toAlphaBackground = (accentColor?: string): string | null => {
-    if (!accentColor) return null;
-    const hex = accentColor.trim();
-    const shortHexMatch = /^#([0-9a-fA-F]{3})$/;
-    const longHexMatch = /^#([0-9a-fA-F]{6})$/;
-
-    if (shortHexMatch.test(hex)) {
-      const [, short] = hex.match(shortHexMatch) as RegExpMatchArray;
-      const r = parseInt(short[0] + short[0], 16);
-      const g = parseInt(short[1] + short[1], 16);
-      const b = parseInt(short[2] + short[2], 16);
-      return `rgba(${r}, ${g}, ${b}, 0.06)`;
-    }
-
-    if (longHexMatch.test(hex)) {
-      const [, long] = hex.match(longHexMatch) as RegExpMatchArray;
-      const r = parseInt(long.slice(0, 2), 16);
-      const g = parseInt(long.slice(2, 4), 16);
-      const b = parseInt(long.slice(4, 6), 16);
-      return `rgba(${r}, ${g}, ${b}, 0.06)`;
-    }
-
-    return null;
+    if (!accentColor || !/^#[0-9a-fA-F]{6}$/.test(accentColor.trim())) return null;
+    const hex = accentColor.trim().slice(1);
+    const channels = [0, 2, 4].map((offset) => parseInt(hex.slice(offset, offset + 2), 16));
+    return `rgba(${channels[0]}, ${channels[1]}, ${channels[2]}, 0.06)`;
   };
 
   const getSectionBackground = (section: CaseStudySection, isOdd: boolean): string => {
     if (section.sectionBackground) return section.sectionBackground;
-    const accentBg = toAlphaBackground(section.accentColor);
-    if (accentBg) return accentBg;
-    return isOdd ? "white" : "#f5f5f5";
+    return toAlphaBackground(section.accentColor) || (isOdd ? "white" : "#f5f5f5");
   };
+
+  const sectionPresentation = caseStudy.sections.reduce<Array<{ background: string; tone?: SectionTone; groupKey: string; continuesGroup: boolean }>>(
+    (presentations, section, index) => {
+      const background = getSectionBackground(section, index % 2 === 0);
+      const previous = index > 0 ? presentations[index - 1] : undefined;
+      const currentNeutral = isNeutralBackground(section.sectionBackground);
+      const groupKey = section.backgroundGroup || (section.sectionBackground
+        ? section.sectionBackground.toLowerCase()
+        : previous?.tone
+          ? previous.groupKey
+          : `default-${index}`);
+      const sameCluster = currentNeutral && previous?.tone && groupKey === previous.groupKey;
+      const previousToneIndex = previous?.tone && previous.tone !== "primary" && previous.tone !== "primaryMuted"
+        ? ROTATING_SECTION_TONES.indexOf(previous.tone)
+        : -1;
+      const tone = currentNeutral
+        ? section.backgroundTone || (sameCluster
+          ? previous.tone
+          : ROTATING_SECTION_TONES[(previousToneIndex + 1) % ROTATING_SECTION_TONES.length])
+        : undefined;
+      presentations.push({ background, tone, groupKey, continuesGroup: Boolean(sameCluster) });
+      return presentations;
+    },
+    [],
+  );
 
   // Metadata bar component
   const MetadataBar = () => (
@@ -1702,6 +1752,7 @@ export default memo(function CaseStudyPage({
                 backgroundColor={image.backgroundColor}
                 imagePaddingBlock={image.imagePaddingBlock}
                 imagePaddingInline={image.imagePaddingInline}
+                border={image.containerBorder}
                 loading={image.loading}
               />
             </GalleryImage>
@@ -1969,12 +2020,15 @@ export default memo(function CaseStudyPage({
           )}
           <SectionBody style={{ alignItems: "flex-start" }}>
             {parseBody(section.body).map((paragraph, idx) => (
-              <TextOnlyParagraph
-                key={idx}
-                style={{ textAlign: "left" }}
-              >
-                {paragraph}
-              </TextOnlyParagraph>
+              section.id === "credits" ? (
+                <TeamParagraph key={idx} style={{ textAlign: "left" }}>
+                  {paragraph}
+                </TeamParagraph>
+              ) : (
+                <TextOnlyParagraph key={idx} style={{ textAlign: "left" }}>
+                  {paragraph}
+                </TextOnlyParagraph>
+              )
             ))}
           </SectionBody>
         </CenterText>
@@ -2039,7 +2093,7 @@ export default memo(function CaseStudyPage({
     </div>
   );
 
-  const renderStickySplit = (section: CaseStudySection) => {
+  const renderStickySplit = (section: CaseStudySection, background: string, tone?: SectionTone) => {
     const stickyImage = section.stickyContent?.image || section.images?.[0];
     const stickyImageIsFullBleed = section.stickyContent?.fullBleedImage || false;
     const tags = section.stickyContent?.tags || [];
@@ -2047,7 +2101,7 @@ export default memo(function CaseStudyPage({
     const blocks = section.scrollContent?.blocks || [];
 
     return (
-      <StickySplitWrapper key={section.id}>
+      <StickySplitWrapper key={section.id} $background={background} $tone={tone}>
         {blocks.length > 0 && (
         <ScrollColumn>
           {blocks.map((block, idx) => {
@@ -2135,7 +2189,7 @@ export default memo(function CaseStudyPage({
         )}
 
         {(stickyImage || tags.length > 0 || collateralImages.length > 0) && (
-        <StickyColumn $background={section.sectionBackground}>
+        <StickyColumn>
           <StickyMediaPin
             $fullBleed={stickyImageIsFullBleed}
           >
@@ -2172,12 +2226,12 @@ export default memo(function CaseStudyPage({
     );
   };
 
-  const renderParallaxReveal = (section: CaseStudySection) => {
+  const renderParallaxReveal = (section: CaseStudySection, background: string, tone?: SectionTone) => {
     const image = section.images?.[0];
     if (!image) return null;
 
     return (
-      <ParallaxRevealWrapper key={section.id}>
+      <ParallaxRevealWrapper key={section.id} $background={background} $tone={tone}>
         <ParallaxImageLayer>
           <ParallaxRevealImage
             src={image.src}
@@ -2341,7 +2395,7 @@ export default memo(function CaseStudyPage({
   );
 
   // Section renderer dispatcher
-  const renderSection = (section: CaseStudySection) => {
+  const renderSection = (section: CaseStudySection, background: string, tone?: SectionTone) => {
     switch (section.layout) {
       case "text-left-image-right":
         return renderTextLeftImageRight(section);
@@ -2370,11 +2424,11 @@ export default memo(function CaseStudyPage({
       case "image-carousel":
         return renderImageCarousel(section);
       case "parallax-reveal":
-        return renderParallaxReveal(section);
+        return renderParallaxReveal(section, background, tone);
       case "image-on-color-block":
         return renderImageOnColorBlock(section);
       case "sticky-split":
-        return renderStickySplit(section);
+        return renderStickySplit(section, background, tone);
       default:
         return null;
     }
@@ -2456,7 +2510,10 @@ export default memo(function CaseStudyPage({
         <HeroPeekImageWrap>
           <HeroPeekImageContainer
             $backgroundColor={heroImage.backgroundColor}
-            $border={heroImage.backgroundColor ? heroImage.containerBorder : undefined}
+            $borderRadius={heroImage.borderRadius || "8px"}
+            $border={heroImage.backgroundColor
+              ? heroImage.containerBorder || "1px solid var(--border, #d1d5db)"
+              : heroImage.containerBorder || "1px solid var(--border, #d1d5db)"}
           >
             <HeroPeekImage
               src={heroImage.src}
@@ -2467,11 +2524,11 @@ export default memo(function CaseStudyPage({
               mobileAvif={heroImage.mobileAvif}
               mobileWebp={heroImage.mobileWebp}
               aspectRatio={heroImage.aspectRatio || "16/9"}
-              borderRadius="8px"
+              borderRadius={heroImage.borderRadius || "8px"}
               objectFit={heroImage.objectFit || "cover"}
               objectPosition={heroImage.objectPosition || "center"}
               imageScale={1}
-              border={heroImage.backgroundColor ? undefined : heroImage.containerBorder}
+              border={undefined}
               loading="eager"
               decoding="sync"
               onLoad={() => setHeroImageLoaded(true)}
@@ -2491,31 +2548,42 @@ export default memo(function CaseStudyPage({
       {/* Dynamic Sections */}
       <SectionsContainer>
         {caseStudy.sections.map((section, idx) => {
+          const { background, tone, continuesGroup } = sectionPresentation[idx];
           const prev = caseStudy.sections[idx - 1];
           const next = caseStudy.sections[idx + 1];
           const isSelfManaged = SELF_MANAGED_SECTION_LAYOUTS.has(section.layout);
           const currentIsImageHeavy = IMAGE_HEAVY_LAYOUTS.has(section.layout);
           const prevIsImageHeavy = prev ? IMAGE_HEAVY_LAYOUTS.has(prev.layout) : false;
           const nextIsImageHeavy = next ? IMAGE_HEAVY_LAYOUTS.has(next.layout) : false;
+          const nextIsMedia = next ? MEDIA_SECTION_LAYOUTS.has(next.layout) : false;
           const isCompact =
             !section.disableCompactPadding &&
             !section.heading &&
             !section.body &&
             currentIsImageHeavy &&
             (prevIsImageHeavy || nextIsImageHeavy);
+          const isStandaloneText =
+            section.layout === "text-only" &&
+            !section.sectionPadding &&
+            !nextIsMedia;
 
           if (isSelfManaged) {
-            return <div key={section.id}>{renderSection(section)}</div>;
+            return <div key={section.id}>{renderSection(section, background, tone)}</div>;
           }
 
           return (
             <div key={section.id}>
               <Section
-                $background={getSectionBackground(section, idx % 2 === 0)}
+                $background={background}
+                $tone={tone}
+                $continuesGroup={continuesGroup}
                 $compact={isCompact}
                 $padding={section.sectionPadding}
+                $minHeight={section.sectionMinHeight}
+                $marginTop={section.sectionMarginTop}
+                $standaloneText={isStandaloneText}
               >
-                <SectionContent>{renderSection(section)}</SectionContent>
+                <SectionContent>{renderSection(section, background, tone)}</SectionContent>
               </Section>
             </div>
           );

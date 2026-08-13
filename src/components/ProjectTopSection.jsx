@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ProjectGrid, ProjectContent, ProjectTitle, ProjectImage, ProjectButton } from './GigaPrimitives';
+import { ProjectGrid, ProjectContent, ProjectTitle, ProjectImage } from './GigaPrimitives';
 import { ButtonsGrid } from './ButtonsGrid';
+import { CaseStudyIntroCTA } from './CaseStudyIntroCTA';
 import { FiArrowUpRight } from 'react-icons/fi';
 import { findMobileVariant } from './mobileVariants';
 
@@ -14,6 +15,34 @@ function normalizeAssetUrl(url) {
     return encodeURI(url);
   }
 }
+
+const TopSectionBackdrop = styled.section`
+  position: relative;
+  overflow: visible;
+  background-color: ${(p) => p.theme.sectionPrimaryMuted};
+
+  @media (max-width: 850px) {
+    padding-bottom: 2.75rem;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 -24vh;
+    background:
+      linear-gradient(180deg, ${(p) => p.theme.projectHeroWash} 0%, transparent 25%),
+      linear-gradient(120deg, ${(p) => p.theme.projectHeroWash} 0%, ${(p) => p.theme.projectHeroWash} 20%, transparent 70%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 48%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 48%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+`;
 
 // 60vw-wide, left-aligned, responsive top section for project pages
 const TopSectionContainer = styled.div`
@@ -38,7 +67,7 @@ const TopSectionContainer = styled.div`
     width: 100vw;
     max-width: 100vw;
     gap: 1.25rem;
-    margin: 0 auto 2.75rem;
+    margin: 0 auto;
     padding: 0 1.25rem;
     box-sizing: border-box;
   }
@@ -160,6 +189,13 @@ const Divider = styled.div`
   }
 `;
 
+const TopSectionButton = styled(CaseStudyIntroCTA).attrs({ as: 'a' })`
+  padding-inline: 1.5rem;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+`;
+
 const TopSectionActions = styled(ButtonsGrid)`
   @media (max-width: 850px) {
     display: flex;
@@ -167,10 +203,9 @@ const TopSectionActions = styled(ButtonsGrid)`
     width: 100%;
     margin: 0.125rem 0 0;
 
-    ${ProjectButton} {
+    ${TopSectionButton} {
       min-height: 44px;
       margin: 0;
-      padding: 0.7rem 1.2rem;
     }
   }
 `;
@@ -217,7 +252,7 @@ export default function ProjectTopSection({
   const mobileSrc = hasMobileVariant ? findMobileVariant(normalizedImageSrc) : null;
 
   return (
-    <>
+    <TopSectionBackdrop>
       {/* Mobile nav spacer to push content below header */}
       <div className="mobile-nav-spacer" style={{ display: 'block', width: '100%', height: '12vh', minHeight: 0, padding: 0, margin: 0, background: 'transparent', zIndex: 0, pointerEvents: 'none', position: 'relative' }} />
       <TopSectionContainer className="first">
@@ -228,9 +263,9 @@ export default function ProjectTopSection({
         )}
         <TopSectionActions>
           {buttons.map(({ href, label }, i) => (
-            <ProjectButton key={i} href={href} target="_blank" rel="noopener noreferrer">
+            <TopSectionButton key={i} href={href} target="_blank" rel="noopener noreferrer">
               {label} <FiArrowUpRight style={{ marginLeft: 6, fontSize: '1.2em' }} />
-            </ProjectButton>
+            </TopSectionButton>
           ))}
         </TopSectionActions>
 
@@ -275,7 +310,7 @@ export default function ProjectTopSection({
         )}
       </TopSectionImage>
     </TopSectionContainer>
-    </>
+    </TopSectionBackdrop>
   );
 }
 

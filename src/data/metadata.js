@@ -5,7 +5,6 @@ export const site = {
   name: 'Zack MacTavish',
   siteName: 'Zack MacTavish — Portfolio',
   locale: 'en_US',
-  themeColor: '#000000',
   twitterCreator: '@zmactavish',
   twitterSite: '@zmactavish',
   imageAlt: 'Zack MacTavish — Portfolio',
