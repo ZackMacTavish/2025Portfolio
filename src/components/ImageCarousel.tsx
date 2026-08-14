@@ -66,7 +66,9 @@ const Frame = React.forwardRef<HTMLDivElement, React.ComponentProps<typeof motio
         position: "relative",
         width: "100%",
         borderRadius: "16px",
+        clipPath: "inset(0 round 16px)",
         overflow: "hidden",
+        isolation: "isolate",
         /* Use the image's natural aspect ratio so Container 2 hugs the content.
            Falls back to 17/10 (the actual ratio of the partnership screenshots). */
         aspectRatio: $aspectRatio || "16 / 9",
@@ -140,17 +142,27 @@ const PauseButton = styled.button`
   }
 `;
 
-const Slide = styled.div`
+const Slide = styled.div<{ $backgroundColor?: string }>`
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  background: ${(props) => props.$backgroundColor || "transparent"};
   transition: opacity 320ms ease;
 `;
 
 const SlideImage = styled(ResponsiveImage)`
   width: 100%;
   height: 100%;
+  border-radius: 0;
+  overflow: visible;
+
+  > div,
+  picture,
+  img {
+    border-radius: 0;
+    overflow: visible;
+  }
 
   img {
     pointer-events: none;
@@ -304,7 +316,7 @@ export default function ImageCarousel({
         {/* Previous image — always fully opaque, acts as an instant placeholder
             so there is never a gap of partial transparency during crossfade.
             The active slide fades IN on top of it. */}
-        <Slide style={{ zIndex: 1 }}>
+        <Slide $backgroundColor={prevImage.backgroundColor} style={{ zIndex: 1 }}>
           <SlideImage
             key={`prev-${prevImage.src}-${prevIndex}`}
             src={prevImage.src}
@@ -316,6 +328,7 @@ export default function ImageCarousel({
             mobileWebp={prevImage.mobileWebp}
             aspectRatio={prevImage.aspectRatio || "3/2"}
             borderRadius={prevImage.borderRadius || "16px"}
+            imageBorderRadius={prevImage.imageBorderRadius}
             backgroundColor={prevImage.backgroundColor}
             imagePaddingBlock={prevImage.imagePaddingBlock ? `var(--carousel-image-padding-block, ${prevImage.imagePaddingBlock})` : undefined}
             imagePaddingInline={prevImage.imagePaddingInline ? `var(--carousel-image-padding-inline, ${prevImage.imagePaddingInline})` : undefined}
@@ -328,7 +341,7 @@ export default function ImageCarousel({
           />
         </Slide>
         {/* Active image — fades in over the prev placeholder once decoded */}
-        <Slide style={{
+        <Slide $backgroundColor={activeImage.backgroundColor} style={{
           zIndex: 2,
           opacity: isImageLoaded ? 1 : 0,
           transition: "opacity 400ms ease",
@@ -344,6 +357,7 @@ export default function ImageCarousel({
             mobileWebp={activeImage.mobileWebp}
             aspectRatio={activeImage.aspectRatio || "3/2"}
             borderRadius={activeImage.borderRadius || "16px"}
+            imageBorderRadius={activeImage.imageBorderRadius}
             backgroundColor={activeImage.backgroundColor}
             imagePaddingBlock={activeImage.imagePaddingBlock ? `var(--carousel-image-padding-block, ${activeImage.imagePaddingBlock})` : undefined}
             imagePaddingInline={activeImage.imagePaddingInline ? `var(--carousel-image-padding-inline, ${activeImage.imagePaddingInline})` : undefined}

@@ -138,6 +138,13 @@ export const projects = {
     image: site.defaultImage,
     keywords: ['microsoft', 'branding', 'ux', 'password protected'],
   },
+  seagate: {
+    title: 'Seagate Technology — Web & Product Launch Design | Zack MacTavish',
+    description: 'Case study: Licensed gaming product launches and Lyve Cloud storage communication designed for Seagate Technology.',
+    url: `${SITE_URL}/Seagate`,
+    image: `${SITE_URL}/assets/seagate-case-study/gow-hero.jpg`,
+    keywords: ['seagate', 'god of war ragnarok', 'star wars', 'firecuda', 'lyve cloud', 'web design', 'amazon a+ content'],
+  },
   'business-connectors': {
     title: 'Business Connectors — Microsoft | Zack MacTavish',
     description: 'Case study: Microsoft Business Connectors — UX & product design by Zack MacTavish.',

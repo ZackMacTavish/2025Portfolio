@@ -502,6 +502,7 @@ export default function Nav({ onOpenHelp }) {
                 ×
               </CloseButton>
               <DropdownMenu to="/Microsoft" onClick={handleClose}>Microsoft</DropdownMenu>
+              <DropdownMenu to="/Seagate" onClick={handleClose}>Seagate</DropdownMenu>
               <CaseStudyTransitionLink
                 slug="outsource"
                 to="/Outsource"

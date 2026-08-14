@@ -54,6 +54,9 @@ interface CaseStudyImage {
   /** Optional border radius override for the rendered image frame */
   borderRadius?: string;
 
+  /** Optional border radius applied only to the image bitmap inside its frame */
+  imageBorderRadius?: string;
+
   /** Optional border radius override for the outer image container */
   containerBorderRadius?: string;
 
@@ -71,6 +74,11 @@ interface CaseStudyImage {
 
   /** When true, the image opens in a full-screen pan/zoom viewer on click */
   zoomable?: boolean;
+
+  /** Optional full-resolution sources used only by the zoom overlay */
+  zoomSrc?: string;
+  zoomAvif?: string;
+  zoomWebp?: string;
 
   /** Aspect ratio to use inside the full-screen zoom overlay (defaults to `aspectRatio`).
    *  Use this when the inline render is cropped (e.g. cover with 16/10) but the overlay

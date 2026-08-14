@@ -34,6 +34,7 @@ const Outsource = lazy(() => import("./pages/Outsource/Outsource"));
 const Ux = lazy(() => import("./pages/UX/UX"));
 const ThreePillars = lazy(() => import("./pages/ThreePillars/ThreePillars"));
 const Piton = lazy(() => import("./pages/Piton/Piton"));
+const Seagate = lazy(() => import("./pages/Seagate/Seagate"));
 const Microsoft = lazy(() => import("./pages/Microsoft/Microsoft"));
 const BusinessConnectors = lazy(() => import("./pages/BusinessConnectors/BusinessConnectors"));
 const Phia = lazy(() => import("./pages/Phia/Phia"));
@@ -504,6 +505,7 @@ function App() {
             <Route path="/Ux" element={<Ux />} />
             <Route path="/ThreePillars" element={<ThreePillars />} />
             <Route path="/Piton" element={<Piton />} />
+            <Route path="/Seagate" element={<Seagate />} />
             <Route path="/Microsoft" element={<Microsoft />} />
             <Route path="/BusinessConnectors" element={<BusinessConnectors />} />
             <Route path="/Phia" element={<Phia />} />

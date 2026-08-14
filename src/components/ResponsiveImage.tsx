@@ -14,6 +14,7 @@ interface ResponsiveImageProps {
   parallaxSpeed?: number;
   className?: string;
   borderRadius?: string;
+  imageBorderRadius?: string;
   containerBorderRadius?: string;
   backgroundColor?: string;
   imagePaddingBlock?: string;
@@ -115,6 +116,7 @@ export default function ResponsiveImage({
   parallaxSpeed = 0,
   className,
   borderRadius = "12px",
+  imageBorderRadius,
   containerBorderRadius,
   backgroundColor,
   imagePaddingBlock,
@@ -283,7 +285,7 @@ export default function ResponsiveImage({
             $objectPosition={objectPosition}
             $hasParallax={shouldParallax}
             $fillContainer={fillContainer}
-            $borderRadius={borderRadius}
+            $borderRadius={imageBorderRadius || borderRadius}
           />
         </Picture>
       </ImageFrame>

@@ -114,9 +114,6 @@ const Viewer = styled(motion.div)`
 
 const ZoomStage = styled(motion.div)<{ $ratio: number }>`
   position: relative;
-  /* For tall images (ratio < 0.75) render at a fixed wide width so the browser
-     allocates enough pixels for sharp zoom. The Viewer's overflow:hidden clips
-     the excess height; users can pan/drag to explore the full image. */
   width: ${(p) =>
     p.$ratio < 0.75
       ? "min(90vw, 1400px)"
@@ -263,23 +260,20 @@ export default function ZoomableImage({
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  // Portal mount-once guard for SSR / prerender.
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  /** For tall images, compute a y offset that shows the top of the stage. */
   const getInitialY = useCallback(() => {
     const ratio = parseAspectRatio(aspectRatio);
     if (ratio >= 0.75 || typeof window === "undefined") return 0;
     const stageWidth = Math.min(window.innerWidth * 0.9, 1400);
     const stageHeight = stageWidth / ratio;
-    // The Backdrop has padding: clamp(1rem, 4vw, 3rem) on all sides,
-    // so the Viewer's usable height is innerHeight minus that top+bottom padding.
     const backdropPadding = Math.min(Math.max(16, window.innerWidth * 0.04), 48);
     const viewerHeight = window.innerHeight - backdropPadding * 2;
     return Math.max(0, (stageHeight - viewerHeight) / 2);
   }, [aspectRatio]);
+
+  // Portal mount-once guard for SSR / prerender.
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const resetTransform = useCallback(() => {
     scale.set(1);
@@ -353,9 +347,6 @@ export default function ZoomableImage({
   };
 
   const handleDragEnd = () => {
-    // For tall images the image extends beyond the viewport at scale=1, so
-    // panning is intentional — don't snap back. Only snap to the initial
-    // position for normal-ratio images where scale=1 means fully visible.
     const isTall = parseAspectRatio(aspectRatio) < 0.75;
     if (!isTall && scale.get() <= 1.001) {
       x.set(0);

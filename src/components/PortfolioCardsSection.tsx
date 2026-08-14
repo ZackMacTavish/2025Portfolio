@@ -2,23 +2,73 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FiLock } from "react-icons/fi";
 import { SingleImage } from "./CaseStudyPrimitives";
-import CaseStudyTransitionLink from "./CaseStudyTransitionLink";
 
 import leysiTile from "../assets/LeysiApp—Screens copy.jpg";
 import leysiTileAvif from "../assets/LeysiApp—Screens copy.avif";
 import leysiTileWebp from "../assets/LeysiApp—Screens copy.webp";
-import threePillarsTile from "../assets/ThreePillars—pages.jpg";
-import threePillarsTileAvif from "../assets/ThreePillars—pages.avif";
-import threePillarsTileWebp from "../assets/ThreePillars—pages.webp";
 import pitonTile from "../assets/Group 55618@2x.png";
 import pitonTileAvif from "../assets/Group 55618@2x.avif";
 import pitonTileWebp from "../assets/Group 55618@2x.webp";
-import outsourceTile from "../assets/BrandGuidelines—Mockup.jpg";
-import outsourceTileAvif from "../assets/BrandGuidelines—Mockup.avif";
-import outsourceTileWebp from "../assets/BrandGuidelines—Mockup.webp";
 import gigaTile from "../assets/iphones—Mockup copy.png";
 import gigaTileAvif from "../assets/iphones—Mockup copy.avif";
 import gigaTileWebp from "../assets/iphones—Mockup copy.webp";
+import outsourceTile from "../assets/BrandGuidelines—Mockup.jpg";
+import outsourceTileAvif from "../assets/BrandGuidelines—Mockup.avif";
+import outsourceTileWebp from "../assets/BrandGuidelines—Mockup.webp";
+
+type Project = {
+  id: string;
+  title: string;
+  subtitle: string;
+  to: string;
+  src: string;
+  avif?: string;
+  webp?: string;
+  alt: string;
+};
+
+const featuredProjects: Project[] = [
+  {
+    id: "giga",
+    title: "Giga",
+    subtitle: "Full web app design for an evolving AI-native platform",
+    to: "/Giga",
+    src: gigaTile,
+    avif: gigaTileAvif,
+    webp: gigaTileWebp,
+    alt: "Giga product design project tile",
+  },
+  {
+    id: "piton",
+    title: "Piton",
+    subtitle: "Voice-first iOS workout app for an early-stage startup",
+    to: "/Piton",
+    src: pitonTile,
+    avif: pitonTileAvif,
+    webp: pitonTileWebp,
+    alt: "Piton fitness app project tile",
+  },
+  {
+    id: "leysi",
+    title: "Leysi",
+    subtitle: "Brand identity and iOS app for campus deals",
+    to: "/Ux",
+    src: leysiTile,
+    avif: leysiTileAvif,
+    webp: leysiTileWebp,
+    alt: "Leysi project tile",
+  },
+  {
+    id: "outsource",
+    title: "Outsource",
+    subtitle: "Brand systems and digital experiences across four businesses",
+    to: "/Outsource",
+    src: outsourceTile,
+    avif: outsourceTileAvif,
+    webp: outsourceTileWebp,
+    alt: "Outsource project tile",
+  },
+];
 
 const Section = styled.section`
   width: 100%;
@@ -208,12 +258,12 @@ export default function PortfolioCardsSection() {
           </ProjectCard>
 
           <ProjectCard>
-            <Tile to="/Ux" aria-label="Leysi project">
+            <Tile to="/Seagate" aria-label="Seagate project">
               <SingleImage
-                src={leysiTile}
-                avif={leysiTileAvif}
-                webp={leysiTileWebp}
-                alt="Leysi project tile"
+                src="/assets/seagate-case-study/gow-hero.jpg"
+                avif="/assets/seagate-case-study/gow-hero.avif"
+                webp="/assets/seagate-case-study/gow-hero.webp"
+                alt="Seagate God of War Ragnarok launch artwork"
                 width="100%"
                 responsive={false}
                 style={{
@@ -229,133 +279,41 @@ export default function PortfolioCardsSection() {
               <TileOverlay />
             </Tile>
             <TileCaption>
-              <TileTitle>Leysi</TileTitle>
-              <TileSubtitle>Brand identity and iOS app for campus deals</TileSubtitle>
+              <TileTitle>Seagate</TileTitle>
+              <TileSubtitle>Licensed gaming launches and cloud storage communication</TileSubtitle>
             </TileCaption>
           </ProjectCard>
 
-          <ProjectCard>
-            <Tile to="/ThreePillars" aria-label="Three Pillars project">
-              <SingleImage
-                src={threePillarsTile}
-                avif={threePillarsTileAvif}
-                webp={threePillarsTileWebp}
-                alt="Three Pillars project tile"
-                width="100%"
-                responsive={false}
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  height: "100%",
-                  objectFit: "cover",
-                  zIndex: 0,
-                  borderRadius: 0,
-                  boxShadow: "none",
-                }}
-              />
-              <TileOverlay />
-            </Tile>
-            <TileCaption>
-              <TileTitle>ThreePillars</TileTitle>
-              <TileSubtitle>Recruiting site redesign and brand refresh</TileSubtitle>
-            </TileCaption>
-          </ProjectCard>
+          {featuredProjects.map((project) => (
+            <ProjectCard key={project.id}>
+              <Tile to={project.to} aria-label={`${project.title} project`}>
+                <SingleImage
+                  src={project.src}
+                  avif={project.avif}
+                  webp={project.webp}
+                  alt={project.alt}
+                  width="100%"
+                  responsive={false}
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    zIndex: 0,
+                    borderRadius: 0,
+                    boxShadow: "none",
+                  }}
+                />
+                <TileOverlay />
+              </Tile>
+              <TileCaption>
+                <TileTitle>{project.title}</TileTitle>
+                <TileSubtitle>{project.subtitle}</TileSubtitle>
+              </TileCaption>
+            </ProjectCard>
+          ))}
 
-          <ProjectCard>
-            <Tile to="/Piton" aria-label="Piton project">
-              <SingleImage
-                src={pitonTile}
-                avif={pitonTileAvif}
-                webp={pitonTileWebp}
-                alt="Piton project tile"
-                width="100%"
-                responsive={false}
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  height: "100%",
-                  objectFit: "cover",
-                  zIndex: 0,
-                  borderRadius: 0,
-                  boxShadow: "none",
-                }}
-              />
-              <TileOverlay />
-            </Tile>
-            <TileCaption>
-              <TileTitle>Piton</TileTitle>
-              <TileSubtitle>Product design and mobile interface work</TileSubtitle>
-            </TileCaption>
-          </ProjectCard>
-
-          <ProjectCard>
-            <CaseStudyTransitionLink
-              slug="outsource"
-              to="/Outsource"
-              preloadRoute={() => import("../pages/Outsource/Outsource")}
-            >
-              {({ onClick, onIntent }) => (
-                <Tile
-                  to="/Outsource"
-                  aria-label="Outsource project"
-                  onClick={onClick}
-                  onPointerEnter={onIntent}
-                  onFocus={onIntent}
-                  onPointerDown={onIntent}
-                >
-                  <SingleImage
-                    src={outsourceTile}
-                    avif={outsourceTileAvif}
-                    webp={outsourceTileWebp}
-                    alt="Outsource project tile"
-                    width="100%"
-                    responsive={false}
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      height: "100%",
-                      objectFit: "cover",
-                      zIndex: 0,
-                      borderRadius: 0,
-                      boxShadow: "none",
-                    }}
-                  />
-                  <TileOverlay />
-                </Tile>
-              )}
-            </CaseStudyTransitionLink>
-            <TileCaption>
-              <TileTitle>Outsource</TileTitle>
-              <TileSubtitle>Commerce and editorial design across surfaces</TileSubtitle>
-            </TileCaption>
-          </ProjectCard>
-
-          <ProjectCard>
-            <Tile to="/Giga" aria-label="Giga project">
-              <SingleImage
-                src={gigaTile}
-                avif={gigaTileAvif}
-                webp={gigaTileWebp}
-                alt="Giga project tile"
-                width="100%"
-                responsive={false}
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  height: "100%",
-                  objectFit: "cover",
-                  zIndex: 0,
-                  borderRadius: 0,
-                  boxShadow: "none",
-                }}
-              />
-              <TileOverlay />
-            </Tile>
-            <TileCaption>
-              <TileTitle>Giga</TileTitle>
-              <TileSubtitle>Cross-platform product design and experiments</TileSubtitle>
-            </TileCaption>
-          </ProjectCard>
         </Grid>
       </Inner>
     </Section>

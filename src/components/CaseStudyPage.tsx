@@ -858,6 +858,14 @@ const TeamParagraph = styled(Paragraph)`
   text-wrap: pretty;
 `;
 
+const CreditsParagraph = styled(Paragraph)`
+  color: ${(p) => p.theme.mutedText};
+  font-size: 0.875rem;
+  line-height: 1.55;
+  max-width: 70ch;
+  text-wrap: pretty;
+`;
+
 const QuoteWrapper = styled.div`
   margin: 0 auto;
   max-width: 800px;
@@ -1643,17 +1651,15 @@ export default memo(function CaseStudyPage({
             const zoomRatio = image.zoomAspectRatio || image.aspectRatio || "16/9";
             const overlayNode = (
               <ImageElement
-                src={image.src}
+                src={image.zoomSrc || image.src}
                 alt={image.alt}
-                avif={image.avif}
-                webp={image.webp}
-                mobileSrc={image.mobileSrc}
-                mobileAvif={image.mobileAvif}
-                mobileWebp={image.mobileWebp}
+                avif={image.zoomAvif || image.avif}
+                webp={image.zoomWebp || image.webp}
                 aspectRatio={zoomRatio}
                 borderRadius={image.borderRadius || "8px"}
                 objectFit="contain"
                 backgroundColor={image.backgroundColor}
+                disableRevealAnimation
                 style={{ width: "100%" }}
               />
             );
@@ -1752,6 +1758,7 @@ export default memo(function CaseStudyPage({
                 backgroundColor={image.backgroundColor}
                 imagePaddingBlock={image.imagePaddingBlock}
                 imagePaddingInline={image.imagePaddingInline}
+                imageScale={image.imageScale}
                 border={image.containerBorder}
                 loading={image.loading}
               />
@@ -2021,9 +2028,9 @@ export default memo(function CaseStudyPage({
           <SectionBody style={{ alignItems: "flex-start" }}>
             {parseBody(section.body).map((paragraph, idx) => (
               section.id === "credits" ? (
-                <TeamParagraph key={idx} style={{ textAlign: "left" }}>
+                <CreditsParagraph key={idx} style={{ textAlign: "left" }}>
                   {paragraph}
-                </TeamParagraph>
+                </CreditsParagraph>
               ) : (
                 <TextOnlyParagraph key={idx} style={{ textAlign: "left" }}>
                   {paragraph}
