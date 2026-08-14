@@ -44,37 +44,85 @@ const TopSectionBackdrop = styled.section`
   }
 `;
 
+const TopSectionSpacer = styled.div`
+  width: 100%;
+  height: 6rem;
+  pointer-events: none;
+
+  @media (max-width: 900px) {
+    height: 7rem;
+  }
+`;
+
 // 60vw-wide, left-aligned, responsive top section for project pages
 const TopSectionContainer = styled.div`
-  width: 60vw;
-  max-width: 1000px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 64rem;
   min-width: 320px;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: ${(props) => props.$logoTile ? `${props.$tileWidth} auto` : '1fr 2fr'};
   align-items: center;
-  justify-content: space-between;
-  gap: 1vw;
-  margin: 0 auto 4vh auto;
-  padding-top: 0;
-  @media (max-width: 1320px) {
-    width: 90vw;
-    max-width: 90vw;
-  }
+  justify-content: flex-start;
+  gap: ${(props) => props.$logoTile ? '2rem' : 'clamp(2.5rem, 5vw, 5rem)'};
+  margin: 0 auto;
+  min-height: 20rem;
+  padding: 0 1.5rem;
 
   @media (max-width: 850px) {
-    flex-direction: column-reverse;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     width: 100vw;
     max-width: 100vw;
     gap: 1.25rem;
     margin: 0 auto;
+    min-height: 0;
     padding: 0 1.25rem;
-    box-sizing: border-box;
   }
 `;
 
+const MetadataContainer = styled.div`
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+
+  @media (max-width: 480px) {
+    padding: 0 1.25rem;
+  }
+`;
+
+const MetadataGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+`;
+
+const MetadataLabel = styled.p`
+  margin: 0 0 0.5rem;
+  color: ${(props) => props.theme.mutedText};
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+`;
+
+const MetadataValue = styled.p`
+  margin: 0;
+  color: ${(props) => props.theme.fontColor};
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.5;
+`;
+
 const TopSectionText = styled.div`
-  flex: 1 1 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -95,16 +143,15 @@ const TopSectionText = styled.div`
 `;
 
 const TopSectionImage = styled.div`
-  flex: 2 1 0;
   display: flex;
-  justify-content: center;
+  justify-content: ${(props) => props.$logoTile ? 'flex-start' : 'center'};
   align-items: center;
   width: 100%;
   max-width: none;
   /* Prevent the flex container from collapsing to zero width on the first
      paint tick (which would make the image's aspect-ratio produce 0 height
      and cause a jump when flex allocates proper space). */
-  min-width: min(38vw, 100%);
+  min-width: ${(props) => props.$logoTile ? '0' : 'min(38vw, 100%)'};
   min-height: 0;
   background: transparent;
   padding: 0;
@@ -128,16 +175,48 @@ const TopSectionPicture = styled.picture`
   width: 100%;
 `;
 
+const LogoTile = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: ${(props) => props.$enabled ? props.$imageWidth : 'none'};
+  aspect-ratio: ${(props) => props.$enabled ? '1 / 1' : 'auto'};
+  margin: ${(props) => props.$enabled ? '0' : '0 auto'};
+  overflow: ${(props) => props.$enabled ? 'hidden' : 'visible'};
+  border: ${(props) => props.$enabled ? `1px solid ${props.theme.border}` : '0'};
+  border-radius: ${(props) => props.$enabled ? '18px' : '0'};
+  background: ${(props) => props.$enabled ? props.theme.sectionBase : 'transparent'};
+  transition: background-color 180ms ease, border-color 180ms ease;
+
+  > picture {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 850px) {
+    max-width: ${(props) => props.$enabled ? '176px' : 'none'};
+    margin: 0 auto;
+  }
+`;
+
 // Styled image for the top section
 const TopSectionImageStyled = styled.img`
-  width: 100%;
-  max-width: ${(p) => p.$imageWidth || '700px'};
+  width: ${(p) => p.$fillTile && p.$logoContentWidth ? p.$logoContentWidth : '100%'};
+  max-width: ${(p) => p.$fillTile && p.$logoContentWidth ? p.$logoContentWidth : p.$imageWidth || '700px'};
   min-width: 0;
   height: auto;
   border-radius: 18px;
   object-fit: contain;
   display: block;
   margin: 0 auto;
+  ${(props) => props.$fillTile ? `
+    height: auto;
+    border-radius: 0;
+  ` : ''}
   /* Explicit aspect-ratio prevents layout shift when flex-basis starts at 0.
      The HTML width/height attributes alone aren't enough when the containing
      flex item starts at zero width, so we set it explicitly in CSS too. */
@@ -148,14 +227,14 @@ const TopSectionImageStyled = styled.img`
      surface instead of disappearing into it. */
   ${(p) => (p.$invertOnDark && p.theme.name === 'dark' ? 'filter: invert(1);' : '')}
   @media (max-width: 1000px) {
-    width: 100%;
-    max-width: 340px;
+    width: ${(p) => p.$fillTile && p.$logoContentWidth ? p.$logoContentWidth : '100%'};
+    max-width: ${(p) => p.$fillTile && p.$logoContentWidth ? p.$logoContentWidth : '340px'};
     min-width: 0;
     margin: 0 auto;
   }
   @media (max-width: 850px) {
-    width: 100%;
-    max-width: 176px;
+    width: ${(p) => p.$fillTile && p.$logoContentWidth ? p.$logoContentWidth : '100%'};
+    max-width: ${(p) => p.$fillTile && p.$logoContentWidth ? p.$logoContentWidth : '176px'};
     min-width: 0;
     height: auto;
     margin-bottom: 0;
@@ -218,8 +297,11 @@ export default function ProjectTopSection({
   imageAvif = null,
   imageWebp = null,
   imageAlt = '',
-  $imageWidth = '38vw',
+  imageWidth = '38vw',
+  logoTile = false,
+  logoContentWidth = null,
   buttons = [],
+  metadata = [],
   divider = true,
   imageExt = 'jpg',
   title = '',
@@ -240,6 +322,9 @@ export default function ProjectTopSection({
   const normalizedImageAvif = imageBasePath ? normalizeAssetUrl(`${imageBasePath}.avif`) : null;
   const normalizedImageWebp = imageBasePath ? normalizeAssetUrl(`${imageBasePath}.webp`) : null;
   const normalizedImageSrc = imageBasePath ? normalizeAssetUrl(`${imageBasePath}.${imageExt || 'jpg'}`) : null;
+  const normalizedDirectAvif = normalizeAssetUrl(imageAvif);
+  const normalizedDirectWebp = normalizeAssetUrl(imageWebp);
+  const normalizedDirectSrc = normalizeAssetUrl(imageSrc);
   // The build only generates `-mobile-900` variants for images whose longest
   // edge exceeds 900px. Requesting a mobile source for a smaller image (e.g. the
   // 785px logo) points a matched <source> at a file that doesn't exist; a
@@ -253,9 +338,66 @@ export default function ProjectTopSection({
 
   return (
     <TopSectionBackdrop>
-      {/* Mobile nav spacer to push content below header */}
-      <div className="mobile-nav-spacer" style={{ display: 'block', width: '100%', height: '12vh', minHeight: 0, padding: 0, margin: 0, background: 'transparent', zIndex: 0, pointerEvents: 'none', position: 'relative' }} />
-      <TopSectionContainer className="first">
+      <TopSectionSpacer aria-hidden="true" />
+      {metadata.length > 0 && (
+        <MetadataContainer aria-label="Project details">
+          <MetadataGrid>
+            {metadata.map(({ label, value }) => (
+              <div key={label}>
+                <MetadataLabel>{label}</MetadataLabel>
+                <MetadataValue>{value}</MetadataValue>
+              </div>
+            ))}
+          </MetadataGrid>
+        </MetadataContainer>
+      )}
+      <TopSectionContainer className="first" $logoTile={logoTile} $tileWidth={imageWidth}>
+      <TopSectionImage $logoTile={logoTile}>
+        <LogoTile $enabled={logoTile} $imageWidth={imageWidth}>
+        {imageBaseName ? (
+          <TopSectionPicture>
+            {mobileAvif && <source srcSet={mobileAvif} type="image/avif" media="(max-width: 900px)" />}
+            <source srcSet={normalizedImageAvif} type="image/avif" />
+            {mobileWebp && <source srcSet={mobileWebp} type="image/webp" media="(max-width: 900px)" />}
+            <source srcSet={normalizedImageWebp} type="image/webp" />
+            {mobileSrc && <source srcSet={mobileSrc} media="(max-width: 900px)" />}
+              <TopSectionImageStyled
+                src={normalizedImageSrc}
+                alt={imageAlt}
+                $imageWidth={imageWidth}
+                $fillTile={logoTile}
+                $logoContentWidth={logoContentWidth}
+                $invertOnDark={invertOnDark}
+                $naturalWidth={imageNaturalWidth || undefined}
+                $naturalHeight={imageNaturalHeight || undefined}
+                width={imageNaturalWidth || undefined}
+                height={imageNaturalHeight || undefined}
+                fetchPriority="high"
+                loading="eager"
+                decoding="sync"
+              />
+          </TopSectionPicture>
+        ) : (
+          <TopSectionPicture>
+            {normalizedDirectAvif && <source srcSet={normalizedDirectAvif} type="image/avif" />}
+            {normalizedDirectWebp && <source srcSet={normalizedDirectWebp} type="image/webp" />}
+            <TopSectionImageStyled
+              src={normalizedDirectSrc}
+              alt={imageAlt}
+              $imageWidth={imageWidth}
+              $fillTile={logoTile}
+              $logoContentWidth={logoContentWidth}
+              $invertOnDark={invertOnDark}
+              width={imageNaturalWidth || undefined}
+              height={imageNaturalHeight || undefined}
+              fetchPriority="high"
+              loading="eager"
+              decoding="async"
+            />
+          </TopSectionPicture>
+        )}
+        </LogoTile>
+      </TopSectionImage>
       <TopSectionText>
         <TopSectionTitle>{title}</TopSectionTitle>
         {divider && (
@@ -274,41 +416,6 @@ export default function ProjectTopSection({
 
 
       </TopSectionText>
-      <TopSectionImage>
-        {imageBaseName ? (
-          <TopSectionPicture>
-            {mobileAvif && <source srcSet={mobileAvif} type="image/avif" media="(max-width: 900px)" />}
-            <source srcSet={normalizedImageAvif} type="image/avif" />
-            {mobileWebp && <source srcSet={mobileWebp} type="image/webp" media="(max-width: 900px)" />}
-            <source srcSet={normalizedImageWebp} type="image/webp" />
-            {mobileSrc && <source srcSet={mobileSrc} media="(max-width: 900px)" />}
-              <TopSectionImageStyled
-                src={normalizedImageSrc}
-                alt={imageAlt}
-                $imageWidth={$imageWidth}
-                $invertOnDark={invertOnDark}
-                $naturalWidth={imageNaturalWidth || undefined}
-                $naturalHeight={imageNaturalHeight || undefined}
-                width={imageNaturalWidth || undefined}
-                height={imageNaturalHeight || undefined}
-                fetchPriority="high"
-                loading="eager"
-                decoding="sync"
-              />
-          </TopSectionPicture>
-        ) : (
-            <TopSectionImageStyled
-              src={normalizeAssetUrl(imageSrc)}
-              alt={imageAlt}
-              $imageWidth={$imageWidth}
-              width={imageNaturalWidth || undefined}
-              height={imageNaturalHeight || undefined}
-              fetchPriority="high"
-              loading="eager"
-              decoding="async"
-            />
-        )}
-      </TopSectionImage>
     </TopSectionContainer>
     </TopSectionBackdrop>
   );

@@ -19,6 +19,7 @@ interface ResponsiveImageProps {
   backgroundColor?: string;
   imagePaddingBlock?: string;
   imagePaddingInline?: string;
+  imagePaddingBottom?: string;
   objectFit?: "cover" | "contain";
   objectPosition?: string;
   imageScale?: number;
@@ -69,13 +70,14 @@ const Picture = styled.picture<{ $fillContainer: boolean; $borderRadius: string 
 const ImageFrame = styled.div<{
   $imagePaddingBlock?: string;
   $imagePaddingInline?: string;
+  $imagePaddingBottom?: string;
   $fillContainer: boolean;
   $borderRadius: string;
 }>`
   position: ${(props) => (props.$fillContainer ? "absolute" : "relative")};
   inset: ${(props) =>
     props.$fillContainer
-      ? `${props.$imagePaddingBlock || "0"} ${props.$imagePaddingInline || "0"}`
+      ? `${props.$imagePaddingBlock || "0"} ${props.$imagePaddingInline || "0"} ${props.$imagePaddingBottom ?? props.$imagePaddingBlock ?? "0"}`
       : "auto"};
   padding-block: ${(props) => (props.$fillContainer ? "0" : props.$imagePaddingBlock || "0")};
   padding-inline: ${(props) => (props.$fillContainer ? "0" : props.$imagePaddingInline || "0")};
@@ -121,6 +123,7 @@ export default function ResponsiveImage({
   backgroundColor,
   imagePaddingBlock,
   imagePaddingInline,
+  imagePaddingBottom,
   objectFit = "cover",
   objectPosition = "center",
   imageScale = 1,
@@ -257,6 +260,7 @@ export default function ResponsiveImage({
       <ImageFrame
         $imagePaddingBlock={imagePaddingBlock}
         $imagePaddingInline={imagePaddingInline}
+        $imagePaddingBottom={imagePaddingBottom}
         $fillContainer={fillContainer}
         $borderRadius={borderRadius}
       >

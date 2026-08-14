@@ -1,6 +1,8 @@
 import { CaseStudy } from "../types/caseStudy";
 import { phiaCaseStudy } from "./phiaCaseStudy";
 import { seagateCaseStudy } from "./seagateCaseStudy";
+import { loudLuxuryCaseStudy } from "./loudLuxuryCaseStudy";
+import { vaynerSportsCaseStudy } from "./vaynerSportsCaseStudy";
 
 /**
  * Business Connectors case study — complete case study object
@@ -5136,6 +5138,8 @@ export const caseStudies: CaseStudy[] = [
   businessConnectorsCaseStudy,
   phiaCaseStudy,
   seagateCaseStudy,
+  loudLuxuryCaseStudy,
+  vaynerSportsCaseStudy,
   copilotPayCaseStudy,
   journeysCaseStudy,
   cashbackHubCaseStudy,

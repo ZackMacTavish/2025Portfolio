@@ -3,9 +3,6 @@ import styled from "styled-components";
 import { FiLock } from "react-icons/fi";
 import { SingleImage } from "./CaseStudyPrimitives";
 
-import leysiTile from "../assets/LeysiApp—Screens copy.jpg";
-import leysiTileAvif from "../assets/LeysiApp—Screens copy.avif";
-import leysiTileWebp from "../assets/LeysiApp—Screens copy.webp";
 import pitonTile from "../assets/Group 55618@2x.png";
 import pitonTileAvif from "../assets/Group 55618@2x.avif";
 import pitonTileWebp from "../assets/Group 55618@2x.webp";
@@ -29,6 +26,16 @@ type Project = {
 
 const featuredProjects: Project[] = [
   {
+    id: "varfaj-partners",
+    title: "Varfaj Partners",
+    subtitle: "UX/UI, branding, and art direction across an agency roster",
+    to: "/VarfajPartners",
+    src: "/assets/varfaj-hub/varfaj-tile.png",
+    avif: "/assets/varfaj-hub/varfaj-tile.avif",
+    webp: "/assets/varfaj-hub/varfaj-tile.webp",
+    alt: "Varfaj Partners wordmark over a split black-and-white sphere",
+  },
+  {
     id: "giga",
     title: "Giga",
     subtitle: "Full web app design for an evolving AI-native platform",
@@ -47,16 +54,6 @@ const featuredProjects: Project[] = [
     avif: pitonTileAvif,
     webp: pitonTileWebp,
     alt: "Piton fitness app project tile",
-  },
-  {
-    id: "leysi",
-    title: "Leysi",
-    subtitle: "Brand identity and iOS app for campus deals",
-    to: "/Ux",
-    src: leysiTile,
-    avif: leysiTileAvif,
-    webp: leysiTileWebp,
-    alt: "Leysi project tile",
   },
   {
     id: "outsource",

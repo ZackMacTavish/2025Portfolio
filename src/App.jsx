@@ -45,6 +45,9 @@ const VideoCommerce = lazy(() => import("./pages/VideoCommerce/VideoCommerce"));
 const WindowsNotifications = lazy(() => import("./pages/WindowsNotifications/WindowsNotifications"));
 const IronlakInternship = lazy(() => import("./pages/IronlakInternship/IronlakInternship"));
 const Partnerships = lazy(() => import("./pages/Partnerships/Partnerships"));
+const VarfajPartners = lazy(() => import("./pages/VarfajPartners/VarfajPartners"));
+const LoudLuxury = lazy(() => import("./pages/LoudLuxury/LoudLuxury"));
+const VaynerSports = lazy(() => import("./pages/VaynerSports/VaynerSports"));
 
 // Assets
 import sun from './assets/Sun-DRKGREEN-01.svg';
@@ -516,6 +519,9 @@ function App() {
             <Route path="/WindowsNotifications" element={<WindowsNotifications />} />
             <Route path="/IronlakInternship" element={<IronlakInternship />} />
             <Route path="/Partnerships" element={<Partnerships />} />
+            <Route path="/VarfajPartners" element={<VarfajPartners />} />
+            <Route path="/LoudLuxury" element={<LoudLuxury />} />
+            <Route path="/VaynerSports" element={<VaynerSports />} />
             <Route path="/Resume" element={<Resume />} />
 
             {/* Fallback for unknown routes */}

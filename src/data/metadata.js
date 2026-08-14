@@ -131,6 +131,30 @@ export const projects = {
     image: `${SITE_URL}/assets/og/threepillars-1200x630.jpg`,
     keywords: ['threepillars', 'branding', 'ux'],
   },
+  varfaj: {
+    title: 'Varfaj Partners | UX/UI, Branding & Art Direction | Zack MacTavish',
+    description:
+      'Two years of freelance design work with Varfaj Partners across UX/UI, brand identity, and art direction, featuring Leysi, Three Pillars, Loud Luxury, and VaynerSports.',
+    url: `${SITE_URL}/VarfajPartners`,
+    image: `${SITE_URL}/assets/varfaj-hub/loud-luxury-intro.jpg`,
+    keywords: ['varfaj partners', 'avenue z', 'agency design', 'ux', 'ui', 'branding', 'art direction', 'leysi', 'three pillars', 'loud luxury', 'vaynersports'],
+  },
+  loudLuxury: {
+    title: 'Loud Luxury | Web Design & Motion Graphics | Zack MacTavish',
+    description:
+      'A bold website and motion system for Loud Luxury, designed through Varfaj Partners to connect merchandise, music, tour dates, and ticketing.',
+    url: `${SITE_URL}/LoudLuxury`,
+    image: `${SITE_URL}/assets/loud-luxury-case-study/home.jpg`,
+    keywords: ['loud luxury', 'web design', 'motion graphics', 'e-commerce', 'touring', 'ticketing', 'varfaj partners', 'avenue z'],
+  },
+  vaynerSports: {
+    title: 'VaynerSports | Rebrand Pitch | Zack MacTavish',
+    description:
+      'An exploratory VaynerSports rebrand pitch designed through Varfaj Partners, spanning UX/UI, brand direction, web design, and motion.',
+    url: `${SITE_URL}/VaynerSports`,
+    image: `${SITE_URL}/assets/vaynersports-case-study/hero.jpg`,
+    keywords: ['vaynersports', 'vaynerx', 'rebrand pitch', 'sports agency', 'ux', 'ui', 'brand direction', 'web design', 'varfaj partners'],
+  },
   microsoft: {
     title: 'Microsoft — Project | Zack MacTavish',
     description: 'Case study: Microsoft — UX and visual design work by Zack MacTavish. Password protected.',

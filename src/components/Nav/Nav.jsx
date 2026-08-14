@@ -503,6 +503,7 @@ export default function Nav({ onOpenHelp }) {
               </CloseButton>
               <DropdownMenu to="/Microsoft" onClick={handleClose}>Microsoft</DropdownMenu>
               <DropdownMenu to="/Seagate" onClick={handleClose}>Seagate</DropdownMenu>
+              <DropdownMenu to="/VarfajPartners" onClick={handleClose}>Varfaj Partners</DropdownMenu>
               <CaseStudyTransitionLink
                 slug="outsource"
                 to="/Outsource"
@@ -521,9 +522,7 @@ export default function Nav({ onOpenHelp }) {
                   </DropdownMenu>
                 )}
               </CaseStudyTransitionLink>
-              <DropdownMenu to="/Ux" onClick={handleClose}>Leysi</DropdownMenu>
               <DropdownMenu to="/Piton" onClick={handleClose}>Piton</DropdownMenu>
-              <DropdownMenu to="/ThreePillars" onClick={handleClose}>Three Pillars</DropdownMenu>
               <DropdownMenu to="/AccessDirect" onClick={handleClose}>Access Direct</DropdownMenu>
               <DropdownMenu to="/Giga" onClick={handleClose}>Giga</DropdownMenu>
               <DropdownMenu to="/GraphicDesign" onClick={handleClose}>Graphic Design</DropdownMenu>

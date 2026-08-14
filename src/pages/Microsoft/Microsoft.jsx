@@ -24,8 +24,9 @@ import shoppingCopilotWebp from '../../assets/ShoppingCopilot.webp';
 import outlook from '../../assets/Outlook.png';
 import outlookAvif from '../../assets/Outlook.avif';
 import outlookWebp from '../../assets/Outlook.webp';
-import { ProjectDetailsContainer, ProjectDetails, ProjectBlock, ProjectHeader, ProjectSubtitle, ProjectImage, Cellphones, StyledDiv } from '../../components/GigaPrimitives';
+import { StyledDiv } from '../../components/GigaPrimitives';
 import ProjectTopSection from '../../components/ProjectTopSection';
+import HubNarrativeSections from '../../components/HubNarrativeSections';
 import { BusinessConnectorsModule } from '../../components/BusinessConnectorsIntro';
 import { PhiaModule } from '../../components/PhiaIntro';
 import { PartnershipsModule } from '../../components/PartnershipsIntro';
@@ -323,38 +324,41 @@ const Microsoft = () => {
       <Seo {...projects.microsoft} sameAs={site.sameAs} keywords={projects.microsoft.keywords} siteDefaults={site} />
       <ProjectTopSection
         title="Microsoft"
-        imageBaseName="assets/MSFTlogo"
-        imageExt="png"
+        imageSrc="/assets/MSFTlogo-native.png"
         imageAlt="Microsoft Logo"
-        imageWidth="24vw"
-        imageNaturalWidth={785}
-        imageNaturalHeight={786}
+        imageWidth="clamp(10rem, 14vw, 15rem)"
+        logoTile={true}
+        imageNaturalWidth={408}
+        imageNaturalHeight={408}
         invertOnDark={true}
+        logoContentWidth="124px"
+        metadata={[
+          { label: 'Client', value: 'Microsoft' },
+          { label: 'Role', value: 'Product Designer' },
+          { label: 'Timeline', value: '4 years' },
+          { label: 'Platform', value: 'Copilot / Bing / Windows / Outlook' },
+        ]}
         buttons={[
           { href: "https://www.microsoft.com/en-us/shopping/?form=MT00PA&cs=2199494592", label: "Visit Shopping" }
         ]}
         divider={true}
       />
-      <ProjectDetailsContainer>
-        <ProjectDetails>
-          <ProjectBlock>
-            <ProjectHeader>Project Type</ProjectHeader>
-            <ProjectSubtitle>Cross-platform product leadership</ProjectSubtitle>
-          </ProjectBlock>
-          <ProjectBlock>
-            <ProjectHeader>Digital Product</ProjectHeader>
-            <ProjectSubtitle>Microsoft Shopping ecosystem across Bing, Copilot, Windows, Outlook, and Microsoft Start.</ProjectSubtitle>
-          </ProjectBlock>
-          <ProjectBlock>
-            <ProjectHeader>My Role</ProjectHeader>
-            <ProjectSubtitle>Product Designer leading research, concept development, and design execution across multiple teams and surfaces.</ProjectSubtitle>
-          </ProjectBlock>
-          <ProjectBlock>
-            <ProjectHeader>Timeframe</ProjectHeader>
-            <ProjectSubtitle>4 years</ProjectSubtitle>
-          </ProjectBlock>
-        </ProjectDetails>
-      </ProjectDetailsContainer>
+      <HubNarrativeSections
+        grouped
+        groupedTone="muted"
+        sections={[
+          {
+            heading: 'Background',
+            body: 'Microsoft Shopping spans a broad ecosystem rather than a single product surface. Over four years, I worked across Copilot, Bing, Windows, Outlook, Microsoft Start, and Edge on experiences that helped people discover products, compare options, manage rewards, and move through checkout with greater clarity.',
+            tone: 'muted',
+          },
+          {
+            heading: 'My Role',
+            body: 'I led product design across research, concept development, interaction design, visual execution, and cross-platform adaptation. The work required close partnership with product managers, engineers, researchers, illustrators, and partner teams while maintaining a coherent shopping experience across very different Microsoft surfaces.',
+            tone: 'base',
+          },
+        ]}
+      />
 
       <MicrosoftMedia>
         <VideoWithOverlay ref={videoRefs[0]} src="/assets/microsoft-demo2.mp4" poster="/assets/Preview1.png" />

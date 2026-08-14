@@ -1,8 +1,8 @@
 import Socials from "../components/Social Bar/Socials";
 import PortfolioCardsSection from "./PortfolioCardsSection";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import styled, { type DefaultTheme } from "styled-components";
-import { ReactNode, memo, useRef, useState, type ComponentProps } from "react";
+import { ReactNode, memo, useEffect, useRef, useState, type ComponentProps } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 import { CaseStudy, CaseStudyImage, CaseStudySection } from "../../types/caseStudy";
 import ResponsiveImage from "./ResponsiveImage";
@@ -431,26 +431,101 @@ const FullWidthImageContainer = styled(motion.div)`
   border-radius: 0;
 `;
 
-const VideoFrameWrap = styled.div`
+const VideoFrameWrap = styled.div<{ $maxWidth?: string; $backgroundColor?: string; $paddingBottom?: string; $paddingInline?: string; $border?: string }>`
+  box-sizing: border-box;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  max-width: ${(props) => props.$maxWidth || "none"};
+  margin-inline: auto;
+  padding-bottom: ${(props) => props.$paddingBottom || "0"};
+  padding-inline: ${(props) => props.$paddingInline || "0"};
   border-radius: 16px;
   overflow: hidden;
-  background: #000;
+  background: ${(props) => props.$backgroundColor || "#000"};
+  border: ${(props) => props.$border || "0"};
 
   @media (max-width: 767px) {
     border-radius: 12px;
   }
 `;
 
-const VideoFrame = styled.video`
+const VideoClip = styled.div<{ $aspectRatio?: string; $backgroundColor?: string }>`
+  width: 100%;
+  aspect-ratio: ${(props) => props.$aspectRatio || "16 / 9"};
+  overflow: hidden;
+  border-radius: inherit;
+  background: ${(props) => props.$backgroundColor || "#000"};
+  isolation: isolate;
+  clip-path: inset(0 round 16px);
+  transform: translateZ(0);
+
+  @media (max-width: 767px) {
+    clip-path: inset(0 round 12px);
+  }
+`;
+
+const VideoFrame = styled.video<{ $objectFit?: "cover" | "contain"; $contentScale?: number; $contentClipInset?: string; $backgroundColor?: string }>`
   display: block;
   width: 100%;
   height: 100%;
-  border-radius: inherit;
-  background: #000;
-  object-fit: cover;
+  border-radius: 0;
+  background: ${(props) => props.$backgroundColor || "#000"};
+  object-fit: ${(props) => props.$objectFit || "cover"};
+  transform: scale(${(props) => props.$contentScale || 1});
+  clip-path: ${(props) => props.$contentClipInset ? `inset(${props.$contentClipInset})` : "none"};
 `;
+
+function ViewportVideo({ video }: { video: NonNullable<CaseStudySection["video"]> }) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const prefersReducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    const element = videoRef.current;
+    if (!element || !video.autoplayOnView || prefersReducedMotion) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          void element.play().catch(() => undefined);
+        } else {
+          element.pause();
+        }
+      },
+      { threshold: 0.35 },
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [prefersReducedMotion, video.autoplayOnView]);
+
+  return (
+    <VideoFrameWrap
+      $maxWidth={video.maxWidth}
+      $backgroundColor={video.backgroundColor}
+      $paddingBottom={video.paddingBottom}
+      $paddingInline={video.paddingInline}
+      $border={video.border}
+    >
+      <VideoClip $aspectRatio={video.aspectRatio} $backgroundColor={video.backgroundColor}>
+        <VideoFrame
+          ref={videoRef}
+          controls={video.controls ?? Boolean(prefersReducedMotion || !video.autoplayOnView)}
+          playsInline
+          muted={video.muted ?? video.autoplayOnView}
+          loop={video.loop}
+          preload="metadata"
+          poster={video.poster}
+          aria-label={video.ariaLabel}
+          $objectFit={video.objectFit}
+          $contentScale={video.contentScale}
+          $contentClipInset={video.contentClipInset}
+          $backgroundColor={video.backgroundColor}
+        >
+          <source src={video.src} type="video/mp4" />
+        </VideoFrame>
+      </VideoClip>
+    </VideoFrameWrap>
+  );
+}
 
 const ImagePairGrid = styled.div<{ $stacked?: boolean }>`
   display: grid;
@@ -1700,19 +1775,7 @@ export default memo(function CaseStudyPage({
           </CenterText>
         </CenterTextBlock>
       )}
-      {section.video && (
-        <VideoFrameWrap>
-          <VideoFrame
-            controls
-            playsInline
-            preload="metadata"
-            poster={section.video.poster}
-            aria-label={section.video.ariaLabel}
-          >
-            <source src={section.video.src} type="video/mp4" />
-          </VideoFrame>
-        </VideoFrameWrap>
-      )}
+      {section.video && <ViewportVideo video={section.video} />}
       {section.caption && <Caption>{section.caption}</Caption>}
     </div>
   );
@@ -1758,6 +1821,7 @@ export default memo(function CaseStudyPage({
                 backgroundColor={image.backgroundColor}
                 imagePaddingBlock={image.imagePaddingBlock}
                 imagePaddingInline={image.imagePaddingInline}
+                imagePaddingBottom={image.imagePaddingBottom}
                 imageScale={image.imageScale}
                 border={image.containerBorder}
                 loading={image.loading}

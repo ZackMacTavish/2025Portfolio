@@ -51,6 +51,9 @@ interface CaseStudyImage {
   /** Optional horizontal inset so the image sits within the frame */
   imagePaddingInline?: string;
 
+  /** Optional bottom inset so the frame background remains visible beneath the image */
+  imagePaddingBottom?: string;
+
   /** Optional border radius override for the rendered image frame */
   borderRadius?: string;
 
@@ -229,6 +232,19 @@ interface CaseStudySection {
     src: string;
     poster?: string;
     ariaLabel: string;
+    autoplayOnView?: boolean;
+    loop?: boolean;
+    muted?: boolean;
+    controls?: boolean;
+    aspectRatio?: string;
+    maxWidth?: string;
+    backgroundColor?: string;
+    paddingBottom?: string;
+    paddingInline?: string;
+    objectFit?: "cover" | "contain";
+    contentScale?: number;
+    contentClipInset?: string;
+    border?: string;
   };
 
   /** Optional parallax speed factor from 0.0 to 1.0 */
