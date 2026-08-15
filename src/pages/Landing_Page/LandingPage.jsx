@@ -121,7 +121,7 @@ import Socials from '../../components/Social Bar/Socials';
 import PortfolioCardsSection from '../../components/PortfolioCardsSection';
 import { FullHeightTextSection, TextContainer, TextContent } from '../../components/CaseStudyPrimitives';
 import { Link } from 'react-router-dom';
-import { FiLock } from 'react-icons/fi';
+import { FiChevronDown, FiLock } from 'react-icons/fi';
 import ProcessExperience from './ProcessExperience';
 
 const AgencyTextSection = styled(FullHeightTextSection)`
@@ -429,18 +429,32 @@ const ArrowWrapper = styled.div`
 `;
 
 const ArrowInner = styled.div`
-  animation: ${bounce} 1.5s infinite ease-in-out; /* animate only Y so X-centering stays intact */
-  will-change: transform;
-`;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.7rem 0.45rem 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(15, 15, 15, 0.78);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 
-const Arrow = styled.div`
-  width: 24px;
-  height: 24px;
-  border-left: 3px solid ${(props) => props.theme.onOlive};
-  border-bottom: 3px solid ${(props) => props.theme.onOlive};
-  transform: rotate(-45deg);
-  border-radius: 2px;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.35)); /* maintain visibility even near light backgrounds */
+  svg {
+    width: 1rem;
+    height: 1rem;
+    animation: ${bounce} 1.3s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    svg {
+      animation: none;
+    }
+  }
 `;
 
 // --- Projects Section Styles ---
@@ -914,7 +928,8 @@ const LandingPage = ({ introDone = true }) => {
         {!hiddenForever && introDone && (
           <ArrowWrapper $visible={showArrow}>
             <ArrowInner>
-              <Arrow />
+              <FiChevronDown />
+              <span>Scroll</span>
             </ArrowInner>
           </ArrowWrapper>
         )}

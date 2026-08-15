@@ -12,12 +12,17 @@ export const seagateCaseStudy: CaseStudy = {
   slug: "seagate-technology",
   title: "Seagate Technology",
   subtitle: "Licensed gaming launches and enterprise storage communication",
-  coverImage: asset(
-    "gow-hero",
-    "jpg",
-    "God of War Ragnarok Limited Edition Game Drive by Seagate",
-    "16/10",
-  ),
+  coverImage: {
+    ...asset(
+      "gow-hero",
+      "jpg",
+      "God of War Ragnarok Limited Edition Game Drive by Seagate",
+      "16/10",
+    ),
+    mobileSrc: "/assets/seagate-case-study/gow-hero-mobile-900.jpg",
+    mobileAvif: "/assets/seagate-case-study/gow-hero-mobile-900.avif",
+    mobileWebp: "/assets/seagate-case-study/gow-hero-mobile-900.webp",
+  },
   transitionImages: [
     asset("gow-hero", "jpg", "God of War Ragnarok Seagate launch artwork"),
     asset("gow-compatibility", "png", "God of War drive compatibility module"),
@@ -61,6 +66,25 @@ export const seagateCaseStudy: CaseStudy = {
       body: `The God of War Ragnarok Special Edition external drive launched on Seagate's main site and Amazon, and the Seagate product page remains live today. Seagate's product pages were built from a flexible responsive template rather than from scratch, so the core design work was selective: matching the right layout to the imagery provided and sequencing content to build a coherent story across the page. The experience also had to represent both PlayStation and Seagate accurately.
 
 The process followed a consistent loop. I built a rough mockup, received feedback from the senior designer, revised, then handed the layout to a copywriter for content. A second design review followed the copy pass, leading to final revisions before launch.`,
+    },
+    {
+      id: "god-of-war-product-closeup",
+      layout: "full-width-image",
+      sectionBackground: "#ffffff",
+      sectionPadding: "1.5rem 0 clamp(4rem, 9vh, 6rem)",
+      images: [
+        {
+          ...asset("gow-product-closeup", "jpg", "God of War Ragnarok Limited Edition Seagate Game Drive close-up", "16/10"),
+          mobileSrc: "/assets/seagate-case-study/gow-product-closeup-mobile-900.jpg",
+          mobileAvif: "/assets/seagate-case-study/gow-product-closeup-mobile-900.avif",
+          mobileWebp: "/assets/seagate-case-study/gow-product-closeup-mobile-900.webp",
+          objectFit: "contain",
+          backgroundColor: "#ffffff",
+          imagePaddingBlock: "clamp(1rem, 2vw, 1.5rem)",
+          imagePaddingInline: "clamp(1rem, 2vw, 1.5rem)",
+          containerBorder: "1px solid var(--border, #d1d5db)",
+        },
+      ],
     },
     {
       id: "god-of-war-product-page",
@@ -171,6 +195,7 @@ The process followed a consistent loop. I built a rough mockup, received feedbac
       images: [
         {
           ...asset("lightsaber-press-banner", "jpg", "Lightsaber Collection Special Edition FireCuda SSD campaign banner", "2/1"),
+          hugHeightOnMobile: true,
           objectFit: "contain",
           backgroundColor: "#ffffff",
         },
@@ -185,6 +210,7 @@ The process followed a consistent loop. I built a rough mockup, received feedbac
       images: [
         {
           ...asset("lightsaber-trio", "jpg", "Luke Skywalker, Darth Vader, and Obi-Wan Lightsaber FireCuda SSD variants", "1280/1130"),
+          hugHeightOnMobile: true,
           objectFit: "contain",
           backgroundColor: "#ffffff",
         },
@@ -199,6 +225,7 @@ The process followed a consistent loop. I built a rough mockup, received feedbac
       images: [
         {
           ...asset("lightsaber-desert", "png", "Luke Skywalker Lightsaber FireCuda SSD in a desert-inspired scene", "16/9"),
+          hugHeightOnMobile: true,
           objectFit: "cover",
         },
       ],

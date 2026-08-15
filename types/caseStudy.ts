@@ -27,6 +27,9 @@ interface CaseStudyImage {
   /** Optional aspect ratio hint (e.g. "3/2", "16/9", "1/1") */
   aspectRatio?: string;
 
+  /** When true, full-width mobile media uses its authored aspect ratio instead of a fixed height */
+  hugHeightOnMobile?: boolean;
+
   /** Optional intrinsic width in pixels */
   width?: number;
 

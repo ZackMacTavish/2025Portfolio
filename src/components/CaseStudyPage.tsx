@@ -417,9 +417,9 @@ const ImageColumn = styled(motion.div)`
   border-radius: 0.5rem;
 `;
 
-const ImageElement = styled(ResponsiveImage)`
+const ImageElement = styled(ResponsiveImage)<{ $hugHeightOnMobile?: boolean }>`
   width: 100%;
-  height: 24rem;
+  height: ${(props) => props.$hugHeightOnMobile ? "auto" : "24rem"};
 
   @media (min-width: 768px) {
     height: 100%;
@@ -1718,6 +1718,7 @@ export default memo(function CaseStudyPage({
               imageScale={image.imageScale}
               border={image.containerBorder}
               mixBlendMode={image.mixBlendMode}
+              $hugHeightOnMobile={image.hugHeightOnMobile}
               style={{ width: "100%" }}
             />
           );
