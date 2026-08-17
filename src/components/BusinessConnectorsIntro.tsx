@@ -157,7 +157,7 @@ export function BusinessConnectorsIntro({ onLaunch }: BusinessConnectorsIntroPro
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7, delay: 0.1 }}
           >
-            Within Microsoft Copilot, I designed Business Connectors—an intelligent system that empowers users to connect loyalty accounts across merchants and unlock personalized perks, discounts, and rewards.
+            Within Microsoft Copilot, I designed Business Connectors: an intelligent system that empowers users to connect loyalty accounts across merchants and unlock personalized perks, discounts, and rewards.
           </IntroSubtitle>
           <IntroSubtitle
             initial={{ opacity: 0, y: 20 }}

@@ -239,7 +239,7 @@ const TopSectionImageStyled = styled.img`
     height: auto;
     margin-bottom: 0;
     object-fit: contain;
-    border-radius: 18px;
+    border-radius: ${(p) => (p.$fillTile ? '0' : '18px')};
   }
 `;
 

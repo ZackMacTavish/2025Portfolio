@@ -1192,9 +1192,9 @@ const ParallaxBody = styled(motion.p)`
   max-width: 540px;
 `;
 
-const ColorBlockSection = styled.section`
+const ColorBlockSection = styled.section<{ $flushTop?: boolean }>`
   position: relative;
-  padding: 3.5rem 0;
+  padding: ${(props) => props.$flushTop ? "2rem 0 3.5rem" : "3.5rem 0"};
 `;
 
 const ColorBlockInner = styled.div`
@@ -1676,6 +1676,25 @@ export default memo(function CaseStudyPage({
 
   const renderFullWidthImage = (section: CaseStudySection) => (
     <div key={section.id}>
+      {caseStudy.slug === "giga" && section.id === "v1-mockups" && (() => {
+        const v1 = caseStudy.sections.find((item) => item.id === "v1");
+        if (!v1) return null;
+
+        return (
+          <CenterTextBlock style={{ marginBottom: "3.75rem" }}>
+            <CenterText>
+              {v1.heading && <SectionHeading>{v1.heading}</SectionHeading>}
+              <SectionBody style={{ alignItems: "flex-start" }}>
+                {parseBody(v1.body).map((paragraph, idx) => (
+                  <Paragraph key={idx} style={{ textAlign: "left" }}>
+                    {paragraph}
+                  </Paragraph>
+                ))}
+              </SectionBody>
+            </CenterText>
+          </CenterTextBlock>
+        );
+      })()}
       {(section.heading || section.body) && (
         <CenterTextBlock style={{ marginBottom: "3.75rem" }}>
           <CenterText>
@@ -1719,6 +1738,7 @@ export default memo(function CaseStudyPage({
               border={image.containerBorder}
               mixBlendMode={image.mixBlendMode}
               $hugHeightOnMobile={image.hugHeightOnMobile}
+              hugHeightOnMobile={image.hugHeightOnMobile}
               style={{ width: "100%" }}
             />
           );
@@ -1736,6 +1756,7 @@ export default memo(function CaseStudyPage({
                 objectFit="contain"
                 backgroundColor={image.backgroundColor}
                 disableRevealAnimation
+                hugHeightOnMobile={image.hugHeightOnMobile}
                 style={{ width: "100%" }}
               />
             );
@@ -1755,6 +1776,78 @@ export default memo(function CaseStudyPage({
         })()}
       </FullWidthImageContainer>
       {section.caption && <Caption>{section.caption}</Caption>}
+      {caseStudy.slug === "giga" && section.id === "challenges-image" && (() => {
+        const outcome = caseStudy.sections.find((item) => item.id === "outcome");
+        if (!outcome) return null;
+
+        return (
+          <CenterTextBlock style={{ marginTop: "3.75rem" }}>
+            <CenterText
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
+              viewport={VIEWPORT_ONCE}
+              transition={TEXT_TRANSITION}
+            >
+              {outcome.heading && <SectionHeading>{outcome.heading}</SectionHeading>}
+              <SectionBody style={{ alignItems: "flex-start" }}>
+                {parseBody(outcome.body).map((paragraph, idx) => (
+                  <Paragraph key={idx} style={{ textAlign: "left" }}>
+                    {paragraph}
+                  </Paragraph>
+                ))}
+              </SectionBody>
+            </CenterText>
+          </CenterTextBlock>
+        );
+      })()}
+      {caseStudy.slug === "giga" && section.id === "v2-platform" && (() => {
+        const collaboration = caseStudy.sections.find((item) => item.id === "collaboration");
+        if (!collaboration) return null;
+
+        return (
+          <CenterTextBlock style={{ marginTop: "clamp(3rem, 6vw, 5rem)" }}>
+            <CenterText
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
+              viewport={VIEWPORT_ONCE}
+              transition={TEXT_TRANSITION}
+            >
+              {collaboration.heading && <SectionHeading>{collaboration.heading}</SectionHeading>}
+              <SectionBody style={{ alignItems: "flex-start" }}>
+                {parseBody(collaboration.body).map((paragraph, idx) => (
+                  <Paragraph key={idx} style={{ textAlign: "left" }}>
+                    {paragraph}
+                  </Paragraph>
+                ))}
+              </SectionBody>
+            </CenterText>
+          </CenterTextBlock>
+        );
+      })()}
+      {caseStudy.slug === "giga" && section.id === "outcome-image" && (() => {
+        const reflection = caseStudy.sections.find((item) => item.id === "reflection");
+        if (!reflection) return null;
+
+        return (
+          <CenterTextBlock style={{ marginTop: "clamp(3rem, 6vw, 5rem)" }}>
+            <CenterText
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
+              viewport={VIEWPORT_ONCE}
+              transition={TEXT_TRANSITION}
+            >
+              {reflection.heading && <SectionHeading>{reflection.heading}</SectionHeading>}
+              <SectionBody style={{ alignItems: "flex-start" }}>
+                {parseBody(reflection.body).map((paragraph, idx) => (
+                  <Paragraph key={idx} style={{ textAlign: "left" }}>
+                    {paragraph}
+                  </Paragraph>
+                ))}
+              </SectionBody>
+            </CenterText>
+          </CenterTextBlock>
+        );
+      })()}
     </div>
   );
 
@@ -2046,7 +2139,12 @@ export default memo(function CaseStudyPage({
     );
   };
 
-  const renderTextOnly = (section: CaseStudySection) => (
+  const renderTextOnly = (section: CaseStudySection) => {
+    const pairedV2 = caseStudy.slug === "giga" && section.id === "v2-flows"
+      ? caseStudy.sections.find((item) => item.id === "v2")
+      : undefined;
+
+    return (
     <div key={section.id}>
       <CenterTextBlock>
         <CenterText
@@ -2055,6 +2153,18 @@ export default memo(function CaseStudyPage({
           viewport={VIEWPORT_ONCE}
           transition={TEXT_TRANSITION}
         >
+          {pairedV2 && (
+            <>
+              {pairedV2.heading && <SectionHeading>{pairedV2.heading}</SectionHeading>}
+              <SectionBody style={{ alignItems: "flex-start", marginBottom: "3.75rem" }}>
+                {parseBody(pairedV2.body).map((paragraph, idx) => (
+                  <Paragraph key={idx} style={{ textAlign: "left" }}>
+                    {paragraph}
+                  </Paragraph>
+                ))}
+              </SectionBody>
+            </>
+          )}
           {section.heading && (
             section.logoSrc ? (
               <ColorBlockLogoRow>
@@ -2105,8 +2215,108 @@ export default memo(function CaseStudyPage({
           </SectionBody>
         </CenterText>
       </CenterTextBlock>
+      {caseStudy.slug === "giga" && section.id === "my-role" && caseStudy.sections.find((item) => item.id === "platform-today")?.images?.[0] && (() => {
+        const image = caseStudy.sections.find((item) => item.id === "platform-today")!.images![0];
+        return (
+          <FullWidthImageContainer
+            initial={{ scale: 0.97 }}
+            whileInView={{ scale: 1 }}
+            viewport={VIEWPORT_ONCE}
+            transition={IMAGE_TRANSITION}
+          >
+            <ImageElement
+              src={image.src}
+              alt={image.alt}
+              avif={image.avif}
+              webp={image.webp}
+              aspectRatio={image.aspectRatio}
+              borderRadius={image.borderRadius || "16px"}
+              objectFit={image.objectFit || "cover"}
+              objectPosition={image.objectPosition}
+              backgroundColor={image.backgroundColor}
+              imageScale={image.imageScale}
+              border={image.containerBorder}
+              style={{ width: "100%", marginTop: "2rem" }}
+            />
+          </FullWidthImageContainer>
+        );
+      })()}
+      {caseStudy.slug === "access-direct" && section.id === "challenges" && (() => {
+        const outcome = caseStudy.sections.find((item) => item.id === "outcome");
+        if (!outcome) return null;
+
+        return (
+          <CenterTextBlock style={{ marginTop: "3.75rem" }}>
+            <CenterText
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
+              viewport={VIEWPORT_ONCE}
+              transition={TEXT_TRANSITION}
+            >
+              {outcome.heading && <SectionHeading>{outcome.heading}</SectionHeading>}
+              <SectionBody style={{ alignItems: "flex-start" }}>
+                {parseBody(outcome.body).map((paragraph, idx) => (
+                  <Paragraph key={idx} style={{ textAlign: "left" }}>
+                    {paragraph}
+                  </Paragraph>
+                ))}
+              </SectionBody>
+            </CenterText>
+          </CenterTextBlock>
+        );
+      })()}
+      {caseStudy.slug === "giga" && section.id === "challenges" && caseStudy.sections.find((item) => item.id === "challenges-image")?.images?.[0] && (() => {
+        const image = caseStudy.sections.find((item) => item.id === "challenges-image")!.images![0];
+        const outcome = caseStudy.sections.find((item) => item.id === "outcome");
+        return (
+          <>
+            <FullWidthImageContainer
+              initial={{ scale: 0.97 }}
+              whileInView={{ scale: 1 }}
+              viewport={VIEWPORT_ONCE}
+              transition={IMAGE_TRANSITION}
+              style={{ marginTop: "clamp(3rem, 6vw, 5rem)" }}
+            >
+              <ImageElement
+                src={image.src}
+                alt={image.alt}
+                avif={image.avif}
+                webp={image.webp}
+                aspectRatio={image.aspectRatio}
+                borderRadius={image.borderRadius || "16px"}
+                objectFit={image.objectFit || "cover"}
+                objectPosition={image.objectPosition}
+                backgroundColor={image.backgroundColor}
+                imageScale={image.imageScale}
+                border={image.containerBorder}
+                style={{ width: "100%" }}
+              />
+            </FullWidthImageContainer>
+            {outcome && (
+              <CenterTextBlock style={{ marginTop: "clamp(3rem, 6vw, 5rem)" }}>
+                <CenterText
+                  initial={{ y: 20 }}
+                  whileInView={{ y: 0 }}
+                  viewport={VIEWPORT_ONCE}
+                  transition={TEXT_TRANSITION}
+                >
+                  {outcome.heading && <SectionHeading>{outcome.heading}</SectionHeading>}
+                  <SectionBody style={{ alignItems: "flex-start" }}>
+                    {parseBody(outcome.body).map((paragraph, idx) => (
+                      <Paragraph key={idx} style={{ textAlign: "left" }}>
+                        {paragraph}
+                      </Paragraph>
+                    ))}
+                  </SectionBody>
+                </CenterText>
+              </CenterTextBlock>
+            )}
+          </>
+        );
+      })()}
     </div>
-  );
+    );
+  };
 
   const renderQuote = (section: CaseStudySection) => (
     <div key={section.id}>
@@ -2170,7 +2380,12 @@ export default memo(function CaseStudyPage({
     const stickyImageIsFullBleed = section.stickyContent?.fullBleedImage || false;
     const tags = section.stickyContent?.tags || [];
     const collateralImages = section.stickyContent?.collateralImages || [];
-    const blocks = section.scrollContent?.blocks || [];
+    const overview = caseStudy.slug === "giga" && section.id === "intro"
+      ? caseStudy.sections.find((item) => item.id === "overview")
+      : undefined;
+    const blocks = overview
+      ? [{ type: "text" as const, heading: overview.heading, body: overview.body }]
+      : section.scrollContent?.blocks || [];
 
     return (
       <StickySplitWrapper key={section.id} $background={background} $tone={tone}>
@@ -2344,10 +2559,53 @@ export default memo(function CaseStudyPage({
   const renderImageOnColorBlock = (section: CaseStudySection) => {
     const image = section.images?.[0];
     if (!image) return null;
+    const pairedBrandIdentity = caseStudy.slug === "giga" && section.id === "brand-system"
+      ? caseStudy.sections.find((item) => item.id === "brand-identity")
+      : undefined;
+    const pairedReflection = caseStudy.slug === "access-direct" && section.id === "credits"
+      ? caseStudy.sections.find((item) => item.id === "reflection")
+      : undefined;
 
     return (
-      <ColorBlockSection key={section.id}>
+      <ColorBlockSection
+        key={section.id}
+        $flushTop={caseStudy.slug === "giga" && section.id === "brand-system"}
+      >
         <ColorBlockInner>
+          {pairedReflection && (
+            <ColorBlockText style={{ marginBottom: "clamp(3rem, 6vw, 5rem)" }}>
+              {pairedReflection.heading && (
+                <SectionHeading style={{ marginBottom: "1.25rem" }}>
+                  {pairedReflection.heading}
+                </SectionHeading>
+              )}
+              <SectionBody style={{ alignItems: "flex-start", marginTop: 0 }}>
+                {parseBody(pairedReflection.body).map((paragraph, idx) => (
+                  <Paragraph key={idx} style={{ textAlign: "left" }}>
+                    {paragraph}
+                  </Paragraph>
+                ))}
+              </SectionBody>
+            </ColorBlockText>
+          )}
+          {pairedBrandIdentity && (
+            <ColorBlockText style={{ marginBottom: "clamp(3rem, 6vw, 5rem)" }}>
+              {pairedBrandIdentity.heading && (
+                <SectionHeading style={{ marginBottom: "1.25rem" }}>
+                  {pairedBrandIdentity.heading}
+                </SectionHeading>
+              )}
+              {pairedBrandIdentity.body && (
+                <SectionBody style={{ alignItems: "flex-start", marginTop: 0 }}>
+                  {parseBody(pairedBrandIdentity.body).map((paragraph, idx) => (
+                    <Paragraph key={idx} style={{ textAlign: "left" }}>
+                      {paragraph}
+                    </Paragraph>
+                  ))}
+                </SectionBody>
+              )}
+            </ColorBlockText>
+          )}
           <ElevatedImageWrap
             $containerBorder={image.containerBorder}
             $containerShadow={image.containerShadow}
@@ -2620,6 +2878,30 @@ export default memo(function CaseStudyPage({
       {/* Dynamic Sections */}
       <SectionsContainer>
         {caseStudy.sections.map((section, idx) => {
+          if (
+            caseStudy.slug === "access-direct" &&
+            (section.id === "outcome" || section.id === "reflection")
+          ) {
+            return null;
+          }
+
+          if (
+            caseStudy.slug === "giga" &&
+            (
+              section.id === "overview" ||
+              section.id === "platform-today" ||
+              section.id === "outcome" ||
+              section.id === "brand-identity" ||
+              section.id === "collaboration" ||
+              section.id === "challenges-image" ||
+              section.id === "v1" ||
+              section.id === "v2" ||
+              section.id === "reflection"
+            )
+          ) {
+            return null;
+          }
+
           const { background, tone, continuesGroup } = sectionPresentation[idx];
           const prev = caseStudy.sections[idx - 1];
           const next = caseStudy.sections[idx + 1];
@@ -2650,7 +2932,9 @@ export default memo(function CaseStudyPage({
                 $tone={tone}
                 $continuesGroup={continuesGroup}
                 $compact={isCompact}
-                $padding={section.sectionPadding}
+                $padding={caseStudy.slug === "giga" && section.id === "brand-system"
+                  ? "2rem 0 3.75rem"
+                  : section.sectionPadding}
                 $minHeight={section.sectionMinHeight}
                 $marginTop={section.sectionMarginTop}
                 $standaloneText={isStandaloneText}

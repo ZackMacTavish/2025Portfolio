@@ -2715,7 +2715,7 @@ export const leysiCaseStudy: CaseStudy = {
       sectionBackground: "#f5f5f5",
       sectionPadding: "3.75rem 0 0.5rem",
       heading: "Background",
-      body: `Leysi is a free iOS food-budgeting application designed for independent young adults — specifically college students learning to manage grocery and restaurant spending for the first time. The app was founded by NYU students and built around a focused premise: rather than overwhelming new earners with full financial portfolios, narrow the scope to food and build real money habits from there.\n\nThe startup came to Varfaj Partners for design support, and I was brought in as a freelance designer to lead two workstreams: brand identity and MVP product design.`,
+      body: `Leysi is a free iOS food-budgeting application designed for independent young adults, specifically college students learning to manage grocery and restaurant spending for the first time. The app was founded by NYU students and built around a focused premise: rather than overwhelming new earners with full financial portfolios, narrow the scope to food and build real money habits from there.\n\nThe startup came to Varfaj Partners for design support, and I was brought in as a freelance designer to lead two workstreams: brand identity and MVP product design.`,
     },
     {
       id: "role",
@@ -2723,7 +2723,7 @@ export const leysiCaseStudy: CaseStudy = {
       sectionBackground: "#f5f5f5",
       sectionPadding: "0.5rem 0 1.5rem",
       heading: "My Role",
-      body: `I was responsible for the brand logo and color system, and for completing the iOS app screens needed to reach launch. A Varfaj designer had established early directional work on the user flows before I joined, so part of my job was picking up an existing system thoughtfully — understanding the intent behind prior decisions and extending them rather than starting over.\n\nI worked within Apple's Human Interface Guidelines throughout to ensure the product felt native, polished, and consistent on iOS.`,
+      body: `I was responsible for the brand logo and color system, and for completing the iOS app screens needed to reach launch. A Varfaj designer had established early directional work on the user flows before I joined, so I extended the existing system while preserving the intent behind earlier decisions.\n\nI worked within Apple's Human Interface Guidelines throughout to ensure the product felt native, polished, and consistent on iOS.`,
     },
     {
       id: "app-screens",
@@ -2748,7 +2748,7 @@ export const leysiCaseStudy: CaseStudy = {
       sectionBackground: "#ffffff",
       sectionPadding: "3.75rem 0 1.5rem",
       heading: "Logo Design",
-      body: `The logo brief was open-ended: create something that captures both food and budgeting without leaning too heavily into either. Finance-forward marks tend to feel cold; food-forward marks lose the utility story. I wanted something that lived naturally in both.\n\nMy concept was an orange being peeled, with the inner slice shaped as a coin. The orange is familiar, warm, and food-adjacent — and the coin reframes it as something financial without any jargon. It felt like a metaphor that users in their early twenties could actually connect with.\n\nMy initial design centered on just the peel and coin. Through feedback from the Leysi founders, we evolved it to include a fork, knife, and plate — grounding the mark more explicitly in the food experience. The final logo holds both ideas in balance and became the foundation for the app's broader visual identity.`,
+      body: `The brief was to connect food and budgeting without making either idea dominate. Finance-first marks felt cold, while food-first marks lost the product's practical purpose.\n\nThe concept uses a peeled orange with an inner slice shaped like a coin. The familiar food form makes the financial idea approachable without relying on jargon.\n\nThe mark began with only the peel and coin, then gained a fork, knife, and plate through founder feedback. The final logo balances food and finance and anchors the app's visual identity.`,
     },
     {
       id: "logo-system",
@@ -2788,7 +2788,7 @@ export const leysiCaseStudy: CaseStudy = {
       sectionBackground: "#ffffff",
       sectionPadding: "3.75rem 0 3.75rem",
       heading: "Product Design",
-      body: `Leysi's core screens centered on a real-time dashboard showing daily spend, budget progress, and a Spend Per Day metric — all designed to give users an at-a-glance read of how their choices were affecting their budget in the moment. The app also included an analytics view for weekly and monthly trends, bank linking via Plaid, and a social discovery layer called Leysi Map for finding and sharing local restaurant recommendations.\n\nMy focus was on completing the MVP — filling in the remaining core screens and edge cases needed before the developers could build. Designing for this user meant keeping financial concepts approachable: clear hierarchy, plain language, and a gamified tone that made consistent tracking feel rewarding rather than disciplinary.`,
+      body: `Leysi's dashboard shows daily spending, budget progress, and a Spend Per Day metric so users can understand the impact of each choice. The app also includes weekly and monthly analytics, Plaid bank linking, and Leysi Map for restaurant discovery and recommendations.\n\nI completed the MVP's remaining core screens and edge cases before development. Clear hierarchy, plain language, and a gamified tone made financial tracking approachable and rewarding.`,
     },
     {
       id: "single-device",
@@ -3073,8 +3073,8 @@ export const threePillarsCaseStudy: CaseStudy = {
     {
       id: "outcome",
       layout: "text-only",
-      sectionBackground: "#f5f5f5",
-      sectionPadding: "3.75rem 0 0.5rem",
+      sectionBackground: "#ffffff",
+      sectionPadding: "0.5rem 0 3.75rem",
       heading: "Outcome",
       body: `The redesigned Three Pillars website launched following the three-month engagement and remained the agency's primary digital presence for approximately two years. During that window, Three Pillars continued to grow, expanding its client roster, deepening relationships with leading VC and PE-backed companies, and building toward the track record it carries today: 3,150+ placements and over $500M in salary negotiated on behalf of candidates.\n\nThe project gave Three Pillars a brand foundation that matched the quality of work they were doing behind the scenes: a visual identity built to be taken seriously.`,
     },
@@ -3279,7 +3279,7 @@ export const pitonCaseStudy: CaseStudy = {
           avif: "/assets/piton-logo-discovery/phase2-letterform.avif",
           webp: "/assets/piton-logo-discovery/phase2-letterform.webp",
           alt: "Piton phase two stylized letterform exploration",
-          objectFit: "contain",
+          objectFit: "cover",
           backgroundColor: "#ffffff",
         },
         {
@@ -3287,7 +3287,7 @@ export const pitonCaseStudy: CaseStudy = {
           avif: "/assets/piton-logo-discovery/phase2-layered-peak.avif",
           webp: "/assets/piton-logo-discovery/phase2-layered-peak.webp",
           alt: "Piton phase two layered peak exploration",
-          objectFit: "contain",
+          objectFit: "cover",
           backgroundColor: "#ffffff",
         },
         {
@@ -3295,7 +3295,7 @@ export const pitonCaseStudy: CaseStudy = {
           avif: "/assets/piton-logo-discovery/phase2-fluid.avif",
           webp: "/assets/piton-logo-discovery/phase2-fluid.webp",
           alt: "Piton phase two fluid three-part symbol exploration",
-          objectFit: "contain",
+          objectFit: "cover",
           backgroundColor: "#ffffff",
         },
         {
@@ -3303,7 +3303,7 @@ export const pitonCaseStudy: CaseStudy = {
           avif: "/assets/piton-logo-discovery/phase2-lockup.avif",
           webp: "/assets/piton-logo-discovery/phase2-lockup.webp",
           alt: "Piton phase two circular black and white logo lockup",
-          objectFit: "contain",
+          objectFit: "cover",
           backgroundColor: "#ffffff",
         },
         {
@@ -3311,7 +3311,7 @@ export const pitonCaseStudy: CaseStudy = {
           avif: "/assets/piton-logo-discovery/phase2-energy.avif",
           webp: "/assets/piton-logo-discovery/phase2-energy.webp",
           alt: "Piton phase two energy and rhythm logo exploration",
-          objectFit: "contain",
+          objectFit: "cover",
           backgroundColor: "#ffffff",
         },
         {
@@ -3319,7 +3319,7 @@ export const pitonCaseStudy: CaseStudy = {
           avif: "/assets/piton-logo-discovery/phase2-system.avif",
           webp: "/assets/piton-logo-discovery/phase2-system.webp",
           alt: "Piton phase two logo system and repeating pattern board",
-          objectFit: "contain",
+          objectFit: "cover",
           backgroundColor: "#ffffff",
         },
       ],
@@ -3646,17 +3646,12 @@ export const accessDirectCaseStudy: CaseStudy = {
       ],
     },
     {
-      id: "homepage-services",
-      layout: "text-only",
-      sectionBackground: "#f5f5f5",
-      heading: "Homepage & Services",
-      body: `The site was structured around four core sections, each serving a distinct purpose. The homepage was the entry point for the business, establishing credibility immediately and orienting visitors to what Access Direct offers. It needed to communicate that this was a professional, full-service security solutions provider, not a reseller or generalist.\n\nThe services section presented Access Direct's full offering across the spectrum of physical security: access control systems including key cards, intercoms, and door hardware; surveillance cameras and monitoring; alarms and broader security infrastructure. It was designed to help visitors self-identify which category applied to their need and understand that Access Direct could handle it.`,
-    },
-    {
       id: "highpower-product",
       layout: "full-width-image",
-      sectionBackground: "#ffffff",
+      sectionBackground: "#f5f5f5",
       sectionPadding: "3.75rem 0",
+      heading: "Homepage & Services",
+      body: `The site was structured around four core sections, each serving a distinct purpose. The homepage was the entry point for the business, establishing credibility immediately and orienting visitors to what Access Direct offers. It needed to communicate that this was a professional, full-service security solutions provider, not a reseller or generalist.\n\nThe services section presented Access Direct's full offering across the spectrum of physical security: access control systems including key cards, intercoms, and door hardware; surveillance cameras and monitoring; alarms and broader security infrastructure. It was designed to help visitors self-identify which category applied to their need and understand that Access Direct could handle it.`,
       caption:
         "A product detail page within the services section, presenting individual security hardware with specs and supporting resources.",
       images: [
@@ -3672,21 +3667,14 @@ export const accessDirectCaseStudy: CaseStudy = {
       ],
     },
     {
-      id: "brands",
-      layout: "text-only",
-      sectionBackground: "#f5f5f5",
-      backgroundGroup: "brands",
-      backgroundTone: "muted",
-      heading: "Brands",
-      body: `A major component of Access Direct's value proposition is the quality of the manufacturers and product lines it carries. The brands section gave David a place to showcase these relationships, signaling to potential clients that they were buying from a company with serious, established supplier partnerships.`,
-    },
-    {
       id: "brands-imac",
       layout: "full-width-image",
       sectionBackground: "#f5f5f5",
       backgroundGroup: "brands",
       backgroundTone: "muted",
       sectionPadding: "3.75rem 0",
+      heading: "Brands",
+      body: `A major component of Access Direct's value proposition is the quality of the manufacturers and product lines it carries. The brands section gave David a place to showcase these relationships, signaling to potential clients that they were buying from a company with serious, established supplier partnerships.`,
       caption:
         "The manufacturers directory, with searchable filtering across the brands Access Direct carries.",
       images: [
@@ -3740,17 +3728,12 @@ export const accessDirectCaseStudy: CaseStudy = {
       ],
     },
     {
-      id: "terminology-contact",
-      layout: "text-only",
-      sectionBackground: "#f5f5f5",
-      heading: "Resources & Contact",
-      body: `Beyond the core catalog, the site included supporting resources like a searchable terminology guide to help visitors navigate industry definitions. The contact section was the conversion point for the site, designed to make it as easy as possible for a prospect to reach David and start a conversation. Security solutions are typically sold through consultation, so the contact flow was treated as the beginning of a sales relationship, not just a form.\n\nContent direction across the site was handled by Wendy Majewski and Alek Vasic, with all design and development in my hands.`,
-    },
-    {
       id: "terminology-page",
       layout: "full-width-image",
-      sectionBackground: "#ffffff",
+      sectionBackground: "#f5f5f5",
       sectionPadding: "3.75rem 0",
+      heading: "Resources & Contact",
+      body: `Beyond the core catalog, the site included supporting resources like a searchable terminology guide to help visitors navigate industry definitions. The contact section was the conversion point for the site, designed to make it as easy as possible for a prospect to reach David and start a conversation. Security solutions are typically sold through consultation, so the contact flow was treated as the beginning of a sales relationship, not just a form.\n\nContent direction across the site was handled by Wendy Majewski and Alek Vasic, with all design and development in my hands.`,
       caption:
         "A searchable terminology resource, helping visitors decode industry definitions.",
       images: [
@@ -3761,6 +3744,7 @@ export const accessDirectCaseStudy: CaseStudy = {
           alt: "Access Direct terminology resource page",
           aspectRatio: "2400/1768",
           objectFit: "cover",
+          containerBorder: "1px solid var(--border, #d1d5db)",
         },
       ],
     },
@@ -3795,10 +3779,11 @@ export const accessDirectCaseStudy: CaseStudy = {
       body: `Access Direct taught me something that no single-project engagement can: what it means to own a brand over time. When you're the creative lead for a business across four years, you stop thinking in deliverables and start thinking in systems. Every decision has to hold up not just for today's trade show but for the next one. Every page of the website has to be maintainable, not just shippable.\n\nBuilding the site in React without AI tools also shaped how I think about front-end development. There's a particular kind of confidence that comes from having built something hard the hard way, from understanding the code because you wrote it, not because a tool generated it. That foundation informs how I think about technical constraints, feasibility, and the relationship between design and development even when the tools have since made the work faster.`,
     },
     {
-      id: "team-page",
-      layout: "full-width-image",
-      sectionBackground: "#ffffff",
-      sectionPadding: "3.75rem 0",
+      id: "credits",
+      layout: "image-on-color-block",
+      sectionBackground: "#f5f5f5",
+      heading: "Team",
+      body: `Founder: David Smith\n\nCreative Lead, Design & Development: Zachary MacTavish\n\nContent Direction: Wendy Majewski, Alek Vasic`,
       images: [
         {
           src: "/assets/ADTeam.png",
@@ -3809,13 +3794,6 @@ export const accessDirectCaseStudy: CaseStudy = {
           objectFit: "cover",
         },
       ],
-    },
-    {
-      id: "credits",
-      layout: "text-only",
-      sectionBackground: "#f5f5f5",
-      heading: "Team",
-      body: `Founder: David Smith\n\nCreative Lead, Design & Development: Zachary MacTavish\n\nContent Direction: Wendy Majewski, Alek Vasic`,
     },
   ],
 };
@@ -3907,7 +3885,7 @@ export const gigaCaseStudy: CaseStudy = {
       sectionBackground: "#f5f5f5",
       sectionPadding: "3.75rem 0 0.5rem",
       heading: "Overview",
-      body: `Giga Intelligence is a platform with an evolving thesis. In its first version, it was a privacy-first social media and content creation site, a direct response to the data practices of mainstream platforms, built around the idea that users should own and control their information. In its second, AI-native iteration, Giga has become something more ambitious: a platform where users create AI bots, engage in AI-powered research, and publish short and long-form content with the help of an intelligent agent that helps them go deep on any topic. The closest analogy is Facebook meets Wikipedia, rebuilt from the ground up with AI at the center.\n\nFounder Richard Devlin brought me on as the lead designer from the earliest stages of the product. Over a year and a half I designed the brand identity and the full web app experience across both versions of the platform. As Giga has matured, my role has shifted from primary designer to UX consultant, an evolution that reflects the depth of the working relationship we've built.`,
+      body: `Giga began as a privacy-first social and content platform built around user ownership of information. Its AI-native version lets people create agents, research topics, and publish short-form and long-form content with AI support.\n\nFounder Richard Devlin brought me in as lead designer at the product's earliest stage. Over a year and a half, I designed the brand and web app across both versions before shifting into a UX consulting role.`,
     },
     {
       id: "my-role",
@@ -3948,7 +3926,7 @@ export const gigaCaseStudy: CaseStudy = {
       sectionBackground: "#ffffff",
       sectionPadding: "3.75rem 0 1.5rem",
       heading: "The Brand Identity",
-      body: `The Giga logo is an icon and wordmark combination, a mark designed to work across the full range of contexts a digital platform occupies: browser tabs, app icons, marketing materials, and UI headers. The icon and wordmark were designed to function together and independently, giving the brand flexibility without sacrificing cohesion.\n\nThe visual language landed on clean white and light blues, a deliberate choice that set Giga apart from the dark, dense aesthetic of many AI products and the loud, high-contrast energy of mainstream social platforms. The palette reads as professional and focused, with a lightness that makes the interface feel open and readable. For a platform built around knowledge creation and deep thinking, that tone felt right: approachable intelligence, not intimidating complexity.\n\nCritically, the brand was designed from the start to carry across both versions of the product. When the strategic pivot from privacy-first to AI-native came, the visual identity didn't need to be rebuilt. It needed to be extended. The same icon, the same palette, the same typographic sensibility moved into V2 with continuity intact.`,
+      body: `The Giga identity combines an icon and wordmark built to work across browser tabs, app icons, marketing materials, and product UI. The elements work together or independently, giving the brand range without losing recognition.\n\nClean white, light blue, and editorial typography distinguish Giga from darker AI products and high-intensity social platforms. The system makes the interface feel open, focused, and credible for people creating and sharing knowledge.\n\nThe identity was designed to extend from Giga's privacy-first V1 into its AI-native V2. The icon, palette, and typography carried forward intact, preserving recognition as the product evolved.`,
     },
     {
       id: "brand-system",
@@ -3972,7 +3950,7 @@ export const gigaCaseStudy: CaseStudy = {
       layout: "text-only",
       sectionBackground: "#f5f5f5",
       heading: "V1: Privacy-First Social Platform",
-      body: `The first version of Giga was built around a clear and timely proposition: a social and content creation platform where users controlled their data. In a landscape dominated by platforms that monetize user information, Giga offered private channels, user-owned content, and a more intentional experience.\n\nDesigning for this required balancing familiarity with differentiation. Users needed to understand how to use Giga quickly, since the mental models of social feeds and content creation are well established, but the experience needed to feel meaningfully different from what they were leaving behind. The design leaned into clarity and calm: clean layouts, deliberate information hierarchy, and an interface that didn't compete with the content it was presenting.\n\nI designed the full system: onboarding flows that communicated the privacy proposition clearly, a social feed built for content discovery, profile and channel management, and content creation tools for both short and long-form publishing.`,
+      body: `Giga V1 was a privacy-first social and content platform built around user control of data and channels. It offered a deliberate alternative to mainstream platforms that monetize user information.\n\nThe design paired familiar social patterns with a quieter, more intentional experience. Clear hierarchy and restrained UI kept attention on the content rather than the interface.\n\nI designed the end-to-end product system for onboarding, discovery, profiles, channels, and content creation. The work covered short-form and long-form publishing across the platform.`,
     },
     {
       id: "v1-mockups",
@@ -4045,7 +4023,7 @@ export const gigaCaseStudy: CaseStudy = {
       layout: "text-only",
       sectionBackground: "#f5f5f5",
       heading: "Designing the AI-Native Flows",
-      body: `AI Chat Interface. A conversational interface where users interact with Giga's AI and custom bots. The design challenge was making the chat feel like a capable research partner, not a generic chatbot. Visual hierarchy, response formatting, and the way the interface handles long-form AI output all required careful thought.\n\nBot Creation. Users can build their own AI bots within Giga, a feature that required designing a creation flow accessible to non-technical users while surfacing enough control for power users. The flow needed to feel like building something useful, not configuring a system.\n\nAgent-Assisted Content Creation. The flagship workflow of V2: a user explores a topic with AI assistance and moves fluidly from research into writing and publishing. This required designing a flow that connected the AI chat experience to the content editor without friction, keeping the user in a state of productive momentum rather than context-switching between tools.\n\nFeed and Publishing. The social layer of the platform, where content gets published, discovered, and engaged with, was redesigned for V2 to surface AI-generated and AI-assisted content alongside user-generated posts, maintaining the social dynamic while integrating the new AI content creation capabilities.`,
+      body: `AI Chat Interface lets users work with Giga's AI and custom bots in a conversational research space. Hierarchy, response formatting, and long-form output make it feel like a capable partner rather than a generic chatbot.\n\nBot Creation gives non-technical users a clear path to build their own AI bots. The flow exposes useful control without feeling like system configuration.\n\nAgent-Assisted Content Creation connects research, writing, and publishing in one continuous workflow. Users can move from an AI conversation to the editor without losing momentum.\n\nFeed and Publishing brings AI-assisted work into Giga's social layer alongside user-created posts. The redesign preserves discovery and engagement while supporting the new content model.`,
     },
     {
       id: "v2-chat",
@@ -4106,14 +4084,14 @@ export const gigaCaseStudy: CaseStudy = {
       layout: "text-only",
       sectionBackground: "#ffffff",
       heading: "Collaboration",
-      body: `Throughout the project I worked closely with Richard Devlin, whose technical depth and product vision shaped many of the design decisions. Front-end development was handled by Xing Yi and Joel Fernando, and my designs were built to be implementable, grounded in the technical realities of the stack rather than aspirational only on canvas. The long-term nature of the engagement meant that design decisions were made with full awareness of engineering constraints, and the relationship between design and development was genuinely collaborative rather than sequential.`,
+      body: `I worked closely with Richard Devlin, whose product vision and technical depth shaped key design decisions. Xing Yi and Joel Fernando handled front-end development, and the work stayed grounded in engineering constraints throughout the engagement.`,
     },
     {
       id: "challenges",
       layout: "text-only",
       sectionBackground: "#f5f5f5",
       heading: "Challenges",
-      body: `The most significant design challenge across Giga was maintaining coherence across a product that was fundamentally changing its strategic premise. V1 and V2 are not the same product. The core value proposition shifted from privacy to AI. Designing a brand and visual system that could hold across that evolution, without feeling either stale or discontinuous, required foresight in the original design decisions and discipline in how the system was extended.\n\nThe AI interaction design in V2 also presented challenges specific to the current moment in AI product design. Conventions for AI chat, bot creation, and agent-assisted workflows are still forming. Designing them required balancing emerging patterns with Giga's specific context and user base, building interfaces that felt native to AI without simply copying what larger platforms were doing.`,
+      body: `The central challenge was keeping Giga coherent as its value proposition shifted from privacy-first social networking to AI-native research and publishing. The brand and interface system needed to evolve without losing continuity between V1 and V2.\n\nAI chat, agent creation, and assisted workflows still lack settled interaction conventions. The work balanced emerging patterns with Giga's users and product goals instead of copying larger AI platforms.`,
     },
     {
       id: "challenges-image",
@@ -4156,7 +4134,7 @@ export const gigaCaseStudy: CaseStudy = {
           alt: "Giga companion confirmation, Louie is your new AI companion",
           aspectRatio: "3/2",
           objectFit: "cover",
-          imageScale: 1.12,
+          imageScale: 1.2,
         },
       ],
     },
@@ -4166,7 +4144,7 @@ export const gigaCaseStudy: CaseStudy = {
       sectionBackground: "#ffffff",
       sectionPadding: "0.5rem 0 3.75rem",
       heading: "Reflection",
-      body: `Giga has been one of the projects that pushed me deepest into designing for AI as a core architecture rather than a feature. Designing for a platform where the agent is the product, not an add-on, required rethinking interaction models that most design education and practice hasn't caught up to yet.\n\nWhat I've taken from it is a conviction that the most important thing in AI product design right now is making intelligence feel useful rather than impressive. Users don't want to be amazed by the AI. They want to get something done. Every flow I designed for Giga was evaluated against that standard: does this help the user think more clearly, write more confidently, or learn more deeply? If yes, it earned its place. If it was just showcasing the technology, it didn't.\n\nThat standard, useful over impressive, is one I carry into every product I work on now.`,
+      body: `Giga pushed me to design AI as core product architecture rather than an added feature. Building a platform where the agent is the product required new interaction models beyond conventional product patterns.\n\nThe strongest lesson was to make intelligence useful rather than impressive. Every flow had to help users think, write, or learn more effectively, or it did not belong.\n\nThat standard, useful over impressive, is one I carry into every product I work on now.`,
     },
     {
       id: "credits",
@@ -4334,9 +4312,13 @@ export const partnershipsCaseStudy: CaseStudy = {
     },
     {
       id: "walmart-privacy-image",
-      layout: "full-width-image",
+      layout: "image-on-color-block",
       sectionBackground: "#f5f5f5",
-      sectionPadding: "0 0 1.5rem",
+      sectionPadding: "0 0 3.75rem",
+      heading: "The Handoff & Why Not MCP",
+      body: `For the pitch version shown to Walmart, Copilot passed the conversation directly to Sparky and exited entirely, the user left Copilot and landed in a Walmart-branded Sparky chat. Sparky then handled the rest of the journey independently.
+
+    The stated problem with MCP was that it behaves like a "fishbowl", each session is stateless and forgets prior context, limiting true AI-to-AI continuity. The team's early thinking was toward something like a persistent "Copilot Shopping" profile that builds up over time and could travel with the user across partner handoffs, going beyond a single-session payload toward durable, evolving context.`,
       images: [
         {
           src: "/assets/partnerships/Walmart Privacy.jpg",
@@ -4347,15 +4329,6 @@ export const partnershipsCaseStudy: CaseStudy = {
         },
       ],
     },
-    {
-      id: "walmart-handoff",
-      layout: "text-only",
-      sectionBackground: "#f5f5f5",
-      sectionPadding: "1.5rem 0 3.75rem",
-      heading: "The Handoff & Why Not MCP",
-      body: `For the pitch version shown to Walmart, Copilot passed the conversation directly to Sparky and exited entirely, the user left Copilot and landed in a Walmart-branded Sparky chat. Sparky then handled the rest of the journey independently.\n\nThe stated problem with MCP was that it behaves like a "fishbowl", each session is stateless and forgets prior context, limiting true AI-to-AI continuity. The team's early thinking was toward something like a persistent "Copilot Shopping" profile that builds up over time and could travel with the user across partner handoffs, going beyond a single-session payload toward durable, evolving context.`,
-    },
-
     // ── AMAZON ───────────────────────────────────────────────────────────────
     {
       id: "amazon-header",

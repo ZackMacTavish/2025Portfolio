@@ -92,7 +92,7 @@ The process followed a consistent loop. I built a rough mockup, received feedbac
       sectionBackground: "#ffffff",
       sectionPadding: "1.5rem 0 3.75rem",
       heading: "The Live Product Experience",
-      body: `The product-detail interface establishes the commerce hierarchy before the licensed story begins. Product imagery, descriptive copy, configuration, purchase action, and expandable specifications all had to remain clear within Seagate's established responsive system.`,
+      body: `The product-detail interface presents commerce information clearly before the licensed story. Imagery, copy, configuration, purchase actions, and specifications were organized to remain legible within Seagate's responsive system.`,
       images: [
         {
           ...asset("gow-full-page", "png", "Live Seagate God of War Ragnarok site header and product-detail interface", "2400/1563"),
@@ -109,7 +109,7 @@ The process followed a consistent loop. I built a rough mockup, received feedbac
       layout: "full-width-image",
       sectionBackground: "#f5f5f5",
       heading: "Designing for Platform Compatibility",
-      body: `After establishing the licensed product, the page shifted into practical compatibility. A dark, high-contrast module separated PlayStation 5 and PlayStation 4 use cases while preserving the visual language of Sony's hardware ecosystem. This gave the page a functional beat between the collectible story and the broader campaign imagery.`,
+      body: `After the product introduction, the page moved into a compatibility module that separated PlayStation 5 and PlayStation 4 use cases. The high-contrast design preserved Sony's hardware language while making compatibility information easy to scan.`,
       images: [
         {
           ...asset("gow-compatibility", "png", "PlayStation 5 and PlayStation 4 compatibility module for the God of War Seagate drive", "2400/1615"),
@@ -132,6 +132,7 @@ The process followed a consistent loop. I built a rough mockup, received feedbac
         {
           ...asset("gow-ps5-collaboration", "jpg", "God of War Ragnarok collaboration artwork with DualSense controller and Seagate drive", "1707/960"),
           objectFit: "contain",
+          hugHeightOnMobile: true,
           containerBorder: "1px solid var(--border, #d1d5db)",
         },
       ],

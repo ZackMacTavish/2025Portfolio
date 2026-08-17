@@ -29,6 +29,7 @@ interface ResponsiveImageProps {
   onLoad?: () => void;
   border?: string;
   mixBlendMode?: string;
+  hugHeightOnMobile?: boolean;
 }
 
 function normalizeAssetUrl(url?: string) {
@@ -43,7 +44,7 @@ function normalizeAssetUrl(url?: string) {
   }
 }
 
-const Container = styled(motion.div)<{ $aspectRatio?: string; $borderRadius: string; $backgroundColor?: string; $border?: string }>`
+const Container = styled(motion.div)<{ $aspectRatio?: string; $borderRadius: string; $backgroundColor?: string; $border?: string; $isMobile?: boolean; $hugHeightOnMobile?: boolean }>`
   position: relative;
   width: 100%;
   overflow: hidden;
@@ -52,7 +53,9 @@ const Container = styled(motion.div)<{ $aspectRatio?: string; $borderRadius: str
   ${(props) => (props.$border ? `border: ${props.$border};` : "")}
 
   ${(props) =>
-    props.$aspectRatio
+    // Apply aspect-ratio unless the image explicitly opts into hugging
+    // its natural height on mobile via `hugHeightOnMobile`.
+    props.$aspectRatio && !(props.$isMobile && props.$hugHeightOnMobile)
       ? `
     aspect-ratio: ${props.$aspectRatio};
   `
@@ -127,6 +130,7 @@ export default function ResponsiveImage({
   objectFit = "cover",
   objectPosition = "center",
   imageScale = 1,
+  hugHeightOnMobile = false,
   disableRevealAnimation = false,
   loading = "lazy",
   decoding = "async",
@@ -245,6 +249,8 @@ export default function ResponsiveImage({
       ref={containerRef}
       className={className}
       $aspectRatio={aspectRatio}
+      $isMobile={isMobile}
+      $hugHeightOnMobile={hugHeightOnMobile}
       $borderRadius={resolvedContainerBorderRadius}
       $backgroundColor={backgroundColor}
       $border={border}

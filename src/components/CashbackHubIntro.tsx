@@ -157,7 +157,7 @@ export function CashbackHubIntro({ onLaunch }: CashbackHubIntroProps) {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7, delay: 0.1 }}
           >
-            The Cashback Hub lets users track, manage, and redeem cashback rewards across Microsoft Shopping surfaces. I led end-to-end design — interaction, visual, and cross-platform layouts — for the full hub, stores search, interstitials, and the Edge Shoreline companion pane.
+            The Cashback Hub lets users track, manage, and redeem cashback rewards across Microsoft Shopping surfaces. I led end-to-end design, including interaction, visual, and cross-platform layouts, for the full hub, stores search, interstitials, and the Edge Shoreline companion pane.
           </IntroSubtitle>
           <IntroSubtitle
             initial={{ opacity: 0, y: 20 }}

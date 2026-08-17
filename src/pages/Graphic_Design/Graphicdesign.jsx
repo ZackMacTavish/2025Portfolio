@@ -257,7 +257,7 @@ export default function GraphicDesign() {
             <ThisIsItContainer>
               <ThisisIt src={artbook} alt="This is it poster" />
               <ThisIsItText>
-                'This is it' was a poster design I made for the 2017 SAIC VCD Design show. The piece explores a quote from the movie 'Style Wars'.
+                'This is it' was a poster design I made for the 2017 SAIC VCD Design show. The piece explores a quote from the movie 'Style&nbsp;Wars'.
               </ThisIsItText>
             </ThisIsItContainer>
 

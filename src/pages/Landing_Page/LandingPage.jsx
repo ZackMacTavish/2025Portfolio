@@ -433,10 +433,14 @@ const ArrowInner = styled.div`
   align-items: center;
   gap: 0.4rem;
   padding: 0.45rem 0.7rem 0.45rem 0.55rem;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid ${(p) => p.theme.name === 'dark'
+    ? 'rgba(255, 255, 255, 0.18)'
+    : 'rgba(15, 15, 15, 0.16)'};
   border-radius: 999px;
-  background: rgba(15, 15, 15, 0.78);
-  color: #fff;
+  background: ${(p) => p.theme.name === 'dark'
+    ? 'rgba(15, 15, 15, 0.78)'
+    : 'rgba(255, 255, 255, 0.72)'};
+  color: ${(p) => p.theme.name === 'dark' ? '#fff' : '#1a1a1a'};
   font-family: var(--font-mono);
   font-size: 0.78rem;
   letter-spacing: 0.04em;

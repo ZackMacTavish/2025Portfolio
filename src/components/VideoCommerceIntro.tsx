@@ -163,7 +163,7 @@ export function VideoCommerceIntro({ onLaunch }: VideoCommerceIntroProps) {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7, delay: 0.1 }}
           >
-            An executive-driven moonshot exploring live and short-form video commerce across Bing, MSN, Edge, and Microsoft Start — partnering with TalkShopLive in the U.S., QVC Japan, and Roposo in India to bring creator-led product content into the Microsoft shopping ecosystem.
+            An executive-driven moonshot exploring live and short-form video commerce across Bing, MSN, Edge, and Microsoft Start, partnering with TalkShopLive in the U.S., QVC Japan, and Roposo in India to bring creator-led product content into the Microsoft shopping ecosystem.
           </IntroSubtitle>
           <IntroSubtitle
             initial={{ opacity: 0, y: 20 }}
