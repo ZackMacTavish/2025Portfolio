@@ -190,6 +190,16 @@ export default function IntroAnimation() {
   useEffect(() => {
     let isCancelled = false;
 
+    const desktopCardsQuery = window.matchMedia(
+      '(min-width: 1001px) and (pointer: fine) and (not (prefers-reduced-motion: reduce))'
+    );
+
+    if (!desktopCardsQuery.matches) {
+      setIntroCardsEnabled(false);
+      setIntroDecisionReady(true);
+      return undefined;
+    }
+
     shouldRunCardTransition(introTransitionImages, undefined, {
       lockSessionOnFailure: false,
     })
@@ -239,7 +249,7 @@ export default function IntroAnimation() {
   }, [showIntro]);
 
   useLayoutEffect(() => {
-    if (!showIntro || !introReady) return;
+    if (!showIntro) return;
 
     // Skip animation if user prefers reduced motion
     if (prefersReducedMotion) {
@@ -312,7 +322,7 @@ export default function IntroAnimation() {
       cancelled = true;
       if (timeline) timeline.kill();
     };
-  }, [showIntro, prefersReducedMotion, introReady]);
+  }, [showIntro, prefersReducedMotion]);
 
   const handleTransitionComplete = () => {};
 
@@ -347,7 +357,7 @@ export default function IntroAnimation() {
             />
           )}
           {/* On slower devices, show only the Zachary MacTavish intro animation. */}
-          {introReady && (
+          {showIntro && (
             <IntroNameWrap>
               <IntroText aria-label={text} $color={introForeground}>
                 {Array.from(text).map((char, index) => (

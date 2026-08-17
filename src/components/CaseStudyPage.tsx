@@ -1739,6 +1739,7 @@ export default memo(function CaseStudyPage({
               mixBlendMode={image.mixBlendMode}
               $hugHeightOnMobile={image.hugHeightOnMobile}
               hugHeightOnMobile={image.hugHeightOnMobile}
+              loading={image.loading}
               style={{ width: "100%" }}
             />
           );
