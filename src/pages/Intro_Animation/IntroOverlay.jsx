@@ -132,6 +132,10 @@ export default function IntroOverlay({ onComplete }) {
 
     let cancelled = false;
     let timeline = null;
+    const safetyTimeout = window.setTimeout(() => {
+      if (cancelled) return;
+      finish();
+    }, 6000);
 
     import('gsap').then(({ gsap }) => {
       if (cancelled) return;
@@ -171,11 +175,14 @@ export default function IntroOverlay({ onComplete }) {
       });
 
       timeline = tl;
+    }).catch(() => {
+      if (!cancelled) finish();
     });
 
     return () => {
       cancelled = true;
       if (timeline) timeline.kill();
+      window.clearTimeout(safetyTimeout);
     };
   }, [visible, prefersReducedMotion, onComplete]);
 

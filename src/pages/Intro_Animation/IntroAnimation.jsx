@@ -263,6 +263,11 @@ export default function IntroAnimation() {
 
     let cancelled = false;
     let timeline = null;
+    const safetyTimeout = window.setTimeout(() => {
+      if (cancelled) return;
+      setShowIntro(false);
+      window.dispatchEvent(new Event('intro-animation-done'));
+    }, 6000);
 
     // Dynamic-import gsap so it stays out of the critical-path bundle. The
     // letters start invisible via CSS (`LetterInner { opacity: 0 }`), so a
@@ -321,6 +326,7 @@ export default function IntroAnimation() {
     return () => {
       cancelled = true;
       if (timeline) timeline.kill();
+      window.clearTimeout(safetyTimeout);
     };
   }, [showIntro, prefersReducedMotion]);
 

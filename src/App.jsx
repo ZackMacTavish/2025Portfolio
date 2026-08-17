@@ -76,7 +76,13 @@ function NavGate({ onOpenHelp }) {
   useEffect(() => {
     const onDone = () => setIntroDone(true);
     window.addEventListener("intro-animation-done", onDone);
-    return () => window.removeEventListener("intro-animation-done", onDone);
+    const fallbackTimeout = window.setTimeout(() => {
+      setIntroDone(true);
+    }, 6500);
+    return () => {
+      window.removeEventListener("intro-animation-done", onDone);
+      window.clearTimeout(fallbackTimeout);
+    };
   }, []);
 
   if (!introDone) return null;
@@ -103,7 +109,13 @@ function FooterGate() {
   useEffect(() => {
     const onDone = () => setIntroDone(true);
     window.addEventListener("intro-animation-done", onDone);
-    return () => window.removeEventListener("intro-animation-done", onDone);
+    const fallbackTimeout = window.setTimeout(() => {
+      setIntroDone(true);
+    }, 6500);
+    return () => {
+      window.removeEventListener("intro-animation-done", onDone);
+      window.clearTimeout(fallbackTimeout);
+    };
   }, []);
 
   if (!introDone) return null;
