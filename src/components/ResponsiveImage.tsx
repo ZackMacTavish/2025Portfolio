@@ -282,6 +282,7 @@ export default function ResponsiveImage({
             loading={loading}
             decoding={decoding}
             onLoad={(e) => {
+              setImgDecoded(true);
               onLoad?.(e as React.SyntheticEvent<HTMLImageElement>);
             }}
             style={{

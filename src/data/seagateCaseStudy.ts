@@ -308,15 +308,7 @@ Feedback loops mattered more than first drafts. The mockup, feedback, revision, 
       layout: "text-only",
       sectionBackground: "#ffffff",
       heading: "Sources and Credits",
-      body: `God of War product page and module captures: live Seagate product page.
-
-    God of War Amazon A+ captures: manufacturer content hosted by Amazon, ASIN B0BKTNB5PD.
-
-God of War collaboration artwork: press-hosted campaign image from TechPowerUp.
-
-    Lightsaber product imagery: manufacturer marketing hosted by Newegg, item N82E16820248233, with campaign and installed views from Vortez and HotHardware.
-
-    Lyve Cloud page and pricing captures: official Seagate Lyve Cloud Object Storage Service page.`,
+      body: `Source material included live Seagate product pages, Amazon-hosted manufacturer content, press and retailer imagery, and official Seagate Lyve Cloud materials.`,
     },
   ],
 };
