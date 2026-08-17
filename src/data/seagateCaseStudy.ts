@@ -63,9 +63,9 @@ export const seagateCaseStudy: CaseStudy = {
       layout: "text-only",
       sectionBackground: "#ffffff",
       heading: "Project 1: God of War Ragnarok Special Edition",
-      body: `The God of War Ragnarok Special Edition external drive launched on Seagate's main site and Amazon, and the Seagate product page remains live today. Seagate's product pages were built from a flexible responsive template rather than from scratch, so the core design work was selective: matching the right layout to the imagery provided and sequencing content to build a coherent story across the page. The experience also had to represent both PlayStation and Seagate accurately.
+      body: `The God of War Ragnarok Special Edition drive launched on Seagate's site and Amazon within a flexible responsive template. I selected layouts for the supplied imagery, sequenced the page story, and balanced the PlayStation and Seagate identities.
 
-The process followed a consistent loop. I built a rough mockup, received feedback from the senior designer, revised, then handed the layout to a copywriter for content. A second design review followed the copy pass, leading to final revisions before launch.`,
+    I built a rough mockup, revised it through senior design review, and handed the layout to a copywriter. A second review after the copy pass led to final revisions before launch.`,
     },
     {
       id: "god-of-war-product-closeup",
@@ -227,6 +227,9 @@ The process followed a consistent loop. I built a rough mockup, received feedbac
         {
           ...asset("lightsaber-desert", "png", "Luke Skywalker Lightsaber FireCuda SSD in a desert-inspired scene", "16/9"),
           hugHeightOnMobile: true,
+          mobileSrc: "/assets/seagate-case-study/lightsaber-desert.png",
+          mobileAvif: "/assets/seagate-case-study/lightsaber-desert.avif",
+          mobileWebp: "/assets/seagate-case-study/lightsaber-desert.webp",
           objectFit: "cover",
         },
       ],

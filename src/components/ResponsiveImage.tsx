@@ -164,7 +164,7 @@ export default function ResponsiveImage({
 
   const parallaxAmount = Math.max(0, parallaxSpeed) * 60;
   const shouldParallax = parallaxSpeed > 0 && !prefersReducedMotion && !isMobile;
-  const fillContainer = Boolean(aspectRatio);
+  const fillContainer = Boolean(aspectRatio) && !(isMobile && hugHeightOnMobile);
   const resolvedContainerBorderRadius = containerBorderRadius ?? borderRadius;
   const normalizedSrc = normalizeAssetUrl(src);
   const normalizedAvif = normalizeAssetUrl(avif);
