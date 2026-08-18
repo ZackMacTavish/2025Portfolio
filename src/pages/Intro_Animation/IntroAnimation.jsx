@@ -71,8 +71,11 @@ const IntroText = styled.h1`
   line-height: 1.04;
 
   @media (max-width: 900px) {
-    font-size: clamp(1.25rem, 7vw, 2.1rem);
+    font-size: clamp(1.8rem, 13vw, 3.5rem);
     letter-spacing: 0.03em;
+    width: 80vw;
+    max-width: none;
+    white-space: normal;
   }
 `;
 
@@ -91,6 +94,17 @@ const LetterInner = styled.span`
   display: inline-block;
   will-change: transform, opacity;
   opacity: 0;
+`;
+
+const IntroSpace = styled.span`
+  display: inline-block;
+  width: 0.3em;
+
+  @media (max-width: 900px) {
+    display: block;
+    width: 100%;
+    height: 0.12em;
+  }
 `;
 
 const IntroCounter = styled.div`
@@ -367,15 +381,19 @@ export default function IntroAnimation() {
             <IntroNameWrap>
               <IntroText aria-label={text} $color={introForeground}>
                 {Array.from(text).map((char, index) => (
-                  <LetterMask key={`intro-char-${index}`}>
-                    <LetterInner
-                      ref={el => {
-                        letterRefs.current[index] = el;
-                      }}
-                    >
-                      {char === ' ' ? '\u00A0' : char}
-                    </LetterInner>
-                  </LetterMask>
+                  char === ' '
+                    ? <IntroSpace key={`intro-space-${index}`} aria-hidden="true" />
+                    : (
+                      <LetterMask key={`intro-char-${index}`}>
+                        <LetterInner
+                          ref={el => {
+                            letterRefs.current[index] = el;
+                          }}
+                        >
+                          {char}
+                        </LetterInner>
+                      </LetterMask>
+                    )
                 ))}
               </IntroText>
             </IntroNameWrap>
