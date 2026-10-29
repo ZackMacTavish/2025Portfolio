@@ -50,6 +50,12 @@ export const businessConnectorsCaseStudy: CaseStudy = {
   },
   sections: [
     {
+      id: "problem",
+      layout: "text-only",
+      heading: "The Problem",
+      body: `Copilot could recommend products, but it couldn’t see the loyalty pricing and member offers users already had at the stores they shop, so finding the real best deal meant hunting through separate accounts. Internal research ranked finding deals as the top task people want AI to handle, and I designed the flows that let users connect merchant accounts inside Copilot through native login, so Copilot can show their actual rewards without sending them offsite.`,
+    },
+    {
       id: "intro",
       layout: "sticky-split",
       stickyContent: {
@@ -4231,6 +4237,11 @@ export const partnershipsCaseStudy: CaseStudy = {
             heading: "The Core Problem",
             body: `Across every partner conversation, the central design question was the same: what unique value can AI actually add, beyond simply being a faster way to open an app the user already has?\n\nA second, cross-cutting challenge: partners are frequently in direct competition with each other (e.g., Uber vs. Lyft), and comparing them side-by-side is best for the user but not necessarily welcomed by the partner being compared unfavorably.`,
           },
+          {
+            type: "text",
+            heading: "How I Approached It",
+            body: `I started each partner by asking one question: what can Copilot do here that opening the partner's own app can't? A flow that only made an app faster to open wasn't worth designing. That filter shaped every flow on this page.\n\nThree principles followed from it.\n\nFollow each partner's real steps. For DoorDash grocery, I built the flow around its actual questions (delivery address, speed, tipping, substitutions) rather than one generic template. A partner's customers already know its steps, and a handoff that ignores them feels like a downgrade.\n\nShow users what gets shared. AI-to-AI handoffs raise a privacy problem, because users can't see what one assistant tells another. For Walmart, I designed a consent step that shows the exact text passed to Sparky and lets the user edit it before approving.\n\nDesign for the user, then work out the partner relationship. Comparing Lyft with Uber, taxis, and transit is best for the rider but awkward for a partner shown less favorably. I designed both a Lyft-only pitch version and a full comparison, so the team could weigh the business tradeoff with both in front of them.`,
+          },
         ],
       },
     },
@@ -5076,6 +5087,13 @@ export const partnershipsCaseStudy: CaseStudy = {
       sectionBackground: "#f5f5f5",
       heading: "What Showed Up Everywhere",
       body: `Two handoff patterns emerged: full exit (Walmart/Sparky, where Copilot steps back entirely) vs. Copilot staying present (Amazon/Alexa, where the context is shared but Copilot remains in the loop). Both were valid, the open product question is when Copilot should step back vs. remain.\n\nThe unsolved "MCP replacement" idea: a persistent, evolving user context object, a "Copilot Shopping" profile, that could carry across partner handoffs, going beyond a single-session payload toward durable context that grows over time.\n\nThe competitive-partner problem surfaced with Lyft: designing what's best for the user (showing comparisons) vs. what a single partner wants shown. Both versions were explored; internal discussion was ongoing.`,
+    },
+    {
+      id: "outcome",
+      layout: "text-only",
+      sectionBackground: "#ffffff",
+      heading: "Outcome and What I Learned",
+      body: `My VP presented the Walmart flows directly to Walmart's team. My role covered design, so I didn't see the partner's reaction. Target and Instacart are signed partnerships, and Amazon has expressed interest in bringing its content into Bing and Copilot more broadly. The program is still growing, with Gap presented to and Uber on the roadmap.\n\nThe most useful thing I took from this work is that the hardest design questions weren't about screens. They were about when Copilot should step back and when it should stay in the loop, what context should travel between AI systems, and who a comparison really serves. The Walmart and Alexa handoffs answered the first question in opposite ways, and I'd want user research to settle it. A persistent "Copilot Shopping" profile that builds over time looks like a stronger answer than a one-off handoff, but it's still an open problem.`,
     },
     {
       id: "status",
