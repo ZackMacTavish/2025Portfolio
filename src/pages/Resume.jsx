@@ -1,6 +1,7 @@
 import React, { useLayoutEffect } from 'react';
 import { Seo } from '@zackmactavish/foundation';
 import resumeImage from '../assets/ResumeJPEG.jpg';
+import resumePdf from '../assets/Resume2026.pdf';
 import { FiDownload } from 'react-icons/fi';
 import { site, projects } from '../data/metadata';
 
@@ -31,8 +32,8 @@ const Resume = () => {
     {/* Button for desktop/tablet */}
     <div className="resume-download-desktop" style={{ display: 'flex', justifyContent: 'flex-end' }}>
       <a
-        href={resumeImage}
-        download="Resume2026.jpg"
+        href={resumePdf}
+        download="Zachary-MacTavish-Resume.pdf"
         className="resume-download-btn"
         style={{
           display: 'inline-flex',
@@ -73,8 +74,8 @@ const Resume = () => {
     {/* Button for mobile */}
     <div className="resume-download-mobile">
       <a
-        href={resumeImage}
-        download="Resume2026.jpg"
+        href={resumePdf}
+        download="Zachary-MacTavish-Resume.pdf"
         className="resume-download-btn"
         style={{
           display: 'inline-flex',
